@@ -1,0 +1,51 @@
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+-rc.[0-9]+'
+
+env:
+  REGISTRY: ghcr.io/maik-hasler
+  IMAGE_NAME: blogfolio
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get version without 'v'
+        id: get_version
+        run: |
+          VERSION_WITH_V="${{ github.ref }}"
+          if [[ "$VERSION_WITH_V" == refs/tags/v* ]]; then
+            VERSION_WITHOUT_V="${VERSION_WITH_V#refs/tags/v}"
+          else
+            echo "Warning: Not a 'v' prefixed tag. Using raw ref name."
+            VERSION_WITHOUT_V="${VERSION_WITH_V#refs/heads/}"
+            VERSION_WITHOUT_V="${VERSION_WITHOUT_V#refs/tags/}"
+          fi
+          echo "Extracted version without 'v': $VERSION_WITHOUT_V"
+          echo "version_without_v=$VERSION_WITHOUT_V" >> "$GITHUB_OUTPUT"
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Build and push Docker image
+        uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.get_version.outputs.version_without_v }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest

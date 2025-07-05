@@ -1,0 +1,13 @@
+1. Configuring strongly typed ids with entity framework core
+2. Working with polymorphic json serilization 
+3. polymorphic json serilization in postgresql with jsonb and entity framework core (npgsql)
+4. rls and multi tenancy using postgresql
+5. functional programming
+6. automatic api client generation using nswag
+7. get rid of exceptions using result monad
+8. source generation and aot in .net
+9. jasperreports library for pdf
+10. mediatr pipeline behaviors
+11. enterprise quartz scheduler setup
+12. maybe and other monads
+13. aggregate root and domain driven design concepts

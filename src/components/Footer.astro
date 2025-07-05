@@ -1,0 +1,70 @@
+---
+const startYear = 2025;
+const currentYear = new Date().getFullYear();
+
+const copyrightYear = startYear === currentYear ? startYear : `${startYear} - ${currentYear}`;
+import { Icon } from 'astro-icon/components'
+
+const socials = [
+  { url: 'https://github.com/maik-hasler', icon: 'mdi:github' },
+  { url: 'https://www.linkedin.com/in/maik-hasler/', icon: 'mdi:linkedin' },
+  { url: 'https://www.twitch.tv/solelymaik', icon: 'mdi:twitch' }
+];
+---
+
+<footer class="bg-[#000000] pt-[64px] pb-[32px]">
+  <div class="w-11/12 lg:w-8/12 mx-auto flex flex-col gap-[16px]">
+
+    <div class="w-11/12 lg:w-5/12 flex flex-col mb-[32px]">
+      <span class="text-4xl font-bold">Still not <span class="highlight-text">bored</span>, tho?</span>
+        <span class="text-lg mb-[12px]">That's impressive. Anyways, you've reached the end. Now that you're here, why don't you get in touch? I'm always open to discussing new opportunities.</span>
+      </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+
+      <div class="flex flex-col gap-2 col-span-1">
+        <span class="text-2xl font-semibold">Explore</span>
+        <ul class="flex flex-col">
+          <li><a href="/" class="text-base hover:underline">Home</a></li>
+          <li><a href="/blog" class="text-base hover:underline">Blog</a></li>
+          <li><a href="/contact" class="text-base hover:underline">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="flex flex-col gap-2 col-span-1">
+        <span class="text-2xl font-semibold">Legal</span>
+        <ul class="flex flex-col">
+          <li><a href="/privacy" class="text-base hover:underline">Privacy</a></li>
+          <li><a href="/imprint" class="text-base hover:underline">Imprint</a></li>
+        </ul>
+      </div>
+
+      <div class="flex flex-col gap-2 col-span-1">
+        <span class="text-2xl font-semibold">Connect</span>
+        <div class="flex gap-4">
+          {socials.map((social) => (
+            <a
+              href={social.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Icon name={social.icon} class="text-[32px]" />
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+    <hr>
+    <p class="text-sm">&copy; {copyrightYear} Maik Hasler. All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  * {
+    color: #ffffff;
+  }
+
+  hr {
+    border-color: #ffffff;
+  }
+</style>
