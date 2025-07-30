@@ -1,0 +1,44 @@
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+-rc.[0-9]+'
+
+env:
+  REGISTRY: ghcr.io/maik-hasler
+  IMAGE_NAME: blogfolio
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get version without 'v'
+        id: get_version
+        run: |
+          VERSION_WITH_V="${{ github.ref }}"
+          VERSION_WITHOUT_V="${VERSION_WITH_V#refs/tags/v}"
+          echo "version_without_v=$VERSION_WITHOUT_V" >> "$GITHUB_OUTPUT"
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.get_version.outputs.version_without_v }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest

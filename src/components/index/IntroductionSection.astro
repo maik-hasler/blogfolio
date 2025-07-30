@@ -1,0 +1,247 @@
+---
+import { Image } from 'astro:assets';
+
+import dotsSvg from '../../assets/dots.svg';
+import dotnetSvg from '../../assets/dotnet.svg';
+import dockerSvg from '../../assets/docker.svg';
+import vuejsSvg from '../../assets/vuejs.svg';
+import postgresqlSvg from '../../assets/postgresql.svg';
+import githubActionsSvg from '../../assets/githubActions.svg';
+import cssSvg from '../../assets/css.svg';
+import gitSvg from '../../assets/git.svg';
+import htmlSvg from '../../assets/html.svg';
+import typeScriptSvg from '../../assets/typescript.svg';
+import sassSvg from '../../assets/sass.svg';
+import pythonSvg from '../../assets/python.svg';
+import javaScriptSvg from '../../assets/javascript.svg';
+
+const skills1 = [
+  { title: '.NET', icon: dotnetSvg },
+  { title: 'Docker', icon: dockerSvg },
+  { title: 'CI/CD', icon: githubActionsSvg },
+  { title: 'PostgreSQL', icon: postgresqlSvg },
+  { title: 'Vue.js', icon: vuejsSvg },
+  { title: 'Sass', icon: sassSvg }
+];
+
+const skills2 = [
+  { title: 'HTML', icon: htmlSvg },
+  { title: 'CSS', icon: cssSvg },
+  { title: 'TypeScript', icon: typeScriptSvg },
+  { title: 'Git', icon: gitSvg },
+  { title: 'JavaScript', icon: javaScriptSvg },
+  { title: 'Python', icon: pythonSvg }
+];
+
+const skillsForSlider1 = [...skills1, ...skills1, ...skills1];
+const skillsForSlider2 = [...skills2, ...skills2, ...skills2];
+
+const animationDuration1 = '20s';
+const animationDuration2 = '25s';
+---
+
+<section id="introduction">
+  <div class="w-11/12 lg:w-8/12 mx-auto flex flex-wrap justify-between items-center">
+    <div class="w-full sm:w-full lg:w-1/2 mb-8 lg:mb-0">
+      <div class="flex flex-col gap-3">
+        
+        <div class="relative">
+          <div class="flex flex-col items-start">
+            <span class="highlight-text text-2xl font-bold">Hey there! I'm-</span>
+            <span class="text-7xl font-bold">Maik Hasler.</span>
+            <div class="highlight highlight-bg flex gap-[8px]">
+              <span id="typing-text" class="text-6xl font-bold text-white" />
+              <span id="blinking-cursor" class="text-6xl">|</span>
+            </div>
+          </div>
+          <Image
+            src={dotsSvg}
+            alt="Decorative dots background"
+            width={150}
+            height={150}
+            class="myImg"
+            loading="eager"
+          />
+        </div>
+
+        <div class="w-full sm:w-full lg:w-10/12 flex flex-col gap-[8px] items-start">
+          <span class="text-lg">
+            Professional software developer focused on the .NET ecosystem and specialized in web development.
+          </span>
+
+          <div class="flex gap-[12px]">
+                    <div class="highlight-bg w-[100px] h-[45px] flex items-center justify-center">
+            <a href="/contact">
+              <span class="text-lg font-semibold text-white">Contact</span>
+            </a>
+          </div>
+                  <a href="/blog" class="w-[100px] h-[45px] flex items-center justify-center border">
+            <span class="text-lg font-semibold">Blog</span>
+          </a>
+        </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="w-full px-2 flex flex-col justify-center sm:w-full lg:w-1/2">
+      <div>
+        <div class="skills-slider-container">
+          <div class="skills-slider" style={`animation-duration: ${animationDuration1}`}>
+            {skillsForSlider1.map((skill) => (
+              <div class="skill-item">
+                <Image src={skill.icon} alt={skill.title} class="skill-icon" loading="eager" />
+                <span class="text-lg">{skill.title}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="skills-slider-container second-row">
+          <div class="skills-slider reverse-animation" style={`animation-duration: ${animationDuration2}`}>
+            {skillsForSlider2.map((skill) => (
+              <div class="skill-item">
+                <Image src={skill.icon} alt={skill.title} class="skill-icon" loading="eager" />
+                <span class="text-lg">{skill.title}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const typingTextElement = document.getElementById('typing-text');
+    if (!typingTextElement) return;
+
+    const phrases = [
+      "Developer.",
+      "Gamer",
+      "Human."
+    ];
+
+    let currentPhraseIndex = 0;
+    let currentCharacterIndex = 0;
+    let currentPhrase = "";
+    let isDeleting = false;
+
+    const typeLoop = () => {
+      const phraseToType = phrases[currentPhraseIndex];
+
+      if (!isDeleting) {
+        currentPhrase += phraseToType[currentCharacterIndex];
+        currentCharacterIndex++;
+      } else {
+        currentPhrase = currentPhrase.slice(0, -1);
+        currentCharacterIndex--;
+      }
+
+      typingTextElement.textContent = currentPhrase;
+
+      let time = 0;
+
+      if (!isDeleting && currentCharacterIndex === phraseToType.length) {
+        isDeleting = true;
+        time = 1000;
+      } else if (isDeleting && currentCharacterIndex === 0) {
+        isDeleting = false;
+        currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
+        time = 500;
+      } else {
+        const spedUp = Math.random() * (80 - 50) + 50;
+        const normalSpeed = Math.random() * (300 - 200) + 200;
+        time = isDeleting ? spedUp : normalSpeed;
+      }
+
+      setTimeout(typeLoop, time);
+    };
+
+    typeLoop();
+  });
+</script>
+
+<style>
+  #introduction {
+    padding-top: 64px;
+    padding-bottom: 32px;
+  }
+
+  .skills-slider-container {
+    overflow: hidden;
+    width: 100%;
+    background-color: transparent;
+    padding: 8px 0;
+    white-space: nowrap;
+  }
+
+  .skills-slider {
+    display: inline-block;
+    animation: scroll-x linear infinite;
+  }
+
+  .skills-slider.reverse-animation {
+    animation-direction: reverse;
+  }
+
+  .skill-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 40px;
+    gap: 2px;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #000;
+    min-width: 100px;
+  }
+
+  .skill-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
+
+  @keyframes scroll-x {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-33.3333%);
+    }
+  }
+
+  .myImg {
+    top: 0;
+    left: 0;
+    position: absolute;
+    margin-top: -16px;
+    margin-left: -16px;
+    filter: invert(100%) sepia(0%) saturate(7479%) hue-rotate(50deg) brightness(99%) contrast(85%);
+    opacity: 0.1;
+    z-index: 1;
+  }
+
+  .highlight {
+    float: left;
+    border-top-right-radius: 32px;
+    border-bottom-left-radius: 32px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding: 8px 16px;
+  }
+
+  #blinking-cursor {
+    animation: 1s blink step-end infinite;
+  }
+
+  @keyframes blink {
+    from, to {
+      color: transparent;
+    }
+    50% {
+      color: #ffffff;
+    }
+  }
+</style>

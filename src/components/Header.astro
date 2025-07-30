@@ -1,0 +1,71 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+---
+
+<header id="header" class="w-full z-10000 bg-transparent">
+  <div class="w-11/12 lg:w-8/12 mx-auto flex justify-between items-center h-full">
+    <div>
+      <Image
+        src={logo}
+        alt="Logo"
+        width={48}
+        height={48}
+        loading="eager"
+      />
+    </div>
+    <nav class="flex gap-6 items-center">
+      <a href="/" class="no-underline uppercase text-lg">Home</a>
+      <a href="/blog" class="no-underline uppercase text-lg">Blog</a>
+      <a href="/contact" class="no-underline uppercase text-lg">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const header = document.getElementById('header');
+
+    if (!header) return;
+
+    const handleScroll = () => {
+      // Add 'scrolled' class only when scrolled past the initial position
+      if (window.scrollY > 0) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    // Call once on load to check initial scroll position
+    handleScroll();
+  });
+</script>
+
+<style>
+  #header {
+    height: 75px;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 10000;
+    background-color: transparent;
+    transition: background-color 0.3s ease-in-out, backdrop-filter 0.3s ease-in-out;
+  }
+
+  #header.scrolled {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background-color: transparent;
+  }
+
+  a:hover {
+    background: linear-gradient(to right, #a855f7, #6366f1);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+</style>

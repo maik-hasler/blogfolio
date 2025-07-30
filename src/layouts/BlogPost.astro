@@ -1,0 +1,75 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import { Icon } from 'astro-icon/components'
+
+import '../styles/blog.css';
+
+const { title, description, pubDate, tags, ttr, headings } = Astro.props;
+---
+
+<html lang="en">
+    <head>
+        <BaseHead title={title} description={description} />
+    </head>
+
+    <body>
+        <Header />
+
+        <main class="w-11/12 lg:w-8/12 mx-auto my-[64px]">
+            <article class="flex flex-col lg:flex-row lg:gap-x-[32px]">
+                <div class="w-full lg:w-9/12 flex flex-col gap-[32px]">
+                    <section>
+                        <nav>
+                            <ol class="flex text-gray-700">
+                                <li><a href="/blog" class="hover:underline">Blog</a></li>
+                                <li class="mx-2">&gt;</li>
+                                <li>Article</li>
+                            </ol>
+                        </nav>
+                        <span class="text-5xl font-bold">{title}</span>
+                        
+                        <div class="flex items-center gap-[8px]">
+                            <div class="flex items-center gap-[2px]">
+                                <p class="text-sm">{ttr}</p>
+                            </div>
+                            <p class="text-sm">&#x2022;</p>
+                            <div class="flex items-center gap-[2px]">
+                                <p class="text-sm"><time datetime={pubDate.toISOString()}>
+                                {
+                                    pubDate.toLocaleDateString('en-us', {
+                                        year: 'numeric',
+                                        month: 'short',
+                                        day: 'numeric',
+                                    })
+                                }
+                                </time></p>
+                            </div>
+                        </div>
+
+                        <p>{description}</p>
+
+                        <div class="flex flex-wrap gap-[8px] mt-2">
+                            {tags.map((tag: String) => (
+                                <div class="tag flex items-center gap-[6px]">
+                                    <Icon name='mdi:tag-outline' class="text-[16px]" />
+                                    <span class="text-sm">{tag}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                    <hr>
+                    <div>
+                        <slot />
+                    </div>
+                </div>
+				                <div class="hidden lg:block lg:w-3/12">
+                    <TableOfContents headings={headings} />
+                </div>
+            </article>
+        </main>
+        <Footer />
+    </body>
+</html>

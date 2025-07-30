@@ -1,0 +1,50 @@
+---
+const { url, title, previewText, publishedDate, tags, ttr } = Astro.props;
+import { Icon } from 'astro-icon/components';
+---
+
+
+<div>
+  <a href={url}>
+  <span class="text-white font-bold text-3xl">{title}</span>
+    </a>
+  <div class="flex items-center gap-[8px]">
+     <div class="flex items-center gap-[2px] text-gray-400">
+        <p class="text-sm">{ttr}</p>
+      </div>
+      <p class="text-sm text-gray-400">&#x2022;</p>
+      <div class="flex items-center gap-[2px]">
+        <p class="text-sm"><time datetime={publishedDate.toISOString()}>
+  {
+    publishedDate.toLocaleDateString('en-us', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    })
+  }
+</time></p>
+      </div>
+    </div>
+  <p class="text-lg">{previewText}</p>
+  <div class="flex flex-wrap gap-[8px] mt-2">
+      {tags.map(tag => (
+          <div class="tag flex items-center gap-[6px]">
+              <Icon name='mdi:tag-outline' class="text-[16px]" />
+              <p class="text-sm">{tag}</p>
+          </div>
+      ))}
+    </div>
+</div>
+
+<style>
+  * {
+    color: #000000;
+  }
+
+  .tag {
+    background: rgba(0,0,0,.2);
+    border-radius: 32px;
+    padding: 2px 8px;
+    color: #ffffff;
+  }
+</style>

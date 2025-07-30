@@ -1,0 +1,62 @@
+---
+export const prerender = false;
+
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+import { actions } from "astro:actions";
+
+const result = Astro.getActionResult(actions.send);
+if (result && !result.error) {
+  return Astro.redirect(`/contact`);
+}
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <BaseHead
+            title="Maik Hasler | Software developer from Oldenburg"
+            description="Maik Hasler, a .NET software developer in Oldenburg. I build high-performance web applications tailored to your needs. See my projects." />
+    </head>
+    <body>
+        <Header />
+        <main class="flex-grow w-11/12 lg:w-8/12 mx-auto py-8">
+			<span class="text-5xl font-bold text-black">
+              Get in <span class="highlight-text">touch</span>.
+            </span>
+            <p class="text-lg">Have a project in mind or want to collaborate? I'd love to hear from you!</p>
+
+            <div class="border">
+                <span class="text-5xl font-bold text-black">
+              Send me a message.
+            </span>
+            <p class="text-lg">Fill out the form below and I'll get back to you as soon as possible.</p>
+                            <form action={actions.send} method="POST" class="flex flex-col gap-[64px]">
+
+
+<div class="relative">
+    <input type="text" id="name" name="name" class="block rounded-t-lg px-2.5 pb-2.5 pt-5 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+    <label for="name" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Your Name</label>
+</div>
+<div class="relative">
+    <input type="text" id="email" name="email" class="block rounded-t-lg px-2.5 pb-2.5 pt-5 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+    <label for="email" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Your E-Mail address</label>
+</div>
+<div class="relative">
+    <textarea id="message" name="message" class="block rounded-t-lg px-2.5 pb-2.5 pt-5 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+    <label for="message" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Your E-Mail address</label>
+</div>
+                <button
+                    type="submit"
+                    class="w-full flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-200 ease-in-out"
+                >
+                    Send Message
+                </button>
+            </form>
+            </div>
+        </main>
+        <Footer />
+    </body>
+</html>
