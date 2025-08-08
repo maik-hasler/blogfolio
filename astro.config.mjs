@@ -17,7 +17,6 @@ export default defineConfig({
         mdi: [
           'github',
           'linkedin',
-          'twitch',
           'clock-outline',
           'calendar-month-outline',
           'tag-outline'
