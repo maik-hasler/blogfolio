@@ -1,23 +1,52 @@
-<section class="highlight-bg">
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<section class="highlight-bg animate-gradient">
   <div class="w-11/12 lg:w-8/12 mx-auto flex flex-col py-[64px] justify-center items-center">
-    <span class="text-4xl font-bold text-white text-center">Got something on your mind?</span>
+    <span class="text-4xl font-bold text-white text-center">
+      Got 
+      <span class="text-transparent bg-clip-text bg-gradient-to-br from-yellow-300 via-pink-300 to-purple-400">
+        something
+      </span> 
+      on your mind?
+    </span>
     <div class="w-11/12 lg:w-7/12 mx-auto">
       <p class="text-xl text-center text-white">
         Whether you want to discuss ideas, share feedback, or just have a chat.
       </p>
     </div>
-    <a href="/contact" class="mt-[16px] text-xl font-bold text-black">Contact Me</a>
+    <a 
+      href="/contact" 
+      class="group mt-[24px] w-[200px] px-6 py-3 text-xl font-bold text-black bg-white rounded-full text-center transition duration-300 hover:bg-gray-200"
+    >
+      <span class="flex items-center justify-center gap-2">
+        Contact 
+        <Icon 
+          name="mdi:arrow-top-right" 
+          class="icon-hover transition-transform duration-200 text-[18px]" 
+        />
+      </span>
+    </a>
   </div>
 </section>
 
 <style>
-a {
-  background-color: #ffffff;
-  border-radius: 64px;
-  padding: 12px 24px;
-  transition: background-color 0.3s ease;
-}
-a:hover {
-  background-color: #ffffff;
-}
+  .group:hover .icon-hover {
+    transform: translate(3px, -3px);
+  }
+
+  @keyframes gradient {
+    0%   { background-position: 0% 50%; }
+    25%  { background-position: 50% 100%; }
+    50%  { background-position: 100% 50%; }
+    75%  { background-position: 50% 0%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .animate-gradient {
+    background: linear-gradient(135deg, #a855f7, #6366f1, #9333ea, #3b82f6, #ec4899, #8b5cf6);
+    background-size: 400% 400%;
+    animation: gradient 8s linear infinite;
+  }
 </style>

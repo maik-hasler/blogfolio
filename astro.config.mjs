@@ -19,7 +19,8 @@ export default defineConfig({
           'linkedin',
           'clock-outline',
           'calendar-month-outline',
-          'tag-outline'
+          'tag-outline',
+          'arrow-top-right'
         ]
       }
     })
