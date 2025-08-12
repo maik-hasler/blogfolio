@@ -16,7 +16,7 @@
     "@tailwindcss/vite": "^4.1.11",
     "astro": "^5.12.8",
     "astro-icon": "^1.1.5",
-    "resend": "^4.8.0",
+    "resend": "^6.0.1",
     "sharp": "^0.34.3",
     "tailwindcss": "^4.1.11"
   }
