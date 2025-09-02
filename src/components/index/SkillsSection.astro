@@ -1,0 +1,154 @@
+---
+// SkillsMarquee.astro
+import { Image } from 'astro:assets';
+
+import dotnetSvg from '../../assets/dotnet.svg';
+import dockerSvg from '../../assets/docker.svg';
+import vuejsSvg from '../../assets/vuejs.svg';
+import postgresqlSvg from '../../assets/postgresql.svg';
+import githubActionsSvg from '../../assets/githubActions.svg';
+import cssSvg from '../../assets/css.svg';
+import gitSvg from '../../assets/git.svg';
+import htmlSvg from '../../assets/html.svg';
+import typeScriptSvg from '../../assets/typescript.svg';
+import sassSvg from '../../assets/sass.svg';
+import pythonSvg from '../../assets/python.svg';
+import javaScriptSvg from '../../assets/javascript.svg';
+
+const skillsRow1 = [
+  { title: '.NET', icon: dotnetSvg },
+  { title: 'Docker', icon: dockerSvg },
+  { title: 'CI/CD', icon: githubActionsSvg },
+  { title: 'PostgreSQL', icon: postgresqlSvg },
+  { title: 'Vue.js', icon: vuejsSvg },
+  { title: 'Sass', icon: sassSvg }
+];
+
+const skillsRow2 = [
+  { title: 'HTML', icon: htmlSvg },
+  { title: 'CSS', icon: cssSvg },
+  { title: 'TypeScript', icon: typeScriptSvg },
+  { title: 'Git', icon: gitSvg },
+  { title: 'JavaScript', icon: javaScriptSvg },
+  { title: 'Python', icon: pythonSvg }
+];
+
+const itemsCount1 = skillsRow1.length;
+const itemsCount2 = skillsRow2.length;
+---
+
+<section id="skills">
+  <!-- Row 1 -->
+  <div class="marquee">
+    <div class="marquee__track">
+      {skillsRow1.concat(skillsRow1).map((skill, i) => (
+        <div class="skill-item" title={skill.title} key={`r1-${i}`}>
+          <Image src={skill.icon} alt="" class="skill-icon" />
+          <span>{skill.title}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Row 2 (reverse direction) -->
+  <div class="marquee reverse">
+    <div class="marquee__track">
+      {skillsRow2.concat(skillsRow2).map((skill, i) => (
+        <div class="skill-item" title={skill.title} key={`r2-${i}`}>
+          <Image src={skill.icon} alt="" class="skill-icon" />
+          <span>{skill.title}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+#skills {
+  background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 50%, #c7d2fe 100%);
+  padding: 48px 0;
+}
+
+/* fade edges */
+.marquee {
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: visible; /* ✅ hover won't get cut */
+  --fade: 80px;
+
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black var(--fade),
+    black calc(100% - var(--fade)),
+    transparent 100%
+  );
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black var(--fade),
+    black calc(100% - var(--fade)),
+    transparent 100%
+  );
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
+}
+
+.marquee__track {
+  display: flex;
+  gap: 24px; /* ✅ control spacing */
+  width: max-content;
+  animation: marquee 20s linear infinite;
+}
+
+.marquee.reverse .marquee__track {
+  animation-direction: reverse;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Skill card */
+.skill-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  white-space: nowrap;
+}
+
+.skill-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  z-index: 5; /* ✅ rises above siblings */
+  position: relative; /* ✅ ensures z-index applies */
+}
+
+.skill-icon {
+  width: 28px;
+  height: 28px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track {
+    animation: none;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+</style>
+i
