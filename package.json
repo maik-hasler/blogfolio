@@ -18,6 +18,6 @@
     "astro-icon": "^1.1.5",
     "resend": "^6.1.3",
     "sharp": "^0.34.4",
-    "tailwindcss": "^4.1.13"
+    "tailwindcss": "^4.1.15"
   }
 }
