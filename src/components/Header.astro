@@ -1,10 +1,13 @@
 ---
 import { Image } from 'astro:assets';
 import logo from '../assets/logo.png';
+import Searchbar from './Searchbar.astro'
+import { Icon } from 'astro-icon/components'
 ---
 
 <header id="header" class="w-full z-10000 bg-transparent">
   <div class="w-11/12 lg:w-8/12 mx-auto flex justify-between items-center h-full">
+
     <div>
       <Image
         src={logo}
@@ -14,32 +17,54 @@ import logo from '../assets/logo.png';
         loading="eager"
       />
     </div>
-    <nav class="flex gap-6 items-center">
-      <a href="/" class="no-underline uppercase text-lg">Home</a>
-      <a href="/blog" class="no-underline uppercase text-lg">Blog</a>
-      <a href="/contact" class="no-underline uppercase text-lg">Contact</a>
-    </nav>
+
+    <!-- <Searchbar /> -->
+    
+    <div class="flex items-center gap-2">
+      <!-- LinkedIn -->
+      <a
+        href="https://www.linkedin.com/in/maik-hasler/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="LinkedIn"
+        class="flex items-center gap-2 rounded bg-[#0077b5] px-3 py-2 text-white"
+      >
+        <Icon name="mdi:linkedin" class="text-[20px] align-middle" />
+        <span class="hidden sm:inline text-sm font-semibold leading-none">LinkedIn</span>
+      </a>
+
+      <!-- GitHub -->
+      <a
+        href="https://github.com/maik-hasler"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="GitHub"
+        class="flex items-center gap-2 rounded bg-[#333333] px-3 py-2 text-white"
+      >
+        <Icon name="mdi:github" class="text-[20px] align-middle" />
+        <span class="hidden sm:inline text-sm font-semibold leading-none">GitHub</span>
+      </a>
+    </div>
+
+
+
+
+
   </div>
 </header>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const header = document.getElementById('header');
-
     if (!header) return;
-
     const handleScroll = () => {
-      // Add 'scrolled' class only when scrolled past the initial position
       if (window.scrollY > 0) {
         header.classList.add('scrolled');
       } else {
         header.classList.remove('scrolled');
       }
     };
-
     window.addEventListener('scroll', handleScroll);
-
-    // Call once on load to check initial scroll position
     handleScroll();
   });
 </script>
@@ -59,13 +84,5 @@ import logo from '../assets/logo.png';
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     background-color: transparent;
-  }
-
-  a:hover {
-    background: linear-gradient(to right, #a855f7, #6366f1);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
   }
 </style>

@@ -20,7 +20,8 @@ export default defineConfig({
           'clock-outline',
           'calendar-month-outline',
           'tag-outline',
-          'arrow-top-right'
+          'arrow-top-right',
+          'magnify'
         ]
       }
     })
