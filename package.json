@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@astrojs/node": "^9.5.0",
-    "@astrojs/rss": "^4.0.12",
+    "@astrojs/rss": "^4.0.13",
     "@astrojs/sitemap": "^3.6.0",
     "@iconify-json/mdi": "^1.2.3",
     "@tailwindcss/vite": "^4.1.16",
