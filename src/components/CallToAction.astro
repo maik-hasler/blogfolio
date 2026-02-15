@@ -1,0 +1,44 @@
+---
+import { Icon } from 'astro-icon/components'
+---
+
+<section class="highlight-bg animate-gradient">
+    <div class="w-11/12 lg:w-8/12 mx-auto flex flex-col py-10 justify-center items-center">
+    <span class="text-4xl font-bold text-white text-center">
+      Let's
+      <span class="text-transparent bg-clip-text bg-gradient-to-br from-yellow-300 via-pink-300 to-purple-400">
+        connect</span>.
+    </span>
+        <div class="w-11/12 lg:w-7/12 mx-auto mb-4">
+            <p class="text-xl text-center text-white">
+                Whether you want to discuss ideas, share feedback or just have a chat.
+            </p>
+        </div>
+        <a
+                href="https://www.linkedin.com/in/maik-hasler/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Connect on LinkedIn"
+                class="flex items-center gap-2 rounded-full bg-white py-3 px-6 text-[#0077b5] font-bold text-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+        >
+            <Icon name="mdi:linkedin" class="text-[32px]" />
+            <span>LinkedIn</span>
+        </a>
+    </div>
+</section>
+
+<style>
+    @keyframes gradient {
+        0%   { background-position: 0 50%; }
+        25%  { background-position: 50% 100%; }
+        50%  { background-position: 100% 50%; }
+        75%  { background-position: 50% 0; }
+        100% { background-position: 0 50%; }
+    }
+
+    .animate-gradient {
+        background: linear-gradient(135deg, #a855f7, #6366f1, #9333ea, #3b82f6, #ec4899, #8b5cf6);
+        background-size: 400% 400%;
+        animation: gradient 8s linear infinite;
+    }
+</style>

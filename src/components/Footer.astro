@@ -1,0 +1,93 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import hetznerLogo from '../assets/Logo_Hetzner.svg';
+import astroLogo from '../assets/astro-logo-light-gradient.svg';
+
+const navigation = [
+  { url: '/', label: 'Home' },
+  { url: '/blog', label: 'Blog' },
+  { url: '/flashcards', label: 'Flashcards' }
+];
+
+const resources = [
+  { url: 'https://github.com/maik-hasler/blogfolio', label: 'Source Code' },
+  { url: '/rss.xml', label: 'RSS Feed' },
+  { url: '/sitemap-index.xml', label: 'Sitemap' }
+];
+
+const socials = [
+  { url: 'https://github.com/maik-hasler', icon: 'mdi:github', label: 'GitHub' },
+  { url: 'https://www.linkedin.com/in/maik-hasler', icon: 'mdi:linkedin', label: 'LinkedIn' }
+];
+---
+
+<footer class="bg-black text-white pt-16 pb-8">
+  <div class="w-11/12 lg:w-8/12 mx-auto flex flex-col gap-12">
+    <div class="lg:w-5/12 flex flex-col gap-2">
+      <span class="text-3xl sm:text-4xl font-bold">
+        Still not <span class="highlight-text">bored</span>?
+      </span>
+      <span class="text-base sm:text-lg">
+        That's impressive! Anyway, you've reached the end. Since you've made it this far, it either means you like my website or you've scrolled this far by accident. Regardless, I'd love to hear your thoughts on my work!
+      </span>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div class="flex flex-col gap-4">
+        <h3 class="text-lg font-semibold">links.</h3>
+        <nav class="flex flex-col gap-2">
+          {navigation.map((item) => (
+            <a href={item.url} class="text-base hover:text-gray-300 w-fit">
+              {item.label}
+            </a>
+          ))}
+        </nav>
+      </div>
+      <div class="flex flex-col gap-4">
+        <h3 class="text-lg font-semibold">resources.</h3>
+        <div class="flex flex-col gap-2">
+          {resources.map((item) => (
+            <a href={item.url} class="text-base hover:text-gray-300 w-fit">
+              {item.label}
+            </a>
+          ))}
+        </div>
+      </div>
+      <div class="flex flex-col gap-4">
+        <h3 class="text-lg font-semibold">connect.</h3>
+        <div class="flex gap-4">
+          {socials.map((social) => (
+            <a
+              href={social.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={social.label}
+              class="hover:opacity-70"
+            >
+              <Icon name={social.icon} class="text-3xl" />
+            </a>
+          ))}
+        </div>
+      </div>
+      <div class="flex flex-col gap-4">
+        <h3 class="text-lg font-semibold">tech.</h3>
+        <div class="flex flex-col gap-2 text-sm">
+          <div class="flex items-center gap-2">
+            <span class="text-gray-400">Built with</span>
+            <Image src={astroLogo} alt="Astro Logo" width={80} height={80} loading="eager" />
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-gray-400">Hosted on</span>
+            <Image src={hetznerLogo} alt="Hetzner Logo" width={80} height={80} loading="eager" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col gap-2">
+      <hr class="border-t border-white" />
+      <p class="text-sm">
+        &copy; 2025 - {new Date().getFullYear()} Maik Hasler. All rights reserved.
+      </p>
+    </div>
+  </div>
+</footer>

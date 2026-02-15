@@ -1,0 +1,161 @@
+﻿---
+import { getCollection } from "astro:content";
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import CallToAction from "../../components/CallToAction.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("flashcards", ({ data }) => {
+    return data.published;
+  });
+
+  const allTags = new Set<string>();
+  entries.forEach(entry => {
+    entry.data.tags?.forEach(tag => allTags.add(tag));
+  });
+
+  const tags = Array.from(allTags);
+
+  return [
+    ...tags.map(tag => ({
+      params: { tag },
+    })),
+    { params: { tag: "all" } },
+  ];
+}
+
+const { tag } = Astro.params;
+
+const entries = await getCollection("flashcards", ({ data }) => {
+  return data.published;
+});
+
+const filteredEntries =
+  tag === "all"
+    ? entries
+    : entries.filter(e => e.data.tags?.includes(tag));
+
+const slugs = filteredEntries.map(e => e.slug);
+
+const pageTitle =
+  tag === "all" ? "All Flashcards" : `Flashcards: ${tag}`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead
+      title={`${pageTitle} | Maik Hasler`}
+      description="Learning resources"
+    />
+  </head>
+  <body class="flex flex-col min-h-screen bg-[#ece9f5]">
+    <Header />
+    <main
+      class="grow w-full py-8 flex flex-col justify-center items-center gap-6"
+    >
+      <div
+        class="w-11/12 lg:w-8/12 mx-auto flex items-center justify-between"
+      >
+        <div class="flex items-center gap-2">
+          <span class="text-gray-600">Category:</span>
+          <span
+            class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full font-semibold"
+          >
+            {tag === "all" ? "All Cards" : tag}
+          </span>
+        </div>
+        <a
+          href="/flashcards"
+          class="text-blue-600 hover:text-blue-800 font-medium"
+        >
+          ← Change Category
+        </a>
+      </div>
+      <div
+        id="card-container"
+        class="mdx-container w-11/12 lg:w-8/12 mx-auto bg-white p-8 rounded-xl shadow-sm border border-gray-200 min-h-[200px] flex flex-col justify-center"
+      >
+        <p class="text-center text-gray-500 animate-pulse">
+          Loading first card...
+        </p>
+      </div>
+      <button
+        id="next-btn"
+        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transform transition active:scale-95 flex items-center gap-2"
+      >
+        <span>Next Flashcard</span>
+      </button>
+    </main>
+    <CallToAction />
+    <Footer />
+    <script define:vars={{ slugs }}>
+      const container = document.getElementById("card-container");
+      const btn = document.getElementById("next-btn");
+      let currentSlug = "";
+      
+      async function loadRandomCard() {
+        let newSlug;
+        if (slugs.length > 1) {
+          do {
+            newSlug = slugs[Math.floor(Math.random() * slugs.length)];
+          } while (newSlug === currentSlug);
+        } else {
+          newSlug = slugs[0];
+        }
+        currentSlug = newSlug;
+        container.style.opacity = "0.5";
+        try {
+          const response = await fetch(`/flashcards/partials/${newSlug}`);
+          if (!response.ok) {
+            throw new Error("Failed to load card");
+          }
+          container.innerHTML = await response.text();
+        } catch (error) {
+          container.innerHTML =
+            '<p class="text-red-500">Error loading card.</p>';
+        } finally {
+          container.style.opacity = "1";
+        }
+      }
+      loadRandomCard();
+      btn.addEventListener("click", loadRandomCard);
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  .mdx-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    border: 1px solid #d1d5db;
+  }
+
+  .mdx-container th {
+    background-color: #f3f4f6;
+    border: 1px solid #d1d5db;
+    padding: 0.5rem;
+    text-align: left;
+    font-weight: 600;
+  }
+
+  .mdx-container td {
+    border: 1px solid #d1d5db;
+    padding: 0.5rem;
+    vertical-align: top;
+  }
+
+  .mdx-container .question {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #1f2937;
+  }
+
+  .mdx-container ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+  }
+</style>

@@ -1,0 +1,24 @@
+---
+tags:
+  - 'Programmierung'
+---
+import Flashcard from '../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+  <div slot="question">
+    Grenze den Lambda-Ausdruck technisch gegen die klassische Methode ab. Was sind die wesentlichen Unterschiede?
+  </div>
+
+  <div slot="answer">
+    Lambdas sind anonyme Funktionen für Inline-Verwendung, während Methoden benannte, wiederverwendbare Bausteine sind.
+
+    | Merkmal | Lambda | Funktion / Methode |
+    | :--- | :--- | :--- |
+    | Name | anonym | benannt |
+    | Wiederverwendbarkeit | gering | hoch |
+    | Umfang | kurz/inline | beliebig |
+    | Zweck | Übergabe als Wert | Strukturierung |
+    | Definition | Ausdruck | Konstrukt |
+    | Typische Nutzung | Callbacks, Streams | Geschäftslogik |
+  </div>
+</Flashcard>

@@ -1,0 +1,30 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import IntroductionSection from '../components/index/IntroductionSection.astro';
+import AboutSection from '../components/index/AboutSection.astro';
+import BlogSection from '../components/index/BlogSection.astro';
+import CallToAction from '../components/CallToAction.astro';
+import Skills from '../components/index/SkillsSection.astro';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title="Maik Hasler | Software developer from Oldenburg"
+			description="Maik Hasler, a .NET software developer in Oldenburg. I build high-performance web applications tailored to your needs. See my projects." />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<IntroductionSection />
+			<Skills />
+			<AboutSection />
+			<BlogSection />
+		</main>
+		<CallToAction />
+		<Footer />
+	</body>
+</html>

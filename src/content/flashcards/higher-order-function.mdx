@@ -1,0 +1,23 @@
+---
+published: false
+tags:
+  - 'Programmierung'
+---
+import Flashcard from '../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+  <div slot="question">
+    Was versteht man unter einer <b>Funktion höherer Ordnung</b> (Higher-Order Function)?
+  </div>
+
+  <div slot="answer">
+    Eine Funktion höherer Ordnung ist eine Funktion, die mindestens eine der folgenden Bedingungen erfüllt:
+    * Sie erhält eine oder mehrere <b>Funktionen als Parameter</b>.
+    * Sie <b>gibt eine Funktion als Ergebnis zurück</b>.
+
+    **Beispiele:**
+    * **JavaScript:** `map()`, `filter()`, `reduce()`
+    * **Java:** Streams API (z.B. `.map(x -> x * 2)`)
+    * **Python:** Dekoratoren oder Funktionen als First-Class Objects.
+  </div>
+</Flashcard>

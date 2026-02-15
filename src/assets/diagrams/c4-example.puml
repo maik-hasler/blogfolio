@@ -1,0 +1,14 @@
+﻿@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(customer, "Customer", "A customer of the bank.")
+System_Boundary(c1, "Banking System") {
+    Container(web_app, "Web Application", "React", "Allows customers to view account info.")
+    Container(api, "API Application", "Go", "Handles business logic.")
+    ContainerDb(db, "Database", "PostgreSQL", "Stores user transactions.")
+}
+
+Rel(customer, web_app, "Uses", "HTTPS")
+Rel(web_app, api, "Makes API calls to", "JSON/HTTPS")
+Rel(api, db, "Reads/Writes to")
+@enduml

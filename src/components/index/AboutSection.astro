@@ -1,0 +1,59 @@
+---
+import { Image } from 'astro:assets';
+import meImage from '../../assets/me.png';
+import { Icon } from 'astro-icon/components'
+
+const socials = [
+  { url: 'https://github.com/maik-hasler', icon: 'mdi:github' },
+  { url: 'https://www.linkedin.com/in/maik-hasler/', icon: 'mdi:linkedin' }
+];
+---
+
+<section class="py-[64px]">
+  <div class="w-11/12 lg:w-8/12 mx-auto flex flex-wrap lg:flex-nowrap justify-between items-center gap-[32px]">
+          <div class="w-full sm:w-full lg:w-1/2 flex flex-col justify-center gap-[16px]">
+            <span class="text-5xl font-bold text-black">
+              About <span class="highlight-text">me</span>.
+            </span>
+            <div class="flex flex-col gap-[16px]">
+              <p class="text-lg">
+                My name is Maik and I am a <span class="highlight-text">software developer</span> based in Oldenburg, Germany. I specialise in the .NET ecosystem and have a particular focus on backend web development.
+              </p>
+              <p class="text-lg">
+                I love exploring new technologies and am constantly seeking to expand my knowledge through side projects like this one. My goal is to create wonderful software and libraries that provide a great experience for users and developers alike.
+              </p>
+              <p class="text-lg">
+                Please feel free to <span class="highlight-text">get in touch</span> if you'd like to discuss potential opportunities or collaborations.
+              </p>
+              <div class="flex gap-3">
+                {socials.map((social) => (
+                  <a
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="group" >
+                    <Icon name={social.icon} class="text-[32px]" />
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div class="w-full sm:w-full lg:w-1/2 flex justify-center">
+            <div class="lg:w-3/4">
+              <Image
+              src={meImage}
+              alt="Myself"
+              decoding="async"
+              loading="eager"
+              class="rounded-lg shadow-md shadow-black"
+            />
+            </div>
+          </div>
+        </div>
+</section>
+
+<style>
+section {
+  background-color: #ece9f5;
+}
+</style>

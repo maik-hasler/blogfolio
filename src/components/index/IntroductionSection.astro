@@ -1,0 +1,124 @@
+<section id="introduction">
+  <div class="w-11/12 lg:w-8/12 mx-auto flex flex-wrap justify-between items-center">
+    <div class="w-full sm:w-full lg:w-1/2 mb-8 lg:mb-0">
+      <div class="flex flex-col gap-3">
+        
+        <div class="flex flex-col items-start">
+          <span class="highlight-text text-2xl font-bold">Hey there! I'm-</span>
+          <span class="text-7xl font-bold">Maik Hasler.</span>
+          <div class="highlight highlight-bg flex gap-[8px]">
+            <span id="typing-text" class="text-6xl font-bold text-white" />
+            <span id="blinking-cursor" class="text-6xl">|</span>
+          </div>
+        </div>
+
+        <div class="w-full sm:w-full lg:w-11/12 flex flex-col gap-[16px] items-start">
+          <span class="text-xl">
+            Professional software developer who loves software architecture and system design.
+            Specialized in web development and the .NET ecosystem.
+            Occasionally sharing what I learn along the way.
+          </span>
+
+         <div class="flex flex-col sm:flex-row gap-3 sm:gap-[12px]">
+          <a 
+            href="https://www.linkedin.com/in/maik-hasler/" 
+            class="w-[200px] px-6 py-3 text-xl font-bold text-white highlight-bg rounded-full text-center"
+          >
+            <span class="flex items-center justify-center gap-2">
+              Contact 
+            </span>
+          </a>
+          <a 
+            href="/blog/random" 
+            class="w-[200px] px-6 py-3 text-xl font-bold text-black bg-transparent rounded-full text-center transition duration-300 hover:bg-gray-200 border border-solid"
+          >
+            <span class="flex items-center justify-center gap-2">
+              Blog 
+            </span>
+          </a>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const typingTextElement = document.getElementById('typing-text');
+    if (!typingTextElement) return;
+
+    const phrases = [
+      "Developer.",
+      "Trainer.",
+      "Architect."
+    ];
+
+    let currentPhraseIndex = 0;
+    let currentCharacterIndex = 0;
+    let currentPhrase = "";
+    let isDeleting = false;
+
+    const typeLoop = () => {
+      const phraseToType = phrases[currentPhraseIndex];
+
+      if (!isDeleting) {
+        currentPhrase += phraseToType[currentCharacterIndex];
+        currentCharacterIndex++;
+      } else {
+        currentPhrase = currentPhrase.slice(0, -1);
+        currentCharacterIndex--;
+      }
+
+      typingTextElement.textContent = currentPhrase;
+
+      let time = 0;
+
+      if (!isDeleting && currentCharacterIndex === phraseToType.length) {
+        isDeleting = true;
+        time = 1000;
+      } else if (isDeleting && currentCharacterIndex === 0) {
+        isDeleting = false;
+        currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
+        time = 500;
+      } else {
+        const spedUp = Math.random() * (80 - 50) + 50;
+        const normalSpeed = Math.random() * (300 - 200) + 200;
+        time = isDeleting ? spedUp : normalSpeed;
+      }
+
+      setTimeout(typeLoop, time);
+    };
+
+    typeLoop();
+  });
+</script>
+
+<style>
+  #introduction {
+    background-color: #ece9f5;
+    padding: 128px 0 64px 0;
+  }
+  .highlight {
+    float: left;
+    border-top-right-radius: 32px;
+    border-bottom-left-radius: 32px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding: 8px 16px;
+  }
+
+  #blinking-cursor {
+    animation: 1s blink step-end infinite;
+  }
+
+  @keyframes blink {
+    from, to {
+      color: transparent;
+    }
+    50% {
+      color: #ffffff;
+    }
+  }
+</style>

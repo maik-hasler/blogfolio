@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import BlogPreview from '../BlogPreview.astro';
+
+const posts = (await getCollection('blog', ({ data }) => {
+		return data.published;
+	}))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<section class="py-[64px]">
+  <div class="w-11/12 lg:w-8/12 mx-auto flex flex-col gap-[48px]">
+    <div class="flex flex-col">
+      <span class="text-5xl font-bold text-black">
+        I write a <span class="highlight-text">blog</span>.
+      </span>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[24px]">
+      {
+        posts.map((post) => (
+          <BlogPreview
+            url={`/blog/${post.id}/`}
+            title={post.data.title}
+            previewText={post.data.description}
+            publishedDate={post.data.pubDate}
+            tags={post.data.tags}
+            ttr={post.data.ttr}
+          />
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+section{
+  background-color: #ece9f5;
+}
+</style>

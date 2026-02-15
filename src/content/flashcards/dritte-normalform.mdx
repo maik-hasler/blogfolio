@@ -1,0 +1,34 @@
+﻿---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../components/FlashcardWrapper.astro'
+import PlantUML from '../../components/PlantUML.astro';
+
+<Flashcard>
+    <div slot="question">
+        Was ist die <b>dritte Normalform (3NF)</b> und welche Anforderungen stellt sie?
+    </div>
+
+    <div slot="answer">
+        Die **dritte Normalform (3NF)** eliminiert transitive Abhängigkeiten. Eine Tabelle ist in 3NF, wenn:
+
+        * **2NF erfüllt:** Alle Bedingungen der zweiten Normalform sind erfüllt.
+        * **Keine transitiven Abhängigkeiten:** Kein Nicht-Schlüssel-Attribut ist von einem anderen Nicht-Schlüssel-Attribut abhängig.
+
+        **Was sind transitive Abhängigkeiten?**
+        Wenn A → B und B → C, dann gilt A → C (transitiv). In Datenbanken: Wenn ein Attribut indirekt über ein anderes Nicht-Schlüssel-Attribut vom Primärschlüssel abhängt.
+
+        **Ziel:** Redundanzen durch indirekte Abhängigkeiten beseitigen und Anomalien bei Updates vermeiden.
+
+        **Beispiel:**
+
+        <PlantUML file="einhaltung-zweite-normalform.puml" />
+
+        wird zu
+
+        <PlantUML file="dritte-normalform.puml" />
+
+        Stadt ist transitiv abhängig von KundenID über PLZ (KundenID → PLZ → Stadt). Die Aufteilung in separate Tabellen eliminiert diese transitive Abhängigkeit und verhindert Inkonsistenzen (z.B. gleiche PLZ mit unterschiedlichen Städten).
+    </div>
+</Flashcard>

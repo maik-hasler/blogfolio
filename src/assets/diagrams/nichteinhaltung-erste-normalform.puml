@@ -1,0 +1,19 @@
+﻿
+@startuml
+
+<style>
+note {
+    backgroundcolor white
+    shadowing 0
+    linecolor transparent
+}
+</style>
+
+note as CustomerPurchase
+<#lightblue,#black>|= KundenId |= Name |= Email |= Telefon |= Adresse |= BestellungId |= Bestelldatum |= Produkte |= Mengen |= Gesamt |
+<#white>| 1 | Max Mustermann | max@mail.de | 0176123456 | Hauptstr. 5, 26122 Oldenburg | 1 | 2026-02-08 | Laptop, Maus, Tastatur | 1,2,1 | 1450€ |
+<#white>| 2 | Erika Musterfrau | erika@mail.de | 0151122334 | Markt 12, 28195 Bremen | 2 | 2026-02-07 | Monitor, HDMI-Kabel | 2,2 | 520€ |
+<#white>| 3 | Tim Beispiel | tim@mail.de | 0160555666 | Lindenweg 77, 20095 Hamburg | 3 | 2026-02-06 | Schreibtischstuhl | 1 | 180€ |
+end note
+
+@enduml

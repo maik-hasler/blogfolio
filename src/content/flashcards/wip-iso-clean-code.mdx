@@ -1,0 +1,24 @@
+---
+published: false
+tags:
+  - 'Programmierung'
+  - 'ISO'
+---
+import Flashcard from '../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+  <div slot="question">
+    Gibt es eine <b>ISO-Norm für „Clean Code“</b>? Welche Normen decken die Code-Qualität ab?
+  </div>
+
+  <div slot="answer">
+    **Nein**, „Clean Code“ ist ein informeller Industriestandard. Es gibt jedoch zwei zentrale ISO-Normen, die das Thema formalisieren:
+
+    1. **ISO/IEC 25010:** Der „High-Level“ Standard. Er definiert **Qualitätsmerkmale** (Wartbarkeit, Zuverlässigkeit, Sicherheit), beschreibt aber nicht den Code selbst.
+    
+    2. **ISO/IEC 5055:** Der „Low-Level“ Standard (Code-Ebene). Er ist die technische Ergänzung und prüft direkt auf **strukturelle Schwachstellen** im Quellcode.
+
+    **Warum ISO 5055 näher an Clean Code ist:**
+    Sie misst konkret die Wartbarkeit anhand von Anti-Patterns (z.B. zu hohe Komplexität, enge Kopplung oder tote Code-Pfade).
+  </div>
+</Flashcard>

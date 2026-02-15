@@ -1,0 +1,34 @@
+﻿---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../components/FlashcardWrapper.astro'
+import PlantUML from '../../components/PlantUML.astro';
+
+<Flashcard>
+    <div slot="question">
+        Was ist die <b>zweite Normalform (2NF)</b> und welche Anforderungen stellt sie?
+    </div>
+
+    <div slot="answer">
+        Die **zweite Normalform (2NF)** baut auf der 1NF auf und eliminiert partielle Abhängigkeiten. Eine Tabelle ist in 2NF, wenn:
+
+        * **1NF erfüllt:** Alle Bedingungen der ersten Normalform sind erfüllt.
+        * **Keine partiellen Abhängigkeiten:** Jedes Nicht-Schlüssel-Attribut ist vom **gesamten Primärschlüssel** funktional abhängig, nicht nur von einem Teil davon.
+
+        **Wann relevant?**
+        Nur bei **zusammengesetzten Primärschlüsseln** (mehrere Spalten). Bei einfachen Schlüsseln ist 2NF automatisch erfüllt.
+
+        **Ziel:** Redundanzen vermeiden, die durch partielle Abhängigkeiten entstehen.
+
+        **Beispiel:**
+
+        <PlantUML file="einhaltung-erste-normalform.puml" />
+
+        wird zu
+
+        <PlantUML file="einhaltung-zweite-normalform.puml" />
+
+        Die Kundendaten (Name, E-Mail, etc.) waren nur von der KundenID abhängig, nicht von der gesamten Kombination (KundenID + BestellID + Produkt). Durch Aufteilung in separate Tabellen werden diese partiellen Abhängigkeiten eliminiert.
+    </div>
+</Flashcard>

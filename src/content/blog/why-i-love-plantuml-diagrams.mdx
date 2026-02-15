@@ -1,0 +1,49 @@
+---
+title: 'Why I love PlantUML diagrams'
+description: 'PlantUML is a fantastic tool for creating diagrams. It’s text-based, easy to render, versionable and readable by LLMs.'
+pubDate: 'Jan 04 2026'
+tags:
+  - Diagrams
+  - UML
+  - Tools
+  - Documentation
+ttr: '3 min read'
+published: true
+---
+
+import PlantUML from '../../components/PlantUML.astro';
+
+Diagrams are a powerful way to visualize ideas. This is especially true when documenting software architecture. However, they are often difficult to maintain. Software evolves constantly. Keeping the diagrams in sync can quickly become a chore. The problem becomes even worse when all you have is a static PNG or SVG. It’s no wonder that many developers skip this step altogether. The consequence? Outdated documentation.
+
+A possible solution? PlantUML. Rather than updating static diagrams manually, PlantUML allows you to describe your diagrams as code. This means your diagrams can evolve alongside your software. But there's more to it than that.
+
+- Since PlantUML diagrams are text files, they can be versioned. You can compare changes, track history and collaborate in the same way as with code. Reviewers can see architectural changes directly in a pull request diff, just as they can with a logic change.
+- They can be read by LLMs because they are text-based. Unlike diagrams consisting only of images, LLMs can parse and understand PlantUML files, making it easier to automate documentation or generate insights.
+- They can easily be rendered as PNG, SVG and other formats, or embedded directly into documentation formats such as AsciiDoc.
+- They have a consistent look and feel across all diagrams. There is no need to argue about colours, fonts or layout.
+- They support multiple diagram types. Examples are sequence diagrams, class diagrams, use-case diagrams or flowcharts.
+
+Still not convinced? Let's look at a real-world example. C4 diagrams are one of the most common artefacts in software architecture documentation. Thanks to PlantUML's extensibility, you can generate standardized C4 diagrams with just a few lines of code.
+
+```
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(customer, "Customer", "A customer of the bank.")
+System_Boundary(c1, "Banking System") {
+    Container(web_app, "Web Application", "React", "Allows customers to view account info.")
+    Container(api, "API Application", "Go", "Handles business logic.")
+    ContainerDb(db, "Database", "PostgreSQL", "Stores user transactions.")
+}
+
+Rel(customer, web_app, "Uses", "HTTPS")
+Rel(web_app, api, "Makes API calls to", "JSON/HTTPS")
+Rel(api, db, "Reads/Writes to")
+@enduml
+```
+
+This is the rendered diagram.
+
+<PlantUML file="c4-example.puml" />
+
+Static diagrams and other documentation artefacts are made to become obsolete. The moment your code changes, they become technical debt. However, if you store your diagrams in the same Git repository as your code, they stop being "extra work" and become part of your pull request. The "diagrams as code" approach ensures that your documentation is as agile as modern software development.

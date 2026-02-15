@@ -1,0 +1,235 @@
+---
+// SkillsMarquee.astro
+import { Image } from 'astro:assets';
+
+import dotnetSvg from '../../assets/dotnet.svg';
+import dockerSvg from '../../assets/docker.svg';
+import vuejsSvg from '../../assets/vuejs.svg';
+import postgresqlSvg from '../../assets/postgresql.svg';
+import githubActionsSvg from '../../assets/githubActions.svg';
+import cssSvg from '../../assets/css.svg';
+import gitSvg from '../../assets/git.svg';
+import htmlSvg from '../../assets/html.svg';
+import typeScriptSvg from '../../assets/typescript.svg';
+import sassSvg from '../../assets/sass.svg';
+import pythonSvg from '../../assets/python.svg';
+import javaScriptSvg from '../../assets/javascript.svg';
+
+const skillsRow1 = [
+  { title: '.NET', icon: dotnetSvg },
+  { title: 'Docker', icon: dockerSvg },
+  { title: 'CI/CD', icon: githubActionsSvg },
+  { title: 'PostgreSQL', icon: postgresqlSvg },
+  { title: 'Vue.js', icon: vuejsSvg },
+  { title: 'Sass', icon: sassSvg }
+];
+
+const skillsRow2 = [
+  { title: 'HTML', icon: htmlSvg },
+  { title: 'CSS', icon: cssSvg },
+  { title: 'TypeScript', icon: typeScriptSvg },
+  { title: 'Git', icon: gitSvg },
+  { title: 'JavaScript', icon: javaScriptSvg },
+  { title: 'Python', icon: pythonSvg }
+];
+
+const itemsCount1 = skillsRow1.length;
+const itemsCount2 = skillsRow2.length;
+
+const totalItems1 = itemsCount1 * 2;
+const totalItems2 = itemsCount2 * 2;
+---
+
+<section id="skills" aria-label="Skills">
+  <div
+    class="marquee"
+    style={`--marquee-items: ${totalItems1}; --marquee-duration: 28s; --marquee-item-width: 160px; --marquee-item-height: 64px;`}
+  >
+    {skillsRow1.concat(skillsRow1).map((skill, i) => (
+      <div
+        class="marquee__item"
+        title={skill.title}
+        /* 👇 Use a unique index for each item */
+        style={`--marquee-item-index: ${ i + 1 }`}
+        key={`r1-${i}`}
+      >
+        <Image src={skill.icon} alt={skill.title} class="skill-icon" />
+        <span class="skill-label">{skill.title}</span>
+      </div>
+    ))}
+  </div>
+
+  <div
+    class="marquee reverse"
+    style={`--marquee-items: ${totalItems2}; --marquee-duration: 34s; --marquee-item-width: 160px; --marquee-item-height: 64px;`}
+  >
+    {skillsRow2.concat(skillsRow2).map((skill, i) => (
+      <div
+        class="marquee__item"
+        title={skill.title}
+        /* 👇 Use a unique index for each item */
+        style={`--marquee-item-index: ${ i + 1 }`}
+        key={`r2-${i}`}
+      >
+        <Image src={skill.icon} alt={skill.title} class="skill-icon" />
+        <span class="skill-label">{skill.title}</span>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  /* Container background */
+  #skills {
+    background-color: #ece9f5;
+    padding: 48px 0;
+  }
+
+  /* Marquee row */
+  .marquee {
+    position: relative;
+    /* give room vertically for hover lift; the items themselves are vertically centered */
+    block-size: calc(var(--marquee-item-height) * 1.2);
+    margin-block: 12px;
+
+    /* only hide horizontal overflow (let items lift above) */
+    overflow-x: hidden;
+    overflow-y: visible;
+
+-webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 15%, /* Changed from 8% */
+    black 85%, /* Changed from 92% */
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 15%, /* Changed from 8% */
+    black 85%, /* Changed from 92% */
+    transparent 100%
+  );
+  }
+
+  /*
+    Defaults for the per-item animation approach.
+    --marquee-item-width should be (approx) the full "slot width" you expect
+    for each card: card width + desired gap. Tune this if cards look too loose/tight.
+  */
+  .marquee {
+    --marquee-item-width: 160px;  /* tune this (card width + spacing) */
+    --marquee-item-height: 64px;
+    --marquee-duration: 30s;
+    --marquee-items: 6; /* overridden inline per-row */
+  }
+
+  /* compute a large starting offset (either items * width OR off-screen + item width) */
+  .marquee__item {
+    --marquee-item-offset: max(
+      calc(var(--marquee-item-width) * var(--marquee-items)),
+      calc(100% + var(--marquee-item-width))
+    );
+
+    /*
+      negative delay so items are staggered evenly across the stream:
+      delay = duration / items * (items - index) * -1
+    */
+    --marquee-delay: calc(
+      var(--marquee-duration) / var(--marquee-items) *
+        (var(--marquee-items) - var(--marquee-item-index)) * -1
+    );
+
+    position: absolute;
+    inset-block-start: 50%;               /* vertical center baseline */
+    inset-inline-start: var(--marquee-item-offset); /* start far to the right */
+    transform: translate(-50%, -50%);     /* center horizontally (by left point) and vertically */
+
+    /* the actual animation moves the left position to -item-width (off the left side) */
+    animation: go linear var(--marquee-duration) var(--marquee-delay) infinite;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    white-space: nowrap;
+    transition: transform 180ms ease, box-shadow 180ms ease;
+    cursor: default;
+  }
+
+  /* move left to -item width (so it's off-screen) */
+  @keyframes go {
+    to {
+      inset-inline-start: calc(var(--marquee-item-width) * -1);
+    }
+  }
+
+  /* visuals */
+  .skill-icon {
+    width: 28px;
+    height: 28px;
+    display: block;
+  }
+
+  .skill-label {
+    font-weight: 600;
+    color: #0f172a;
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  /* nicer rounded corners pattern (keeps your previous style) */
+  .marquee__item:nth-child(4n) { border-top-right-radius: 1rem; }
+  .marquee__item:nth-child(4n + 1) { border-bottom-right-radius: 1rem; }
+  .marquee__item:nth-child(4n + 2) { border-bottom-left-radius: 1rem; }
+  .marquee__item:nth-child(4n + 3) { border-top-left-radius: 1rem; }
+
+  /* reversed row */
+  .marquee.reverse .marquee__item {
+    animation-direction: reverse;
+  }
+
+  /* hover - lift and pause (both item and row pause) */
+  .marquee__item:hover {
+    transform: translate(-50%, -72%) scale(1.03);
+    z-index: 40;
+    box-shadow: 0 8px 30px rgba(12, 20, 45, 0.12);
+  }
+
+  /* pause the whole stream when hovering the row (optional & friendly) */
+  .marquee:hover .marquee__item {
+    animation-play-state: paused;
+  }
+
+  /* respects user motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    .marquee__item,
+    .marquee:hover .marquee__item {
+      animation: none !important;
+      transform: translate(-50%, -50%) !important;
+    }
+
+    .marquee {
+      -webkit-mask-image: none;
+      mask-image: none;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      block-size: auto;
+    }
+
+    .marquee__item { position: static; }
+  }
+
+  /* responsive tuning */
+  @media (max-width: 520px) {
+    .marquee { --marquee-item-width: 140px; --marquee-item-height: 56px; }
+    .marquee__item { padding: 8px 12px; gap: 10px; }
+    .skill-label { font-size: 13px; }
+  }
+</style>

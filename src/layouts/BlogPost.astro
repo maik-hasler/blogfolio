@@ -1,0 +1,71 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { Icon } from 'astro-icon/components';
+import '../styles/blog.css';
+import CallToAction from "../components/CallToAction.astro";
+const { title, description, pubDate, tags, ttr, headings } = Astro.props;
+---
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+  <body>
+    <Header />
+    <main class="w-11/12 max-w-4xl mx-auto my-[64px]">
+      <article class="flex flex-col gap-[32px]">
+        <header class="flex flex-col gap-4">
+          <nav>
+            <ol class="flex text-gray-700">
+              <li>
+                <a href="/blog" class="hover:underline">Blog</a>
+              </li>
+              <li class="mx-2">&gt;</li>
+              <li class="font-medium text-black">Article</li>
+            </ol>
+          </nav>
+          <h1 class="text-5xl font-bold leading-tight">{title}</h1>
+          <div class="flex items-center gap-[8px]">
+            <div class="flex items-center gap-[2px]">
+              <p class="text-sm">{ttr}</p>
+            </div>
+            <p class="text-sm">&#x2022;</p>
+            <div class="flex items-center gap-[2px]">
+              <p class="text-sm">
+                <time datetime={pubDate.toISOString()}>
+                  {pubDate.toLocaleDateString('en-us', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                  })}
+                </time>
+              </p>
+            </div>
+          </div>
+          <p class="text-xl text-gray-700 italic">{description}</p>
+          <div class="flex flex-wrap gap-[8px] mt-2">
+            {tags.map((tag: string) => (
+              <div class="tag flex items-center gap-[6px] bg-gray-100 px-3 py-1 rounded-full">
+                <Icon name="mdi:tag-outline" class="text-[16px]" />
+                <span class="text-sm font-medium">{tag}</span>
+              </div>
+            ))}
+          </div>
+        </header>
+        <hr class="border-gray-200" />
+        <section class="prose prose-lg max-w-none">
+          <slot />
+        </section>
+      </article>
+    </main>
+    <CallToAction />
+    <Footer />
+  </body>
+</html>
+
+<style>
+body {
+  background-color: #ece9f5;
+}
+</style>

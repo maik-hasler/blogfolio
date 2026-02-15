@@ -1,0 +1,33 @@
+---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../components/FlashcardWrapper.astro'
+import PlantUML from '../../components/PlantUML.astro';
+
+<Flashcard>
+    <div slot="question">
+        Was ist die <b>erste Normalform (1NF)</b> und welche Anforderungen stellt sie?
+    </div>
+
+    <div slot="answer">
+        Die **erste Normalform (1NF)** ist die Grundlage der Datenbanknormalisierung. Eine Tabelle ist in 1NF, wenn:
+
+        * **Atomare Werte:** Jedes Attribut enthält nur atomare (unteilbare) Werte – keine Listen, Arrays oder zusammengesetzten Werte.
+        * **Eindeutige Spalten:** Jede Spalte hat einen eindeutigen Namen.
+        * **Gleicher Datentyp:** Alle Werte in einer Spalte haben denselben Datentyp.
+        * **Keine Wiederholungsgruppen:** Keine sich wiederholenden Spalten (z.B. Produkt1, Produkt2).
+
+        **Ziel:** Redundanzen vermeiden und die Datenintegrität sicherstellen.
+
+        **Beispiel:**
+
+        <PlantUML file="nichteinhaltung-erste-normalform.puml" />
+
+        wird zu
+
+        <PlantUML file="einhaltung-erste-normalform.puml" />
+
+        Mehrere Produkte in einer Zeile wurden aufgeteilt → jedes Produkt erhält eine eigene Zeile mit atomarem Wert.
+    </div>
+</Flashcard>

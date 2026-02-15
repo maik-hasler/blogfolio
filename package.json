@@ -1,0 +1,23 @@
+{
+  "name": "blogfolio",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.3.13",
+    "@astrojs/node": "^9.5.2",
+    "@astrojs/rss": "^4.0.15",
+    "@astrojs/sitemap": "^3.7.0",
+    "@iconify-json/mdi": "^1.2.3",
+    "@tailwindcss/vite": "^4.1.18",
+    "astro": "^5.17.1",
+    "astro-icon": "^1.1.5",
+    "plantuml-encoder": "^1.4.0",
+    "tailwindcss": "^4.1.18"
+  }
+}

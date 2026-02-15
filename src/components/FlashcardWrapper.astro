@@ -1,0 +1,16 @@
+<div class="border rounded-xl p-6 shadow-sm bg-white mb-6 w-full">
+  <div class="question-area text-lg font-semibold">
+    <slot name="question" />
+  </div>
+
+  <div class="answer-area hidden mt-4 pt-4 border-t border-gray-100">
+    <slot name="answer" />
+  </div>
+
+  <button 
+    class="toggle-btn mt-6 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+    onclick="this.previousElementSibling.classList.toggle('hidden'); this.innerText = this.innerText === 'Antwort anzeigen' ? 'Antwort verbergen' : 'Antwort anzeigen';"
+  >
+    Antwort anzeigen
+  </button>
+</div>

@@ -1,0 +1,62 @@
+﻿@startuml
+
+<style>
+note {
+    backgroundcolor white
+    shadowing 0
+    linecolor transparent
+}
+</style>
+
+note as Kunde
+  <#lightblue,#black>|= KundenID |= Name |= E-Mail |= Telefon |= Straße |= Hausnummer |= PLZ |
+  <#white>| 1 | Max Mustermann | max@mail.de | 0176123456 | Hauptstr. | 5 | 26122 |
+  <#white>| 2 | Erika Musterfrau | erika@mail.de | 0151122334 | Markt | 12 | 28195 |
+  <#white>| 3 | Tim Beispiel | tim@mail.de | 0160555666 | Lindenweg | 77 | 20095 |
+end note
+
+note as Ort
+  <#lightblue,#black>|= PLZ |= Stadt |
+  <#white>| 26122 | Oldenburg |
+  <#white>| 28195 | Bremen |
+  <#white>| 20095 | Hamburg |
+end note
+
+note as Bestellung
+  <#lightblue,#black>|= BestellID |= KundenID |= Bestelldatum |= Gesamt |
+  <#white>| 1 | 1 | 2026-02-08 | 1450€ |
+  <#white>| 2 | 2 | 2026-02-07 | 520€ |
+  <#white>| 3 | 3 | 2026-02-06 | 180€ |
+end note
+
+note as Produkt
+  <#lightblue,#black>|= ProduktID |= Produktname |
+  <#white>| 1 | Laptop |
+  <#white>| 2 | Maus |
+  <#white>| 3 | Tastatur |
+  <#white>| 4 | Monitor |
+  <#white>| 5 | HDMI-Kabel |
+  <#white>| 6 | Schreibtischstuhl |
+end note
+
+note as Bestellposition
+  <#lightblue,#black>|= BestellID |= ProduktID |= Menge |
+  <#white>| 1 | 1 | 1 |
+  <#white>| 1 | 2 | 2 |
+  <#white>| 1 | 3 | 1 |
+  <#white>| 2 | 4 | 2 |
+  <#white>| 2 | 5 | 2 |
+  <#white>| 3 | 6 | 1 |
+end note
+
+Kunde -[hidden]-> Ort
+Ort -[hidden]-> Bestellung
+Bestellung -[hidden]-> Bestellposition
+Bestellposition -[hidden]-> Produkt
+
+Kunde ||--o{ Ort
+Kunde ||--o{ Bestellung
+Bestellung ||--o{ Bestellposition
+Produkt ||--o{ Bestellposition
+
+@enduml

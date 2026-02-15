@@ -1,0 +1,102 @@
+---
+import { getCollection } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+
+const blogPosts = await getCollection('blog');
+const jsonBlogPosts = JSON.stringify(blogPosts);
+---
+
+<div id="search-component" class="relative">
+  <button
+    id="search-button"
+    type="button"
+    class="flex items-center gap-2 bg-[#f5f4fa] text-gray-700 rounded-full px-3 sm:px-4 py-2 text-sm hover:bg-[#ece9f5] transition-colors"
+  >
+    <Icon name="mdi:magnify" class="text-[20px] text-gray-500" />
+    <span class="hidden sm:inline text-gray-700 text-sm">Search...</span>
+    <kbd
+      class="hidden sm:inline ml-2 rounded-full border border-gray-300 bg-gray-200 px-2 py-1 text-xs font-medium text-gray-600"
+    >
+      Ctrl + K
+    </kbd>
+  </button>
+  <div
+    id="search-overlay"
+    class="hidden fixed inset-0 bg-black/50 z-40"
+  ></div>
+  <div
+    id="search-panel"
+    class="hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-xl bg-white rounded-xl shadow-xl z-50 p-4"
+  >
+    <input
+      id="search-input"
+      type="text"
+      placeholder="Search blog posts..."
+      class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-indigo-200"
+    />
+    <ul id="search-results" class="mt-4 max-h-80 overflow-y-auto"></ul>
+  </div>
+</div>
+
+<script type="module" define:vars={{ blogPosts }}>
+  const searchButton = document.getElementById('search-button');
+  const searchPanel = document.getElementById('search-panel');
+  const searchOverlay = document.getElementById('search-overlay');
+  const searchInput = document.getElementById('search-input');
+  const searchResults = document.getElementById('search-results');
+
+  function openSearch() {
+    searchPanel.classList.remove('hidden');
+    searchOverlay.classList.remove('hidden');
+    searchInput.focus();
+    renderResults('');
+  }
+
+  function closeSearch() {
+    searchPanel.classList.add('hidden');
+    searchOverlay.classList.add('hidden');
+    searchInput.value = '';
+    searchResults.innerHTML = '';
+  }
+
+  function renderResults(query) {
+    const results = blogPosts.filter(post =>
+      post.data.title?.toLowerCase().includes(query.toLowerCase())
+    );
+
+    if (!results.length && query.length > 0) {
+      searchResults.innerHTML = `<li class="p-2 text-gray-400">No results found.</li>`;
+      return;
+    }
+
+    searchResults.innerHTML = results
+      .map(
+        post => `
+      <li class="p-2 hover:bg-gray-100 rounded">
+        <a href="/blog/${post.id}" class="block">
+          <span class="font-semibold">${post.data.title}</span>
+          <p class="text-gray-500 text-sm">${post.data.description}</p>
+        </a>
+      </li>
+    `
+      )
+      .join('');
+  }
+
+  // Events
+  searchButton.addEventListener('click', openSearch);
+  searchOverlay.addEventListener('click', closeSearch);
+
+  document.addEventListener('keydown', (e) => {
+    // Ctrl + K or Cmd + K
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      openSearch();
+    }
+    // Escape
+    if (e.key === 'Escape') closeSearch();
+  });
+
+  searchInput.addEventListener('input', () => renderResults(searchInput.value));
+</script>
+
