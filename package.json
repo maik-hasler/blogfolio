@@ -18,6 +18,6 @@
     "astro": "^5.17.2",
     "astro-icon": "^1.1.5",
     "plantuml-encoder": "^1.4.0",
-    "tailwindcss": "^4.1.18"
+    "tailwindcss": "^4.2.0"
   }
 }
