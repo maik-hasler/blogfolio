@@ -1,0 +1,20 @@
+﻿---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist eine Änderungsanomalie (Update-Anomalie) in einer Datenbank?
+    </div>
+
+    <div slot="answer">
+        Eine Änderungsanomalie tritt auf, wenn **Daten mehrfach an verschiedenen Stellen gespeichert** sind.
+        Änderungen müssen an allen Vorkommen vorgenommen werden, sonst entstehen **Inkonsistenzen**.
+
+        <br/>
+        Beispiel:<br/>
+        Wird die Adresse eines Kunden in einer Tabelle mit mehreren Bestellungen geändert, muss sie an allen Einträgen angepasst werden.
+    </div>
+</Flashcard>

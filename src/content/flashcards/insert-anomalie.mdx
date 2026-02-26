@@ -1,0 +1,19 @@
+﻿---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist eine Einfügeanomalie (Insert-Anomalie) in einer Datenbank?
+    </div>
+
+    <div slot="answer">
+        Eine Einfügeanomalie tritt auf, wenn **neue Daten nicht hinzugefügt werden können**, ohne dass andere Werte ebenfalls gesetzt werden müssen.
+        <br/>
+        Beispiel:<br/>
+        Ein neuer Kunde kann nicht in eine Tabelle eingefügt werden, weil noch keine Bestellung existiert und die Tabelle beides speichert.  
+        Daten können nicht isoliert hinzugefügt werden.
+    </div>
+</Flashcard>

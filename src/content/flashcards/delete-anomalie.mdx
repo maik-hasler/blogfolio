@@ -1,0 +1,19 @@
+﻿---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist eine Löschanomalie (Delete-Anomalie) in einer Datenbank?
+    </div>
+
+    <div slot="answer">
+        Eine Löschanomalie tritt auf, wenn **durch das Löschen eines Datensatzes unbeabsichtigt andere wichtige Daten verloren gehen**.
+
+        <br/>
+        Beispiel:<br/>
+        Wird die Bestellung eines Kunden gelöscht, gehen gleichzeitig die Kundendaten verloren, wenn beide in derselben Tabelle gespeichert sind.
+    </div>
+</Flashcard>

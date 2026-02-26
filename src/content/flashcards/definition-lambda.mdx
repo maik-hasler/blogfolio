@@ -1,24 +1,32 @@
 ---
-published: false
 tags:
-  - 'Programmierung'
+  - 'Allgemeine Programmierung'
+  - 'Funktionale Programmierung'
 ---
 import Flashcard from '../../components/FlashcardWrapper.astro'
 
 <Flashcard>
   <div slot="question">
-    Was ist ein <b>Lambda-Ausdruck</b> und was sind seine Hauptmerkmale?
+    Was ist ein Lambda-Ausdruck und was sind seine wesentlichen Merkmale?
   </div>
 
   <div slot="answer">
-    Ein Lambda-Ausdruck ist eine <b>anonyme Funktion</b> ohne eigenen Namen, die meist direkt inline definiert wird.
+    Ein Lambda-Ausdruck, auch **anonyme Funktion**, ist eine Funktionsdefinition, die nicht an einen Bezeichner gebunden ist.
+      Sie können als Wert verwendet werden (z. B. als Argument einer Funktion höhrer Ordnung oder Rückgabewert).
 
-    **Charakteristika:**
-    * **Kompakt:** Weniger Boilerplate-Code als bei anonymen Klassen.
-    * **Inline:** Definition direkt an der Verwendungsstelle (z.B. als Parameter).
-    * **Closures:** Kann auf Variablen aus dem umgebenden Kontext zugreifen.
+      <br/>
+      **Wesentliche Merkmale:**
+    * **Anonym:** Kein eigener Bezeichner
+    * **Kompakte Syntax:** Kurzschreibweise mit bspw. =>
+    * **Erstklassiges Objekt:** Kann zugewiesen und übergeben werden
+    * **Closure:** Zugriff auf Variablen des umgebenden Scopes
 
-    **Beispiel (Java):**
-    `list.forEach(x -> System.out.println(x));`
+    <br/>
+
+    Beispiel in C#:
+    ```csharp
+    var list = new List<int> { 1, 2, 3 };
+    list.ForEach(x => Console.WriteLine(x));
+    ```
   </div>
 </Flashcard>

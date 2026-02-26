@@ -1,0 +1,35 @@
+﻿---
+tags:
+  - 'Programmierung Allgemein'
+  - 'Objektorientierte Programmierung'
+---
+import Flashcard from '../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist Methodenüberladung?
+    </div>
+
+    <div slot="answer">
+        Methodenüberladung (method overloading) bedeutet, dass mehrere Methoden im gleichen Scope denselben Namen haben, 
+        sich aber durch **Parameteranzahl oder -typ** unterscheiden.
+
+        <br/>
+        Beispiel in C#:
+        ```csharp
+        class Rechner
+        {
+            public int Add(int a, int b) => a + b;
+            public double Add(double a, double b) => a + b;
+            public int Add(int a, int b, int c) => a + b + c;
+        }
+
+        var r = new Rechner();
+        Console.WriteLine(r.Add(2, 3));      // 5
+        Console.WriteLine(r.Add(2.5, 3.5));  // 6
+        Console.WriteLine(r.Add(1, 2, 3));   // 6
+        ```
+        <br/>
+        Hier hat die Methode `Add` **denselben Namen**, aber unterschiedliche Signaturen.
+    </div>
+</Flashcard>

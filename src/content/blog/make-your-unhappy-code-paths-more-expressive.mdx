@@ -1,0 +1,116 @@
+﻿---
+title: 'Make your unhappy code paths more expressive'
+description: 'Exceptions are expensive, unexpressive and may turn expected failures into runtime errors. A possible solution? The result pattern.'
+pubDate: 'Feb 26 2026'
+tags:
+  - .NET
+  - Proposal
+ttr: '7 min read'
+published: true
+---
+
+Let's asume the following. We have this class:
+
+```csharp
+public sealed class Auction
+{
+    public Auctioneer Owner { get; private init; }
+    
+    public decimal? StartingPrice { get; private init; }
+    
+    private readonly List<Bid> _bids = [];
+    
+    public IReadOnlyCollection Bids => _bids;
+    
+    public void PlaceBid(
+        Auctioneer bidder,
+        decimal bidAmount)
+    {
+        if (bidder.Id is Owner.Id)
+        {
+            throw DomainException("Cant place bids own your own auction");
+        }
+        
+        if (bidAmount <= 0 ||
+            (StartingPrice is not null &&
+            bidAmount < StartingPrice) ||
+            bidAmount > _bids.Max(b => b.Amount)
+        {
+            throw DomainException("Bid amount is not sufficient");
+        }
+        
+        _bids.Add(new Bid(bidder, bidAmount));
+    }
+}
+```
+We could change the implementation and return a boolean instead of a exception, but this wouldnt make the code more expressive.
+My propsal:
+```
+public sealed record Error(
+    string Code,
+    string Description)
+{
+    public static readonly Error None = new(string.Empty, string.Empty);
+}
+
+
+public class Result
+{
+    protected Result(
+        bool isSuccess,
+        Error error)
+    {
+        IsSuccess = isSuccess;
+        Error = error;
+    }
+    
+    public bool IsSuccess => Error == Error.None;
+
+    public bool IsFailure => !IsSuccess;
+    
+    public Error Error { get; }
+
+    public static Result Success() => new Result(true, Error.None);
+    
+    public static Result Failure(Error error) => new Result(false, error);
+}
+
+public sealed class Result<TValue> : Result
+{
+    private readonly TValue? _value;
+
+    private Result(TValue value, Error error)
+        : base(error)
+        => _value = value;
+
+    public TValue Value => IsSuccess
+        ? _value!
+        : throw new InvalidOperationException("The value of a failure result can not be accessed.");
+
+    public static Result<TValue> Success(TValue value) => new(value, Error.None);
+
+    public new static Result<TValue> Failure(Error error) => new(default!, error);
+}
+```
+Now you can refactor the method as follows:
+```csharp
+public Result PlaceBid(
+    Auctioneer bidder,
+    decimal bidAmount)
+{
+    if (bidder.Id is Owner.Id)
+    {
+        return Result.Failure(new Error("SAME_AUCTIONEER", "Cant place bids own your own auction"));
+    }
+    
+    if (bidAmount <= 0 ||
+        (StartingPrice is not null &&
+        bidAmount < StartingPrice) ||
+        bidAmount > _bids.Max(b => b.Amount)
+    {
+        return Result.Failure(new Error("INSUFFICIENT_BID", "Bid amount is not sufficient"));
+    }
+    
+    _bids.Add(new Bid(bidder, bidAmount));
+}
+```

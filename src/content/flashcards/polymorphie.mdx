@@ -1,0 +1,37 @@
+﻿---
+tags:
+  - 'Programmierung Allgemein'
+  - 'Objektorientierte Programmierung'
+---
+import Flashcard from '../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist Polymorphie?
+    </div>
+
+    <div slot="answer">
+        **Polymorphie** bedeutet, dass Objekte oder Methoden in verschiedenen Formen auftreten können.
+        Es erlaubt, denselben Code auf unterschiedliche Datentypen oder Klassen anzuwenden.
+
+        <br/>
+        **Arten von Polymorphie:**
+        - **Compile-Time / statisch:** Methodenüberladung (Overloading)
+        - **Run-Time / dynamisch:** Methodenüberschreibung (Overriding) in Vererbungshierarchien
+
+        <br/>
+        Beispiel in C#:
+        ```csharp
+        abstract class Tier { public abstract void LautGeben(); }
+        class Hund : Tier { public override void LautGeben() => Console.WriteLine("Wuff"); }
+        class Katze : Tier { public override void LautGeben() => Console.WriteLine("Miau"); }
+
+        Tier t1 = new Hund();
+        Tier t2 = new Katze();
+        t1.LautGeben(); // Wuff
+        t2.LautGeben(); // Miau
+        ```
+        <br/>
+        Die Methode **LautGeben()** hat je nach Objekttyp unterschiedliche Ausgaben.
+    </div>
+</Flashcard>
