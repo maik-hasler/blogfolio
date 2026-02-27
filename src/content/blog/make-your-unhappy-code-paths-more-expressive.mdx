@@ -1,0 +1,178 @@
+﻿---
+title: 'Make your unhappy code paths more expressive'
+description: 'Exceptions are expensive, unexpressive and may turn expected failures into runtime errors. A possible solution? The result pattern.'
+pubDate: 'Feb 26 2026'
+tags:
+  - .NET
+  - Proposal
+ttr: '7 min read'
+published: true
+---
+
+## The Problem: Exceptions as Control Flow
+Let’s look at this domain model for an auction system. It enforces the following rules:
+```csharp
+public sealed class Auction
+{
+    public Auctioneer Owner { get; private init; }
+    
+    public decimal? StartingPrice { get; private init; }
+    
+    private readonly List<Bid> _bids = [];
+    
+    public IReadOnlyCollection<Bid> Bids => _bids;
+    
+    public void PlaceBid(
+        Auctioneer bidder,
+        decimal bidAmount)
+    {
+        if (bidder.Id == Owner.Id)
+        {
+            throw new DomainException("Can't place bids on your own auction.");
+        }
+        
+        if (bidAmount <= 0 ||
+            (StartingPrice is not null && bidAmount < StartingPrice) ||
+            _bids.Any() && bidAmount <= _bids.Max(b => b.Amount))
+        {
+            throw new DomainException("Bid amount is not sufficient.");
+        }
+        
+        _bids.Add(new Bid(bidder, bidAmount));
+    }
+}
+```
+While this "works," it introduces several headaches:
+* These failures are **expected**, not exceptional. Exceptions should be reserved for things that shouldn't happen, like a database disappearing.
+* The method signature (`void PlaceBid(...)`) has a "hidden" contract. It's not directly visible to consumers, which exceptions might occur.
+* Throwing an exception involves capturing a stack trace, which is performance wise more expensive compared to simply returning an object.
+
+Exceptions are powerful, but they should represent unexpected situations.
+A bidder placing an insufficient bid is not exceptional.
+It’s a normal domain scenario.
+
+## A Naive Alternative: Returning a Boolean
+The quickest fix is often to change the return type to a `bool`.
+```csharp
+public bool PlaceBid(...)
+```
+But this creates a **loss of information**. If the method returns false, the caller doesn't know why. Was the bid too low? Was the auction closed? Did the owner try to bid? A boolean tells you that it failed, but not why.
+
+## The Solution: The Result Pattern
+Instead of throwing or returning a bool, we return an explicit **Result object**.
+This makes failure a part of your method's contract.
+This approach is often called **Railway Oriented Programming**, where your logic follows two tracks: a Success track and a Failure track.
+### Step 1: Define the Error
+We need a way to describe what went wrong.
+```csharp
+public sealed record Error(
+    string Code,
+    string Description)
+{
+    public static readonly Error None = new(string.Empty, string.Empty);
+}
+```
+### Step 2: Build the Result types
+This object either holds the success state or the error details.
+```csharp
+public class Result
+{
+    protected Result(Error error)
+    {
+        Error = error;
+    }
+    
+    public bool IsSuccess => Error == Error.None;
+
+    public bool IsFailure => !IsSuccess;
+    
+    public Error Error { get; }
+
+    public static Result Success() => new(Error.None);
+    
+    public static Result Failure(Error error) => new(error);
+}
+```
+For methods that need to return data, we use a generic version:
+```csharp
+public sealed class Result<TValue> : Result
+{
+    private readonly TValue? _value;
+
+    private Result(TValue? value, Error error)
+        : base(error)
+        => _value = value;
+
+    public TValue Value => IsSuccess
+        ? _value!
+        : throw new InvalidOperationException(
+            "The value of a failure result cannot be accessed.");
+
+    public static Result<TValue> Success(TValue value) =>
+        new(value, Error.None);
+
+    public new static Result<TValue> Failure(Error error) =>
+        new(default, error);
+}
+```
+## Refactoring the Domain Logic
+Now, let’s apply this to our `PlaceBid` method.
+```csharp
+public Result PlaceBid(
+    Auctioneer bidder,
+    decimal bidAmount)
+{
+    if (bidder.Id == Owner.Id)
+    {
+        return Result.Failure(
+            new Error("SAME_AUCTIONEER", 
+                      "Can't place bids on your own auction."));
+    }
+    
+    if (bidAmount <= 0 ||
+        (StartingPrice is not null && bidAmount < StartingPrice) ||
+        _bids.Any() && bidAmount <= _bids.Max(b => b.Amount))
+    {
+        return Result.Failure(
+            new Error("INSUFFICIENT_BID", 
+                      "Bid amount is not sufficient."));
+    }
+    
+    _bids.Add(new Bid(bidder, bidAmount));
+    
+    return Result.Success();
+}
+```
+## Why This Wins
+### 1. Explicit Domain
+Failure is no longer a side effect. It's part of a methods contract. The compiler forces the consumer to acknowledge the result.
+```csharp
+var result = auction.PlaceBid(user, amount);
+
+if (result.IsFailure)
+{
+    // The error is structured and loggable
+    logger.LogWarning("Bid failed: {Code}", result.Error.Code);
+    return BadRequest(result.Error);
+}
+```
+### Easier Testing
+Testing for exceptions usually requires specific assertion syntax that can feel disconnected from the test flow. With the Result pattern, it’s just a simple assertion:
+```csharp
+// Before:
+Assert.Throws<DomainException>(() => auction.PlaceBid(owner, 100));
+
+// After:
+var result = auction.PlaceBid(owner, 100);
+result.IsFailure.Should().BeTrue();
+result.Error.Code.Should().Be("SAME_AUCTIONEER");
+```
+
+## Final Thoughts
+Exceptions aren't inherently bad.
+There's a reason they exist.
+In my opinion, they are often simply misused and misunderstood.
+If a failure is part of the normal flow of your application, make it explicit.
+Make it visible.
+Make it expressive.
+This will make your unhappy code paths become easily manageable parts of your application.

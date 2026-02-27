@@ -1,0 +1,31 @@
+﻿---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was bedeutet ACID in Datenbankmanagementsystemen?
+    </div>
+
+    <div slot="answer">
+        ACID beschreibt häufig erwünschte Eigenschaften von Transaktionen in Datenbankmanagementsystemen.
+        <br/>
+        **A – Atomicity**:
+
+        Stellt sicher, dass die Transaktion entweder ganz oder gar nicht ausgeführt wird.
+        <br/>
+        **C – Consistency**:
+        
+        Eine Transaktion hinterlässt nach Beendigung einen konsistenten Datenbankzustand (z. B. Primärschlüssel eindeutig, Fremdschlüssel gültig).
+        <br/>
+        **I – Isolation**:
+
+        Verhindert bzw. schränkt ein, dass sich nebenläufig in Ausführung befindliche Transaktionen gegenseitig beeinflussen.
+        <br/>
+        **D – Durability**:
+
+        Daten sind nach dem erfolgreichen Abschluss einer Transaktion garantiert dauerhaft in der Datenbank gespeichert.
+    </div>
+</Flashcard>

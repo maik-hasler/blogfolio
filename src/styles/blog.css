@@ -79,12 +79,6 @@ article strong,
 article b {
 	font-weight: 700;
 }
-article p {
-	margin-bottom: 1em;
-}
-article .prose p {
-	margin-bottom: 2em;
-}
 article textarea {
 	width: 100%;
 	font-size: 16px;
@@ -108,6 +102,8 @@ article code {
 article pre {
 	padding: 1.5em;
 	border-radius: 8px;
+	font-size: 0.7rem;
+	margin: 8px 0;
 }
 article pre > code {
 	all: unset;
@@ -151,7 +147,8 @@ article hr {
 
 article ul:not(nav ul) {
 	margin-left: 32px;
-	margin-bottom: 40px;
+	margin-top: 8px;
+	margin-bottom: 8px;
 }
 
 article li:not(:last-child):not(nav li) { 

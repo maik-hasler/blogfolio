@@ -1,0 +1,28 @@
+﻿---
+tags:
+  - 'Programmierung Allgemein'
+  - 'Funktionale Programmierung'
+---
+import Flashcard from '../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was bedeutet Immutability?
+    </div>
+
+    <div slot="answer">
+        Immutability bedeutet, dass ein Objekt nach seiner Erstellung **nicht mehr verändert werden kann**. Jede Änderung erzeugt eine **neue Instanz**.
+
+        <br/>
+        Beispiel in C#:
+        ```csharp
+        public record Person(string Name, int Alter);
+
+        var p1 = new Person("Alice", 30);
+        var p2 = p1 with { Alter = 31 };
+
+        Console.WriteLine(p1); // Person { Name = Alice, Alter = 30 }
+        Console.WriteLine(p2); // Person { Name = Alice, Alter = 31 }
+        ```
+    </div>
+</Flashcard>

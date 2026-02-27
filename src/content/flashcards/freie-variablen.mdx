@@ -1,0 +1,33 @@
+﻿---
+tags:
+  - 'Programmierung Allgemein'
+  - 'Funktionale Programmierung'
+---
+import Flashcard from '../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was sind freie Variablen?
+    </div>
+
+    <div slot="answer">
+        Eine freie Variable ist eine Variable, die innerhalb einer Funktion verwendet wird,
+        aber **nicht in der Funktion selbst definiert** wurde. Sie stammt aus einem äußeren Scope.
+
+        <br/>
+        
+        Beispiel in C#:
+        ```csharp
+        int a = 5; // äußere Variable
+
+        Func<int, int> addA = x => x + a; // 'a' ist hier eine freie Variable
+
+        Console.WriteLine(addA(3)); // 8
+        ```
+        <br/>
+        - `x`: gebunden (Parameter der Funktion)
+        - `a`: frei (kommt aus dem äußeren Scope)
+        <br/>
+        Freie Variablen sind entscheidend für Closures, weil diese Variablen zusammen mit der Funktion gespeichert werden.
+    </div>
+</Flashcard>

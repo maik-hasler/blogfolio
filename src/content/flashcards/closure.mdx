@@ -1,0 +1,29 @@
+﻿---
+tags:
+  - 'Programmierung Allgemein'
+  - 'Funktionale Programmierung'
+---
+import Flashcard from '../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist eine Closure?
+    </div>
+
+    <div slot="answer">
+        Eine <b>Closure</b> ist eine Funktion, die auf Variablen aus ihrem umgebenden Scope zugreift.
+        Auch dann, wenn dieser Scope bereits verlassen wurde.
+        Eine Closure besteht aus der Funktion selbst und den von ihr gebundenen freien Variablen.
+
+        <br/>
+
+        Beispiel in C#:
+        ```csharp
+        Func<int, Func<int, int>> add = x => y => x + y;
+
+        var addFive = add(5);
+        Console.WriteLine(addFive(3)); // 8
+        ```
+        Hier merkt sich die innere Funktion den Wert von `x` (= 5).
+    </div>
+</Flashcard>
