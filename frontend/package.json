@@ -17,6 +17,7 @@
     "@tailwindcss/vite": "^4.2.1",
     "astro": "^6.0.0",
     "astro-icon": "^1.1.5",
+    "keycloak-js": "^26.2.3",
     "plantuml-encoder": "^1.4.0",
     "tailwindcss": "^4.2.1"
   }

@@ -1,0 +1,324 @@
+---
+import { getCollection } from "astro:content";
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import CallToAction from "../../components/CallToAction.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("flashcards", ({ data }) => {
+    return data.published;
+  });
+
+  const allTags = new Set<string>();
+  entries.forEach(entry => {
+    entry.data.tags?.forEach(tag => allTags.add(tag));
+  });
+
+  const tags = Array.from(allTags);
+
+  return [
+    ...tags.map(tag => ({
+      params: { tag },
+    })),
+    { params: { tag: "all" } },
+  ];
+}
+
+const { tag } = Astro.params;
+
+const entries = await getCollection("flashcards", ({ data }) => {
+  return data.published;
+});
+
+const filteredEntries =
+  tag === "all"
+    ? entries
+    : entries.filter(e => e.data.tags?.includes(tag));
+
+const slugs = filteredEntries.map(e => e.id);
+
+const pageTitle =
+  tag === "all" ? "All Flashcards" : `Flashcards: ${tag}`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead
+      title={`${pageTitle} | Maik Hasler`}
+      description="Learning resources"
+    />
+  </head>
+  <body class="flex flex-col min-h-screen bg-[#ece9f5]">
+    <Header />
+    <main
+      class="grow w-full py-8 flex flex-col justify-center items-center gap-6"
+    >
+      <div
+        class="w-11/12 lg:w-8/12 mx-auto flex items-center justify-between"
+      >
+        <div class="flex items-center gap-2">
+          <span class="text-gray-600">Category:</span>
+          <span
+            class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full font-semibold"
+          >
+            {tag === "all" ? "All Cards" : tag}
+          </span>
+          <span id="due-badge" class="hidden bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm font-medium"></span>
+        </div>
+        <div class="flex items-center gap-4">
+          <button
+            id="auth-btn"
+            class="hidden text-sm text-gray-600 hover:text-gray-800 font-medium cursor-pointer"
+          ></button>
+          <a
+            href="/flashcards"
+            class="text-blue-600 hover:text-blue-800 font-medium"
+          >
+            &larr; Change Category
+          </a>
+        </div>
+      </div>
+
+      <!-- Mode Toggle (only visible when authenticated) -->
+      <div id="mode-toggle" class="hidden w-11/12 lg:w-8/12 mx-auto flex gap-2">
+        <button
+          id="mode-random"
+          class="px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-blue-600 text-white"
+        >
+          Random
+        </button>
+        <button
+          id="mode-review"
+          class="px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-gray-200 text-gray-700 hover:bg-gray-300"
+        >
+          Spaced Repetition
+        </button>
+      </div>
+
+      <div
+        id="card-container"
+        class="mdx-container w-11/12 lg:w-8/12 mx-auto bg-white p-8 rounded-xl shadow-sm border border-gray-200 min-h-[200px] flex flex-col justify-center"
+      >
+        <p class="text-center text-gray-500 animate-pulse">
+          Loading first card...
+        </p>
+      </div>
+
+      <!-- Random mode button -->
+      <button
+        id="next-btn"
+        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transform transition active:scale-95 flex items-center gap-2"
+      >
+        <span>Next Flashcard</span>
+      </button>
+
+      <!-- Review mode quality buttons (hidden by default) -->
+      <div id="quality-buttons" class="hidden flex-wrap justify-center gap-3">
+        <button data-quality="1" class="quality-btn bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-6 rounded-full shadow-lg transition active:scale-95">
+          Again
+        </button>
+        <button data-quality="3" class="quality-btn bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-full shadow-lg transition active:scale-95">
+          Hard
+        </button>
+        <button data-quality="4" class="quality-btn bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-full shadow-lg transition active:scale-95">
+          Good
+        </button>
+        <button data-quality="5" class="quality-btn bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-full shadow-lg transition active:scale-95">
+          Easy
+        </button>
+      </div>
+    </main>
+    <CallToAction />
+    <Footer />
+
+    <script>
+      import { initAuth, isAuthenticated, login, logout, getUsername } from '../../scripts/auth';
+      import { submitReview, getDueCards } from '../../scripts/api';
+
+      const container = document.getElementById("card-container")!;
+      const nextBtn = document.getElementById("next-btn")!;
+      const qualityButtons = document.getElementById("quality-buttons")!;
+      const authBtn = document.getElementById("auth-btn")!;
+      const modeToggle = document.getElementById("mode-toggle")!;
+      const modeRandom = document.getElementById("mode-random")!;
+      const modeReview = document.getElementById("mode-review")!;
+      const dueBadge = document.getElementById("due-badge")!;
+
+      const slugs: string[] = JSON.parse(document.getElementById("slugs-data")!.textContent!);
+
+      let currentSlug = "";
+      let mode: "random" | "review" = "random";
+      let dueSlugs: string[] = [];
+
+      async function loadCard(slug: string) {
+        currentSlug = slug;
+        container.style.opacity = "0.5";
+        try {
+          const response = await fetch(`/flashcards/partials/${slug}`);
+          if (!response.ok) throw new Error("Failed to load card");
+          container.innerHTML = await response.text();
+        } catch {
+          container.innerHTML = '<p class="text-red-500">Error loading card.</p>';
+        } finally {
+          container.style.opacity = "1";
+        }
+      }
+
+      function loadRandomCard() {
+        let newSlug: string;
+        if (slugs.length > 1) {
+          do {
+            newSlug = slugs[Math.floor(Math.random() * slugs.length)];
+          } while (newSlug === currentSlug);
+        } else {
+          newSlug = slugs[0];
+        }
+        loadCard(newSlug);
+      }
+
+      async function loadNextDueCard() {
+        if (dueSlugs.length === 0) {
+          container.innerHTML = `
+            <div class="text-center py-8">
+              <p class="text-2xl font-bold text-green-600 mb-2">Alles geschafft!</p>
+              <p class="text-gray-500">Keine Karten zur Wiederholung fällig.</p>
+            </div>`;
+          qualityButtons.classList.add("hidden");
+          qualityButtons.classList.remove("flex");
+          return;
+        }
+
+        // Pick a random due card
+        const idx = Math.floor(Math.random() * dueSlugs.length);
+        await loadCard(dueSlugs[idx]);
+        updateDueBadge();
+      }
+
+      function updateDueBadge() {
+        if (dueSlugs.length > 0) {
+          dueBadge.textContent = `${dueSlugs.length} fällig`;
+          dueBadge.classList.remove("hidden");
+        } else {
+          dueBadge.classList.add("hidden");
+        }
+      }
+
+      async function refreshDueCards() {
+        try {
+          const result = await getDueCards(slugs);
+          dueSlugs = result.dueSlugs;
+          updateDueBadge();
+        } catch {
+          dueSlugs = [...slugs];
+        }
+      }
+
+      function setMode(newMode: "random" | "review") {
+        mode = newMode;
+        if (mode === "random") {
+          modeRandom.className = "px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-blue-600 text-white";
+          modeReview.className = "px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-gray-200 text-gray-700 hover:bg-gray-300";
+          nextBtn.classList.remove("hidden");
+          nextBtn.classList.add("flex");
+          qualityButtons.classList.add("hidden");
+          qualityButtons.classList.remove("flex");
+          loadRandomCard();
+        } else {
+          modeReview.className = "px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-blue-600 text-white";
+          modeRandom.className = "px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-gray-200 text-gray-700 hover:bg-gray-300";
+          nextBtn.classList.add("hidden");
+          nextBtn.classList.remove("flex");
+          qualityButtons.classList.remove("hidden");
+          qualityButtons.classList.add("flex");
+          refreshDueCards().then(() => loadNextDueCard());
+        }
+      }
+
+      // Quality button handlers
+      qualityButtons.addEventListener("click", async (e) => {
+        const target = (e.target as HTMLElement).closest<HTMLButtonElement>("[data-quality]");
+        if (!target || !currentSlug) return;
+
+        const quality = parseInt(target.dataset.quality!);
+        try {
+          await submitReview(currentSlug, quality);
+          // Remove reviewed card from due list if quality >= 3
+          if (quality >= 3) {
+            dueSlugs = dueSlugs.filter(s => s !== currentSlug);
+          }
+          await loadNextDueCard();
+        } catch {
+          container.innerHTML = '<p class="text-red-500">Fehler beim Speichern der Bewertung.</p>';
+        }
+      });
+
+      // Mode toggle handlers
+      modeRandom.addEventListener("click", () => setMode("random"));
+      modeReview.addEventListener("click", () => setMode("review"));
+
+      // Next button (random mode)
+      nextBtn.addEventListener("click", loadRandomCard);
+
+      // Initialize
+      (async () => {
+        // Load first card immediately (no auth needed)
+        loadRandomCard();
+
+        // Try to initialize auth in background
+        const authenticated = await initAuth();
+        if (authenticated) {
+          authBtn.textContent = `${getUsername()} (Logout)`;
+          authBtn.classList.remove("hidden");
+          authBtn.addEventListener("click", () => logout());
+          modeToggle.classList.remove("hidden");
+          modeToggle.classList.add("flex");
+          await refreshDueCards();
+        } else {
+          authBtn.textContent = "Login";
+          authBtn.classList.remove("hidden");
+          authBtn.addEventListener("click", () => login());
+        }
+      })();
+    </script>
+
+    <!-- Slugs data for the client-side script -->
+    <script is:inline id="slugs-data" type="application/json" set:html={JSON.stringify(slugs)} />
+  </body>
+</html>
+
+<style is:global>
+  .mdx-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    border: 1px solid #d1d5db;
+  }
+
+  .mdx-container th {
+    background-color: #f3f4f6;
+    border: 1px solid #d1d5db;
+    padding: 0.5rem;
+    text-align: left;
+    font-weight: 600;
+  }
+
+  .mdx-container td {
+    border: 1px solid #d1d5db;
+    padding: 0.5rem;
+    vertical-align: top;
+  }
+
+  .mdx-container .question {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #1f2937;
+  }
+
+  .mdx-container ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+  }
+</style>

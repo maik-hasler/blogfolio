@@ -1,0 +1,6 @@
+@SpacedRepetition.Api_HostAddress = http://localhost:5018
+
+GET {{SpacedRepetition.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
