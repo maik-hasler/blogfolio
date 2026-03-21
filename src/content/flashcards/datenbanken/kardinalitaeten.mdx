@@ -1,0 +1,27 @@
+---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was sind Kardinalitäten?
+    </div>
+
+    <div slot="answer">
+        Kardinalitäten beschreiben in der **Datenmodellierung** (z. B. im ER-Modell) die Anzahl der Entitäten, die an einer Beziehung zwischen zwei Entitätstypen beteiligt sein können. Sie sind nicht spezifisch für SQL, sondern ein Konzept der relationalen Datenbanktheorie.
+        <br/>
+        **1:1** (eins zu eins):
+        Jeder Datensatz der einen Tabelle ist mit genau einem Datensatz der anderen Tabelle verknüpft.
+        Beispiel: Person → Personalausweis.
+        <br/>
+        **1:n** (eins zu viele):
+        Ein Datensatz der einen Tabelle kann mit mehreren Datensätzen der anderen Tabelle verknüpft sein, aber nicht umgekehrt.
+        Beispiel: Abteilung → Mitarbeiter.
+        <br/>
+        **n:m** (viele zu viele):
+        Mehrere Datensätze beider Tabellen können untereinander verknüpft sein. In relationalen Datenbanken wird dies über eine **Zwischentabelle** (Assoziationstabelle) aufgelöst.
+        Beispiel: Studenten ↔ Kurse.
+    </div>
+</Flashcard>

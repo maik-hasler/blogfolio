@@ -1,4 +1,5 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
 
 const blog = defineCollection({
@@ -17,7 +18,10 @@ const blog = defineCollection({
 });
 
 const flashcards = defineCollection({
-  type: "content",
+  loader: glob({
+    base: "./src/content/flashcards",
+    pattern: "**/*.mdx"
+  }),
   schema: z.object({
     tags: z.array(z.string()),
     published: z.boolean().default(true)

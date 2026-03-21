@@ -1,0 +1,23 @@
+---
+tags:
+  - 'KI'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist RAG (Retrieval-Augmented Generation)?
+    </div>
+
+    <div slot="answer">
+        RAG (Retrieval-Augmented Generation) ist ein Architekturmuster, das ein **Large Language Model (LLM)** mit einer **externen Wissensbasis** kombiniert.
+        <br/>
+        **Ablauf:**
+        <br/>
+        1. **Retrieval**: Die Nutzeranfrage wird verwendet, um relevante Dokumente aus einer Wissensbasis (z. B. einer Vektordatenbank) zu suchen.
+        2. **Augmentation**: Die gefundenen Dokumente werden zusammen mit der Anfrage als Kontext an das LLM übergeben.
+        3. **Generation**: Das LLM generiert eine Antwort auf Basis des bereitgestellten Kontexts.
+        <br/>
+        **Vorteile**: Das Modell kann auf aktuelle, domänenspezifische Daten zugreifen, ohne neu trainiert werden zu müssen. Außerdem werden Halluzinationen reduziert, da die Antworten auf konkreten Quellen basieren.
+    </div>
+</Flashcard>

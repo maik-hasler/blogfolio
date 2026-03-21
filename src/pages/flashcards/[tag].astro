@@ -36,7 +36,7 @@ const filteredEntries =
     ? entries
     : entries.filter(e => e.data.tags?.includes(tag));
 
-const slugs = filteredEntries.map(e => e.slug);
+const slugs = filteredEntries.map(e => e.id);
 
 const pageTitle =
   tag === "all" ? "All Flashcards" : `Flashcards: ${tag}`;

@@ -1,0 +1,19 @@
+---
+tags:
+  - 'KI'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist eine Vektordatenbank (z. B. ChromaDB)?
+    </div>
+
+    <div slot="answer">
+        Eine **Vektordatenbank** speichert Daten als hochdimensionale Vektoren (sogenannte **Embeddings**). Embeddings sind numerische Repräsentationen von Texten, Bildern oder anderen Daten, die deren semantische Bedeutung abbilden.
+        <br/>
+        **Funktionsweise**: Texte oder Dokumente werden durch ein Embedding-Modell in Vektoren umgewandelt und in der Datenbank gespeichert. Bei einer Suchanfrage wird die Anfrage ebenfalls in einen Vektor umgewandelt und per **Ähnlichkeitssuche** (z. B. Kosinus-Ähnlichkeit) werden die semantisch ähnlichsten Einträge gefunden.
+        <br/>
+        **ChromaDB** ist eine Open-Source-Vektordatenbank, die häufig in RAG-Systemen eingesetzt wird, um relevante Dokumente für ein LLM bereitzustellen.
+    </div>
+</Flashcard>
