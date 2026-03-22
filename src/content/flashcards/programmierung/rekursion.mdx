@@ -1,0 +1,37 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist Rekursion?
+    </div>
+
+    <div slot="answer">
+        **Rekursion** liegt vor, wenn eine Methode **sich selbst aufruft**, um ein Problem zu lösen.
+
+        <br/>
+        **Bestandteile:**
+        - **Basisfall (Abbruchbedingung):** Beendet die Rekursion
+        - **Rekursiver Aufruf:** Die Methode ruft sich mit einem verkleinerten Problem selbst auf
+
+        <br/>
+        **Beispiel — Fakultät:**
+        ```csharp
+        int Fakultaet(int n)
+        {
+            if (n <= 1) return 1;         // Basisfall
+            return n * Fakultaet(n - 1);  // Rekursiver Aufruf
+        }
+        // Fakultaet(4) = 4 * 3 * 2 * 1 = 24
+        ```
+
+        <br/>
+        **Rekursion vs. Iteration:**
+        - Rekursion ist oft **eleganter und kürzer** (z. B. bei Baumstrukturen)
+        - Iteration ist oft **performanter** (kein Overhead durch Methodenaufrufe)
+        - Ohne Abbruchbedingung entsteht eine **Endlosrekursion** (StackOverflowException)
+    </div>
+</Flashcard>

@@ -1,0 +1,52 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was sind Functor, Monad und Optional in der funktionalen Programmierung?
+    </div>
+
+    <div slot="answer">
+        Funktionale Konzepte, die helfen, **sicher** mit Werten umzugehen und Operationen **zu verketten** — ohne Null-Checks oder verschachtelte if-Blöcke.
+
+        <br/>
+        **Functor:**
+        Ein Container/Wrapper, auf den man eine Funktion **mappen** kann, ohne ihn auszupacken.
+        ```java
+        // Optional ist ein Functor
+        Optional<String> name = Optional.of("max");
+        Optional<String> upper = name.map(String::toUpperCase);
+        // → Optional["MAX"] — nie ausgepackt, trotzdem transformiert
+        ```
+
+        <br/>
+        **Monad:**
+        Ein Functor, der zusätzlich **flatMap** unterstützt — damit kann man Operationen **verketten**, die selbst wieder einen Wrapper zurückgeben, ohne Verschachtelung.
+        ```java
+        // Ohne Monad (verschachtelt):
+        Optional<Optional<String>> nested = user.map(u -> u.getAddress());
+
+        // Mit flatMap (Monad):
+        Optional<String> city = user
+            .flatMap(User::getAddress)   // Optional<Address>
+            .flatMap(Address::getCity);  // Optional<String>
+        // → Flach, nicht verschachtelt!
+        ```
+
+        <br/>
+        **Optional (Java) / Maybe (Haskell):**
+        - Repräsentiert einen Wert, der **da sein kann oder nicht**
+        - Ersetzt `null`-Checks durch elegante Verkettung
+        - `Optional.of(wert)` / `Optional.empty()`
+        - Methoden: `map()`, `flatMap()`, `orElse()`, `isPresent()`
+
+        <br/>
+        **Warum wichtig?**
+        - Vermeidet **NullPointerExceptions**
+        - Code wird **lesbarer und sicherer**
+        - Zwingt den Entwickler, den „leeren Fall" zu behandeln
+    </div>
+</Flashcard>

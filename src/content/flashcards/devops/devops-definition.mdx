@@ -1,0 +1,40 @@
+---
+tags:
+  - 'DevOps'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist DevOps?
+    </div>
+
+    <div slot="answer">
+        **DevOps** ist eine Kombination aus **Development** (Entwicklung) und **Operations** (Betrieb). Es beschreibt eine Kultur, Praktiken und Werkzeuge, die die Zusammenarbeit zwischen Entwicklung und IT-Betrieb verbessern.
+
+        <br/>
+        **Ziele:**
+        - **Schnellere Auslieferung** von Software
+        - **Höhere Qualität** durch Automatisierung
+        - **Kürzere Feedback-Zyklen**
+        - **Weniger Silos** zwischen Teams
+
+        <br/>
+        **Kernpraktiken:**
+        - **CI/CD:** Automatisches Bauen, Testen und Deployen
+        - **Infrastructure as Code (IaC):** Infrastruktur per Code verwalten
+        - **Monitoring & Logging:** Systeme kontinuierlich überwachen
+        - **Automatisierte Tests:** Qualität automatisch sicherstellen
+        - **Containerisierung:** Docker, Kubernetes
+
+        <br/>
+        **DevOps-Lifecycle (∞-Schleife):**
+        ```
+        Plan → Code → Build → Test → Release → Deploy → Operate → Monitor
+              \_______________ Dev _______________/\_______ Ops _______/
+        ```
+
+        <br/>
+        **Kultur:** DevOps ist nicht nur Tooling — es erfordert eine **Kultur der Zusammenarbeit**, geteilter Verantwortung und kontinuierlicher Verbesserung.
+    </div>
+</Flashcard>

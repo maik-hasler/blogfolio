@@ -1,0 +1,39 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+  - 'Objektorientierte Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was sind die SOLID-Prinzipien?
+    </div>
+
+    <div slot="answer">
+        **SOLID** sind fünf Prinzipien für wartbare, erweiterbare objektorientierte Software:
+
+        <br/>
+        **S – Single Responsibility Principle:**
+        Eine Klasse sollte nur **eine Verantwortlichkeit** haben — nur einen Grund, sich zu ändern.
+
+        <br/>
+        **O – Open/Closed Principle:**
+        Software-Einheiten sollen **offen für Erweiterung**, aber **geschlossen für Änderung** sein. Neue Funktionalität durch Ableitung/Interfaces, nicht durch Änderung bestehenden Codes.
+
+        <br/>
+        **L – Liskov Substitution Principle:**
+        Objekte einer Unterklasse müssen sich **überall** verwenden lassen, wo die Basisklasse erwartet wird — ohne unerwartetes Verhalten.
+
+        <br/>
+        **I – Interface Segregation Principle:**
+        Viele **spezifische** Interfaces sind besser als ein großes, allgemeines. Klassen sollen keine Methoden implementieren müssen, die sie nicht brauchen.
+
+        <br/>
+        **D – Dependency Inversion Principle:**
+        Module sollen von **Abstraktionen** (Interfaces) abhängen, nicht von konkreten Implementierungen. → Dependency Injection.
+
+        <br/>
+        **Merkhilfe:** SOLID-Prinzipien führen zu Code, der leichter **testbar, erweiterbar und wartbar** ist.
+    </div>
+</Flashcard>

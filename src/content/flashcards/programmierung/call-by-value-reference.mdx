@@ -1,0 +1,33 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist der Unterschied zwischen Call-by-Value und Call-by-Reference?
+    </div>
+
+    <div slot="answer">
+        **Call-by-Value:** Eine **Kopie** des Wertes wird an die Methode übergeben. Änderungen innerhalb der Methode haben **keinen Einfluss** auf die Originalvariable.
+        ```csharp
+        void Erhoehe(int x) { x = x + 1; }
+        int zahl = 5;
+        Erhoehe(zahl);
+        // zahl ist immer noch 5
+        ```
+
+        <br/>
+        **Call-by-Reference:** Eine **Referenz** (Verweis) auf die Originalvariable wird übergeben. Änderungen wirken sich **direkt auf das Original** aus.
+        ```csharp
+        void Erhoehe(ref int x) { x = x + 1; }
+        int zahl = 5;
+        Erhoehe(ref zahl);
+        // zahl ist jetzt 6
+        ```
+
+        <br/>
+        **Wichtig:** In C# werden **Werttypen** (int, double, bool) standardmäßig by-value übergeben. **Referenztypen** (Objekte, Arrays) übergeben zwar die Referenz by-value, aber da die Referenz auf dasselbe Objekt zeigt, können Änderungen am Objekt sichtbar sein.
+    </div>
+</Flashcard>

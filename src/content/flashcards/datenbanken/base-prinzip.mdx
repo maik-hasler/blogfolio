@@ -1,0 +1,37 @@
+---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist das BASE-Prinzip?
+    </div>
+
+    <div slot="answer">
+        **BASE** ist ein Konsistenzmodell für verteilte Datenbanken (vor allem NoSQL) und bildet den Gegenpol zu ACID.
+
+        <br/>
+        **B – Basically Available:**
+        Das System ist grundsätzlich verfügbar — es antwortet immer, auch wenn die Daten möglicherweise nicht aktuell sind.
+
+        <br/>
+        **S – Soft State:**
+        Der Zustand des Systems kann sich über die Zeit ändern, auch ohne neue Eingaben (z. B. durch Synchronisation zwischen Knoten).
+
+        <br/>
+        **E – Eventual Consistency:**
+        Das System wird **irgendwann** konsistent — nicht sofort, aber nach einer gewissen Zeit sind alle Knoten auf dem gleichen Stand.
+
+        <br/>
+        **ACID vs. BASE:**
+
+        | | ACID | BASE |
+        |---|------|------|
+        | **Konsistenz** | Sofort | Eventual |
+        | **Verfügbarkeit** | Kann eingeschränkt sein | Immer verfügbar |
+        | **Einsatz** | Relationale DB | NoSQL / verteilte Systeme |
+        | **Beispiel** | Banküberweisung | Social-Media-Feed |
+    </div>
+</Flashcard>

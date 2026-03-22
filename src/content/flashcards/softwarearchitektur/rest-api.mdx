@@ -1,0 +1,36 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist eine REST-API?
+    </div>
+
+    <div slot="answer">
+        **REST (Representational State Transfer)** ist ein Architekturstil für verteilte Systeme, der auf dem HTTP-Protokoll basiert. Eine REST-API stellt **Ressourcen** über URLs bereit.
+
+        <br/>
+        **Grundprinzipien:**
+        - **Ressourcenorientiert:** Alles ist eine Ressource mit einer eindeutigen URL
+        - **Zustandslos (Stateless):** Jede Anfrage enthält alle nötigen Informationen
+        - **Einheitliche Schnittstelle:** Standardisierte HTTP-Methoden
+        - **Client-Server-Trennung:** Frontend und Backend sind unabhängig
+
+        <br/>
+        **HTTP-Methoden und ihre Bedeutung:**
+
+        | Methode | Zweck | Beispiel |
+        |---------|-------|---------|
+        | `GET` | Ressource lesen | `GET /kunden/42` |
+        | `POST` | Neue Ressource anlegen | `POST /kunden` |
+        | `PUT` | Ressource vollständig ersetzen | `PUT /kunden/42` |
+        | `PATCH` | Ressource teilweise ändern | `PATCH /kunden/42` |
+        | `DELETE` | Ressource löschen | `DELETE /kunden/42` |
+
+        <br/>
+        REST-APIs verwenden typischerweise **JSON** als Datenformat und **HTTP-Statuscodes** für die Rückmeldung.
+    </div>
+</Flashcard>

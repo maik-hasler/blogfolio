@@ -1,0 +1,40 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was sind technische Schulden (Technical Debt)?
+    </div>
+
+    <div slot="answer">
+        **Technische Schulden** entstehen, wenn bei der Entwicklung bewusst oder unbewusst **Abkürzungen** genommen werden — ähnlich wie ein Kredit, der später **mit Zinsen** zurückgezahlt werden muss.
+
+        <br/>
+        **Arten:**
+        - **Bewusst/strategisch:** „Wir wissen, dass es nicht ideal ist, aber wir müssen schnell liefern"
+        - **Unbewusst:** Fehlende Erfahrung, schlechtes Design, das sich erst später zeigt
+        - **Veraltung:** Abhängigkeiten werden nicht aktualisiert
+
+        <br/>
+        **Beispiele:**
+        - Fehlende Tests
+        - Copy-Paste-Code statt Abstraktion
+        - Veraltete Bibliotheken
+        - Fehlende Dokumentation
+        - Workarounds statt sauberer Lösung
+        - Monolithisches Design, das eigentlich aufgeteilt werden sollte
+
+        <br/>
+        **Konsequenzen (die „Zinsen"):**
+        - Änderungen werden immer **langsamer und teurer**
+        - Mehr **Bugs** und unvorhergesehene Seiteneffekte
+        - **Neue Entwickler** brauchen länger zur Einarbeitung
+        - Irgendwann übersteigen die Zinsen den Nutzen → **Stillstand**
+
+        <br/>
+        **Umgang:** Regelmäßig Tech-Debt-Tickets einplanen, Refactoring als festen Bestandteil des Entwicklungsprozesses etablieren.
+    </div>
+</Flashcard>

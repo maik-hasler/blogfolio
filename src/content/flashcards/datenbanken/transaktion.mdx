@@ -1,0 +1,33 @@
+---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist eine Transaktion in einer Datenbank?
+    </div>
+
+    <div slot="answer">
+        Eine **Transaktion** ist eine Folge von Datenbankoperationen, die als **eine logische Einheit** ausgeführt wird — entweder **vollständig oder gar nicht**.
+
+        <br/>
+        **Beispiel — Banküberweisung:**
+        ```sql
+        BEGIN TRANSACTION;
+            UPDATE Konto SET Saldo = Saldo - 100 WHERE KontoNr = 'A';
+            UPDATE Konto SET Saldo = Saldo + 100 WHERE KontoNr = 'B';
+        COMMIT;
+        ```
+
+        <br/>
+        **Steuerung:**
+        - **BEGIN TRANSACTION:** Startet die Transaktion
+        - **COMMIT:** Bestätigt alle Änderungen dauerhaft
+        - **ROLLBACK:** Macht alle Änderungen rückgängig
+
+        <br/>
+        Wenn während der Überweisung ein Fehler auftritt, werden **beide** Operationen zurückgesetzt (Atomarität). Die Transaktion folgt den **ACID-Eigenschaften** (Atomicity, Consistency, Isolation, Durability).
+    </div>
+</Flashcard>

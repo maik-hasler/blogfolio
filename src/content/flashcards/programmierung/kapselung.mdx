@@ -1,0 +1,44 @@
+---
+tags:
+  - 'Objektorientierte Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist Kapselung (Encapsulation)?
+    </div>
+
+    <div slot="answer">
+        **Kapselung** bedeutet, dass Daten (Attribute) und die zugehörigen Methoden in einer Klasse **zusammengefasst** werden und der direkte Zugriff auf die internen Daten **kontrolliert** wird.
+
+        <br/>
+        **Sichtbarkeitsmodifizierer in C#:**
+        - `public` — von überall zugreifbar
+        - `private` — nur innerhalb der eigenen Klasse
+        - `protected` — innerhalb der Klasse und ihrer Unterklassen
+        - `internal` — innerhalb der gleichen Assembly
+
+        <br/>
+        **Prinzip:** Attribute werden `private` gesetzt und über `public` Getter/Setter kontrolliert zugänglich gemacht.
+
+        <br/>
+        **Beispiel:**
+        ```csharp
+        class Konto
+        {
+            private decimal kontostand;
+
+            public decimal Kontostand => kontostand; // nur lesen
+
+            public void Einzahlen(decimal betrag)
+            {
+                if (betrag > 0) kontostand += betrag;
+            }
+        }
+        ```
+
+        <br/>
+        **Vorteile:** Schutz vor ungültigen Zuständen, Änderungen der Implementierung ohne Einfluss auf den Nutzer der Klasse.
+    </div>
+</Flashcard>

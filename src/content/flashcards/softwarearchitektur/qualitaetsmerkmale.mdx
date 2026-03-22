@@ -1,0 +1,32 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was sind Qualitätsmerkmale von Softwarearchitektur?
+    </div>
+
+    <div slot="answer">
+        Softwarearchitektur wird anhand von **Qualitätsmerkmalen** (auch: nicht-funktionale Anforderungen) bewertet. Diese beeinflussen Architekturentscheidungen maßgeblich.
+
+        <br/>
+        **Wichtige Qualitätsmerkmale (nach ISO 25010):**
+
+        | Merkmal | Beschreibung |
+        |---------|-------------|
+        | **Wartbarkeit** | Wie leicht lässt sich die Software ändern? |
+        | **Performance** | Antwortzeiten, Durchsatz, Ressourcenverbrauch |
+        | **Skalierbarkeit** | Kann die Software mit wachsender Last umgehen? |
+        | **Sicherheit** | Schutz vor unbefugtem Zugriff und Datenverlust |
+        | **Verfügbarkeit** | Wie oft ist das System erreichbar? (z. B. 99,9%) |
+        | **Testbarkeit** | Wie einfach lassen sich Tests schreiben? |
+        | **Portabilität** | Läuft die Software auf verschiedenen Plattformen? |
+        | **Interoperabilität** | Kann das System mit anderen Systemen zusammenarbeiten? |
+
+        <br/>
+        **Wichtig:** Qualitätsmerkmale stehen oft in **Konflikt** zueinander — z. B. bedeutet hohe Sicherheit oft mehr Komplexität und kann die Performance einschränken. Architektur ist immer ein **Abwägen von Trade-offs**.
+    </div>
+</Flashcard>

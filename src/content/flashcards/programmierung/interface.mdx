@@ -1,0 +1,47 @@
+---
+tags:
+  - 'Objektorientierte Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist ein Interface?
+    </div>
+
+    <div slot="answer">
+        Ein **Interface** (Schnittstelle) ist ein **Vertrag**, der festlegt, **welche Methoden** eine Klasse implementieren muss — aber nicht **wie**.
+
+        <br/>
+        **Merkmale:**
+        - Enthält nur Methodensignaturen (keine Implementierung)
+        - Kann **keine Attribute** mit Werten haben
+        - Eine Klasse kann **mehrere Interfaces** implementieren
+        - Kann nicht instanziiert werden
+
+        <br/>
+        **Beispiel in C#:**
+        ```csharp
+        interface IFahrzeug
+        {
+            void Starten();
+            void Bremsen();
+        }
+
+        class Auto : IFahrzeug
+        {
+            public void Starten() { Console.WriteLine("Motor an"); }
+            public void Bremsen() { Console.WriteLine("Bremse!"); }
+        }
+
+        class EBike : IFahrzeug
+        {
+            public void Starten() { Console.WriteLine("Motor aktiviert"); }
+            public void Bremsen() { Console.WriteLine("Rekuperation!"); }
+        }
+        ```
+
+        <br/>
+        **Konvention:** Interface-Namen beginnen in C# mit `I` (z. B. `IComparable`, `IDisposable`).
+    </div>
+</Flashcard>

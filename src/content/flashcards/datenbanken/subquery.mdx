@@ -1,0 +1,44 @@
+---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist eine Subquery (Unterabfrage)?
+    </div>
+
+    <div slot="answer">
+        Eine **Subquery** ist ein SELECT-Statement **innerhalb** eines anderen SQL-Statements. Sie liefert ein Zwischenergebnis, das von der äußeren Abfrage verwendet wird.
+
+        <br/>
+        **Subquery in der WHERE-Klausel:**
+        ```sql
+        SELECT Name FROM Kunde
+        WHERE KundenID IN (
+            SELECT KundenID FROM Bestellung
+            WHERE Datum > '2025-01-01'
+        );
+        ```
+        Ergebnis: Alle Kunden, die seit 2025 bestellt haben.
+
+        <br/>
+        **Subquery im FROM (Derived Table):**
+        ```sql
+        SELECT avg_preis.Stadt, avg_preis.DurchschnittsPreis
+        FROM (
+            SELECT Stadt, AVG(Preis) AS DurchschnittsPreis
+            FROM Produkt
+            GROUP BY Stadt
+        ) AS avg_preis
+        WHERE avg_preis.DurchschnittsPreis > 100;
+        ```
+
+        <br/>
+        **Arten:**
+        - **Skalare Subquery:** Gibt genau **einen** Wert zurück
+        - **Zeilenbasierte Subquery:** Gibt eine **Liste** von Werten zurück (mit `IN`, `ANY`, `ALL`)
+        - **Korrelierte Subquery:** Referenziert die äußere Abfrage (wird pro Zeile ausgeführt)
+    </div>
+</Flashcard>

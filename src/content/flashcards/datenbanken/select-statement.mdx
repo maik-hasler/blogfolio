@@ -1,0 +1,45 @@
+---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Wie ist ein SELECT-Statement aufgebaut?
+    </div>
+
+    <div slot="answer">
+        Das **SELECT-Statement** folgt einer festen Reihenfolge:
+
+        ```sql
+        SELECT   spalten          -- Welche Spalten? (Projektion)
+        FROM     tabelle          -- Aus welcher Tabelle?
+        WHERE    bedingung        -- Welche Zeilen? (Selektion)
+        GROUP BY spalte           -- Gruppierung
+        HAVING   gruppenbedingung -- Filter auf Gruppen
+        ORDER BY spalte ASC|DESC  -- Sortierung
+        LIMIT    anzahl           -- Begrenzung der Ergebnisse
+        ```
+
+        <br/>
+        **Wichtige Begriffe:**
+        - **Projektion:** Auswahl der **Spalten** (`SELECT name, alter`)
+        - **Selektion:** Auswahl der **Zeilen** (`WHERE alter > 18`)
+        - **DISTINCT:** Entfernt Duplikate (`SELECT DISTINCT stadt`)
+
+        <br/>
+        **Beispiel:**
+        ```sql
+        SELECT Name, Stadt
+        FROM Kunde
+        WHERE Alter >= 18
+        ORDER BY Name ASC;
+        ```
+
+        <br/>
+        **Wildcards mit LIKE:**
+        - `%` = beliebig viele Zeichen: `WHERE Name LIKE 'M%'`
+        - `_` = genau ein Zeichen: `WHERE Name LIKE 'M_x'`
+    </div>
+</Flashcard>

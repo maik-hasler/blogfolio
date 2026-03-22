@@ -1,0 +1,36 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist eine Variable und was bedeuten Deklaration und Initialisierung?
+    </div>
+
+    <div slot="answer">
+        Eine **Variable** ist ein benannter Speicherplatz im Arbeitsspeicher, der einen Wert eines bestimmten Datentyps enthält.
+
+        <br/>
+        **Deklaration:** Die Variable wird dem Compiler bekannt gemacht (Name und Typ werden festgelegt).
+        ```csharp
+        int alter; // Deklaration
+        ```
+
+        <br/>
+        **Initialisierung:** Der Variable wird zum ersten Mal ein Wert zugewiesen.
+        ```csharp
+        alter = 25; // Initialisierung
+        ```
+
+        <br/>
+        **Beides zusammen:**
+        ```csharp
+        int alter = 25; // Deklaration + Initialisierung
+        ```
+
+        <br/>
+        **Gültigkeitsbereich (Scope):** Eine Variable ist nur in dem Block sichtbar, in dem sie deklariert wurde (z. B. innerhalb einer Methode oder Schleife).
+    </div>
+</Flashcard>

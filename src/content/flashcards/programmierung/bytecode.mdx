@@ -1,0 +1,29 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist Bytecode?
+    </div>
+
+    <div slot="answer">
+        **Bytecode** ist ein plattformunabhängiger Zwischencode, der weder reiner Quellcode noch nativer Maschinencode ist.
+
+        <br/>
+        **Funktionsweise:**
+        1. Der Compiler übersetzt Quellcode in Bytecode
+        2. Eine **virtuelle Maschine** (VM) führt den Bytecode aus
+        3. Die VM kann den Bytecode interpretieren oder per **JIT-Compilation** (Just-In-Time) in Maschinencode übersetzen
+
+        <br/>
+        **Vorteil:** „Write once, run anywhere" — derselbe Bytecode läuft auf jeder Plattform, für die eine VM existiert.
+
+        <br/>
+        **Beispiele:**
+        - **Java:** Quellcode → Java-Bytecode → JVM
+        - **C#:** Quellcode → CIL (Common Intermediate Language) → CLR
+    </div>
+</Flashcard>

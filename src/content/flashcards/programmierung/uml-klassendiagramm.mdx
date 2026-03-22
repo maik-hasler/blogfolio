@@ -1,0 +1,45 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+  - 'Objektorientierte Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist ein UML-Klassendiagramm?
+    </div>
+
+    <div slot="answer">
+        Ein **Klassendiagramm** ist das wichtigste **Strukturdiagramm** in UML (Unified Modeling Language). Es zeigt Klassen, ihre Attribute, Methoden und Beziehungen zueinander.
+
+        <br/>
+        **Aufbau einer Klasse:**
+        ```
+        ┌──────────────────────┐
+        │      Klasse          │
+        ├──────────────────────┤
+        │ - name: string       │  ← Attribute
+        │ - alter: int         │
+        ├──────────────────────┤
+        │ + getName(): string  │  ← Methoden
+        │ + setName(n: string) │
+        └──────────────────────┘
+        ```
+
+        <br/>
+        **Sichtbarkeiten:**
+        - `+` public, `-` private, `#` protected, `~` package
+
+        <br/>
+        **Beziehungstypen:**
+        - **Assoziation** (——): Klassen kennen sich
+        - **Aggregation** (◇——): „hat ein" (Teil kann ohne Ganzes existieren)
+        - **Komposition** (◆——): „besteht aus" (Teil existiert nicht ohne Ganzes)
+        - **Vererbung** (△——): „ist ein" (Generalisierung)
+        - **Implementierung** (△- - -): Klasse implementiert Interface
+
+        <br/>
+        **Multiplizitäten:** `1`, `0..1`, `0..*`, `1..*` — wie bei Kardinalitäten in Datenbanken.
+    </div>
+</Flashcard>

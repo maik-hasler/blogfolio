@@ -1,0 +1,42 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was sind reguläre Ausdrücke (Regex)?
+    </div>
+
+    <div slot="answer">
+        **Reguläre Ausdrücke (Regex)** sind Suchmuster, um Texte auf bestimmte **Muster** zu prüfen, zu suchen oder zu ersetzen.
+
+        <br/>
+        **Wichtige Zeichen:**
+
+        | Zeichen | Bedeutung | Beispiel |
+        |---------|-----------|---------|
+        | `.` | Beliebiges Zeichen | `a.c` → abc, a1c |
+        | `*` | 0 oder mehr Wiederholungen | `ab*` → a, ab, abb |
+        | `+` | 1 oder mehr Wiederholungen | `ab+` → ab, abb (nicht a) |
+        | `?` | 0 oder 1 Mal | `colou?r` → color, colour |
+        | `^` | Zeilenanfang | `^Hallo` |
+        | `$` | Zeilenende | `Ende$` |
+        | `[abc]` | Eines der Zeichen | `[aeiou]` → Vokal |
+        | `[0-9]` | Ziffernbereich | `[0-9]+` → Zahlen |
+        | `\d` | Ziffer (= `[0-9]`) | `\d{3}` → 123 |
+        | `\w` | Wortzeichen (Buchstabe, Ziffer, _) | `\w+` |
+        | `\s` | Whitespace | `\s+` |
+        | `{n,m}` | n bis m Wiederholungen | `\d{2,4}` → 12, 123, 1234 |
+
+        <br/>
+        **Praxis-Beispiele:**
+        - E-Mail: `\w+@\w+\.\w+`
+        - PLZ (deutsch): `\d{5}`
+        - Telefon: `\+?\d[\d\s-]{8,}`
+
+        <br/>
+        **Einsatz:** Validierung (Formulare), Suchen & Ersetzen, Logfile-Analyse, Textparsing.
+    </div>
+</Flashcard>

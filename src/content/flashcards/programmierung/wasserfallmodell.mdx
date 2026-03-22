@@ -1,0 +1,41 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist das Wasserfallmodell?
+    </div>
+
+    <div slot="answer">
+        Das **Wasserfallmodell** ist ein **lineares, sequentielles** Vorgehensmodell der Softwareentwicklung. Jede Phase muss abgeschlossen sein, bevor die nächste beginnt.
+
+        <br/>
+        **Phasen:**
+        1. **Anforderungsanalyse** — Was soll das System leisten?
+        2. **Entwurf** — Wie wird das System aufgebaut?
+        3. **Implementierung** — Code schreiben
+        4. **Test** — Fehler finden und beheben
+        5. **Betrieb & Wartung** — Auslieferung und Pflege
+
+        <br/>
+        **Vorteile:**
+        - Klare Struktur und Meilensteine
+        - Einfach zu verstehen und zu planen
+        - Gute Dokumentation
+
+        <br/>
+        **Nachteile:**
+        - **Unflexibel:** Änderungen sind teuer und schwierig
+        - Fehler werden oft erst spät entdeckt (in der Testphase)
+        - Kunde sieht das Ergebnis erst am Ende
+
+        <br/>
+        **Geeignet für:** Projekte mit stabilen, klar definierten Anforderungen (z. B. Embedded Systems, regulierte Branchen).
+
+        <br/>
+        **Abgrenzung zu agil:** Im Gegensatz zu Scrum gibt es beim Wasserfall **keine Iterationen** — kein kontinuierliches Feedback.
+    </div>
+</Flashcard>

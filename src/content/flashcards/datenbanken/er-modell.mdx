@@ -1,0 +1,36 @@
+---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist ein Entity-Relationship-Modell (ERM)?
+    </div>
+
+    <div slot="answer">
+        Ein **Entity-Relationship-Modell (ERM)** ist eine grafische Darstellung der Datenstruktur, die **Entitäten** (Objekte), ihre **Attribute** (Eigenschaften) und **Beziehungen** (Relationships) zueinander zeigt.
+
+        <br/>
+        **Bestandteile (Chen-Notation):**
+        - **Rechteck:** Entität (z. B. Kunde, Produkt)
+        - **Ellipse:** Attribut (z. B. Name, Preis)
+        - **Raute:** Beziehung (z. B. „kauft")
+        - **Linien:** Verbinden Entitäten mit Beziehungen
+
+        <br/>
+        **Beispiel:**
+        Kunde ——[1]—— kauft ——[n]—— Produkt
+
+        <br/>
+        **Schritte zur Erstellung:**
+        1. Entitäten identifizieren
+        2. Attribute zuordnen
+        3. Beziehungen und Kardinalitäten bestimmen
+        4. Primärschlüssel festlegen
+
+        <br/>
+        **Zweck:** Das ERM dient als Grundlage für das **Tabellenmodell** und damit für die tatsächliche Datenbankstruktur.
+    </div>
+</Flashcard>

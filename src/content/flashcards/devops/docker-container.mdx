@@ -1,0 +1,46 @@
+---
+tags:
+  - 'DevOps'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist Docker und was sind Container?
+    </div>
+
+    <div slot="answer">
+        **Docker** ist eine Plattform zur Erstellung und Ausführung von **Containern** — leichtgewichtige, isolierte Umgebungen, die eine Anwendung samt aller Abhängigkeiten bündeln.
+
+        <br/>
+        **Container vs. Virtuelle Maschine:**
+
+        | Merkmal | Container | VM |
+        |---------|-----------|-----|
+        | **Isolation** | Prozess-Level | Hardware-Level |
+        | **OS** | Teilt Host-Kernel | Eigenes OS |
+        | **Größe** | MB (leichtgewichtig) | GB (schwer) |
+        | **Startzeit** | Sekunden | Minuten |
+        | **Performance** | Nahezu nativ | Overhead durch Hypervisor |
+
+        <br/>
+        **Kernbegriffe:**
+        - **Dockerfile:** Bauanleitung für ein Image (welches OS, welche Software, welche Befehle)
+        - **Image:** Unveränderliche Vorlage (wie eine Klasse)
+        - **Container:** Laufende Instanz eines Images (wie ein Objekt)
+        - **Docker Hub:** Registry für öffentliche/private Images
+
+        <br/>
+        **Beispiel Dockerfile:**
+        ```dockerfile
+        FROM node:18
+        WORKDIR /app
+        COPY . .
+        RUN npm install
+        CMD ["npm", "start"]
+        ```
+
+        <br/>
+        **Vorteil:** *„Works on my machine"* wird zu *„Works everywhere"* — identische Umgebung in Entwicklung, Test und Produktion.
+    </div>
+</Flashcard>

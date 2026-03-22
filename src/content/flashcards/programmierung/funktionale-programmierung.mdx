@@ -1,0 +1,54 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist funktionale Programmierung?
+    </div>
+
+    <div slot="answer">
+        **Funktionale Programmierung (FP)** ist ein Programmierparadigma, bei dem **Funktionen** die zentralen Bausteine sind und **Seiteneffekte** vermieden werden.
+
+        <br/>
+        **Kernprinzipien:**
+
+        **1. Reine Funktionen (Pure Functions):**
+        - Gleiche Eingabe → immer gleiche Ausgabe
+        - Keine Seiteneffekte (kein Zustandsändern, kein I/O)
+        ```java
+        // Rein: int addiere(int a, int b) { return a + b; }
+        // Unrein: void save(User u) { database.save(u); }
+        ```
+
+        <br/>
+        **2. Unveränderlichkeit (Immutability):**
+        - Daten werden nicht verändert, sondern **neue** Daten erzeugt
+        - Weniger Bugs durch unerwartete Zustandsänderungen
+
+        <br/>
+        **3. Funktionen als Werte:**
+        - Funktionen können als Parameter übergeben oder zurückgegeben werden
+        - → Higher-Order Functions (z. B. `map`, `filter`, `reduce`)
+
+        <br/>
+        **4. Deklarativ statt imperativ:**
+        ```java
+        // Imperativ: WIE
+        List<String> result = new ArrayList<>();
+        for (String name : names) {
+            if (name.startsWith("A")) result.add(name);
+        }
+
+        // Funktional: WAS
+        var result = names.stream()
+            .filter(n -> n.startsWith("A"))
+            .collect(toList());
+        ```
+
+        <br/>
+        **Sprachen:** Haskell, Erlang, Clojure — aber auch Java (Streams), JavaScript, Python unterstützen FP-Konzepte.
+    </div>
+</Flashcard>

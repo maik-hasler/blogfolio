@@ -1,0 +1,35 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was bedeutet Idempotenz bei HTTP-Methoden?
+    </div>
+
+    <div slot="answer">
+        Eine Operation ist **idempotent**, wenn sie **beliebig oft ausgeführt** werden kann und immer das **gleiche Ergebnis** liefert — der Zustand der Ressource ändert sich nach dem ersten Aufruf nicht mehr.
+
+        <br/>
+        **Idempotente Methoden:**
+
+        | Methode | Idempotent? | Erklärung |
+        |---------|:-----------:|-----------|
+        | `GET` | Ja | Liest nur, ändert nichts |
+        | `PUT` | Ja | Ersetzt Ressource immer mit demselben Zustand |
+        | `DELETE` | Ja | Ergebnis: Ressource existiert nicht (egal ob 1x oder 10x aufgerufen) |
+        | `PATCH` | Teilweise | Kann idempotent sein, muss aber nicht |
+        | `POST` | Nein | Erstellt bei jedem Aufruf eine neue Ressource |
+
+        <br/>
+        **Warum ist das wichtig?**
+        - Netzwerkfehler können dazu führen, dass eine Anfrage **wiederholt** wird
+        - Bei idempotenten Methoden ist das **kein Problem** — das Ergebnis bleibt gleich
+        - Bei `POST` kann eine Wiederholung zu **Duplikaten** führen
+
+        <br/>
+        **Praxis:** Deshalb sollte z. B. eine Zahlungsanfrage mit einem eindeutigen Idempotency-Key abgesichert werden.
+    </div>
+</Flashcard>

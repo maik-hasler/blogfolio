@@ -1,0 +1,38 @@
+---
+tags:
+  - 'Netzwerktechnik'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist der Unterschied zwischen Switch, Router und Firewall?
+    </div>
+
+    <div slot="answer">
+        | Gerät | OSI-Schicht | Aufgabe |
+        |-------|:-----------:|---------|
+        | **Switch** | 2 (Data Link) | Verbindet Geräte **innerhalb** eines lokalen Netzwerks (LAN) anhand von MAC-Adressen |
+        | **Router** | 3 (Network) | Verbindet **verschiedene Netzwerke** miteinander und leitet Pakete anhand von IP-Adressen weiter |
+        | **Firewall** | 3-7 | Kontrolliert und filtert den **Netzwerkverkehr** nach definierten Regeln |
+
+        <br/>
+        **Switch:**
+        - Leitet Daten gezielt an das Zielgerät (nicht an alle)
+        - Arbeitet mit **MAC-Adressen**
+        - Ersetzt den Hub (der alles an alle sendet)
+
+        <br/>
+        **Router:**
+        - Verbindet z. B. Heimnetz mit dem Internet
+        - Führt **NAT** durch (private → öffentliche IP)
+        - Trifft **Routing-Entscheidungen** (bester Weg zum Ziel)
+
+        <br/>
+        **Firewall:**
+        - **Paketfilter:** Prüft IP-Adressen und Ports
+        - **Stateful Inspection:** Kennt den Zustand einer Verbindung
+        - **Application Layer Firewall:** Prüft den Inhalt (z. B. HTTP-Anfragen)
+        - Kann als Hardware oder Software existieren
+    </div>
+</Flashcard>

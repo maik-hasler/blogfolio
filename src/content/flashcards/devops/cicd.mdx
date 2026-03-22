@@ -1,0 +1,46 @@
+---
+tags:
+  - 'DevOps'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist CI/CD (Continuous Integration / Continuous Deployment)?
+    </div>
+
+    <div slot="answer">
+        **CI/CD** ist eine Methode, um Softwareänderungen **automatisiert** zu bauen, zu testen und auszuliefern.
+
+        <br/>
+        **Continuous Integration (CI):**
+        - Entwickler mergen ihren Code **regelmäßig** in den Hauptbranch
+        - Bei jedem Merge wird automatisch:
+          - Der Code **gebaut** (Build)
+          - **Tests** ausgeführt (Unit, Integration)
+          - **Code-Qualität** geprüft (Linting, Static Analysis)
+        - Fehler werden **sofort** erkannt
+
+        <br/>
+        **Continuous Delivery (CD):**
+        - Jede Änderung, die CI besteht, ist **jederzeit deploybar**
+        - Das Deployment in Produktion erfolgt **manuell** per Knopfdruck
+
+        <br/>
+        **Continuous Deployment:**
+        - Geht einen Schritt weiter: **Automatisches** Deployment in Produktion
+        - Keine manuelle Freigabe nötig
+
+        <br/>
+        **Pipeline-Beispiel:**
+        ```
+        git push → Build → Unit Tests → Integration Tests → Deploy Staging → Deploy Production
+        ```
+
+        <br/>
+        **Tools:** GitHub Actions, GitLab CI/CD, Jenkins, Azure DevOps, CircleCI
+
+        <br/>
+        **Vorteile:** Schnelleres Feedback, weniger manuelle Fehler, häufigere Releases, höhere Qualität.
+    </div>
+</Flashcard>

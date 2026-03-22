@@ -1,0 +1,41 @@
+---
+tags:
+  - 'Netzwerktechnik'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist NAT (Network Address Translation)?
+    </div>
+
+    <div slot="answer">
+        **NAT** übersetzt **private IP-Adressen** in **öffentliche IP-Adressen** und umgekehrt — so können viele Geräte mit privaten IPs über **eine einzige** öffentliche IP ins Internet.
+
+        <br/>
+        **Warum NAT?**
+        - IPv4-Adressen sind knapp (~4,3 Milliarden)
+        - In einem Heimnetz hat jedes Gerät eine **private** IP (z. B. 192.168.1.x)
+        - Der Router hat **eine** öffentliche IP vom Provider
+        - NAT übersetzt zwischen beiden
+
+        <br/>
+        **Ablauf:**
+        ```
+        PC (192.168.1.10) → Router → Internet (203.0.113.5)
+
+        Ausgehend: 192.168.1.10:5000 → wird zu → 203.0.113.5:12345
+        Eingehend:  203.0.113.5:12345 → wird zu → 192.168.1.10:5000
+        ```
+
+        <br/>
+        **NAT-Typen:**
+        - **Static NAT:** 1:1-Zuordnung (eine private → eine öffentliche IP)
+        - **Dynamic NAT:** Pool von öffentlichen IPs, dynamische Zuordnung
+        - **PAT (Port Address Translation):** Viele private IPs → eine öffentliche IP (unterschieden durch Ports). Häufigste Variante!
+
+        <br/>
+        **Vorteile:** Spart öffentliche IPs, bietet grundlegende Sicherheit (Geräte sind von außen nicht direkt erreichbar).
+        **Nachteile:** Erschwert Peer-to-Peer-Verbindungen, Ende-zu-Ende-Konnektivität gebrochen.
+    </div>
+</Flashcard>

@@ -1,0 +1,45 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist ATAM und wie bewertet man Softwarearchitektur?
+    </div>
+
+    <div slot="answer">
+        **ATAM (Architecture Tradeoff Analysis Method)** ist ein strukturiertes Verfahren zur **Bewertung** von Softwarearchitektur — es identifiziert Risiken und Tradeoffs.
+
+        <br/>
+        **Grundidee:**
+        Architektur wird nicht „richtig" oder „falsch" bewertet, sondern **im Hinblick auf Qualitätsszenarien** geprüft:
+        - „Wie verhält sich das System bei 10.000 gleichzeitigen Nutzern?" (Performance)
+        - „Wie schnell kann ein neuer Entwickler eine Funktion ändern?" (Wartbarkeit)
+
+        <br/>
+        **Qualitätsbaum:**
+        Hierarchische Darstellung der Qualitätsanforderungen mit konkreten Szenarien:
+        ```
+        Qualität
+        ├── Performance
+        │   ├── Antwortzeit < 200ms bei 95% der Anfragen
+        │   └── 10.000 gleichzeitige User
+        ├── Wartbarkeit
+        │   └── Neue Zahlungsmethode in < 2 Personentagen
+        └── Sicherheit
+            └── Kein unautorisierter Zugriff auf Kundendaten
+        ```
+
+        <br/>
+        **ATAM identifiziert:**
+        - **Sensitivity Points:** Architekturstellen, die ein Qualitätsmerkmal stark beeinflussen
+        - **Tradeoff Points:** Stellen, wo ein Qualitätsmerkmal auf Kosten eines anderen geht
+        - **Risiken:** Architekturentscheidungen, die Qualitätsziele gefährden
+        - **Nicht-Risiken:** Bestätigte, gut gelöste Aspekte
+
+        <br/>
+        **Merke:** Architektur ist immer ein **Abwägen** (Trade-off) — ATAM macht diese Abwägungen explizit und nachvollziehbar.
+    </div>
+</Flashcard>

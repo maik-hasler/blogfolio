@@ -1,0 +1,48 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist ein Deadlock und was ist eine Race Condition?
+    </div>
+
+    <div slot="answer">
+        Beide sind Probleme bei **nebenläufiger Programmierung** (mehrere Threads/Prozesse gleichzeitig).
+
+        <br/>
+        **Deadlock (Verklemmung):**
+        Zwei oder mehr Threads **blockieren sich gegenseitig**, weil jeder auf eine Ressource wartet, die der andere hält — keiner kann weitermachen.
+
+        ```
+        Thread A: hält Ressource 1, wartet auf Ressource 2
+        Thread B: hält Ressource 2, wartet auf Ressource 1
+        → Beide warten ewig → Deadlock!
+        ```
+
+        **Bedingungen (alle vier müssen gelten):**
+        1. **Mutual Exclusion:** Ressource kann nur von einem Thread genutzt werden
+        2. **Hold and Wait:** Thread hält eine Ressource und wartet auf eine weitere
+        3. **No Preemption:** Ressource kann nicht entzogen werden
+        4. **Circular Wait:** Zirkuläre Abhängigkeit
+
+        <br/>
+        ---
+
+        <br/>
+        **Race Condition (Wettlaufsituation):**
+        Das Ergebnis hängt von der **zeitlichen Reihenfolge** ab, in der Threads ausgeführt werden — führt zu unvorhersagbarem Verhalten.
+
+        ```
+        Konto: 100€
+        Thread A: liest 100€, addiert 50€ → schreibt 150€
+        Thread B: liest 100€, subtrahiert 30€ → schreibt 70€
+        → Ergebnis: 70€ statt 120€!
+        ```
+
+        <br/>
+        **Schutz:** Synchronisierung (z. B. `synchronized`, Locks, Semaphoren, Mutexe)
+    </div>
+</Flashcard>

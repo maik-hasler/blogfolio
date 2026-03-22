@@ -1,0 +1,35 @@
+---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist ein Fremdschlüssel?
+    </div>
+
+    <div slot="answer">
+        Ein **Fremdschlüssel (Foreign Key)** ist ein Attribut in einer Tabelle, das auf den **Primärschlüssel einer anderen Tabelle** verweist und so eine **Beziehung** zwischen den Tabellen herstellt.
+
+        <br/>
+        **Eigenschaften:**
+        - Stellt die **referentielle Integrität** sicher
+        - Der Wert muss in der referenzierten Tabelle existieren (oder NULL sein)
+        - Eine Tabelle kann **mehrere Fremdschlüssel** haben
+
+        <br/>
+        **Beispiel:**
+        ```sql
+        CREATE TABLE Bestellung (
+            BestellID INT PRIMARY KEY,
+            Datum DATE,
+            KundenID INT,
+            FOREIGN KEY (KundenID) REFERENCES Kunde(KundenID)
+        );
+        ```
+
+        <br/>
+        In diesem Beispiel verweist `KundenID` in der Tabelle `Bestellung` auf die Tabelle `Kunde`. Es kann keine Bestellung mit einer nicht existierenden `KundenID` angelegt werden.
+    </div>
+</Flashcard>

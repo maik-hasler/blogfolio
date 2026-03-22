@@ -1,0 +1,40 @@
+---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was sind Aggregatfunktionen in SQL?
+    </div>
+
+    <div slot="answer">
+        **Aggregatfunktionen** berechnen einen einzelnen Wert aus einer Gruppe von Zeilen.
+
+        <br/>
+        | Funktion | Beschreibung | Beispiel |
+        |----------|-------------|---------|
+        | `COUNT()` | Anzahl der Zeilen | `COUNT(*)` |
+        | `SUM()` | Summe der Werte | `SUM(Preis)` |
+        | `AVG()` | Durchschnitt | `AVG(Alter)` |
+        | `MIN()` | Kleinster Wert | `MIN(Gehalt)` |
+        | `MAX()` | Größter Wert | `MAX(Gehalt)` |
+
+        <br/>
+        **Beispiel:**
+        ```sql
+        SELECT
+            COUNT(*) AS Anzahl,
+            AVG(Preis) AS Durchschnittspreis,
+            MAX(Preis) AS Hoechstpreis
+        FROM Produkt;
+        ```
+
+        <br/>
+        **Wichtig:**
+        - Aggregatfunktionen ignorieren standardmäßig `NULL`-Werte
+        - `COUNT(*)` zählt alle Zeilen, `COUNT(spalte)` zählt nur Zeilen mit Wert
+        - Oft in Kombination mit `GROUP BY` verwendet
+    </div>
+</Flashcard>

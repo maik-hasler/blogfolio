@@ -1,0 +1,44 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist binäre Suche?
+    </div>
+
+    <div slot="answer">
+        Die **binäre Suche** ist ein effizienter Suchalgorithmus für **sortierte** Datenmengen. Sie halbiert den Suchbereich mit jedem Schritt.
+
+        <br/>
+        **Ablauf:**
+        1. Vergleiche den Suchwert mit dem **mittleren Element**
+        2. Ist er **gleich** → gefunden!
+        3. Ist er **kleiner** → suche in der linken Hälfte weiter
+        4. Ist er **größer** → suche in der rechten Hälfte weiter
+        5. Wiederhole, bis gefunden oder Suchbereich leer
+
+        <br/>
+        **Beispiel: Suche 7 in [1, 3, 5, 7, 9, 11, 13]**
+        ```
+        Schritt 1: Mitte = 7 → Treffer!
+        ```
+
+        **Suche 9:**
+        ```
+        Schritt 1: Mitte = 7, 9 > 7 → rechte Hälfte [9, 11, 13]
+        Schritt 2: Mitte = 11, 9 < 11 → linke Hälfte [9]
+        Schritt 3: Mitte = 9 → Treffer!
+        ```
+
+        <br/>
+        **Komplexität:**
+        - **Binäre Suche:** O(log n) — bei 1.000.000 Elementen max. ~20 Vergleiche!
+        - **Lineare Suche:** O(n) — im Worst Case 1.000.000 Vergleiche
+
+        <br/>
+        **Voraussetzung:** Die Daten müssen **sortiert** sein!
+    </div>
+</Flashcard>

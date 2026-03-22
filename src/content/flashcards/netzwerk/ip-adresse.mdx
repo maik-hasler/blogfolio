@@ -1,0 +1,39 @@
+---
+tags:
+  - 'Netzwerktechnik'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist eine IP-Adresse und was ist der Unterschied zwischen IPv4 und IPv6?
+    </div>
+
+    <div slot="answer">
+        Eine **IP-Adresse** ist eine eindeutige numerische Adresse, die ein Gerät in einem Netzwerk identifiziert (OSI-Schicht 3).
+
+        <br/>
+        **IPv4:**
+        - 32 Bit, dargestellt als 4 Dezimalzahlen: `192.168.1.100`
+        - Ca. **4,3 Milliarden** mögliche Adressen (2³²)
+        - Adressknappheit → NAT als Workaround
+
+        <br/>
+        **IPv6:**
+        - 128 Bit, dargestellt als 8 Hex-Gruppen: `2001:0db8:85a3::8a2e:0370:7334`
+        - Ca. **340 Sextillionen** Adressen (2¹²⁸)
+        - NAT nicht mehr nötig
+
+        <br/>
+        **Private IP-Adressbereiche (IPv4):**
+
+        | Klasse | Bereich | Typischer Einsatz |
+        |--------|---------|-------------------|
+        | A | `10.0.0.0 – 10.255.255.255` | Große Unternehmen |
+        | B | `172.16.0.0 – 172.31.255.255` | Mittlere Netze |
+        | C | `192.168.0.0 – 192.168.255.255` | Heimnetzwerke |
+
+        <br/>
+        **Wichtig:** Private Adressen sind **nicht** im Internet routbar — der Router übersetzt sie per **NAT** in eine öffentliche IP.
+    </div>
+</Flashcard>

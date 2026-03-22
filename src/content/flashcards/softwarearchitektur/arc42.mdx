@@ -1,0 +1,36 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist arc42 und wozu dient es?
+    </div>
+
+    <div slot="answer">
+        **arc42** ist ein **Template** zur Dokumentation von Software- und Systemarchitektur. Es wurde von Gernot Starke und Peter Hruschka entwickelt und ist der De-facto-Standard im deutschsprachigen Raum.
+
+        <br/>
+        **Die 12 Abschnitte:**
+
+        | Nr. | Abschnitt | Inhalt |
+        |-----|-----------|--------|
+        | 1 | Einführung & Ziele | Was soll das System? Wer sind die Stakeholder? |
+        | 2 | Randbedingungen | Technische, organisatorische, rechtliche Constraints |
+        | 3 | Kontextabgrenzung | System im Kontext externer Akteure/Systeme |
+        | 4 | Lösungsstrategie | Grundlegende Architekturentscheidungen |
+        | 5 | Bausteinsicht | Statische Zerlegung (Module, Komponenten) |
+        | 6 | Laufzeitsicht | Dynamisches Verhalten (Sequenzen, Abläufe) |
+        | 7 | Verteilungssicht | Infrastruktur, Deployment |
+        | 8 | Querschnittliche Konzepte | Logging, Security, Fehlerbehandlung etc. |
+        | 9 | Architekturentscheidungen | ADRs — Warum so und nicht anders? |
+        | 10 | Qualitätsanforderungen | Qualitätsbaum, Szenarien |
+        | 11 | Risiken & technische Schulden | Bekannte Probleme |
+        | 12 | Glossar | Fachbegriffe |
+
+        <br/>
+        **Wichtig:** Man muss **nicht alle 12 Abschnitte** ausfüllen — nur die relevanten. arc42 ist flexibel und skaliert.
+    </div>
+</Flashcard>

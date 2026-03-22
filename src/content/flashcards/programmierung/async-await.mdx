@@ -1,0 +1,53 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist asynchrone Programmierung (async/await)?
+    </div>
+
+    <div slot="answer">
+        **Asynchrone Programmierung** ermöglicht es, Aufgaben **nicht-blockierend** auszuführen — der Programmablauf wartet nicht auf langsame Operationen, sondern kann in der Zwischenzeit andere Arbeit erledigen.
+
+        <br/>
+        **Synchron (blockierend):**
+        ```
+        Daten von API holen    ████████████  3 Sek.
+        Daten verarbeiten                   ████  1 Sek.
+        → Gesamt: 4 Sek.
+        ```
+
+        **Asynchron (nicht-blockierend):**
+        ```
+        Daten von API holen    ████████████  3 Sek.
+        Andere Arbeit tun      ████████      (parallel)
+        Daten verarbeiten                   ████  1 Sek.
+        ```
+
+        <br/>
+        **JavaScript-Beispiel:**
+        ```javascript
+        // Synchron — blockiert
+        const data = fetchDataSync(); // wartet...
+        console.log(data);
+
+        // Asynchron mit async/await
+        async function loadData() {
+            const data = await fetch('/api/users');
+            const json = await data.json();
+            console.log(json); // erst nach Antwort
+        }
+        ```
+
+        <br/>
+        **Wann nützlich?**
+        - **I/O-Operationen:** API-Aufrufe, Datenbankabfragen, Dateizugriff
+        - **UI:** Benutzeroberfläche bleibt während langer Operationen responsiv
+
+        <br/>
+        **Wichtig:** `async`/`await` macht Code **lesbarer** als verschachtelte Callbacks oder Promise-Chains, löst aber keine CPU-gebundenen Probleme (dafür: Threads/Worker).
+    </div>
+</Flashcard>

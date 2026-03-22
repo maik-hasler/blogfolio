@@ -1,0 +1,45 @@
+---
+tags:
+  - 'Webentwicklung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist der Unterschied zwischen Frontend und Backend?
+    </div>
+
+    <div slot="answer">
+        | Merkmal | Frontend | Backend |
+        |---------|----------|---------|
+        | **Was?** | Alles, was der Benutzer **sieht und bedient** | Alles, was **im Hintergrund** passiert |
+        | **Wo?** | Läuft im **Browser** (Client) | Läuft auf dem **Server** |
+        | **Sprachen** | HTML, CSS, JavaScript | Java, C#, Python, Node.js, PHP |
+        | **Aufgabe** | UI, Layout, Interaktion | Geschäftslogik, Datenbank, API |
+
+        <br/>
+        **Frontend:**
+        - Benutzeroberfläche (UI/UX)
+        - Formulare, Buttons, Navigation
+        - Validierung im Browser (Client-Side)
+        - Frameworks: React, Angular, Vue.js, Svelte
+
+        <br/>
+        **Backend:**
+        - Verarbeitung der Geschäftslogik
+        - Datenbankzugriff (CRUD-Operationen)
+        - Authentifizierung & Autorisierung
+        - REST-APIs bereitstellen
+        - Frameworks: Spring Boot, ASP.NET, Express.js, Django
+
+        <br/>
+        **Zusammenspiel:**
+        ```
+        Benutzer → Browser (Frontend) → HTTP-Request → Server (Backend) → Datenbank
+                                       ← HTTP-Response (JSON) ←
+        ```
+
+        <br/>
+        **Fullstack-Entwickler:** Beherrscht sowohl Frontend als auch Backend.
+    </div>
+</Flashcard>

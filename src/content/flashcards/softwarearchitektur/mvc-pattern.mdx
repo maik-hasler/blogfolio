@@ -1,0 +1,42 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist das MVC-Pattern (Model-View-Controller)?
+    </div>
+
+    <div slot="answer">
+        **MVC** ist ein Architekturmuster, das eine Anwendung in drei Schichten trennt:
+
+        <br/>
+        **Model (Modell):**
+        - Enthält die **Daten und Geschäftslogik**
+        - Kennt weder View noch Controller
+        - Beispiel: Klasse `Kunde` mit Attributen und Validierung
+
+        <br/>
+        **View (Ansicht):**
+        - Stellt die Daten **dar** (UI/Benutzeroberfläche)
+        - Zeigt den Zustand des Models an
+        - Beispiel: HTML-Seite, WPF-Fenster
+
+        <br/>
+        **Controller (Steuerung):**
+        - Nimmt **Benutzereingaben** entgegen
+        - Koordiniert Model und View
+        - Beispiel: Verarbeitet einen Button-Klick, aktualisiert das Model
+
+        <br/>
+        **Vorteile:**
+        - **Separation of Concerns:** Klare Trennung der Verantwortlichkeiten
+        - **Testbarkeit:** Model kann unabhängig von der UI getestet werden
+        - **Wiederverwendbarkeit:** Verschiedene Views für dasselbe Model möglich
+
+        <br/>
+        **Verwandte Muster:** MVVM (Model-View-ViewModel), MVP (Model-View-Presenter)
+    </div>
+</Flashcard>

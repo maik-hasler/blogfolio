@@ -1,0 +1,62 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was sind map, filter und reduce?
+    </div>
+
+    <div slot="answer">
+        Die drei grundlegenden **Higher-Order Functions** der funktionalen Programmierung — sie verarbeiten Listen/Streams ohne manuelle Schleifen.
+
+        <br/>
+        **map — Transformieren:**
+        Wendet eine Funktion auf **jedes Element** an und gibt eine neue Liste zurück.
+        ```java
+        [1, 2, 3].map(x -> x * 2)  →  [2, 4, 6]
+
+        // Java Stream:
+        List<String> namen = personen.stream()
+            .map(Person::getName)
+            .collect(toList());
+        ```
+
+        <br/>
+        **filter — Filtern:**
+        Behält nur Elemente, für die eine Bedingung **true** ergibt.
+        ```java
+        [1, 2, 3, 4, 5].filter(x -> x > 3)  →  [4, 5]
+
+        // Java Stream:
+        List<Person> erwachsene = personen.stream()
+            .filter(p -> p.getAlter() >= 18)
+            .collect(toList());
+        ```
+
+        <br/>
+        **reduce — Zusammenfassen:**
+        Reduziert eine Liste auf **einen einzelnen Wert** durch wiederholte Anwendung einer Operation.
+        ```java
+        [1, 2, 3, 4].reduce(0, (sum, x) -> sum + x)  →  10
+
+        // Java Stream:
+        int summe = zahlen.stream()
+            .reduce(0, Integer::sum);
+        ```
+
+        <br/>
+        **Kombination (Pipeline):**
+        ```java
+        double schnitt = mitarbeiter.stream()
+            .filter(m -> m.getAbteilung().equals("IT"))
+            .map(Mitarbeiter::getGehalt)
+            .reduce(0.0, Double::sum) / count;
+        ```
+
+        <br/>
+        **Vorteile:** Deklarativ, lesbar, parallelisierbar, keine Seiteneffekte.
+    </div>
+</Flashcard>

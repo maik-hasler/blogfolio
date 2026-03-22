@@ -1,0 +1,53 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was sind Blue-Green Deployment, Canary Deployment und Feature Toggles?
+    </div>
+
+    <div slot="answer">
+        Strategien für **risikoarme Deployments** in Produktion:
+
+        <br/>
+        **Blue-Green Deployment:**
+        Zwei identische Produktionsumgebungen (Blue + Green):
+        ```
+        [Blue: v1.0 ← LIVE]    [Green: v2.0 bereit]
+                ↓ Switch
+        [Blue: v1.0 Standby]   [Green: v2.0 ← LIVE]
+        ```
+        - Neue Version wird auf Green deployt und getestet
+        - Traffic wird per Load Balancer umgeschaltet
+        - **Rollback:** Einfach zurück auf Blue schalten
+        - **Nachteil:** Doppelte Infrastrukturkosten
+
+        <br/>
+        **Canary Deployment:**
+        Neue Version wird **schrittweise** an einen kleinen Teil der Nutzer ausgerollt:
+        ```
+        Phase 1:  5% der User → v2.0,  95% → v1.0
+        Phase 2: 25% der User → v2.0,  75% → v1.0
+        Phase 3: 100% der User → v2.0
+        ```
+        - Fehler werden **früh erkannt**, bevor alle betroffen sind
+        - Wie ein Kanarienvogel im Bergwerk
+
+        <br/>
+        **Feature Toggles (Feature Flags):**
+        Neue Features werden **im Code ein-/ausschaltbar** gemacht:
+        ```java
+        if (featureToggle.isEnabled("neues-checkout")) {
+            neuerCheckout();
+        } else {
+            alterCheckout();
+        }
+        ```
+        - Deploy und Release werden **entkoppelt**
+        - Features können für bestimmte User, Regionen oder Zeiträume aktiviert werden
+        - **Achtung:** Toggles aufräumen, sonst entsteht technische Schuld!
+    </div>
+</Flashcard>

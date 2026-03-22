@@ -1,0 +1,36 @@
+---
+tags:
+  - 'Netzwerktechnik'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist der Unterschied zwischen TCP und UDP?
+    </div>
+
+    <div slot="answer">
+        Beide sind **Transportprotokolle** (OSI-Schicht 4), unterscheiden sich aber grundlegend:
+
+        <br/>
+        | Merkmal | TCP | UDP |
+        |---------|-----|-----|
+        | **Name** | Transmission Control Protocol | User Datagram Protocol |
+        | **Verbindung** | Verbindungsorientiert (Drei-Wege-Handshake) | Verbindungslos |
+        | **Zuverlässigkeit** | Garantierte Zustellung, Reihenfolge | Keine Garantie |
+        | **Fehlerkorrektur** | Ja (Neuübertragung) | Nein |
+        | **Geschwindigkeit** | Langsamer (Overhead) | Schneller (kein Overhead) |
+        | **Einsatz** | Webseiten, E-Mail, Dateiübertragung | Streaming, Gaming, VoIP, DNS |
+
+        <br/>
+        **TCP-Drei-Wege-Handshake:**
+        1. Client → Server: **SYN** (Verbindungsanfrage)
+        2. Server → Client: **SYN-ACK** (Bestätigung)
+        3. Client → Server: **ACK** (Verbindung steht)
+
+        <br/>
+        **Faustregel:**
+        - **TCP** wenn Daten vollständig und korrekt ankommen müssen
+        - **UDP** wenn Geschwindigkeit wichtiger ist als Vollständigkeit
+    </div>
+</Flashcard>

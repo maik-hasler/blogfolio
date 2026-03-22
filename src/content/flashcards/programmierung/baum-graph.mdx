@@ -1,0 +1,57 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was sind Bäume und Graphen in der Informatik?
+    </div>
+
+    <div slot="answer">
+        **Baum (Tree):**
+        Ein hierarchische Datenstruktur mit einem **Wurzelknoten** und **Kindknoten**. Jeder Knoten hat genau einen Elternknoten (außer die Wurzel).
+
+        ```
+               A         ← Wurzel (Root)
+              / \
+             B   C        ← Kindknoten
+            / \   \
+           D   E   F      ← Blätter (Leaves)
+        ```
+
+        <br/>
+        **Begriffe:**
+        - **Wurzel:** Oberster Knoten
+        - **Blatt:** Knoten ohne Kinder
+        - **Tiefe:** Abstand zur Wurzel
+        - **Binärbaum:** Jeder Knoten hat max. 2 Kinder
+
+        <br/>
+        **Binärer Suchbaum:** Links kleiner, rechts größer → ermöglicht effiziente Suche O(log n).
+
+        <br/>
+        **Einsatz:** Dateisysteme, DOM (HTML), Datenbank-Indexe (B-Bäume), Entscheidungsbäume.
+
+        <br/>
+        ---
+
+        <br/>
+        **Graph:**
+        Besteht aus **Knoten** und **Kanten** — ohne Hierarchie. Kanten können **gerichtet** oder **ungerichtet** sein.
+
+        ```
+        A --- B     (ungerichtet)
+        |   / |
+        C --- D
+
+        A → B → C   (gerichtet)
+        ```
+
+        <br/>
+        **Einsatz:** Soziale Netzwerke, Routenplanung, Netzwerktopologien, Abhängigkeitsmanagement.
+
+        **Traversierung:** Breitensuche (BFS) mit Queue, Tiefensuche (DFS) mit Stack/Rekursion.
+    </div>
+</Flashcard>

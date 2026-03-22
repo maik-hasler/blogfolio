@@ -1,0 +1,40 @@
+---
+tags:
+  - 'Netzwerktechnik'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist Subnetting und wie funktioniert eine Subnetzmaske?
+    </div>
+
+    <div slot="answer">
+        **Subnetting** ist die Aufteilung eines Netzwerks in kleinere Teilnetze (Subnetze). Die **Subnetzmaske** bestimmt, welcher Teil der IP-Adresse das **Netz** und welcher den **Host** identifiziert.
+
+        <br/>
+        **Beispiel:**
+        - IP-Adresse: `192.168.1.100`
+        - Subnetzmaske: `255.255.255.0` (oder `/24`)
+        - **Netzanteil:** `192.168.1` → identifiziert das Netz
+        - **Hostanteil:** `.100` → identifiziert das Gerät
+
+        <br/>
+        **CIDR-Notation:** `/24` = die ersten 24 Bit sind Netzanteil
+
+        | CIDR | Subnetzmaske | Hosts pro Subnetz |
+        |------|-------------|-------------------|
+        | /24 | 255.255.255.0 | 254 |
+        | /25 | 255.255.255.128 | 126 |
+        | /26 | 255.255.255.192 | 62 |
+        | /27 | 255.255.255.224 | 30 |
+        | /28 | 255.255.255.240 | 14 |
+
+        <br/>
+        **Berechnung der Hosts:** 2^(Hostbits) − 2
+        (Abzug für Netzadresse und Broadcast-Adresse)
+
+        <br/>
+        **Warum Subnetting?** Sicherheit (Netztrennung), weniger Broadcast-Verkehr, effizientere IP-Nutzung.
+    </div>
+</Flashcard>

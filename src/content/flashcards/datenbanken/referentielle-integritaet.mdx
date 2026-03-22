@@ -1,0 +1,34 @@
+---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist referentielle Integrität?
+    </div>
+
+    <div slot="answer">
+        **Referentielle Integrität** ist eine Regel, die sicherstellt, dass Beziehungen zwischen Tabellen **konsistent** bleiben. Jeder Fremdschlüsselwert muss auf einen **existierenden Primärschlüssel** in der referenzierten Tabelle verweisen (oder NULL sein).
+
+        <br/>
+        **Was wird verhindert?**
+        - Einfügen einer Bestellung mit einer nicht existierenden KundenID
+        - Löschen eines Kunden, der noch offene Bestellungen hat
+
+        <br/>
+        **Aktionen bei Verletzung (ON DELETE / ON UPDATE):**
+        - **CASCADE:** Abhängige Datensätze werden ebenfalls gelöscht/aktualisiert
+        - **SET NULL:** Fremdschlüssel wird auf NULL gesetzt
+        - **RESTRICT / NO ACTION:** Aktion wird verhindert (Standard)
+
+        <br/>
+        **Beispiel:**
+        ```sql
+        FOREIGN KEY (KundenID) REFERENCES Kunde(KundenID)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE
+        ```
+    </div>
+</Flashcard>

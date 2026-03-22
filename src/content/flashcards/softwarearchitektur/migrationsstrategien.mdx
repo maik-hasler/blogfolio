@@ -1,0 +1,41 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Welche Migrationsstrategien gibt es für IT-Systeme (die 6 R's)?
+    </div>
+
+    <div slot="answer">
+        Die **6 R's der Migration** beschreiben verschiedene Strategien, wie bestehende Systeme modernisiert oder in neue Umgebungen (z. B. Cloud) überführt werden können.
+
+        <br/>
+        | Strategie | Beschreibung | Aufwand | Nutzen |
+        |-----------|-------------|:-------:|:------:|
+        | **Rehost** (Lift & Shift) | 1:1 auf neue Infrastruktur verschieben | Gering | Gering |
+        | **Replatform** (Lift & Reshape) | Kleine Anpassungen an neue Plattform | Mittel | Mittel |
+        | **Refactor / Re-architect** | Umstrukturierung der Architektur | Hoch | Hoch |
+        | **Repurchase** | Durch neue Lösung ersetzen (z. B. SaaS) | Mittel | Mittel |
+        | **Retain** | Vorerst nicht migrieren, beibehalten | Keiner | Keiner |
+        | **Retire** | System abschalten (nicht mehr benötigt) | Gering | Positiv |
+
+        <br/>
+        **Strangler Fig Pattern:**
+        Schrittweise Migration — das alte System wird **nach und nach** durch neue Komponenten ersetzt, bis es vollständig abgelöst ist. Wie eine Würgefeige, die den alten Baum langsam ersetzt.
+
+        ```
+        Phase 1: [Alt: 90%] [Neu: 10%]
+        Phase 2: [Alt: 50%] [Neu: 50%]
+        Phase 3: [Alt: 10%] [Neu: 90%]
+        Phase 4: [Neu: 100%] → Alt abschalten
+        ```
+
+        <br/>
+        **Big Bang vs. Schrittweise:**
+        - **Big Bang:** Alles auf einmal umstellen → riskant, aber schnell
+        - **Schrittweise:** Parallelbetrieb, Feature für Feature → sicherer, aber aufwändiger
+    </div>
+</Flashcard>

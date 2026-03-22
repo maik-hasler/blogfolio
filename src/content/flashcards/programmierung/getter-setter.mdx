@@ -1,0 +1,44 @@
+---
+tags:
+  - 'Objektorientierte Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was sind Getter und Setter und warum verwendet man sie?
+    </div>
+
+    <div slot="answer">
+        **Getter** und **Setter** sind Methoden, die den kontrollierten Zugriff auf private Attribute einer Klasse ermöglichen.
+
+        <br/>
+        - **Getter:** Gibt den Wert eines privaten Attributs zurück (Lesezugriff)
+        - **Setter:** Setzt den Wert eines privaten Attributs (Schreibzugriff mit Validierung)
+
+        <br/>
+        **Beispiel in C# (Properties):**
+        ```csharp
+        class Person
+        {
+            private int alter;
+
+            public int Alter
+            {
+                get { return alter; }
+                set
+                {
+                    if (value >= 0 && value <= 150)
+                        alter = value;
+                }
+            }
+        }
+        ```
+
+        <br/>
+        **Warum nicht einfach `public` Attribute?**
+        - **Validierung:** Ungültige Werte können abgefangen werden
+        - **Kontrolle:** Lesezugriff ohne Schreibzugriff möglich
+        - **Flexibilität:** Interne Implementierung kann geändert werden, ohne die Schnittstelle zu ändern
+    </div>
+</Flashcard>

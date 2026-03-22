@@ -1,0 +1,47 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was sind OAuth 2.0 und JWT?
+    </div>
+
+    <div slot="answer">
+        **OAuth 2.0** ist ein Autorisierungsprotokoll, das es Anwendungen ermöglicht, im Namen eines Benutzers auf Ressourcen zuzugreifen — **ohne das Passwort zu kennen**.
+
+        <br/>
+        **Beispiel:** „Mit Google anmelden" — die App erhält ein Token von Google, nicht dein Passwort.
+
+        <br/>
+        **OAuth 2.0 Rollen:**
+        - **Resource Owner:** Der Benutzer
+        - **Client:** Die App, die Zugriff möchte
+        - **Authorization Server:** Stellt Tokens aus (z. B. Google)
+        - **Resource Server:** Schützt die Daten (z. B. Google API)
+
+        <br/>
+        **Ablauf (Authorization Code Flow):**
+        1. App leitet Benutzer zum Authorization Server
+        2. Benutzer meldet sich an und gibt Zustimmung
+        3. App erhält einen **Authorization Code**
+        4. App tauscht Code gegen ein **Access Token**
+        5. App nutzt Token für API-Anfragen
+
+        <br/>
+        ---
+
+        <br/>
+        **JWT (JSON Web Token):** Ein kompaktes, signiertes Token-Format.
+
+        **Aufbau:** `Header.Payload.Signature`
+        - **Header:** Algorithmus + Typ
+        - **Payload:** Benutzerdaten (Claims), z. B. User-ID, Rolle, Ablaufzeit
+        - **Signature:** Digitale Signatur zur Integritätsprüfung
+
+        <br/>
+        **Wichtig:** JWTs sind **signiert** (Manipulation erkennbar), aber **nicht verschlüsselt** — der Payload ist Base64-kodiert und lesbar!
+    </div>
+</Flashcard>

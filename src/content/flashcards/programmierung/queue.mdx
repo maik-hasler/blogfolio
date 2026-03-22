@@ -1,0 +1,43 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist eine Queue (Warteschlange)?
+    </div>
+
+    <div slot="answer">
+        Eine **Queue** ist eine Datenstruktur nach dem **FIFO-Prinzip** (First In, First Out) — das zuerst hinzugefügte Element wird als erstes wieder entnommen. Wie eine Warteschlange an der Kasse.
+
+        <br/>
+        **Operationen:**
+        - **enqueue(element):** Element hinten anfügen
+        - **dequeue():** Vorderstes Element entfernen und zurückgeben
+        - **peek() / front():** Vorderstes Element ansehen
+        - **isEmpty():** Prüfen, ob die Queue leer ist
+
+        <br/>
+        **Visualisierung:**
+        ```
+        enqueue(A) → enqueue(B) → enqueue(C) → dequeue()
+
+        Vorne ← [A]  [A, B]  [A, B, C]  [B, C] → Hinten
+                                          ↑ A wurde entfernt
+        ```
+
+        <br/>
+        **Anwendungen:**
+        - **Druckaufträge:** Werden in Reihenfolge abgearbeitet
+        - **Message Queues:** Asynchrone Nachrichtenverarbeitung (RabbitMQ, Kafka)
+        - **Task-Scheduling:** Betriebssystem verwaltet Prozesse in Queues
+        - **Breitensuche (BFS):** In Graphen und Bäumen
+
+        <br/>
+        **Varianten:**
+        - **Priority Queue:** Elemente nach Priorität, nicht nach Reihenfolge
+        - **Double-ended Queue (Deque):** Einfügen und Entfernen an beiden Enden
+    </div>
+</Flashcard>

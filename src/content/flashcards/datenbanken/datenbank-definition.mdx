@@ -1,0 +1,30 @@
+---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist eine Datenbank und welche Vorteile bietet sie?
+    </div>
+
+    <div slot="answer">
+        Eine **Datenbank** ist eine organisierte Sammlung von Daten, die elektronisch gespeichert und verwaltet wird. Ein **Datenbankmanagementsystem (DBMS)** steuert den Zugriff auf die Daten.
+
+        <br/>
+        **Vorteile gegenüber Dateispeicherung:**
+        - **Redundanzminimierung:** Daten werden nur einmal gespeichert
+        - **Datenintegrität:** Konsistenz durch Regeln und Constraints
+        - **Mehrbenutzerzugriff:** Gleichzeitiger Zugriff durch mehrere Nutzer
+        - **Datensicherheit:** Zugriffsrechte und Berechtigungen
+        - **Datenunabhängigkeit:** Trennung von Daten und Anwendungslogik
+        - **Backup und Recovery:** Sicherung und Wiederherstellung
+
+        <br/>
+        **Arten von Datenbanken:**
+        - **Relationale DB:** Daten in Tabellen mit Beziehungen (z. B. MySQL, PostgreSQL, SQL Server)
+        - **NoSQL:** Dokumentbasiert, Key-Value, Spaltenorientiert, Graphbasiert
+        - **In-Memory-DB:** Daten im Arbeitsspeicher für schnelle Zugriffe (z. B. Redis)
+    </div>
+</Flashcard>

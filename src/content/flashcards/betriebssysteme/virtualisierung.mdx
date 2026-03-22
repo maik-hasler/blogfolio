@@ -1,0 +1,41 @@
+---
+tags:
+  - 'Betriebssysteme'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist Virtualisierung?
+    </div>
+
+    <div slot="answer">
+        **Virtualisierung** erzeugt eine **virtuelle Version** einer Ressource (Server, Betriebssystem, Netzwerk, Speicher) auf einer physischen Hardware. Mehrere virtuelle Systeme teilen sich die gleiche Hardware.
+
+        <br/>
+        **Hypervisor (Virtual Machine Monitor):**
+        Die Software, die virtuelle Maschinen verwaltet.
+
+        | Typ | Beschreibung | Beispiele |
+        |-----|-------------|----------|
+        | **Typ 1 (Bare-Metal)** | Läuft direkt auf der Hardware | VMware ESXi, Hyper-V, KVM |
+        | **Typ 2 (Hosted)** | Läuft auf einem Host-Betriebssystem | VirtualBox, VMware Workstation |
+
+        <br/>
+        **Vorteile:**
+        - **Serverkonsolidierung:** Mehrere Server auf einer Hardware → Kostensenkung
+        - **Isolation:** VMs sind voneinander getrennt
+        - **Snapshots:** Systemzustände sichern und wiederherstellen
+        - **Flexibilität:** Schnelles Erstellen und Löschen von Umgebungen
+        - **Testumgebungen:** Verschiedene OS parallel testen
+
+        <br/>
+        **Nachteile:**
+        - **Overhead:** Jede VM braucht ein eigenes OS
+        - **Ressourcenverbrauch:** Mehr RAM und Speicher nötig als Container
+
+        <br/>
+        **Abgrenzung zu Containern:**
+        VMs virtualisieren die **gesamte Hardware** (inkl. OS), Container teilen sich den **Host-Kernel** → Container sind leichtgewichtiger.
+    </div>
+</Flashcard>

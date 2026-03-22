@@ -1,0 +1,48 @@
+---
+tags:
+  - 'Zahlensysteme'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist ein Bit, Byte, Kilobyte etc. und wie rechnet man Speichergrößen um?
+    </div>
+
+    <div slot="answer">
+        **Grundeinheiten:**
+        - **Bit** (b) = kleinste Einheit (0 oder 1)
+        - **Byte** (B) = 8 Bit
+        - **Nibble** = 4 Bit (= 1 Hex-Ziffer)
+
+        <br/>
+        **Dezimalpräfixe (SI, Basis 1000):**
+
+        | Einheit | Abk. | Größe |
+        |---------|------|-------|
+        | Kilobyte | KB | 1.000 B |
+        | Megabyte | MB | 1.000 KB = 10⁶ B |
+        | Gigabyte | GB | 1.000 MB = 10⁹ B |
+        | Terabyte | TB | 1.000 GB = 10¹² B |
+
+        <br/>
+        **Binärpräfixe (IEC, Basis 1024):**
+
+        | Einheit | Abk. | Größe |
+        |---------|------|-------|
+        | Kibibyte | KiB | 1.024 B |
+        | Mebibyte | MiB | 1.024 KiB |
+        | Gibibyte | GiB | 1.024 MiB |
+        | Tebibyte | TiB | 1.024 GiB |
+
+        <br/>
+        **Übertragungsraten:**
+        - Werden meist in **Bit/s** angegeben (z. B. 100 Mbit/s)
+        - Umrechnung in Byte/s: **÷ 8**
+        - 100 Mbit/s = **12,5 MB/s**
+
+        <br/>
+        **IHK-Prüfungsklassiker:** „Wie lange dauert die Übertragung von 5 GB bei 100 Mbit/s?"
+        → 5.000 MB × 8 = 40.000 Mbit ÷ 100 = **400 Sekunden ≈ 6,7 Minuten**
+    </div>
+</Flashcard>

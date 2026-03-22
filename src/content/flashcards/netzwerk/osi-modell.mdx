@@ -1,0 +1,34 @@
+---
+tags:
+  - 'Netzwerktechnik'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist das OSI-Modell und welche 7 Schichten hat es?
+    </div>
+
+    <div slot="answer">
+        Das **OSI-Modell (Open Systems Interconnection)** ist ein Referenzmodell, das die Netzwerkkommunikation in **7 Schichten** unterteilt.
+
+        <br/>
+        | Nr. | Schicht | Englisch | Aufgabe | Beispiele |
+        |-----|---------|----------|---------|-----------|
+        | 7 | Anwendung | Application | Anwendungsdienste | HTTP, FTP, SMTP, DNS |
+        | 6 | Darstellung | Presentation | Datenformat, Verschlüsselung | SSL/TLS, JPEG, ASCII |
+        | 5 | Sitzung | Session | Verbindungsverwaltung | NetBIOS, RPC |
+        | 4 | Transport | Transport | Zuverlässige Übertragung | TCP, UDP |
+        | 3 | Vermittlung | Network | Routing, IP-Adressen | IP, ICMP, Router |
+        | 2 | Sicherung | Data Link | Frames, MAC-Adressen | Ethernet, Switch |
+        | 1 | Bitübertragung | Physical | Physische Übertragung | Kabel, WLAN, Hub |
+
+        <br/>
+        **Merkhilfe (von oben nach unten):**
+        **A**lle **D**eutschen **S**tudenten **T**rinken **V**erschiedene **S**orten **B**ier
+
+        <br/>
+        **Dateneinheiten pro Schicht:**
+        Schicht 4: Segmente → Schicht 3: Pakete → Schicht 2: Frames → Schicht 1: Bits
+    </div>
+</Flashcard>

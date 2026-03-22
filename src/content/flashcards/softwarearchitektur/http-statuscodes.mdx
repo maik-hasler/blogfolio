@@ -1,0 +1,39 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was sind HTTP-Statuscodes und welche sind die wichtigsten?
+    </div>
+
+    <div slot="answer">
+        **HTTP-Statuscodes** sind dreistellige Zahlen, die der Server als Antwort auf eine Anfrage zurückgibt. Sie informieren den Client über den **Erfolg oder Misserfolg** der Anfrage.
+
+        <br/>
+        **Kategorien:**
+
+        | Bereich | Bedeutung |
+        |---------|-----------|
+        | **1xx** | Informativ (Anfrage wird verarbeitet) |
+        | **2xx** | Erfolg |
+        | **3xx** | Umleitung (Redirect) |
+        | **4xx** | Client-Fehler (Anfrage fehlerhaft) |
+        | **5xx** | Server-Fehler (Server kann nicht verarbeiten) |
+
+        <br/>
+        **Wichtigste Codes:**
+        - `200 OK` — Anfrage erfolgreich
+        - `201 Created` — Ressource wurde erstellt (nach POST)
+        - `204 No Content` — Erfolgreich, aber keine Daten zurück (nach DELETE)
+        - `301 Moved Permanently` — Ressource dauerhaft umgezogen
+        - `400 Bad Request` — Ungültige Anfrage (z. B. fehlende Felder)
+        - `401 Unauthorized` — Nicht authentifiziert
+        - `403 Forbidden` — Authentifiziert, aber keine Berechtigung
+        - `404 Not Found` — Ressource existiert nicht
+        - `409 Conflict` — Konflikt (z. B. Duplikat)
+        - `500 Internal Server Error` — Allgemeiner Serverfehler
+    </div>
+</Flashcard>

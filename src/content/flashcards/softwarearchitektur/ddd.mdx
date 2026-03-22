@@ -1,0 +1,39 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist Domain-Driven Design (DDD)?
+    </div>
+
+    <div slot="answer">
+        **Domain-Driven Design** ist ein Ansatz zur Softwareentwicklung, bei dem die **Fachdomäne** (das Geschäftsgebiet) im Mittelpunkt der Architektur steht. Geprägt von Eric Evans.
+
+        <br/>
+        **Kernkonzepte:**
+
+        **Ubiquitous Language (Allgegenwärtige Sprache):**
+        - Entwickler und Fachexperten nutzen **dieselben Begriffe**
+        - Diese Sprache spiegelt sich im Code wider (Klassen, Methoden)
+
+        <br/>
+        **Bounded Context (Begrenzter Kontext):**
+        - Ein klar abgegrenzter Bereich, in dem ein bestimmtes Modell gilt
+        - Beispiel: „Kunde" bedeutet im Vertrieb etwas anderes als in der Buchhaltung
+        - Jeder Bounded Context hat sein **eigenes Modell**
+
+        <br/>
+        **Taktische Muster:**
+        - **Entity:** Objekt mit Identität (z. B. Kunde mit ID)
+        - **Value Object:** Objekt ohne Identität, nur durch Werte definiert (z. B. Adresse)
+        - **Aggregate:** Zusammengehörige Entities mit einem Root
+        - **Repository:** Zugriff auf Aggregate (Persistenz)
+        - **Domain Service:** Logik, die keiner Entity zugeordnet werden kann
+
+        <br/>
+        **Warum wichtig?** DDD hilft, **komplexe Fachlogik** in wartbaren, verständlichen Code zu übersetzen — besonders bei Microservices bildet jeder Bounded Context oft einen eigenen Service.
+    </div>
+</Flashcard>

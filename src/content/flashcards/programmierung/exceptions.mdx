@@ -1,0 +1,47 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was sind Exceptions und wie funktioniert Exception Handling?
+    </div>
+
+    <div slot="answer">
+        Eine **Exception** (Ausnahme) ist ein Laufzeitfehler, der den normalen Programmablauf unterbricht (z. B. Division durch Null, Dateizugriff fehlgeschlagen).
+
+        <br/>
+        **Exception Handling mit try-catch-finally:**
+        ```csharp
+        try
+        {
+            int ergebnis = 10 / 0; // Löst DivideByZeroException aus
+        }
+        catch (DivideByZeroException ex)
+        {
+            Console.WriteLine($"Fehler: {ex.Message}");
+        }
+        finally
+        {
+            Console.WriteLine("Wird immer ausgeführt");
+        }
+        ```
+
+        <br/>
+        **Blöcke:**
+        - **try:** Code, der eine Exception auslösen könnte
+        - **catch:** Fängt die Exception ab und behandelt sie
+        - **finally:** Wird **immer** ausgeführt (z. B. für Aufräumarbeiten)
+
+        <br/>
+        **Eigene Exceptions auslösen:**
+        ```csharp
+        throw new ArgumentException("Ungültiger Parameter");
+        ```
+
+        <br/>
+        **Häufige Exceptions:** `NullReferenceException`, `IndexOutOfRangeException`, `FileNotFoundException`, `InvalidOperationException`
+    </div>
+</Flashcard>

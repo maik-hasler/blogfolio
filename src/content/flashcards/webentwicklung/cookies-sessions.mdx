@@ -1,0 +1,50 @@
+---
+tags:
+  - 'Webentwicklung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was sind Cookies und Sessions?
+    </div>
+
+    <div slot="answer">
+        HTTP ist **zustandslos** — der Server weiß nicht, ob zwei Anfragen vom selben Benutzer kommen. **Cookies** und **Sessions** lösen dieses Problem.
+
+        <br/>
+        **Cookies:**
+        - Kleine Textdateien, die der **Browser** speichert
+        - Werden bei **jeder** Anfrage an den Server mitgeschickt
+        - Haben ein Ablaufdatum
+
+        ```
+        Set-Cookie: session_id=abc123; HttpOnly; Secure; SameSite=Strict
+        ```
+
+        <br/>
+        **Session:**
+        - Zustandsinformation auf dem **Server**
+        - Der Client erhält nur eine **Session-ID** (als Cookie)
+        - Sensible Daten bleiben auf dem Server
+
+        <br/>
+        **Vergleich:**
+
+        | Merkmal | Cookie | Session |
+        |---------|--------|---------|
+        | **Speicherort** | Browser (Client) | Server |
+        | **Sicherheit** | Weniger sicher (manipulierbar) | Sicherer (nur ID beim Client) |
+        | **Größe** | Max. ~4 KB | Unbegrenzt (Server-RAM) |
+        | **Lebensdauer** | Bis Ablaufdatum | Bis Logout / Timeout |
+
+        <br/>
+        **Cookie-Flags für Sicherheit:**
+        - **HttpOnly:** Kein Zugriff per JavaScript (Schutz vor XSS)
+        - **Secure:** Nur über HTTPS senden
+        - **SameSite:** Schutz vor CSRF-Angriffen
+
+        <br/>
+        **Alternative:** **JWT (JSON Web Token)** — zustandslose Authentifizierung ohne Server-Session.
+    </div>
+</Flashcard>

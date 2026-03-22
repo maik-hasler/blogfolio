@@ -1,0 +1,42 @@
+---
+tags:
+  - 'IT-Sicherheit'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist der Unterschied zwischen Datenschutz und Datensicherheit?
+    </div>
+
+    <div slot="answer">
+        | | Datenschutz | Datensicherheit |
+        |---|-----------|----------------|
+        | **Ziel** | Schutz von **Personen** (deren Daten) | Schutz von **Daten** (aller Art) |
+        | **Fokus** | Personenbezogene Daten | Alle Daten (auch Geschäftsdaten, Code) |
+        | **Frage** | **Dürfen** diese Daten verarbeitet werden? | **Wie** werden Daten technisch geschützt? |
+        | **Regelung** | DSGVO, BDSG (gesetzlich) | Technische Maßnahmen (organisatorisch) |
+
+        <br/>
+        **Datenschutz (rechtlich):**
+        - Wer darf welche personenbezogenen Daten verarbeiten?
+        - Einwilligung, Zweckbindung, Datenminimierung
+        - Betroffenenrechte (Auskunft, Löschung)
+        - Datenschutzbeauftragter, Verarbeitungsverzeichnis
+
+        <br/>
+        **Datensicherheit (technisch):**
+        - Verschlüsselung (at rest + in transit)
+        - Zugriffskontrollen und Berechtigungen
+        - Backups und Wiederherstellung
+        - Firewall, IDS/IPS
+        - Physische Sicherheit (Zutrittskontrollen, USV)
+
+        <br/>
+        **TOM (Technische und Organisatorische Maßnahmen):**
+        Art. 32 DSGVO verpflichtet zur Umsetzung angemessener **TOMs** — damit greifen Datenschutz und Datensicherheit ineinander.
+
+        <br/>
+        **Merke:** Datensicherheit ist ein **Mittel**, um Datenschutz zu **gewährleisten**.
+    </div>
+</Flashcard>

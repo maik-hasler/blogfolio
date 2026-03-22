@@ -1,0 +1,52 @@
+---
+tags:
+  - 'Wirtschaft'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist TCO (Total Cost of Ownership)?
+    </div>
+
+    <div slot="answer">
+        **TCO (Total Cost of Ownership)** berechnet die **Gesamtkosten** eines Produkts oder einer Investition über die gesamte Nutzungsdauer — nicht nur den Anschaffungspreis.
+
+        <br/>
+        **Kostenarten:**
+
+        **Direkte Kosten:**
+        - Anschaffungspreis (Hardware, Software, Lizenzen)
+        - Installation und Einrichtung
+        - Schulung der Mitarbeiter
+
+        <br/>
+        **Laufende Kosten:**
+        - Wartung und Support
+        - Updates und Upgrades
+        - Stromkosten (Server, Kühlung)
+        - Personal (Administration)
+        - Lizenzgebühren (jährlich)
+
+        <br/>
+        **Indirekte Kosten:**
+        - Ausfallzeiten (Produktivitätsverlust)
+        - Kompatibilitätsprobleme
+        - Sicherheitsrisiken
+
+        <br/>
+        **Beispiel — Server (5 Jahre):**
+
+        | Posten | On-Premise | Cloud |
+        |--------|-----------|-------|
+        | Hardware | 15.000 € | 0 € |
+        | Lizenzen | 5.000 € | inkl. |
+        | Strom/Kühlung | 10.000 € | 0 € |
+        | Administration | 25.000 € | 5.000 € |
+        | Cloud-Gebühren | 0 € | 36.000 € |
+        | **TCO** | **55.000 €** | **41.000 €** |
+
+        <br/>
+        **IHK-Relevanz:** TCO wird oft bei Vergleichen von IT-Lösungen gefragt (On-Premise vs. Cloud, Kauf vs. Leasing).
+    </div>
+</Flashcard>

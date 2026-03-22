@@ -1,0 +1,35 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was bedeuten Kopplung und Kohäsion in der Softwarearchitektur?
+    </div>
+
+    <div slot="answer">
+        **Kopplung (Coupling)** beschreibt, wie stark Module voneinander **abhängig** sind.
+
+        **Kohäsion (Cohesion)** beschreibt, wie stark die Elemente **innerhalb** eines Moduls zusammengehören.
+
+        <br/>
+        **Ziel guter Architektur:**
+        - **Lose Kopplung** — Module sind möglichst unabhängig voneinander
+        - **Hohe Kohäsion** — Jedes Modul hat eine klar definierte, zusammenhängende Aufgabe
+
+        <br/>
+        **Beispiel für schlechte Architektur:**
+        - Ein Modul `BestellService` berechnet Preise, sendet E-Mails, generiert PDFs und schreibt Logs → **niedrige Kohäsion**
+        - Änderungen am `BestellService` erfordern Änderungen in 10 anderen Modulen → **hohe Kopplung**
+
+        <br/>
+        **Beispiel für gute Architektur:**
+        - `PreisService`, `EmailService`, `PdfService` als separate Module → **hohe Kohäsion**
+        - Module kommunizieren über klar definierte Schnittstellen → **lose Kopplung**
+
+        <br/>
+        **Merkhilfe:** *„Low Coupling, High Cohesion"* ist eines der fundamentalsten Prinzipien guter Softwarearchitektur.
+    </div>
+</Flashcard>

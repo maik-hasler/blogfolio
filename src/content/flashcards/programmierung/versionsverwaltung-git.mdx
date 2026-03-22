@@ -1,0 +1,39 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist Git und wozu dient Versionsverwaltung?
+    </div>
+
+    <div slot="answer">
+        **Git** ist ein **verteiltes Versionsverwaltungssystem**, das Änderungen an Dateien über die Zeit nachverfolgt und die Zusammenarbeit im Team ermöglicht.
+
+        <br/>
+        **Kernfunktionen:**
+        - **Historie:** Jede Änderung wird als Commit gespeichert — man kann jederzeit zu einem früheren Stand zurückkehren
+        - **Branching:** Parallele Entwicklung auf separaten Branches
+        - **Merging:** Branches zusammenführen
+        - **Verteiltes Arbeiten:** Jeder Entwickler hat eine vollständige Kopie des Repositorys
+
+        <br/>
+        **Wichtige Befehle:**
+        ```
+        git clone   — Repository kopieren
+        git add     — Änderungen zur Staging Area hinzufügen
+        git commit  — Änderungen festschreiben
+        git push    — Änderungen zum Remote-Repository senden
+        git pull    — Änderungen vom Remote-Repository holen
+        git branch  — Branch erstellen/anzeigen
+        git merge   — Branches zusammenführen
+        ```
+
+        <br/>
+        **Git vs. GitHub/GitLab:**
+        - **Git** = das Versionsverwaltungstool (lokal)
+        - **GitHub/GitLab** = Hosting-Plattformen für Git-Repositories (remote) mit Web-UI, Issues, Pull Requests, CI/CD
+    </div>
+</Flashcard>

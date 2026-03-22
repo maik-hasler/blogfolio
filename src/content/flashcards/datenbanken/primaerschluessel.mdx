@@ -1,0 +1,38 @@
+---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist ein Primärschlüssel?
+    </div>
+
+    <div slot="answer">
+        Ein **Primärschlüssel (Primary Key)** ist ein Attribut oder eine Kombination von Attributen, das jeden Datensatz in einer Tabelle **eindeutig identifiziert**.
+
+        <br/>
+        **Eigenschaften:**
+        - **Eindeutigkeit:** Kein Wert darf doppelt vorkommen
+        - **NOT NULL:** Darf niemals leer sein
+        - **Unveränderlich:** Sollte sich nach dem Anlegen nicht ändern
+        - Pro Tabelle gibt es **genau einen** Primärschlüssel
+
+        <br/>
+        **Arten:**
+        - **Natürlicher Schlüssel:** Ein fachlich vorhandenes Attribut (z. B. Sozialversicherungsnummer)
+        - **Künstlicher Schlüssel (Surrogatschlüssel):** Ein technisch erzeugter Wert (z. B. Auto-Increment-ID)
+        - **Zusammengesetzter Schlüssel:** Kombination mehrerer Attribute
+
+        <br/>
+        **Beispiel:**
+        ```sql
+        CREATE TABLE Kunde (
+            KundenID INT PRIMARY KEY AUTO_INCREMENT,
+            Name VARCHAR(100),
+            Email VARCHAR(100)
+        );
+        ```
+    </div>
+</Flashcard>

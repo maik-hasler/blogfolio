@@ -1,0 +1,52 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was sind Best Practices für gutes API-Design?
+    </div>
+
+    <div slot="answer">
+        **1. Ressourcen als Substantive (Plural):**
+        - Gut: `GET /orders`, `GET /orders/42`
+        - Schlecht: `GET /getOrder`, `POST /createOrder`
+
+        <br/>
+        **2. HTTP-Methoden korrekt nutzen:**
+        - `GET` = lesen (idempotent, kein Seiteneffekt)
+        - `POST` = anlegen
+        - `PUT`/`PATCH` = ändern
+        - `DELETE` = löschen
+
+        <br/>
+        **3. Korrekte Statuscodes verwenden:**
+        - `201` bei Erstellung, nicht `200`
+        - `204` bei Löschung ohne Rückgabedaten
+        - `400` bei fehlerhaften Eingaben, nicht `500`
+
+        <br/>
+        **4. Versionierung:** z. B. `/api/v1/orders`
+
+        <br/>
+        **5. Paginierung bei Listen:** `GET /orders?page=2&size=20`
+
+        <br/>
+        **6. Filtern & Sortieren:** `GET /orders?status=open&sort=created_at`
+
+        <br/>
+        **7. Konsistente Fehlermeldungen:**
+        ```json
+        {
+          "status": 400,
+          "title": "Validation Error",
+          "detail": "Feld 'email' ist erforderlich"
+        }
+        ```
+
+        <br/>
+        **8. kebab-case für URLs**, camelCase oder snake_case für JSON-Properties — aber **konsistent** bleiben.
+    </div>
+</Flashcard>

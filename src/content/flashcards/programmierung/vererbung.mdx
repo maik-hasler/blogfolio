@@ -1,0 +1,42 @@
+---
+tags:
+  - 'Objektorientierte Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist Vererbung in der OOP?
+    </div>
+
+    <div slot="answer">
+        **Vererbung** ermöglicht es, eine neue Klasse (Unterklasse/Subklasse) aus einer bestehenden Klasse (Oberklasse/Basisklasse) abzuleiten. Die Unterklasse **erbt** alle Attribute und Methoden der Oberklasse.
+
+        <br/>
+        **Beispiel in C#:**
+        ```csharp
+        class Tier                                    // Basisklasse
+        {
+            public string Name;
+            public void Atmen() { Console.WriteLine("Atmet..."); }
+        }
+
+        class Hund : Tier                             // Abgeleitete Klasse
+        {
+            public void Bellen() { Console.WriteLine("Wuff!"); }
+        }
+
+        Hund h = new Hund();
+        h.Name = "Rex";  // geerbt von Tier
+        h.Atmen();        // geerbt von Tier
+        h.Bellen();       // eigene Methode
+        ```
+
+        <br/>
+        **Wichtige Begriffe:**
+        - **Basisklasse / Oberklasse / Superklasse:** Die Klasse, von der geerbt wird
+        - **Abgeleitete Klasse / Unterklasse / Subklasse:** Die erbende Klasse
+        - In C# und Java ist nur **Einfachvererbung** erlaubt (eine Klasse hat genau eine Basisklasse)
+        - Das Schlüsselwort `base` (C#) bzw. `super` (Java) greift auf die Basisklasse zu
+    </div>
+</Flashcard>

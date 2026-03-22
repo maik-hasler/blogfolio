@@ -1,0 +1,33 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was bedeutet null in der Programmierung?
+    </div>
+
+    <div slot="answer">
+        **null** bedeutet, dass eine Variable **keinen Wert** bzw. **keine Referenz** auf ein Objekt besitzt. Es ist nicht dasselbe wie `0` oder ein leerer String `""`.
+
+        <br/>
+        **Wichtige Punkte:**
+        - `null` steht für die **Abwesenheit eines Wertes**
+        - Nur **Referenztypen** können standardmäßig `null` sein
+        - Der Zugriff auf eine `null`-Variable führt zu einer **NullReferenceException**
+
+        <br/>
+        **Beispiel in C#:**
+        ```csharp
+        string name = null;      // Kein Wert zugewiesen
+        Console.WriteLine(name); // NullReferenceException!
+
+        // Sichere Prüfung:
+        if (name != null) { Console.WriteLine(name); }
+        // Oder mit Null-Conditional Operator:
+        Console.WriteLine(name?.Length); // Gibt null zurück statt Exception
+        ```
+    </div>
+</Flashcard>

@@ -1,0 +1,40 @@
+---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist eine Stored Procedure?
+    </div>
+
+    <div slot="answer">
+        Eine **Stored Procedure** ist ein vorkompiliertes SQL-Programm, das auf dem **Datenbankserver** gespeichert ist und über einen Namen aufgerufen werden kann.
+
+        <br/>
+        **Beispiel:**
+        ```sql
+        CREATE PROCEDURE GetKundenByStadt(@Stadt VARCHAR(50))
+        AS
+        BEGIN
+            SELECT * FROM Kunde WHERE Stadt = @Stadt;
+        END;
+
+        -- Aufruf:
+        EXEC GetKundenByStadt 'Berlin';
+        ```
+
+        <br/>
+        **Vorteile:**
+        - **Performance:** Vorkompiliert, kein erneutes Parsen nötig
+        - **Sicherheit:** Benutzer brauchen nur Ausführungsrechte, keinen direkten Tabellenzugriff
+        - **Wiederverwendbarkeit:** Einmal schreiben, mehrfach aufrufen
+        - **Weniger Netzwerkverkehr:** Nur der Aufruf wird gesendet, nicht das gesamte SQL
+
+        <br/>
+        **Nachteile:**
+        - Logik in der Datenbank statt in der Anwendung (schwerer zu debuggen und testen)
+        - Datenbankspezifische Syntax (nicht portabel)
+    </div>
+</Flashcard>

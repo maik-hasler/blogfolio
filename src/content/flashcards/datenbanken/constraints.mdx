@@ -1,0 +1,42 @@
+---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was sind Constraints in einer Datenbank?
+    </div>
+
+    <div slot="answer">
+        **Constraints** (Einschränkungen) sind Regeln, die auf Spalten oder Tabellen definiert werden, um die **Datenintegrität** sicherzustellen.
+
+        <br/>
+        **Wichtige Constraints:**
+
+        | Constraint | Beschreibung |
+        |-----------|-------------|
+        | `PRIMARY KEY` | Eindeutige Identifikation jeder Zeile |
+        | `FOREIGN KEY` | Verweis auf Primärschlüssel einer anderen Tabelle |
+        | `NOT NULL` | Wert darf nicht leer sein |
+        | `UNIQUE` | Wert muss eindeutig sein (Duplikate verboten) |
+        | `CHECK` | Wert muss eine Bedingung erfüllen |
+        | `DEFAULT` | Standardwert, wenn kein Wert angegeben wird |
+
+        <br/>
+        **Beispiel:**
+        ```sql
+        CREATE TABLE Mitarbeiter (
+            MitarbeiterID INT PRIMARY KEY,
+            Name VARCHAR(100) NOT NULL,
+            Email VARCHAR(100) UNIQUE,
+            Alter INT CHECK (Alter >= 18),
+            Abteilung VARCHAR(50) DEFAULT 'Allgemein'
+        );
+        ```
+
+        <br/>
+        Constraints werden vom DBMS automatisch durchgesetzt — ungültige Daten werden **abgewiesen**.
+    </div>
+</Flashcard>

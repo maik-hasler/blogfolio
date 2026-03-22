@@ -1,0 +1,39 @@
+---
+tags:
+  - 'IT-Sicherheit'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist das CIA-Triad (Schutzziele der IT-Sicherheit)?
+    </div>
+
+    <div slot="answer">
+        Das **CIA-Triad** beschreibt die drei grundlegenden **Schutzziele** der Informationssicherheit:
+
+        <br/>
+        **C – Confidentiality (Vertraulichkeit):**
+        Nur berechtigte Personen dürfen auf Daten zugreifen.
+        - Maßnahmen: Verschlüsselung, Zugriffsrechte, Authentifizierung
+
+        <br/>
+        **I – Integrity (Integrität):**
+        Daten dürfen nicht unbemerkt verändert werden — Vollständigkeit und Korrektheit müssen gewährleistet sein.
+        - Maßnahmen: Hashwerte, digitale Signaturen, Checksummen
+
+        <br/>
+        **A – Availability (Verfügbarkeit):**
+        Systeme und Daten müssen verfügbar sein, wenn sie gebraucht werden.
+        - Maßnahmen: Redundanz, Backup, USV, DDoS-Schutz
+
+        <br/>
+        **Beispiel — Online-Banking:**
+        - **Vertraulichkeit:** Nur der Kontoinhaber sieht seinen Kontostand
+        - **Integrität:** Überweisungsbeträge können nicht manipuliert werden
+        - **Verfügbarkeit:** Das Banking-Portal ist 24/7 erreichbar
+
+        <br/>
+        **Erweiterung:** Manchmal ergänzt um **Authentizität** (Echtheit des Absenders) und **Nicht-Abstreitbarkeit** (Nachweisbarkeit einer Aktion).
+    </div>
+</Flashcard>

@@ -1,0 +1,24 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist der Unterschied zwischen Compiler und Interpreter?
+    </div>
+
+    <div slot="answer">
+        | Merkmal | Compiler | Interpreter |
+        |---------|----------|-------------|
+        | **Übersetzung** | Gesamter Code **vor** Ausführung | Zeile für Zeile **während** Ausführung |
+        | **Geschwindigkeit** | Schnellere Ausführung | Langsamere Ausführung |
+        | **Fehlererkennung** | Alle Fehler vor Ausführung | Fehler erst zur Laufzeit |
+        | **Ausgabe** | Erzeugt ausführbare Datei | Keine separate Datei |
+        | **Beispiele** | C, C++, Go | Python, Ruby, JavaScript |
+
+        <br/>
+        **Sonderfall Bytecode:** Sprachen wie Java und C# nutzen einen **Zwischenansatz** — der Compiler erzeugt Bytecode, der dann von einer virtuellen Maschine (JVM bzw. CLR) interpretiert oder JIT-kompiliert wird.
+    </div>
+</Flashcard>

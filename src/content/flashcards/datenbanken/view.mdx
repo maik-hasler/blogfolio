@@ -1,0 +1,38 @@
+---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist eine View in einer Datenbank?
+    </div>
+
+    <div slot="answer">
+        Eine **View** (Sicht) ist eine **virtuelle Tabelle**, die auf einer gespeicherten SQL-Abfrage basiert. Sie enthält selbst keine Daten, sondern zeigt das Ergebnis der hinterlegten Abfrage.
+
+        <br/>
+        **Erstellung:**
+        ```sql
+        CREATE VIEW AktiveKunden AS
+        SELECT Name, Email, Stadt
+        FROM Kunde
+        WHERE Aktiv = 1;
+
+        -- Nutzung wie eine normale Tabelle:
+        SELECT * FROM AktiveKunden WHERE Stadt = 'Berlin';
+        ```
+
+        <br/>
+        **Vorteile:**
+        - **Vereinfachung:** Komplexe Abfragen werden wiederverwendbar
+        - **Sicherheit:** Benutzer sehen nur bestimmte Spalten/Zeilen
+        - **Abstraktion:** Änderungen an der Tabellenstruktur können verborgen werden
+
+        <br/>
+        **Aktualisierbarkeit:**
+        - Einfache Views (eine Tabelle, kein GROUP BY) sind oft **aktualisierbar**
+        - Views mit JOINs, Aggregatfunktionen oder DISTINCT sind **nicht aktualisierbar**
+    </div>
+</Flashcard>

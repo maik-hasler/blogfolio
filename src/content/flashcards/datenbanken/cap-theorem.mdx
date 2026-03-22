@@ -1,0 +1,36 @@
+---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist das CAP-Theorem?
+    </div>
+
+    <div slot="answer">
+        Das **CAP-Theorem** besagt, dass ein verteiltes Datenbanksystem von den folgenden drei Eigenschaften **nur zwei gleichzeitig** garantieren kann:
+
+        <br/>
+        **C – Consistency (Konsistenz):**
+        Alle Knoten sehen zur gleichen Zeit die gleichen Daten.
+
+        <br/>
+        **A – Availability (Verfügbarkeit):**
+        Jede Anfrage erhält eine Antwort, auch wenn einzelne Knoten ausfallen.
+
+        <br/>
+        **P – Partition Tolerance (Partitionstoleranz):**
+        Das System funktioniert weiter, auch wenn die Netzwerkverbindung zwischen Knoten unterbrochen ist.
+
+        <br/>
+        **Kombinationen:**
+        - **CP (Consistency + Partition Tolerance):** z. B. MongoDB — konsistent, aber ggf. nicht verfügbar bei Netzwerkproblemen
+        - **AP (Availability + Partition Tolerance):** z. B. Cassandra — immer verfügbar, aber ggf. inkonsistent
+        - **CA (Consistency + Availability):** Nur ohne Netzwerkpartitionen möglich (z. B. traditionelle relationale DB auf einem Server)
+
+        <br/>
+        **Praxis:** Da Netzwerkpartitionen in verteilten Systemen unvermeidbar sind, ist P meist gesetzt — die Wahl liegt zwischen C und A.
+    </div>
+</Flashcard>

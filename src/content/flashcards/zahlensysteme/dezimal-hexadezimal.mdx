@@ -1,0 +1,53 @@
+---
+tags:
+  - 'Zahlensysteme'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Wie rechnet man Dezimal in Hexadezimal um?
+    </div>
+
+    <div slot="answer">
+        **Hexadezimal** (Basis 16) verwendet die Ziffern **0–9** und **A–F** (A=10, B=11, C=12, D=13, E=14, F=15).
+
+        <br/>
+        **Dezimal → Hexadezimal (Divisionsmethode):**
+        Wiederholt **durch 16 teilen**, Reste von unten lesen.
+
+        <br/>
+        **Beispiel: 255 → Hex**
+        ```
+        255 ÷ 16 = 15  Rest 15 (F)
+         15 ÷ 16 = 0   Rest 15 (F)
+        → FF
+        ```
+
+        <br/>
+        **Beispiel: 200 → Hex**
+        ```
+        200 ÷ 16 = 12  Rest 8
+         12 ÷ 16 = 0   Rest 12 (C)
+        → C8
+        ```
+
+        <br/>
+        **Hex → Dezimal:**
+        ```
+        0xFF = 15×16¹ + 15×16⁰ = 240 + 15 = 255
+        0xC8 = 12×16¹ +  8×16⁰ = 192 +  8 = 200
+        ```
+
+        <br/>
+        **Binär ↔ Hex (Schnellmethode):**
+        Je **4 Bit** = 1 Hex-Ziffer:
+        ```
+        1111 = F,  1010 = A,  0000 = 0
+        11111111 = FF = 255
+        ```
+
+        <br/>
+        **Einsatz:** Farben (z. B. `#FF0000` = Rot), MAC-Adressen, Speicheradressen.
+    </div>
+</Flashcard>

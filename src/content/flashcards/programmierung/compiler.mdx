@@ -1,0 +1,30 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist ein Compiler und welche Aufgabe hat er?
+    </div>
+
+    <div slot="answer">
+        Ein **Compiler** ist ein Programm, das den gesamten Quellcode einer Programmiersprache **vor der Ausführung** in Maschinencode (oder Zwischencode) übersetzt.
+
+        <br/>
+        **Ablauf:**
+        1. Quellcode wird vollständig analysiert (Syntax- und Semantikprüfung)
+        2. Fehler werden **vor der Ausführung** gemeldet (Compile-Time-Fehler)
+        3. Es entsteht eine ausführbare Datei (z. B. `.exe`)
+
+        <br/>
+        **Vorteile:**
+        - Schnellere Ausführung, da der Code bereits übersetzt ist
+        - Fehler werden frühzeitig erkannt
+        - Optimierungen durch den Compiler möglich
+
+        <br/>
+        **Beispiele:** C, C++, C#, Java (zu Bytecode), Go
+    </div>
+</Flashcard>

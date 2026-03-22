@@ -1,0 +1,33 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist Refactoring?
+    </div>
+
+    <div slot="answer">
+        **Refactoring** ist die Umstrukturierung von bestehendem Code, um ihn **lesbarer, wartbarer und effizienter** zu machen — **ohne das äußere Verhalten zu ändern**.
+
+        <br/>
+        **Ziele:**
+        - Code-Qualität verbessern
+        - Duplikate entfernen (DRY-Prinzip)
+        - Komplexität reduzieren
+        - Lesbarkeit erhöhen
+
+        <br/>
+        **Typische Refactoring-Maßnahmen:**
+        - **Methode extrahieren:** Langen Code in eigene Methoden auslagern
+        - **Umbenennen:** Sprechende Namen für Variablen und Methoden
+        - **Klasse extrahieren:** Zu große Klassen aufteilen
+        - **Magic Numbers entfernen:** Konstanten statt hart codierter Zahlen
+        - **Toten Code entfernen:** Nicht mehr genutzten Code löschen
+
+        <br/>
+        **Wichtig:** Refactoring sollte durch **Tests abgesichert** sein, damit keine Fehler eingeführt werden.
+    </div>
+</Flashcard>
