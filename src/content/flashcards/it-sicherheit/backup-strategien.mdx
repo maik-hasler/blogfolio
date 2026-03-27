@@ -1,0 +1,39 @@
+---
+tags:
+  - 'IT-Sicherheit'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Welche Backup-Strategien gibt es?
+    </div>
+
+    <div slot="answer">
+        **Backup-Arten:**
+
+        | Art | Beschreibung | Vorteile | Nachteile |
+        |-----|-------------|----------|-----------|
+        | **Vollbackup** | Alle Daten werden komplett gesichert | Einfache Wiederherstellung | Hoher Speicherbedarf, dauert lang |
+        | **Inkrementelles Backup** | Nur die **seit dem letzten Backup** geänderten Daten | Schnell, wenig Speicher | Wiederherstellung: Voll + alle Inkremente nötig |
+        | **Differentielles Backup** | Alle seit dem **letzten Vollbackup** geänderten Daten | Schnellere Wiederherstellung als inkrementell | Wachsender Speicherbedarf |
+
+        <br/>
+        **3-2-1-Regel:**
+        - **3** Kopien der Daten
+        - Auf **2** verschiedenen Medien
+        - **1** Kopie an einem externen Standort (offsite)
+
+        <br/>
+        **Wichtige Begriffe:**
+        - **RPO (Recovery Point Objective):** Wie viel Datenverlust ist akzeptabel? (z. B. max. 1 Stunde)
+        - **RTO (Recovery Time Objective):** Wie schnell muss das System wieder laufen? (z. B. innerhalb von 4 Stunden)
+
+        <br/>
+        **Best Practices:**
+        - Backups regelmäßig **testen** (Restore-Test!)
+        - Automatisierung der Backup-Prozesse
+        - Verschlüsselung der Backups
+        - Dokumentation der Backup-Strategie
+    </div>
+</Flashcard>

@@ -1,0 +1,43 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist eine Drei-Schichten-Architektur?
+    </div>
+
+    <div slot="answer">
+        Die **Drei-Schichten-Architektur** (3-Tier-Architecture) trennt eine Anwendung in drei logische Schichten:
+
+        <br/>
+        **1. Präsentationsschicht (Presentation Layer):**
+        - Benutzeroberfläche (UI)
+        - Nimmt Eingaben entgegen, zeigt Ergebnisse an
+        - Beispiel: Webseite, Desktop-App, Mobile-App
+
+        <br/>
+        **2. Logikschicht (Business Logic Layer):**
+        - Enthält die **Geschäftslogik** und Verarbeitungsregeln
+        - Validierung, Berechnungen, Workflows
+        - Beispiel: Bestellprozess, Preiskalkulation
+
+        <br/>
+        **3. Datenschicht (Data Access Layer):**
+        - Zugriff auf die **Datenbank**
+        - CRUD-Operationen, Datenpersistierung
+        - Beispiel: SQL-Abfragen, ORM
+
+        <br/>
+        **Vorteile:**
+        - **Wartbarkeit:** Schichten können unabhängig geändert werden
+        - **Skalierbarkeit:** Schichten können auf verschiedenen Servern laufen
+        - **Testbarkeit:** Logikschicht ohne UI testbar
+        - **Austauschbarkeit:** z. B. Datenbank wechseln ohne Logik-Änderung
+
+        <br/>
+        **Wichtig:** Jede Schicht kommuniziert nur mit der **direkt benachbarten** Schicht.
+    </div>
+</Flashcard>

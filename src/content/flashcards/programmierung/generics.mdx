@@ -1,0 +1,42 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was sind Generics?
+    </div>
+
+    <div slot="answer">
+        **Generics** ermöglichen es, Klassen, Interfaces und Methoden mit einem **Platzhalter-Typ** (`T`) zu definieren, der erst bei der Verwendung festgelegt wird.
+
+        <br/>
+        **Vorteile:**
+        - **Typsicherheit:** Fehler werden zur Compile-Zeit erkannt statt zur Laufzeit
+        - **Wiederverwendbarkeit:** Eine Implementierung für verschiedene Datentypen
+        - **Kein Casting nötig:** Der korrekte Typ ist zur Compile-Zeit bekannt
+
+        <br/>
+        **Beispiel in C#:**
+        ```csharp
+        // Generische Klasse
+        class Speicher<T>
+        {
+            private T wert;
+            public void Setze(T wert) { this.wert = wert; }
+            public T Hole() { return wert; }
+        }
+
+        Speicher<int> intSpeicher = new Speicher<int>();
+        intSpeicher.Setze(42);
+
+        Speicher<string> strSpeicher = new Speicher<string>();
+        strSpeicher.Setze("Hallo");
+        ```
+
+        <br/>
+        **Bekannte Beispiele:** `List<T>`, `Dictionary<TKey, TValue>`, `IEnumerable<T>`
+    </div>
+</Flashcard>

@@ -1,0 +1,50 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist Serialisierung und Deserialisierung?
+    </div>
+
+    <div slot="answer">
+        **Serialisierung** wandelt ein Objekt im Arbeitsspeicher in ein **übertragbares/speicherbares Format** um (z. B. JSON, XML, Binärdaten).
+
+        **Deserialisierung** ist der umgekehrte Weg — aus dem gespeicherten Format wird wieder ein Objekt im Speicher.
+
+        <br/>
+        **Ablauf:**
+        ```
+        Objekt im RAM  →  Serialisierung  →  JSON/XML/Bytes
+                                               ↓
+                                           Speichern / Senden
+                                               ↓
+        Objekt im RAM  ←  Deserialisierung ←  JSON/XML/Bytes
+        ```
+
+        <br/>
+        **Beispiel (Java → JSON):**
+        ```java
+        // Objekt
+        Kunde k = new Kunde("Max", 25);
+
+        // Serialisierung → JSON
+        String json = objectMapper.writeValueAsString(k);
+        // → {"name":"Max","alter":25}
+
+        // Deserialisierung → Objekt
+        Kunde k2 = objectMapper.readValue(json, Kunde.class);
+        ```
+
+        <br/>
+        **Formate:**
+        - **JSON:** Leichtgewichtig, lesbar, Standard für REST-APIs
+        - **XML:** Umfangreicher, mit Schema-Validierung
+        - **Binär:** Kompakt, schnell (z. B. Protocol Buffers, MessagePack)
+
+        <br/>
+        **Einsatz:** REST-APIs, Daten in Dateien speichern, Cache, Message Queues, Datenbanken (NoSQL).
+    </div>
+</Flashcard>

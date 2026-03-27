@@ -1,0 +1,45 @@
+---
+tags:
+  - 'Objektorientierte Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist eine abstrakte Klasse?
+    </div>
+
+    <div slot="answer">
+        Eine **abstrakte Klasse** ist eine Klasse, von der **keine Objekte instanziiert** werden können. Sie dient als **Vorlage** für abgeleitete Klassen.
+
+        <br/>
+        **Merkmale:**
+        - Wird mit dem Schlüsselwort `abstract` deklariert
+        - Kann **abstrakte Methoden** enthalten (ohne Implementierung)
+        - Kann auch **konkrete Methoden** mit Implementierung enthalten
+        - Unterklassen **müssen** alle abstrakten Methoden implementieren
+
+        <br/>
+        **Beispiel in C#:**
+        ```csharp
+        abstract class Form
+        {
+            public string Farbe;
+            public abstract double Flaeche(); // Muss überschrieben werden
+            public void Beschreiben()         // Konkrete Methode
+            {
+                Console.WriteLine($"Fläche: {Flaeche()}");
+            }
+        }
+
+        class Kreis : Form
+        {
+            public double Radius;
+            public override double Flaeche() => Math.PI * Radius * Radius;
+        }
+        ```
+
+        <br/>
+        **Wann verwenden?** Wenn Klassen gemeinsame Logik teilen sollen, aber bestimmte Methoden individuell implementiert werden müssen.
+    </div>
+</Flashcard>

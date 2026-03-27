@@ -1,0 +1,46 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist Strategic DDD (Strategisches Domain-Driven Design)?
+    </div>
+
+    <div slot="answer">
+        **Strategic DDD** betrachtet die **großen Strukturen** — wie wird die Gesamtdomäne in Teilbereiche aufgeteilt und wie interagieren diese?
+
+        <br/>
+        **Bounded Context:**
+        Ein klar abgegrenzter Bereich, in dem ein bestimmtes **Domänenmodell** konsistent gilt. Gleiche Begriffe können in verschiedenen Contexts unterschiedliche Bedeutung haben.
+
+        ```
+        Bounded Context: Vertrieb     Bounded Context: Versand
+        ┌─────────────────────┐      ┌─────────────────────┐
+        │ Kunde = Käufer       │      │ Kunde = Empfänger    │
+        │ Produkt = Angebot    │      │ Produkt = Paket      │
+        │ Bestellung = Auftrag │      │ Bestellung = Sendung  │
+        └─────────────────────┘      └─────────────────────┘
+        ```
+
+        <br/>
+        **Context Map:**
+        Zeigt die **Beziehungen** zwischen Bounded Contexts:
+
+        | Beziehung | Beschreibung |
+        |-----------|-------------|
+        | **Partnership** | Zwei Teams arbeiten eng zusammen, gemeinsame Planung |
+        | **Shared Kernel** | Gemeinsamer Code/Modell zwischen Contexts |
+        | **Customer-Supplier** | Ein Context liefert, der andere konsumiert |
+        | **Conformist** | Downstream übernimmt das Modell des Upstream unverändert |
+        | **Anti-Corruption Layer (ACL)** | Übersetzungsschicht, die das eigene Modell vor fremden Modellen schützt |
+        | **Open Host Service** | Öffentliche API für viele Consumer |
+        | **Published Language** | Standardisiertes Datenformat (z. B. JSON-Schema) |
+
+        <br/>
+        **Anti-Corruption Layer (ACL):**
+        Besonders wichtig bei Legacy-Integration — eine **Übersetzungsschicht**, die verhindert, dass das Modell des alten Systems das neue „verunreinigt".
+    </div>
+</Flashcard>

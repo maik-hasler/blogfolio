@@ -1,0 +1,37 @@
+---
+tags:
+  - 'Netzwerktechnik'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist ein VPN (Virtual Private Network)?
+    </div>
+
+    <div slot="answer">
+        Ein **VPN** erstellt einen **verschlüsselten Tunnel** durch ein unsicheres Netzwerk (z. B. das Internet), um eine sichere Verbindung zu einem entfernten Netzwerk herzustellen.
+
+        <br/>
+        **Funktionsweise:**
+        1. VPN-Client baut eine verschlüsselte Verbindung zum VPN-Server auf
+        2. Alle Daten werden durch den **Tunnel** geleitet
+        3. Für das Zielnetzwerk sieht es aus, als wäre der Client **lokal** verbunden
+
+        <br/>
+        **Einsatzszenarien:**
+        - **Remote-Arbeit:** Mitarbeiter greifen sicher auf das Firmennetzwerk zu
+        - **Standortvernetzung (Site-to-Site):** Zwei Bürostandorte sicher verbinden
+        - **Privatsphäre:** Eigene IP-Adresse verbergen
+
+        <br/>
+        **VPN-Protokolle:**
+        - **IPSec:** Weit verbreitet, auf Netzwerkebene
+        - **OpenVPN:** Open Source, flexibel
+        - **WireGuard:** Modern, schnell, schlanker Code
+
+        <br/>
+        **Vorteile:** Verschlüsselung, sicherer Fernzugriff, Standortvernetzung.
+        **Nachteile:** Geschwindigkeitsverlust, zusätzliche Infrastruktur nötig.
+    </div>
+</Flashcard>

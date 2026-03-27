@@ -1,0 +1,44 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist die O-Notation (Big-O)?
+    </div>
+
+    <div slot="answer">
+        Die **O-Notation** (Big-O) beschreibt die **Laufzeit** oder den **Speicherverbrauch** eines Algorithmus in Abhängigkeit von der Eingabegröße **n** — im **schlechtesten Fall** (Worst Case).
+
+        <br/>
+        **Häufige Komplexitätsklassen (von schnell nach langsam):**
+
+        | Notation | Name | Beispiel |
+        |----------|------|---------|
+        | **O(1)** | Konstant | Array-Zugriff per Index |
+        | **O(log n)** | Logarithmisch | Binäre Suche |
+        | **O(n)** | Linear | Lineare Suche, einfache Schleife |
+        | **O(n log n)** | Quasilinear | Quicksort, Mergesort |
+        | **O(n²)** | Quadratisch | Bubble Sort, verschachtelte Schleifen |
+        | **O(2ⁿ)** | Exponentiell | Rekursive Fibonacci-Berechnung |
+
+        <br/>
+        **Beispiel:**
+        ```
+        // O(n) — lineare Suche
+        for (int i = 0; i < n; i++) {
+            if (arr[i] == target) return i;
+        }
+
+        // O(n²) — verschachtelte Schleifen
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) { ... }
+        }
+        ```
+
+        <br/>
+        **Regel:** Bei Big-O werden **Konstanten und niedrigere Terme ignoriert:** O(3n² + 5n + 2) → **O(n²)**
+    </div>
+</Flashcard>

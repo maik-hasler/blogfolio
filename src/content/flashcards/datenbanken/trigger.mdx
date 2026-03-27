@@ -1,0 +1,42 @@
+---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist ein Trigger in einer Datenbank?
+    </div>
+
+    <div slot="answer">
+        Ein **Trigger** ist eine gespeicherte Prozedur, die **automatisch** bei bestimmten Datenbankereignissen ausgeführt wird (INSERT, UPDATE, DELETE).
+
+        <br/>
+        **Zeitpunkte:**
+        - **BEFORE:** Vor der auslösenden Operation
+        - **AFTER:** Nach der auslösenden Operation
+        - **INSTEAD OF:** Ersetzt die Operation
+
+        <br/>
+        **Beispiel — Protokollierung von Änderungen:**
+        ```sql
+        CREATE TRIGGER LogKundenAenderung
+        AFTER UPDATE ON Kunde
+        FOR EACH ROW
+        BEGIN
+            INSERT INTO AenderungsLog (Tabelle, AltName, NeuName, Datum)
+            VALUES ('Kunde', OLD.Name, NEW.Name, NOW());
+        END;
+        ```
+
+        <br/>
+        **Typische Anwendungsfälle:**
+        - Automatische Protokollierung (Audit-Log)
+        - Validierung von Daten
+        - Automatische Berechnungen (z. B. Gesamtpreis aktualisieren)
+
+        <br/>
+        **Vorsicht:** Zu viele Trigger können die Performance beeinträchtigen und die Fehlersuche erschweren.
+    </div>
+</Flashcard>

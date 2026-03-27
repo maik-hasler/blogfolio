@@ -1,0 +1,39 @@
+---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist ein Index in einer Datenbank?
+    </div>
+
+    <div slot="answer">
+        Ein **Index** ist eine Datenstruktur, die den **Zugriff auf Daten beschleunigt** — vergleichbar mit dem Stichwortverzeichnis eines Buches.
+
+        <br/>
+        **Funktionsweise:**
+        - Ohne Index: **Full Table Scan** — jede Zeile wird geprüft (langsam)
+        - Mit Index: Direkter Zugriff über die Indexstruktur (schnell, meist B-Baum)
+
+        <br/>
+        **Erstellung:**
+        ```sql
+        CREATE INDEX idx_nachname ON Kunde(Nachname);
+        ```
+
+        <br/>
+        **Vorteile:**
+        - Deutlich schnellere `SELECT`-Abfragen
+        - Schnellere `WHERE`-, `JOIN`- und `ORDER BY`-Operationen
+
+        <br/>
+        **Nachteile:**
+        - Zusätzlicher Speicherplatz
+        - `INSERT`, `UPDATE`, `DELETE` werden **langsamer** (Index muss aktualisiert werden)
+
+        <br/>
+        **Faustregel:** Indizes auf Spalten setzen, die häufig in `WHERE`- oder `JOIN`-Bedingungen verwendet werden. Primärschlüssel erhalten automatisch einen Index.
+    </div>
+</Flashcard>

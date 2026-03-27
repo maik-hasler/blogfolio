@@ -1,0 +1,57 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+  - 'Objektorientierte Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist Dependency Injection (DI)?
+    </div>
+
+    <div slot="answer">
+        **Dependency Injection** ist ein Entwurfsmuster, bei dem einem Objekt seine Abhängigkeiten **von außen übergeben** werden, anstatt sie selbst zu erzeugen.
+
+        <br/>
+        **Ohne DI (enge Kopplung):**
+        ```java
+        class BestellService {
+            private EmailService email = new EmailService(); // selbst erzeugt!
+
+            public void bestellen() {
+                email.sende("Bestellung eingegangen");
+            }
+        }
+        ```
+
+        <br/>
+        **Mit DI (lose Kopplung):**
+        ```java
+        class BestellService {
+            private final NotificationService notification;
+
+            // Dependency wird von außen injiziert!
+            public BestellService(NotificationService notification) {
+                this.notification = notification;
+            }
+
+            public void bestellen() {
+                notification.sende("Bestellung eingegangen");
+            }
+        }
+        ```
+
+        <br/>
+        **Arten der Injection:**
+        - **Constructor Injection:** Über den Konstruktor (bevorzugt!)
+        - **Setter Injection:** Über eine Setter-Methode
+        - **Field Injection:** Direkt auf das Feld (z. B. `@Autowired` in Spring)
+
+        <br/>
+        **Vorteile:**
+        - **Testbarkeit:** Abhängigkeiten können durch Mocks ersetzt werden
+        - **Lose Kopplung:** Klasse hängt von Abstraktionen ab, nicht von konkreten Implementierungen
+        - **Austauschbarkeit:** Implementierung kann gewechselt werden, ohne die Klasse zu ändern
+    </div>
+</Flashcard>

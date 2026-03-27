@@ -1,0 +1,47 @@
+---
+tags:
+  - 'Scrum & Agile'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist Kanban und wie unterscheidet es sich von Scrum?
+    </div>
+
+    <div slot="answer">
+        **Kanban** ist eine agile Methode, die den Arbeitsfluss **visualisiert** und die Menge paralleler Arbeit **begrenzt** (WIP-Limits).
+
+        <br/>
+        **Kanban-Board:**
+        ```
+        | To Do  | In Progress (max 3) | Review | Done |
+        |--------|---------------------|--------|------|
+        | Task E | Task B              | Task A |      |
+        | Task F | Task C              |        |      |
+        |        | Task D              |        |      |
+        ```
+
+        <br/>
+        **Kernprinzipien:**
+        - **Visualisierung** des Workflows
+        - **WIP-Limit** (Work in Progress): Max. Anzahl paralleler Aufgaben pro Spalte
+        - **Flow Management:** Engpässe erkennen und beseitigen
+        - **Kontinuierliche Verbesserung**
+
+        <br/>
+        **Scrum vs. Kanban:**
+
+        | Merkmal | Scrum | Kanban |
+        |---------|-------|--------|
+        | **Iterationen** | Feste Sprints (1-4 Wochen) | Kontinuierlicher Fluss |
+        | **Rollen** | PO, Scrum Master, Dev Team | Keine vorgeschriebenen Rollen |
+        | **Planung** | Sprint Planning | Kontinuierlich |
+        | **Änderungen** | Nicht während des Sprints | Jederzeit möglich |
+        | **Metriken** | Velocity | Lead Time, Cycle Time |
+
+        <br/>
+        **Wann Kanban?** Support-Teams, Operations, kontinuierliche Arbeit ohne feste Zeitrahmen.
+        **Wann Scrum?** Produktentwicklung mit planbaren Zyklen.
+    </div>
+</Flashcard>

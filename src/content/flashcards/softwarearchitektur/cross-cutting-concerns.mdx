@@ -1,0 +1,43 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was sind Cross-Cutting Concerns (Querschnittsthemen)?
+    </div>
+
+    <div slot="answer">
+        **Cross-Cutting Concerns** sind Aspekte einer Software, die **nicht einer einzelnen Komponente** zugeordnet werden können, sondern das **gesamte System** betreffen — sie „schneiden" quer durch alle Module.
+
+        <br/>
+        **Typische Cross-Cutting Concerns:**
+
+        | Concern | Beschreibung |
+        |---------|-------------|
+        | **Logging** | Protokollierung von Ereignissen und Fehlern |
+        | **Fehlerbehandlung** | Einheitliche Exception-Strategie |
+        | **Sicherheit/Authentifizierung** | Zugriffskontrollen überall |
+        | **Transaktionsmanagement** | ACID über mehrere Operationen |
+        | **Caching** | Zwischenspeicherung zur Performance-Steigerung |
+        | **Monitoring/Metriken** | Systemüberwachung und -messung |
+        | **Validierung** | Eingabeprüfung an verschiedenen Stellen |
+        | **Internationalisierung (i18n)** | Mehrsprachigkeit |
+        | **Konfigurationsmanagement** | Zentrale Konfiguration |
+
+        <br/>
+        **Problem:** Wenn jedes Modul selbst Logging, Security etc. implementiert → **Code-Duplikation**, Inkonsistenz, schwer wartbar.
+
+        <br/>
+        **Lösungsansätze:**
+        - **Aspektorientierte Programmierung (AOP):** z. B. Spring AOP — Aspekte werden zur Laufzeit „eingewebt"
+        - **Middleware / Filter:** z. B. HTTP-Middleware für Authentifizierung
+        - **Decorator Pattern:** Funktionalität dekorativ hinzufügen
+        - **Zentrale Bibliotheken:** Gemeinsame Module für Logging, Error Handling
+
+        <br/>
+        **arc42-Bezug:** Abschnitt 8 „Querschnittliche Konzepte" dokumentiert genau diese Aspekte.
+    </div>
+</Flashcard>

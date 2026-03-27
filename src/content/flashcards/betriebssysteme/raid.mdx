@@ -1,0 +1,36 @@
+---
+tags:
+  - 'Betriebssysteme'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist RAID und welche RAID-Level gibt es?
+    </div>
+
+    <div slot="answer">
+        **RAID (Redundant Array of Independent Disks)** verbindet mehrere Festplatten zu einem logischen Laufwerk — für mehr **Geschwindigkeit**, **Ausfallsicherheit** oder beides.
+
+        <br/>
+        **Wichtige RAID-Level:**
+
+        | RAID | Prinzip | Min. Platten | Ausfall | Kapazität |
+        |------|---------|:------------:|---------|-----------|
+        | **RAID 0** | Striping | 2 | Kein Schutz! | 100% |
+        | **RAID 1** | Mirroring (Spiegelung) | 2 | 1 Platte | 50% |
+        | **RAID 5** | Striping + Parität | 3 | 1 Platte | (n-1)/n |
+        | **RAID 6** | Striping + doppelte Parität | 4 | 2 Platten | (n-2)/n |
+        | **RAID 10** | RAID 1 + RAID 0 (Kombination) | 4 | 1 pro Spiegel | 50% |
+
+        <br/>
+        **RAID 0:** Daten werden auf mehrere Platten **verteilt** → schnell, aber bei einem Ausfall sind **alle** Daten verloren.
+
+        **RAID 1:** Daten werden auf zwei Platten **gespiegelt** → eine Platte kann ausfallen, Daten sind auf der Kopie.
+
+        **RAID 5:** Daten + **Paritätsinformationen** verteilt → eine Platte kann ausfallen und wird aus der Parität rekonstruiert.
+
+        <br/>
+        **Wichtig:** RAID ist **kein Backup!** RAID schützt vor Hardwareausfall, aber nicht vor versehentlichem Löschen, Ransomware oder Feuer.
+    </div>
+</Flashcard>

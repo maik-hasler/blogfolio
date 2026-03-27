@@ -1,0 +1,51 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist GraphQL und wie unterscheidet es sich von REST?
+    </div>
+
+    <div slot="answer">
+        **GraphQL** ist eine Abfragesprache für APIs, entwickelt von Facebook (2015). Der Client bestimmt **exakt**, welche Daten er braucht.
+
+        <br/>
+        **REST-Probleme, die GraphQL löst:**
+        - **Over-fetching:** REST liefert alle Felder, auch wenn nur wenige gebraucht werden
+        - **Under-fetching:** Für zusammengehörige Daten braucht man mehrere REST-Aufrufe
+        - **Viele Endpunkte:** REST hat pro Ressource einen Endpunkt
+
+        <br/>
+        **Vergleich:**
+
+        | Merkmal | REST | GraphQL |
+        |---------|------|---------|
+        | **Endpunkte** | Viele (`/users`, `/orders`) | Einer (`/graphql`) |
+        | **Datenmenge** | Server bestimmt | Client bestimmt |
+        | **Caching** | HTTP-Caching einfach | Komplexer |
+        | **Lernkurve** | Einfacher | Steiler |
+
+        <br/>
+        **GraphQL-Beispiel:**
+        ```graphql
+        query {
+          user(id: 42) {
+            name
+            email
+            orders {
+              id
+              total
+            }
+          }
+        }
+        ```
+        → Ein Request statt drei (User + Orders in einem Aufruf), nur die gewünschten Felder.
+
+        <br/>
+        **Wann REST?** Einfache CRUD-APIs, öffentliche APIs, starkes Caching nötig.
+        **Wann GraphQL?** Komplexe Datenmodelle, mobile Apps (Bandbreite sparen), flexible Frontends.
+    </div>
+</Flashcard>

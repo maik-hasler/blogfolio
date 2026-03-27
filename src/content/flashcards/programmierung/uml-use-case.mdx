@@ -1,0 +1,35 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist ein Use-Case-Diagramm (Anwendungsfalldiagramm)?
+    </div>
+
+    <div slot="answer">
+        Ein **Use-Case-Diagramm** zeigt, welche **Akteure** welche **Anwendungsfälle** (Funktionen) eines Systems nutzen — es beschreibt das System aus Benutzersicht.
+
+        <br/>
+        **Bestandteile:**
+        - **Akteur** (Strichmännchen): Person oder externes System, das mit dem System interagiert
+        - **Use Case** (Ellipse): Eine Funktion/Aktion des Systems
+        - **Systemgrenze** (Rechteck): Umfasst alle Use Cases des Systems
+        - **Beziehungen** (Linien): Verbinden Akteure mit Use Cases
+
+        <br/>
+        **Beziehungstypen zwischen Use Cases:**
+        - **&lt;&lt;include&gt;&gt;:** Ein Use Case **beinhaltet** einen anderen zwingend (z. B. „Bestellen" include „Bezahlen")
+        - **&lt;&lt;extend&gt;&gt;:** Ein Use Case **erweitert** einen anderen optional (z. B. „Bestellen" extend „Gutschein einlösen")
+
+        <br/>
+        **Beispiel — Online-Shop:**
+        - Akteur „Kunde" → Use Cases: Produkt suchen, In den Warenkorb, Bestellen
+        - Akteur „Admin" → Use Cases: Produkt verwalten, Bestellungen einsehen
+
+        <br/>
+        **Zweck:** Anforderungsanalyse, Kommunikation mit Stakeholdern, Grundlage für Testfälle.
+    </div>
+</Flashcard>

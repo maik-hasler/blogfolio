@@ -1,0 +1,36 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist Casting (Typumwandlung)?
+    </div>
+
+    <div slot="answer">
+        **Casting** ist die Umwandlung eines Wertes von einem Datentyp in einen anderen.
+
+        <br/>
+        **Implizites Casting (Widening):** Erfolgt automatisch, wenn kein Datenverlust möglich ist.
+        ```csharp
+        int ganzzahl = 42;
+        double kommazahl = ganzzahl; // int → double (automatisch)
+        ```
+
+        <br/>
+        **Explizites Casting (Narrowing):** Muss vom Entwickler angegeben werden, da Datenverlust möglich ist.
+        ```csharp
+        double kommazahl = 3.99;
+        int ganzzahl = (int)kommazahl; // double → int = 3 (Nachkommastellen abgeschnitten)
+        ```
+
+        <br/>
+        **Parsing:** Umwandlung von Strings in andere Typen.
+        ```csharp
+        string text = "42";
+        int zahl = int.Parse(text); // string → int
+        ```
+    </div>
+</Flashcard>

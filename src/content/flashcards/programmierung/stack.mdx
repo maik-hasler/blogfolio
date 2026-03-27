@@ -1,0 +1,43 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist ein Stack (Stapel)?
+    </div>
+
+    <div slot="answer">
+        Ein **Stack** ist eine Datenstruktur nach dem **LIFO-Prinzip** (Last In, First Out) — das zuletzt hinzugefügte Element wird als erstes wieder entnommen.
+
+        <br/>
+        **Operationen:**
+        - **push(element):** Element oben auf den Stack legen
+        - **pop():** Oberstes Element entfernen und zurückgeben
+        - **peek() / top():** Oberstes Element ansehen (ohne es zu entfernen)
+        - **isEmpty():** Prüfen, ob der Stack leer ist
+
+        <br/>
+        **Visualisierung:**
+        ```
+        push(A) → push(B) → push(C) → pop()
+
+        |   |    |   |    | C |    |   |
+        |   |    | B |    | B |    | B |
+        | A |    | A |    | A |    | A |
+        -----    -----    -----    -----
+        ```
+
+        <br/>
+        **Anwendungen:**
+        - **Undo/Redo** in Texteditoren
+        - **Methodenaufrufe** (Call Stack) — z. B. bei Rekursion
+        - **Klammerprüfung** in Compilern: `((()))` — Push bei `(`, Pop bei `)`
+        - **Browser-Zurück-Button:** Besuchte Seiten auf dem Stack
+
+        <br/>
+        **Zeitkomplexität:** push, pop, peek → alle **O(1)** (konstant)
+    </div>
+</Flashcard>

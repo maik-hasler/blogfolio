@@ -1,0 +1,43 @@
+---
+tags:
+  - 'Webentwicklung'
+  - 'IT-Sicherheit'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist HTTPS und wie funktioniert TLS?
+    </div>
+
+    <div slot="answer">
+        **HTTPS** = HTTP + **TLS** (Transport Layer Security). Die Kommunikation zwischen Browser und Server wird **verschlüsselt** übertragen.
+
+        <br/>
+        **HTTP vs. HTTPS:**
+
+        | | HTTP | HTTPS |
+        |---|------|-------|
+        | **Port** | 80 | 443 |
+        | **Verschlüsselung** | Nein (Klartext) | Ja (TLS) |
+        | **Sicherheit** | Daten können abgefangen werden | Daten sind geschützt |
+
+        <br/>
+        **TLS-Handshake (vereinfacht):**
+        1. Client sagt „Hallo" und nennt unterstützte Verschlüsselungsverfahren
+        2. Server antwortet mit seinem **Zertifikat** (enthält öffentlichen Schlüssel)
+        3. Client prüft das Zertifikat (über **Certificate Authority / CA**)
+        4. Client und Server vereinbaren einen **gemeinsamen Sitzungsschlüssel** (asymmetrisch)
+        5. Ab jetzt: **symmetrische** Verschlüsselung der Daten (schneller)
+
+        <br/>
+        **Zertifikat:**
+        - Ausgestellt von einer **Certificate Authority (CA)** (z. B. Let's Encrypt)
+        - Bestätigt die **Identität** des Servers
+        - Enthält den öffentlichen Schlüssel
+        - Hat ein **Ablaufdatum**
+
+        <br/>
+        **Wichtig:** HTTPS schützt die **Übertragung** — nicht den Server selbst vor Angriffen (SQL Injection, XSS etc.).
+    </div>
+</Flashcard>

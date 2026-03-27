@@ -1,0 +1,46 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was sind Bubble Sort und Quicksort?
+    </div>
+
+    <div slot="answer">
+        **Bubble Sort** — einfach, aber langsam:
+        - Vergleicht **benachbarte Elemente** und tauscht sie, wenn sie in falscher Reihenfolge sind
+        - Wird so oft wiederholt, bis keine Tauschungen mehr nötig sind
+        - Das größte Element „blubbert" nach oben
+
+        ```
+        [5, 3, 8, 1] → [3, 5, 1, 8] → [3, 1, 5, 8] → [1, 3, 5, 8]
+        ```
+
+        - **Best Case:** O(n) — bereits sortiert
+        - **Worst/Average Case:** O(n²)
+        - **Vorteil:** Einfach zu verstehen, stabil
+
+        <br/>
+        ---
+
+        <br/>
+        **Quicksort** — schnell, in der Praxis am häufigsten:
+        - Wählt ein **Pivot-Element**
+        - Teilt das Array in zwei Teile: kleiner als Pivot / größer als Pivot
+        - Sortiert beide Teile **rekursiv** (Divide & Conquer)
+
+        - **Best/Average Case:** O(n log n)
+        - **Worst Case:** O(n²) — bei schlechter Pivot-Wahl
+        - **Vorteil:** In der Praxis sehr schnell, sortiert in-place
+
+        <br/>
+        | Algorithmus | Best | Average | Worst | Stabil? |
+        |-------------|------|---------|-------|---------|
+        | Bubble Sort | O(n) | O(n²) | O(n²) | Ja |
+        | Quicksort | O(n log n) | O(n log n) | O(n²) | Nein |
+        | Mergesort | O(n log n) | O(n log n) | O(n log n) | Ja |
+    </div>
+</Flashcard>

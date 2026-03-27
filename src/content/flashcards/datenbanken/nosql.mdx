@@ -1,0 +1,37 @@
+---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist NoSQL und welche Typen gibt es?
+    </div>
+
+    <div slot="answer">
+        **NoSQL** („Not Only SQL") bezeichnet Datenbanken, die **nicht** dem relationalen Modell folgen. Sie sind oft für große Datenmengen, hohe Verfügbarkeit und horizontale Skalierung optimiert.
+
+        <br/>
+        **Typen von NoSQL-Datenbanken:**
+
+        | Typ | Beschreibung | Beispiele |
+        |-----|-------------|-----------|
+        | **Key-Value** | Einfache Schlüssel-Wert-Paare | Redis, DynamoDB |
+        | **Dokumentbasiert** | JSON-/BSON-Dokumente | MongoDB, CouchDB |
+        | **Spaltenorientiert** | Daten spaltenweise gespeichert | Cassandra, HBase |
+        | **Graphbasiert** | Knoten und Kanten für Beziehungen | Neo4j, ArangoDB |
+
+        <br/>
+        **Wann NoSQL verwenden?**
+        - Große, unstrukturierte Datenmengen
+        - Hohe Schreib-/Leselast
+        - Flexible, sich ändernde Datenstrukturen
+        - Horizontale Skalierung (viele Server)
+
+        <br/>
+        **Wann besser relationale DB?**
+        - Komplexe Abfragen mit JOINs
+        - Strenge Konsistenzanforderungen (z. B. Finanzdaten)
+    </div>
+</Flashcard>

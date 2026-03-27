@@ -1,0 +1,41 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist CORS (Cross-Origin Resource Sharing)?
+    </div>
+
+    <div slot="answer">
+        **CORS** ist ein Sicherheitsmechanismus in Browsern, der kontrolliert, ob eine Webseite auf Ressourcen eines **anderen Servers** (einer anderen Origin) zugreifen darf.
+
+        <br/>
+        **Was ist eine Origin?**
+        Kombination aus **Protokoll + Domain + Port:**
+        - `https://example.com:443` → eine Origin
+        - `https://api.example.com:443` → **andere** Origin (andere Subdomain)
+
+        <br/>
+        **Same-Origin Policy:**
+        Browser blockieren standardmäßig Anfragen an eine **andere Origin** aus Sicherheitsgründen. CORS lockert diese Einschränkung kontrolliert.
+
+        <br/>
+        **Wie funktioniert CORS?**
+        1. Browser sendet Anfrage an fremde Origin
+        2. Server antwortet mit **CORS-Headern:**
+           - `Access-Control-Allow-Origin: https://meine-app.de`
+           - `Access-Control-Allow-Methods: GET, POST`
+           - `Access-Control-Allow-Headers: Content-Type`
+        3. Browser prüft die Header und erlaubt/blockiert die Anfrage
+
+        <br/>
+        **Preflight-Request (OPTIONS):**
+        Bei „gefährlichen" Anfragen (z. B. PUT, DELETE, custom Header) sendet der Browser **vorher** eine OPTIONS-Anfrage, um zu prüfen, ob die echte Anfrage erlaubt ist.
+
+        <br/>
+        **Typischer Fehler:** `CORS policy: No 'Access-Control-Allow-Origin' header present` → Der Server erlaubt den Zugriff nicht.
+    </div>
+</Flashcard>

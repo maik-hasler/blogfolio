@@ -1,0 +1,45 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist JSON?
+    </div>
+
+    <div slot="answer">
+        **JSON (JavaScript Object Notation)** ist ein leichtgewichtiges, textbasiertes Datenformat zum Austausch strukturierter Daten — vor allem zwischen Client und Server.
+
+        <br/>
+        **Datentypen in JSON:**
+        - **String:** `"name": "Max"`
+        - **Number:** `"alter": 25`
+        - **Boolean:** `"aktiv": true`
+        - **Null:** `"adresse": null`
+        - **Array:** `"hobbys": ["Lesen", "Sport"]`
+        - **Object:** `"adresse": { "stadt": "Berlin" }`
+
+        <br/>
+        **Beispiel:**
+        ```json
+        {
+          "vorname": "Max",
+          "nachname": "Mustermann",
+          "alter": 25,
+          "adresse": {
+            "strasse": "Hauptstr. 1",
+            "stadt": "Berlin"
+          },
+          "sprachen": ["Deutsch", "Englisch"]
+        }
+        ```
+
+        <br/>
+        **Vorteile gegenüber XML:**
+        - Kompakter und lesbarer
+        - Einfacher zu parsen
+        - Standard in REST-APIs
+    </div>
+</Flashcard>

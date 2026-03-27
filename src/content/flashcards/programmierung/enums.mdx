@@ -1,0 +1,49 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist ein Enumerationstyp (Enum)?
+    </div>
+
+    <div slot="answer">
+        Ein **Enum** (Enumeration) ist ein Datentyp, der eine **feste Menge** benannter Konstanten definiert. Er erhöht die Lesbarkeit und Typsicherheit.
+
+        <br/>
+        **Beispiel (Java):**
+        ```java
+        public enum Wochentag {
+            MONTAG, DIENSTAG, MITTWOCH, DONNERSTAG,
+            FREITAG, SAMSTAG, SONNTAG
+        }
+
+        Wochentag tag = Wochentag.MONTAG;
+        ```
+
+        <br/>
+        **Ohne Enum (schlecht):**
+        ```java
+        int status = 1; // Was bedeutet 1? Unklar!
+        ```
+
+        **Mit Enum (gut):**
+        ```java
+        enum Status { OFFEN, IN_BEARBEITUNG, ABGESCHLOSSEN }
+        Status status = Status.OFFEN; // Klar und typsicher!
+        ```
+
+        <br/>
+        **Vorteile:**
+        - **Lesbarkeit:** `Status.OFFEN` statt `1`
+        - **Typsicherheit:** Compiler verhindert ungültige Werte
+        - **Wartbarkeit:** Änderungen an einer Stelle
+        - **IDE-Unterstützung:** Autovervollständigung
+
+        <br/>
+        **Typische Einsatzgebiete:**
+        Statuscodes, Wochentage, Richtungen, Farben, Rollen, Bestellstatus — überall wo eine **begrenzte Auswahl** fester Werte existiert.
+    </div>
+</Flashcard>

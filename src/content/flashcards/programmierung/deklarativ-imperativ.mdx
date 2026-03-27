@@ -1,0 +1,49 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist der Unterschied zwischen deklarativer und imperativer Programmierung?
+    </div>
+
+    <div slot="answer">
+        | | Imperativ | Deklarativ |
+        |---|----------|-----------|
+        | **Frage** | **Wie** soll es gemacht werden? | **Was** soll erreicht werden? |
+        | **Fokus** | Schritt-für-Schritt-Anweisungen | Beschreibung des gewünschten Ergebnisses |
+        | **Zustand** | Veränderlicher Zustand (Variablen) | Oft zustandslos |
+
+        <br/>
+        **Imperativ — „Wie?":**
+        ```java
+        // Finde alle geraden Zahlen
+        List<Integer> ergebnis = new ArrayList<>();
+        for (int i = 0; i < zahlen.size(); i++) {
+            if (zahlen.get(i) % 2 == 0) {
+                ergebnis.add(zahlen.get(i));
+            }
+        }
+        ```
+
+        <br/>
+        **Deklarativ — „Was?":**
+        ```java
+        var ergebnis = zahlen.stream()
+            .filter(z -> z % 2 == 0)
+            .collect(toList());
+        ```
+
+        <br/>
+        **Weitere Beispiele für deklarativ:**
+        - **SQL:** `SELECT * FROM kunden WHERE alter > 18` (nicht: wie suchen)
+        - **HTML:** `<h1>Titel</h1>` (nicht: wie rendern)
+        - **CSS:** `color: red` (nicht: wie Pixel setzen)
+        - **React JSX:** `<Button onClick={save}>` (nicht: wie Event binden)
+
+        <br/>
+        **In der Praxis:** Die meisten modernen Sprachen kombinieren beide Ansätze — z. B. Java mit Streams, JavaScript mit Array-Methoden.
+    </div>
+</Flashcard>

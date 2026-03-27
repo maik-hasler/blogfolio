@@ -1,0 +1,38 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was bedeutet Clean Code?
+    </div>
+
+    <div slot="answer">
+        **Clean Code** ist Code, der **leicht lesbar, verständlich und wartbar** ist. Das Konzept wurde von Robert C. Martin („Uncle Bob") geprägt.
+
+        <br/>
+        **Wichtige Regeln:**
+        - **Sprechende Namen:** `berechneGesamtpreis()` statt `calc()` oder `x()`
+        - **Kleine Funktionen:** Jede Methode macht genau **eine** Sache
+        - **DRY (Don't Repeat Yourself):** Keine Code-Duplikate
+        - **KISS (Keep It Simple, Stupid):** Einfachste Lösung bevorzugen
+        - **YAGNI (You Aren't Gonna Need It):** Nichts implementieren, was nicht gebraucht wird
+        - **Boy-Scout-Rule:** Code **besser hinterlassen** als vorgefunden
+
+        <br/>
+        **Kommentare:**
+        - Guter Code braucht **wenige Kommentare** — er erklärt sich selbst
+        - Kommentare für das **Warum**, nicht das **Was**
+        - Veraltete Kommentare sind schlimmer als keine
+
+        <br/>
+        **Code Smells (Warnsignale):**
+        - Zu lange Methoden / Klassen
+        - Zu viele Parameter
+        - Verschachtelte if-Bedingungen
+        - Duplizierter Code
+        - Magische Zahlen ohne Erklärung
+    </div>
+</Flashcard>

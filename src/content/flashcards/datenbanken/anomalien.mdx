@@ -12,8 +12,19 @@ import Flashcard from '../../../components/FlashcardWrapper.astro'
     <div slot="answer">
         Wenn Normalformen nicht eingehalten werden, kann es zu folgenden **Anomalien** kommen:
 
-        * Einfügeanomalie (Insert-Anomalie)
-        * Änderungsanomalie (Update-Anomalie)
-        * Löschanomalie (Delete-Anomalie)
+        <br/>
+        **1. Einfügeanomalie (Insert-Anomalie):**
+        Neue Daten können nicht eingefügt werden, ohne nicht zusammenhängende Daten ebenfalls anzugeben. Beispiel: Ein neuer Kunde kann nicht angelegt werden, wenn er noch keine Bestellung hat.
+
+        <br/>
+        **2. Änderungsanomalie (Update-Anomalie):**
+        Redundant gespeicherte Daten müssen an mehreren Stellen gleichzeitig geändert werden. Wird eine Stelle vergessen, entstehen **Inkonsistenzen**. Beispiel: Eine Kundenadresse ist in jeder Bestellzeile gespeichert.
+
+        <br/>
+        **3. Löschanomalie (Delete-Anomalie):**
+        Beim Löschen eines Datensatzes gehen unbeabsichtigt **andere wichtige Daten verloren**. Beispiel: Wird die letzte Bestellung eines Kunden gelöscht, geht auch die Kundeninformation verloren.
+
+        <br/>
+        **Lösung:** Durch **Normalisierung** (1NF, 2NF, 3NF) werden Redundanzen beseitigt und Anomalien verhindert.
     </div>
 </Flashcard>

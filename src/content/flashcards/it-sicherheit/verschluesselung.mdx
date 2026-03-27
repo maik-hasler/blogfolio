@@ -1,0 +1,38 @@
+---
+tags:
+  - 'IT-Sicherheit'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist der Unterschied zwischen symmetrischer und asymmetrischer Verschlüsselung?
+    </div>
+
+    <div slot="answer">
+        | Merkmal | Symmetrisch | Asymmetrisch |
+        |---------|------------|-------------|
+        | **Schlüssel** | Ein gemeinsamer Schlüssel | Schlüsselpaar (öffentlich + privat) |
+        | **Geschwindigkeit** | Schnell | Langsamer |
+        | **Schlüsselaustausch** | Problematisch (wie sicher übermitteln?) | Einfach (öffentlicher Schlüssel frei teilbar) |
+        | **Beispiele** | AES, DES, 3DES | RSA, ECC |
+
+        <br/>
+        **Symmetrische Verschlüsselung:**
+        - Sender und Empfänger nutzen **denselben** Schlüssel
+        - Problem: Der Schlüssel muss **sicher ausgetauscht** werden
+
+        <br/>
+        **Asymmetrische Verschlüsselung:**
+        - **Öffentlicher Schlüssel:** Zum Verschlüsseln (jeder kann ihn haben)
+        - **Privater Schlüssel:** Zum Entschlüsseln (nur der Empfänger hat ihn)
+        - Löst das Schlüsselaustausch-Problem
+
+        <br/>
+        **In der Praxis (z. B. HTTPS):**
+        Asymmetrische Verschlüsselung wird genutzt, um einen symmetrischen Sitzungsschlüssel sicher auszutauschen. Danach wird **symmetrisch** verschlüsselt (schneller).
+
+        <br/>
+        **Hashing** ist **keine** Verschlüsselung — es ist eine Einwegfunktion (z. B. SHA-256 für Passwörter).
+    </div>
+</Flashcard>

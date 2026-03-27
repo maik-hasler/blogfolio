@@ -1,0 +1,44 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was sind die vier Architektursichten und warum braucht man sie?
+    </div>
+
+    <div slot="answer">
+        Softwarearchitektur ist zu komplex, um sie in einem einzigen Diagramm zu zeigen. Deshalb verwendet man **verschiedene Sichten** — jede beleuchtet einen anderen Aspekt.
+
+        <br/>
+        **1. Kontextsicht (Context View):**
+        - Zeigt das System als **Black Box** in seiner Umgebung
+        - Welche **externen Systeme, Akteure und Schnittstellen** gibt es?
+        - „Was ist drin, was ist draußen?"
+        - Diagramm: Systemkontextdiagramm
+
+        <br/>
+        **2. Bausteinsicht (Building Block View):**
+        - Zeigt die **innere Struktur** — Module, Komponenten, Pakete
+        - **Statische** Zerlegung des Systems
+        - Hierarchisch verfeinerbar (Level 1, Level 2, ...)
+        - Diagramme: Komponentendiagramme, Paketdiagramme
+
+        <br/>
+        **3. Laufzeitsicht (Runtime View):**
+        - Zeigt das **dynamische Verhalten** — wie interagieren die Bausteine zur Laufzeit?
+        - Wichtige Szenarien und Abläufe
+        - Diagramme: Sequenzdiagramme, Aktivitätsdiagramme
+
+        <br/>
+        **4. Verteilungssicht (Deployment View):**
+        - Zeigt die **Infrastruktur** — auf welcher Hardware läuft was?
+        - Server, Container, Netzwerke, Cloud-Ressourcen
+        - Diagramme: Deployment-Diagramme
+
+        <br/>
+        **Merke:** Verschiedene Stakeholder brauchen verschiedene Sichten — der Entwickler die Bausteinsicht, der Admin die Verteilungssicht, der Kunde die Kontextsicht.
+    </div>
+</Flashcard>

@@ -1,0 +1,42 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist ein Sequenzdiagramm?
+    </div>
+
+    <div slot="answer">
+        Ein **Sequenzdiagramm** zeigt die zeitliche Abfolge von **Nachrichten** (Methodenaufrufen) zwischen Objekten — es beschreibt das dynamische Verhalten eines Systems.
+
+        <br/>
+        **Bestandteile:**
+        - **Objekte/Akteure:** Oben als Kästen dargestellt
+        - **Lebenslinien:** Gestrichelte Linien nach unten (Zeitachse)
+        - **Nachrichten:** Pfeile zwischen Lebenslinien (Methodenaufrufe)
+        - **Aktivierungsbalken:** Zeigen, wann ein Objekt aktiv ist
+
+        <br/>
+        **Pfeilarten:**
+        - **→** Synchroner Aufruf (wartet auf Antwort)
+        - **--→** Asynchroner Aufruf (wartet nicht)
+        - **&lt;--** Rückgabewert (gestrichelt)
+
+        <br/>
+        **Beispiel — Login:**
+        ```
+        Benutzer    →  LoginController : login(user, pw)
+        LoginController →  UserService : validateUser(user, pw)
+        UserService     →  Datenbank   : findByUsername(user)
+        Datenbank      <-- UserService : User-Objekt
+        UserService    <-- LoginController : true/false
+        LoginController <-- Benutzer    : Erfolg/Fehler
+        ```
+
+        <br/>
+        **Zweck:** Verständnis des Zusammenspiels von Komponenten, Design von Schnittstellen, Dokumentation.
+    </div>
+</Flashcard>

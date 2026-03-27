@@ -1,0 +1,33 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist der Unterschied zwischen statischer und dynamischer Typisierung?
+    </div>
+
+    <div slot="answer">
+        **Statische Typisierung:** Der Datentyp einer Variable wird **zur Compile-Zeit** festgelegt und kann sich nicht ändern.
+        ```csharp
+        int zahl = 42;
+        zahl = "Hallo"; // Compile-Fehler!
+        ```
+        Beispiele: C#, Java, C++, TypeScript
+
+        <br/>
+        **Dynamische Typisierung:** Der Datentyp wird erst **zur Laufzeit** bestimmt und kann sich ändern.
+        ```python
+        zahl = 42
+        zahl = "Hallo"  # Kein Fehler!
+        ```
+        Beispiele: Python, JavaScript, Ruby
+
+        <br/>
+        **Vor- und Nachteile:**
+        - **Statisch:** Mehr Sicherheit, Fehler früher erkannt, bessere IDE-Unterstützung
+        - **Dynamisch:** Flexibler, schnellere Entwicklung, weniger Boilerplate-Code
+    </div>
+</Flashcard>

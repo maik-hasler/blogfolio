@@ -1,0 +1,43 @@
+---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist SQL Injection und wie schützt man sich davor?
+    </div>
+
+    <div slot="answer">
+        **SQL Injection** ist ein Angriff, bei dem ein Angreifer **schädlichen SQL-Code** über Benutzereingaben einschleust, um unerlaubte Datenbankoperationen auszuführen.
+
+        <br/>
+        **Unsicherer Code (C#):**
+        ```csharp
+        // GEFÄHRLICH! Eingabe wird direkt eingesetzt:
+        string sql = "SELECT * FROM Kunde WHERE Name = '" + eingabe + "'";
+        // Eingabe: ' OR 1=1 --
+        // Ergebnis: SELECT * FROM Kunde WHERE Name = '' OR 1=1 --'
+        // → Gibt ALLE Kunden zurück!
+        ```
+
+        <br/>
+        **Schutzmaßnahmen:**
+
+        **1. Parametrisierte Abfragen (Prepared Statements):**
+        ```csharp
+        string sql = "SELECT * FROM Kunde WHERE Name = @name";
+        command.Parameters.AddWithValue("@name", eingabe);
+        ```
+
+        <br/>
+        **2. ORM verwenden:** Entity Framework, Hibernate etc. nutzen automatisch Parameter.
+
+        <br/>
+        **3. Eingabevalidierung:** Benutzereingaben prüfen und bereinigen.
+
+        <br/>
+        **4. Principle of Least Privilege:** Datenbankbenutzer nur mit minimal nötigen Rechten ausstatten.
+    </div>
+</Flashcard>

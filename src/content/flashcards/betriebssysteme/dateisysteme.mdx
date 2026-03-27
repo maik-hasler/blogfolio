@@ -1,0 +1,39 @@
+---
+tags:
+  - 'Betriebssysteme'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist ein Dateisystem?
+    </div>
+
+    <div slot="answer">
+        Ein **Dateisystem** organisiert, wie Daten auf einem Speichermedium (Festplatte, SSD, USB-Stick) **gespeichert, benannt und wiedergefunden** werden.
+
+        <br/>
+        **Aufgaben:**
+        - Dateien und Verzeichnisse strukturieren (Baumstruktur)
+        - Metadaten verwalten (Name, Größe, Erstelldatum, Berechtigungen)
+        - Freien Speicherplatz verwalten
+        - Zugriffskontrolle (Lese-/Schreibrechte)
+
+        <br/>
+        **Wichtige Dateisysteme:**
+
+        | Dateisystem | Betriebssystem | Max. Dateigröße | Besonderheit |
+        |-------------|---------------|-----------------|-------------|
+        | **NTFS** | Windows | 16 TB | Berechtigungen, Journaling, Verschlüsselung |
+        | **ext4** | Linux | 16 TB | Standard bei Linux, Journaling |
+        | **APFS** | macOS | 8 EB | Optimiert für SSDs, Verschlüsselung |
+        | **FAT32** | Alle | 4 GB | Universell kompatibel, alt |
+        | **exFAT** | Alle | 16 EB | Für USB-Sticks/SD-Karten, keine 4 GB-Grenze |
+
+        <br/>
+        **Journaling:** Das Dateisystem protokolliert Änderungen **bevor** sie geschrieben werden. Bei einem Absturz können unvollständige Operationen wiederhergestellt werden → weniger Datenverlust.
+
+        <br/>
+        **Linux-Berechtigungen:** `rwxr-xr--` → Owner: lesen+schreiben+ausführen, Gruppe: lesen+ausführen, Andere: nur lesen.
+    </div>
+</Flashcard>

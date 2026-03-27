@@ -1,0 +1,40 @@
+---
+tags:
+  - 'DevOps'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist der Unterschied zwischen IaaS, PaaS und SaaS?
+    </div>
+
+    <div slot="answer">
+        Die drei Cloud-Service-Modelle unterscheiden sich darin, **wie viel** der Anbieter verwaltet und **wie viel** der Nutzer selbst kontrolliert.
+
+        <br/>
+        | Modell | Full Name | Du verwaltest | Anbieter verwaltet |
+        |--------|-----------|---------------|---------------------|
+        | **IaaS** | Infrastructure as a Service | OS, Runtime, App, Daten | Server, Netzwerk, Speicher |
+        | **PaaS** | Platform as a Service | App, Daten | OS, Runtime, Server, Netzwerk |
+        | **SaaS** | Software as a Service | Nur Nutzung | Alles |
+
+        <br/>
+        **Analogie — Pizza:**
+        - **IaaS** = Du bekommst Küche + Zutaten, kochst selbst
+        - **PaaS** = Du bekommst den Teig fertig, belegst selbst
+        - **SaaS** = Pizza wird geliefert, du isst nur
+
+        <br/>
+        **Beispiele:**
+
+        | Modell | Beispiele |
+        |--------|----------|
+        | **IaaS** | AWS EC2, Azure VMs, Google Compute Engine |
+        | **PaaS** | Heroku, Azure App Service, Google App Engine |
+        | **SaaS** | Microsoft 365, Google Workspace, Salesforce, Slack |
+
+        <br/>
+        **Trend:** Serverless / **FaaS** (Function as a Service) geht noch weiter — du schreibst nur einzelne Funktionen, alles andere verwaltet der Anbieter (z. B. AWS Lambda).
+    </div>
+</Flashcard>

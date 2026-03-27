@@ -1,0 +1,49 @@
+---
+tags:
+  - 'Wirtschaft'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Wie funktioniert ein Angebotsvergleich (quantitativ vs. qualitativ)?
+    </div>
+
+    <div slot="answer">
+        **Quantitativer Angebotsvergleich:**
+        Vergleich anhand **messbarer Kosten** — welches Angebot ist am günstigsten?
+
+        <br/>
+        **Berechnungsschema:**
+        ```
+          Listenpreis
+        - Rabatt
+        = Zieleinkaufspreis
+        - Skonto
+        = Bareinkaufspreis
+        + Bezugskosten (Versand, Verpackung)
+        = Bezugspreis (= Vergleichspreis)
+        ```
+
+        <br/>
+        **Beispiel:**
+        | | Anbieter A | Anbieter B |
+        |---|-----------|-----------|
+        | Listenpreis | 1.000 € | 950 € |
+        | Rabatt (10%) | -100 € | – |
+        | Zieleinkaufspreis | 900 € | 950 € |
+        | Skonto (2%) | -18 € | -19 € |
+        | Bareinkaufspreis | 882 € | 931 € |
+        | Versandkosten | +50 € | gratis |
+        | **Bezugspreis** | **932 €** | **931 €** |
+
+        → Anbieter B ist günstiger (knapp)!
+
+        <br/>
+        **Qualitativer Angebotsvergleich:**
+        Berücksichtigt **nicht-monetäre Faktoren** wie Qualität, Lieferzeit, Support, Garantie → oft per **Nutzwertanalyse**.
+
+        <br/>
+        **IHK-Prüfung:** Quantitativer Vergleich wird häufig als Rechenaufgabe gestellt!
+    </div>
+</Flashcard>

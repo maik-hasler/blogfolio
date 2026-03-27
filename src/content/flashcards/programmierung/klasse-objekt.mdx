@@ -1,0 +1,41 @@
+---
+tags:
+  - 'Objektorientierte Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist der Unterschied zwischen einer Klasse und einem Objekt?
+    </div>
+
+    <div slot="answer">
+        | Merkmal | Klasse | Objekt |
+        |---------|--------|--------|
+        | **Definition** | Bauplan / Vorlage | Konkretes Exemplar |
+        | **Existenz** | Zur Compile-Zeit | Zur Laufzeit |
+        | **Analogie** | Bauplan eines Hauses | Ein konkretes Haus |
+        | **Speicher** | Kein Speicher belegt | Belegt Speicher im Heap |
+
+        <br/>
+        **Beispiel in C#:**
+        ```csharp
+        // Klasse = Bauplan
+        class Auto
+        {
+            public string Marke;
+            public int PS;
+            public void Hupen() { Console.WriteLine("Huup!"); }
+        }
+
+        // Objekt = Instanz der Klasse
+        Auto meinAuto = new Auto();
+        meinAuto.Marke = "VW";
+        meinAuto.PS = 150;
+        meinAuto.Hupen(); // "Huup!"
+        ```
+
+        <br/>
+        Das Erstellen eines Objekts aus einer Klasse nennt man **Instanziierung**.
+    </div>
+</Flashcard>

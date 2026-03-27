@@ -1,0 +1,54 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was sind reine Funktionen und Seiteneffekte?
+    </div>
+
+    <div slot="answer">
+        **Reine Funktion (Pure Function):**
+        Eine Funktion, die **zwei Regeln** erfüllt:
+        1. **Determinismus:** Gleiche Eingabe → immer gleiche Ausgabe
+        2. **Keine Seiteneffekte:** Verändert nichts außerhalb der Funktion
+
+        <br/>
+        **Rein:**
+        ```java
+        int addiere(int a, int b) {
+            return a + b; // Immer gleich, ändert nichts
+        }
+        ```
+
+        **Nicht rein (Seiteneffekte):**
+        ```java
+        int counter = 0;
+        int naechsteId() {
+            counter++;        // ← Zustand geändert (Seiteneffekt!)
+            return counter;
+        }
+        ```
+
+        <br/>
+        **Was sind Seiteneffekte?**
+        - Globale Variablen ändern
+        - In Datei/Datenbank schreiben
+        - HTTP-Request senden
+        - Konsolenausgabe (`System.out.println`)
+        - Zufallszahlen generieren
+        - Aktuelle Uhrzeit abfragen
+
+        <br/>
+        **Warum sind reine Funktionen besser?**
+        - **Testbar:** Keine Mocks, keine Abhängigkeiten
+        - **Parallelisierbar:** Kein geteilter Zustand → keine Race Conditions
+        - **Cachebar:** Gleiches Ergebnis → kann gecacht werden (Memoization)
+        - **Nachvollziehbar:** Verhalten nur von Eingabe abhängig
+
+        <br/>
+        **Praxis:** Nicht alles kann rein sein (I/O ist nötig!) — aber man trennt reine Logik von Seiteneffekten. Die Geschäftslogik bleibt rein, I/O wird an den Rand gedrückt.
+    </div>
+</Flashcard>

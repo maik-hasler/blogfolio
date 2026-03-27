@@ -1,0 +1,40 @@
+---
+tags:
+  - 'Zahlensysteme'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist das Zweierkomplement?
+    </div>
+
+    <div slot="answer">
+        Das **Zweierkomplement** ist die Standarddarstellung für **negative Zahlen** in der Informatik. Es ermöglicht, dass Addition und Subtraktion mit derselben Hardware durchgeführt werden können.
+
+        <br/>
+        **Umwandlung: positive → negative Zahl**
+        1. Binärdarstellung der positiven Zahl aufschreiben
+        2. Alle Bits **invertieren** (0→1, 1→0) → Einerkomplement
+        3. **+1** addieren → Zweierkomplement
+
+        <br/>
+        **Beispiel: -5 als 8-Bit Zweierkomplement**
+        ```
+        +5 =  00000101
+        Invertiert: 11111010  (Einerkomplement)
+        +1:        11111011  (Zweierkomplement = -5)
+        ```
+
+        <br/>
+        **Wertebereich bei n Bit:**
+        - **Kleinster Wert:** -2^(n-1)
+        - **Größter Wert:** 2^(n-1) - 1
+        - **8 Bit:** -128 bis +127
+        - **16 Bit:** -32.768 bis +32.767
+        - **32 Bit:** ca. -2,1 Mrd. bis +2,1 Mrd.
+
+        <br/>
+        **Erkennung:** Das **höchste Bit** (MSB) zeigt das Vorzeichen: 0 = positiv, 1 = negativ.
+    </div>
+</Flashcard>

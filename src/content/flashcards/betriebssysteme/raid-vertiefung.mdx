@@ -1,0 +1,47 @@
+---
+tags:
+  - 'Betriebssysteme'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Wie funktionieren RAID 5, RAID 6 und RAID 10 im Detail?
+    </div>
+
+    <div slot="answer">
+        **RAID 5 — Striping mit verteilter Parität:**
+        - Daten und Paritätsinformationen werden **über alle Platten verteilt**
+        - Bei Ausfall einer Platte: Daten werden aus Parität **rekonstruiert**
+        - Min. **3** Platten, nutzbare Kapazität: **(n-1) × Plattengröße**
+        ```
+        Disk 1:  D1  D2  P3  D4
+        Disk 2:  D3  P2  D5  D7
+        Disk 3:  P1  D4  D6  D8
+        (P = Paritätsblock, rotiert über alle Disks)
+        ```
+        - **Nachteil:** Rebuild nach Ausfall ist langsam und belastend (Degraded Mode)
+
+        <br/>
+        **RAID 6 — Striping mit doppelter Parität:**
+        - Wie RAID 5, aber mit **zwei unabhängigen Paritätsblöcken**
+        - Verkraftet den **gleichzeitigen Ausfall von 2 Platten**
+        - Min. **4** Platten, nutzbare Kapazität: **(n-2) × Plattengröße**
+        - **Vorteil:** Sicherer als RAID 5, besonders bei großen Platten (Rebuild dauert lang)
+
+        <br/>
+        **RAID 10 (1+0) — Spiegel + Stripe:**
+        - Kombination: Erst **RAID 1** (Spiegelung), dann **RAID 0** (Striping) über die Spiegel
+        - Min. **4** Platten, nutzbare Kapazität: **50%**
+        - **Schnellste** Lese- und Schreibperformance aller redundanten RAID-Level
+        - Verkraftet den Ausfall von **1 Platte pro Spiegel**
+        ```
+        [Disk1 ↔ Disk2]  [Disk3 ↔ Disk4]
+             RAID 1            RAID 1
+                  \____RAID 0____/
+        ```
+
+        <br/>
+        **Empfehlung:** RAID 5 für kosteneffiziente Redundanz, RAID 6 für höhere Sicherheit, RAID 10 für maximale Performance.
+    </div>
+</Flashcard>

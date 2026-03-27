@@ -1,0 +1,55 @@
+---
+tags:
+  - 'Webentwicklung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist Responsive Design?
+    </div>
+
+    <div slot="answer">
+        **Responsive Design** bedeutet, dass eine Webseite sich **automatisch** an verschiedene **Bildschirmgrößen** anpasst — Desktop, Tablet, Smartphone.
+
+        <br/>
+        **Techniken:**
+
+        **1. Media Queries (CSS):**
+        ```css
+        /* Desktop */
+        .container { width: 1200px; }
+
+        /* Tablet */
+        @media (max-width: 768px) {
+            .container { width: 100%; }
+        }
+
+        /* Smartphone */
+        @media (max-width: 480px) {
+            .container { font-size: 14px; }
+        }
+        ```
+
+        <br/>
+        **2. Flexbox & Grid:**
+        Moderne CSS-Layoutsysteme, die sich flexibel an den verfügbaren Platz anpassen.
+
+        <br/>
+        **3. Relative Einheiten:**
+        - `%` — relativ zum Elternelement
+        - `em` / `rem` — relativ zur Schriftgröße
+        - `vw` / `vh` — relativ zur Viewport-Größe
+
+        <br/>
+        **4. Mobile First:**
+        Erst für kleine Bildschirme designen, dann für größere erweitern. Ist der empfohlene Ansatz.
+
+        <br/>
+        **Viewport Meta-Tag (wichtig!):**
+        ```html
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        ```
+        Ohne diesen Tag ignorieren mobile Browser das Responsive Design.
+    </div>
+</Flashcard>

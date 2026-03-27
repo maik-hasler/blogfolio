@@ -1,0 +1,42 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist das Client-Server-Modell?
+    </div>
+
+    <div slot="answer">
+        Das **Client-Server-Modell** ist ein Architekturkonzept, bei dem Aufgaben zwischen **Dienstanbietern (Servern)** und **Dienstnutzern (Clients)** aufgeteilt werden.
+
+        <br/>
+        **Client:**
+        - Stellt Anfragen an den Server
+        - Zeigt Ergebnisse an (z. B. Browser, App)
+        - Kann mehrere Clients gleichzeitig geben
+
+        <br/>
+        **Server:**
+        - Wartet auf Anfragen und verarbeitet sie
+        - Stellt Dienste bereit (Daten, Berechnungen, Dateien)
+        - Bedient mehrere Clients gleichzeitig
+
+        <br/>
+        **Ablauf:**
+        1. Client sendet eine **Anfrage** (Request)
+        2. Server verarbeitet die Anfrage
+        3. Server sendet eine **Antwort** (Response) zurück
+
+        <br/>
+        **Beispiele:**
+        - Browser (Client) ↔ Webserver (Server)
+        - E-Mail-Programm (Client) ↔ Mailserver (Server)
+        - App (Client) ↔ REST-API (Server)
+
+        <br/>
+        **Abgrenzung:** Im **Peer-to-Peer-Modell** gibt es keine festen Rollen — jeder Teilnehmer ist gleichzeitig Client und Server.
+    </div>
+</Flashcard>

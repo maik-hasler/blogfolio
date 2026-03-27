@@ -1,0 +1,40 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was sind ein PAP und ein Struktogramm?
+    </div>
+
+    <div slot="answer">
+        Beide sind grafische Darstellungen von **Algorithmen** — häufig in IHK-Prüfungen gefragt.
+
+        <br/>
+        **PAP (Programmablaufplan) — DIN 66001:**
+        Verwendet genormte Symbole in einem Flussdiagramm:
+        - **Oval:** Start / Ende
+        - **Rechteck:** Anweisung / Verarbeitung
+        - **Raute:** Entscheidung (Ja/Nein-Verzweigung)
+        - **Parallelogramm:** Ein-/Ausgabe
+        - **Pfeile:** Ablaufrichtung
+
+        <br/>
+        **Struktogramm (Nassi-Shneiderman) — DIN 66261:**
+        Verschachtelte Blöcke ohne Pfeile:
+        - **Rechteck:** Anweisung
+        - **Dreieck mit zwei Feldern:** Verzweigung (links Ja, rechts Nein)
+        - **Verschachtelte Blöcke:** Schleifen
+
+        <br/>
+        **Unterschiede:**
+
+        | | PAP | Struktogramm |
+        |---|-----|-------------|
+        | **Sprünge** | Möglich (goto) | Nicht möglich |
+        | **Struktur** | Freie Anordnung | Streng strukturiert |
+        | **Vorteil** | Übersichtlich bei einfachen Abläufen | Erzwingt strukturierte Programmierung |
+    </div>
+</Flashcard>

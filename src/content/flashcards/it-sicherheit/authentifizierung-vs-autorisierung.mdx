@@ -1,0 +1,38 @@
+---
+tags:
+  - 'IT-Sicherheit'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist der Unterschied zwischen Authentifizierung und Autorisierung?
+    </div>
+
+    <div slot="answer">
+        | | Authentifizierung | Autorisierung |
+        |---|-------------------|---------------|
+        | **Frage** | **Wer** bist du? | **Was** darfst du? |
+        | **Zweck** | Identität prüfen | Berechtigungen prüfen |
+        | **Zeitpunkt** | Zuerst | Danach |
+        | **Beispiel** | Login mit Benutzername + Passwort | Zugriff auf Admin-Bereich erlaubt/verweigert |
+
+        <br/>
+        **Authentifizierungsfaktoren:**
+        - **Wissen:** Passwort, PIN
+        - **Besitz:** Smartphone, Token, Smartcard
+        - **Biometrie:** Fingerabdruck, Gesichtserkennung
+
+        <br/>
+        **Zwei-Faktor-Authentifizierung (2FA):**
+        Kombination aus **zwei verschiedenen** Faktoren (z. B. Passwort + SMS-Code). Erhöht die Sicherheit erheblich.
+
+        <br/>
+        **Autorisierungsmodelle:**
+        - **RBAC (Role-Based Access Control):** Berechtigungen über Rollen (z. B. „Admin", „Leser")
+        - **ACL (Access Control List):** Einzelne Zugriffsrechte pro Ressource
+
+        <br/>
+        **Merkhilfe:** Erst wird geprüft, **wer** du bist (Authentifizierung), dann **was** du darfst (Autorisierung).
+    </div>
+</Flashcard>

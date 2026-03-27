@@ -1,0 +1,37 @@
+---
+tags:
+  - 'Betriebssysteme'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist ein Betriebssystem und welche Aufgaben hat es?
+    </div>
+
+    <div slot="answer">
+        Ein **Betriebssystem (OS)** ist die Software, die zwischen **Hardware** und **Anwendungsprogrammen** vermittelt. Es verwaltet die Ressourcen des Computers und stellt eine Schnittstelle für Programme und Benutzer bereit.
+
+        <br/>
+        **Kernaufgaben:**
+        - **Prozessverwaltung:** Starten, Stoppen, Scheduling von Prozessen
+        - **Speicherverwaltung:** RAM zuteilen und freigeben (virtueller Speicher)
+        - **Dateiverwaltung:** Dateisystem organisieren (NTFS, ext4, APFS)
+        - **Geräteverwaltung:** Treiber für Hardware (Drucker, Festplatte, Netzwerk)
+        - **Benutzerverwaltung:** Accounts, Rechte, Zugriffskontrolle
+        - **Netzwerkverwaltung:** TCP/IP-Stack, Netzwerkschnittstellen
+
+        <br/>
+        **Arten von Betriebssystemen:**
+
+        | Typ | Beispiele |
+        |-----|----------|
+        | Desktop | Windows, macOS, Linux |
+        | Server | Windows Server, Ubuntu Server, RHEL |
+        | Mobil | Android, iOS |
+        | Eingebettet | FreeRTOS, Embedded Linux |
+
+        <br/>
+        **Kernel:** Der Kern des OS — hat direkten Zugriff auf die Hardware. Unterscheidung: **Monolithischer Kernel** (Linux) vs. **Mikrokernel** (Minix).
+    </div>
+</Flashcard>

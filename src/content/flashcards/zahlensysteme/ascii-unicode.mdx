@@ -1,0 +1,41 @@
+---
+tags:
+  - 'Zahlensysteme'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist der Unterschied zwischen ASCII und Unicode (UTF-8)?
+    </div>
+
+    <div slot="answer">
+        **ASCII (American Standard Code for Information Interchange):**
+        - **7 Bit** → 128 Zeichen (0–127)
+        - Enthält: Buchstaben (A-Z, a-z), Ziffern (0-9), Sonderzeichen, Steuerzeichen
+        - Nur **englische** Zeichen — keine Umlaute, kein Chinesisch, kein Emoji
+        - Wichtige Werte: A=65, a=97, 0=48, Leerzeichen=32
+
+        <br/>
+        **Unicode:**
+        - Universeller Zeichensatz mit über **149.000 Zeichen**
+        - Deckt alle Schriftsysteme der Welt ab (inkl. Emojis 😊)
+        - Jedes Zeichen hat einen eindeutigen **Code Point** (z. B. U+0041 = A)
+
+        <br/>
+        **UTF-8 (Unicode Transformation Format):**
+        - **Variable Länge:** 1–4 Bytes pro Zeichen
+        - **Rückwärtskompatibel** zu ASCII (ASCII-Zeichen = 1 Byte)
+        - Standard im Web und in modernen Systemen
+
+        | Zeichen | ASCII | UTF-8 Bytes |
+        |---------|-------|-------------|
+        | A | 65 | 1 Byte |
+        | ä | — | 2 Bytes |
+        | € | — | 3 Bytes |
+        | 😊 | — | 4 Bytes |
+
+        <br/>
+        **Merke:** ASCII ⊂ UTF-8 ⊂ Unicode
+    </div>
+</Flashcard>

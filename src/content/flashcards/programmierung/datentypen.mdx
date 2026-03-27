@@ -1,0 +1,33 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Welche grundlegenden Datentypen gibt es in der Programmierung?
+    </div>
+
+    <div slot="answer">
+        **Primitive Datentypen (Werttypen):**
+
+        | Typ | Beschreibung | Beispiel (C#) |
+        |-----|-------------|---------------|
+        | **int** | Ganzzahl | `int x = 42;` |
+        | **double/float** | Gleitkommazahl | `double pi = 3.14;` |
+        | **bool** | Wahrheitswert | `bool aktiv = true;` |
+        | **char** | Einzelnes Zeichen | `char c = 'A';` |
+        | **string** | Zeichenkette | `string name = "Max";` |
+
+        <br/>
+        **Referenztypen:**
+        - **Objekte**, **Arrays**, **Listen**
+        - Speichern eine Referenz (Adresse) auf die Daten im Heap
+
+        <br/>
+        **Wichtige Unterscheidung:**
+        - **Werttypen** speichern den Wert direkt (Stack)
+        - **Referenztypen** speichern einen Verweis auf den Wert (Heap)
+    </div>
+</Flashcard>

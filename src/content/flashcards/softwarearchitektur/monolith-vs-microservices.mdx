@@ -1,0 +1,37 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist der Unterschied zwischen Monolith und Microservices?
+    </div>
+
+    <div slot="answer">
+        | Merkmal | Monolith | Microservices |
+        |---------|----------|---------------|
+        | **Struktur** | Eine einzige, zusammenhängende Anwendung | Viele kleine, unabhängige Dienste |
+        | **Deployment** | Alles wird gemeinsam deployt | Jeder Service unabhängig deploybar |
+        | **Skalierung** | Gesamte Anwendung skalieren | Einzelne Services gezielt skalieren |
+        | **Technologie** | Ein Tech-Stack | Jeder Service kann eigenen Stack nutzen |
+        | **Komplexität** | Einfach zu starten | Höhere Betriebskomplexität |
+        | **Kommunikation** | Methodenaufrufe (in-process) | Netzwerk (HTTP, Messaging) |
+
+        <br/>
+        **Monolith — wann geeignet?**
+        - Kleine Teams, neue Projekte, überschaubarer Umfang
+        - Schneller Einstieg, einfacheres Debugging
+
+        <br/>
+        **Microservices — wann geeignet?**
+        - Große Teams, die parallel arbeiten
+        - Teile der Anwendung müssen unabhängig skalieren
+        - Unterschiedliche Anforderungen an Technologie pro Bereich
+
+        <br/>
+        **Herausforderungen bei Microservices:**
+        Netzwerklatenz, verteilte Transaktionen, Service Discovery, Monitoring, erhöhter Betriebsaufwand.
+    </div>
+</Flashcard>

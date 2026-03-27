@@ -1,0 +1,39 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Welche Schleifenarten gibt es und wie unterscheiden sie sich?
+    </div>
+
+    <div slot="answer">
+        **for-Schleife:** Zählergesteuert, Anzahl der Durchläufe ist bekannt.
+        ```csharp
+        for (int i = 0; i < 5; i++) { Console.WriteLine(i); }
+        ```
+
+        <br/>
+        **while-Schleife:** Kopfgesteuert, Bedingung wird **vor** jedem Durchlauf geprüft. Kann 0-mal durchlaufen werden.
+        ```csharp
+        while (bedingung) { /* ... */ }
+        ```
+
+        <br/>
+        **do-while-Schleife:** Fußgesteuert, Bedingung wird **nach** jedem Durchlauf geprüft. Wird **mindestens 1-mal** durchlaufen.
+        ```csharp
+        do { /* ... */ } while (bedingung);
+        ```
+
+        <br/>
+        **foreach-Schleife:** Iteriert über alle Elemente einer Sammlung.
+        ```csharp
+        foreach (var item in liste) { Console.WriteLine(item); }
+        ```
+
+        <br/>
+        **Merkhilfe:** `for` = Anzahl bekannt, `while` = Bedingung vor Ausführung, `do-while` = mindestens einmal, `foreach` = alle Elemente.
+    </div>
+</Flashcard>

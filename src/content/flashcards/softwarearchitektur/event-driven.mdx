@@ -1,0 +1,46 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist Event-Driven Architecture (EDA)?
+    </div>
+
+    <div slot="answer">
+        **Event-Driven Architecture** ist ein Architekturstil, bei dem Komponenten über **Ereignisse (Events)** kommunizieren, statt sich direkt aufzurufen.
+
+        <br/>
+        **Grundprinzip:**
+        1. Ein **Producer** erzeugt ein Event (z. B. „Bestellung aufgegeben")
+        2. Das Event wird über einen **Message Broker** verteilt
+        3. Ein oder mehrere **Consumer** reagieren auf das Event
+
+        <br/>
+        **Beispiel — Online-Shop:**
+        ```
+        Event: "BestellungAufgegeben"
+        → Lagerservice:   Bestand reduzieren
+        → E-Mail-Service: Bestätigungsmail senden
+        → Rechnungsservice: Rechnung erstellen
+        ```
+        Die Services kennen sich **nicht** gegenseitig!
+
+        <br/>
+        **Vorteile:**
+        - **Lose Kopplung:** Services sind unabhängig
+        - **Skalierbarkeit:** Consumer können unabhängig skalieren
+        - **Erweiterbarkeit:** Neue Consumer hinzufügen, ohne bestehende zu ändern
+
+        <br/>
+        **Nachteile:**
+        - Schwieriger zu debuggen (verteilter Ablauf)
+        - Eventual Consistency statt sofortiger Konsistenz
+        - Erfordert Message Broker (z. B. RabbitMQ, Apache Kafka)
+
+        <br/>
+        **Verwandt:** Command Query Responsibility Segregation (CQRS), Event Sourcing
+    </div>
+</Flashcard>

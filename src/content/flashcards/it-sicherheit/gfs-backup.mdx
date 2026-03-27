@@ -1,0 +1,44 @@
+---
+tags:
+  - 'IT-Sicherheit'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist das Großvater-Vater-Sohn-Prinzip (GFS-Rotation) bei Backups?
+    </div>
+
+    <div slot="answer">
+        Das **GFS-Prinzip (Grandfather-Father-Son)** ist ein bewährtes Rotationsschema für Backups, das **tägliche, wöchentliche und monatliche Sicherungen** kombiniert.
+
+        <br/>
+        **Die drei Generationen:**
+
+        | Generation | Rolle | Häufigkeit | Aufbewahrung |
+        |-----------|-------|-----------|-------------|
+        | **Sohn** | Tägliches Backup | Jeden Werktag | 1 Woche (wird überschrieben) |
+        | **Vater** | Wöchentliches Backup | Jeden Freitag | 1 Monat |
+        | **Großvater** | Monatliches Backup | Letzter Tag des Monats | 1 Jahr oder länger |
+
+        <br/>
+        **Beispiel mit 20 Medien:**
+        ```
+        Mo–Do:   4 × täglich (Sohn) → werden jede Woche überschrieben
+        Fr:      4 × wöchentlich (Vater) → werden jeden Monat überschrieben
+        Monatl.: 12 × monatlich (Großvater) → werden jährlich überschrieben
+        ```
+
+        <br/>
+        **Vorteile:**
+        - **Langfristige Wiederherstellung:** Daten von vor Monaten noch verfügbar
+        - **Kosteneffizient:** Begrenzte Anzahl an Medien durch Rotation
+        - **Schutz vor schleichendem Datenverlust:** Wenn ein Fehler erst spät bemerkt wird
+
+        <br/>
+        **Kombination mit Backup-Typen:**
+        - Sohn: **Inkrementell** (schnell, wenig Speicher)
+        - Vater: **Differentiell** (schnellere Wiederherstellung)
+        - Großvater: **Vollbackup** (komplett eigenständig)
+    </div>
+</Flashcard>

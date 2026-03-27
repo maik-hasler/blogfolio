@@ -1,0 +1,38 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist der Unterschied zwischen Prozedur, Funktion und Methode?
+    </div>
+
+    <div slot="answer">
+        | Begriff | Beschreibung |
+        |---------|-------------|
+        | **Prozedur** | Führt Anweisungen aus, gibt **keinen Wert** zurück (`void`) |
+        | **Funktion** | Führt Anweisungen aus und gibt einen **Rückgabewert** zurück |
+        | **Methode** | Funktion oder Prozedur, die zu einer **Klasse** gehört |
+
+        <br/>
+        **Beispiel in C#:**
+        ```csharp
+        // Prozedur (void = kein Rückgabewert)
+        void Begruessung() { Console.WriteLine("Hallo"); }
+
+        // Funktion (gibt int zurück)
+        int Addiere(int a, int b) { return a + b; }
+
+        // Methode = gehört zu einer Klasse
+        class Rechner
+        {
+            public int Addiere(int a, int b) { return a + b; }
+        }
+        ```
+
+        <br/>
+        **Hinweis:** In objektorientierten Sprachen wie C# und Java spricht man fast immer von **Methoden**, da alles in Klassen organisiert ist.
+    </div>
+</Flashcard>

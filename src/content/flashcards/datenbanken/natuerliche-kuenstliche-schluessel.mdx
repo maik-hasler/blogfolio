@@ -1,0 +1,39 @@
+---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist der Unterschied zwischen natürlichen und künstlichen Schlüsseln?
+    </div>
+
+    <div slot="answer">
+        | Merkmal | Natürlicher Schlüssel | Künstlicher Schlüssel |
+        |---------|----------------------|----------------------|
+        | **Definition** | Fachlich vorhandenes Attribut | Technisch erzeugter Wert |
+        | **Beispiel** | ISBN, Sozialversicherungsnr. | Auto-Increment-ID, GUID |
+        | **Fachliche Bedeutung** | Ja | Nein |
+        | **Stabilität** | Kann sich ändern | Ändert sich nie |
+        | **Größe** | Kann lang sein | Meist kompakt (Integer) |
+
+        <br/>
+        **Natürlicher Schlüssel — Vorteile:**
+        - Hat eine fachliche Bedeutung
+        - Kein zusätzliches Attribut nötig
+
+        <br/>
+        **Natürlicher Schlüssel — Nachteile:**
+        - Kann sich ändern (z. B. Name nach Heirat)
+        - Nicht immer garantiert eindeutig
+
+        <br/>
+        **Künstlicher Schlüssel — Vorteile:**
+        - Garantiert eindeutig und unveränderlich
+        - Effizient bei JOINs (meist Integer)
+
+        <br/>
+        **In der Praxis** werden meist **künstliche Schlüssel** bevorzugt, da sie stabiler und performanter sind.
+    </div>
+</Flashcard>

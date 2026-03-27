@@ -1,0 +1,40 @@
+---
+tags:
+  - 'Wirtschaft'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist ein SLA (Service Level Agreement)?
+    </div>
+
+    <div slot="answer">
+        Ein **SLA (Service Level Agreement)** ist eine vertragliche Vereinbarung zwischen Dienstleister und Kunde, die die **Qualität und den Umfang** einer Dienstleistung verbindlich regelt.
+
+        <br/>
+        **Typische SLA-Kennzahlen:**
+        - **Verfügbarkeit:** z. B. 99,9% Uptime pro Monat
+        - **Reaktionszeit:** z. B. Antwort auf Störungsmeldung innerhalb von 2 Stunden
+        - **Lösungszeit:** z. B. Behebung kritischer Fehler innerhalb von 8 Stunden
+        - **Performance:** z. B. Antwortzeit der API unter 200ms
+
+        <br/>
+        **Verfügbarkeit in der Praxis:**
+
+        | Verfügbarkeit | Ausfallzeit/Jahr | Ausfallzeit/Monat |
+        |--------------|------------------|-------------------|
+        | 99% | 3,65 Tage | 7,3 Stunden |
+        | 99,9% | 8,76 Stunden | 43,8 Minuten |
+        | 99,99% | 52,6 Minuten | 4,38 Minuten |
+        | 99,999% | 5,26 Minuten | 26,3 Sekunden |
+
+        <br/>
+        **Bestandteile eines SLA:**
+        - Leistungsbeschreibung
+        - Messbare Kennzahlen (KPIs)
+        - Eskalationsstufen bei Nichteinhaltung
+        - Strafen/Kompensation (z. B. Gutschriften)
+        - Laufzeit und Kündigungsfristen
+    </div>
+</Flashcard>

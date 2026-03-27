@@ -1,0 +1,48 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist eine Hashtabelle (Dictionary/Map)?
+    </div>
+
+    <div slot="answer">
+        Eine **Hashtabelle** speichert Daten als **Schlüssel-Wert-Paare** (Key-Value) und ermöglicht extrem schnellen Zugriff über den Schlüssel.
+
+        <br/>
+        **Funktionsweise:**
+        1. Der **Schlüssel** wird durch eine **Hashfunktion** in einen Index umgewandelt
+        2. Der **Wert** wird an diesem Index gespeichert
+        3. Beim Zugriff wird der Schlüssel erneut gehasht → direkter Zugriff
+
+        <br/>
+        **Beispiel:**
+        ```
+        // Java: HashMap
+        Map<String, Integer> alter = new HashMap<>();
+        alter.put("Max", 25);      // Einfügen
+        alter.get("Max");          // → 25 (Zugriff)
+        alter.containsKey("Max");  // → true (Prüfung)
+        ```
+
+        <br/>
+        **Kollision:** Wenn zwei Schlüssel denselben Hash ergeben:
+        - **Chaining:** Verkettete Liste am selben Index
+        - **Open Addressing:** Nächsten freien Platz suchen
+
+        <br/>
+        **Komplexität:**
+
+        | Operation | Durchschnitt | Worst Case |
+        |-----------|:------------:|:----------:|
+        | Einfügen | O(1) | O(n) |
+        | Suchen | O(1) | O(n) |
+        | Löschen | O(1) | O(n) |
+
+        <br/>
+        **Benennungen:** HashMap (Java), Dictionary (C#/Python), Object/Map (JavaScript)
+    </div>
+</Flashcard>

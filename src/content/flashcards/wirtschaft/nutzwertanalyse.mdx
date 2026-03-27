@@ -1,0 +1,38 @@
+---
+tags:
+  - 'Wirtschaft'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist eine Nutzwertanalyse?
+    </div>
+
+    <div slot="answer">
+        Die **Nutzwertanalyse** ist eine Methode zur systematischen Bewertung und zum Vergleich von Alternativen anhand **gewichteter Kriterien** — besonders nützlich, wenn nicht nur Kosten, sondern auch qualitative Faktoren eine Rolle spielen.
+
+        <br/>
+        **Schritte:**
+        1. Alternativen definieren (z. B. drei Softwareprodukte)
+        2. Bewertungskriterien festlegen (z. B. Preis, Usability, Support)
+        3. Kriterien **gewichten** (Summe = 100%)
+        4. Jede Alternative pro Kriterium **bewerten** (z. B. 1-10)
+        5. Gewichtete Punktzahl berechnen und vergleichen
+
+        <br/>
+        **Beispiel:**
+
+        | Kriterium | Gewicht | Tool A | Tool B |
+        |-----------|---------|--------|--------|
+        | Preis | 30% | 8 (2,4) | 5 (1,5) |
+        | Usability | 40% | 6 (2,4) | 9 (3,6) |
+        | Support | 30% | 7 (2,1) | 7 (2,1) |
+        | **Gesamt** | | **6,9** | **7,2** |
+
+        → Tool B gewinnt.
+
+        <br/>
+        **Typische IHK-Prüfungsaufgabe:** Vergleich von Hardwarelösungen, Softwareprodukten oder Cloud-Anbietern.
+    </div>
+</Flashcard>

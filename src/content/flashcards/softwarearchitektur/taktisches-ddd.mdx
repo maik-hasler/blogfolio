@@ -1,0 +1,53 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was sind die taktischen Muster in DDD (Entity, Value Object, Aggregate, Repository)?
+    </div>
+
+    <div slot="answer">
+        **Taktisches DDD** liefert Muster für die **Code-Ebene** innerhalb eines Bounded Context:
+
+        <br/>
+        **Entity:**
+        - Hat eine **eindeutige Identität** (ID), die über die Lebenszeit besteht
+        - Zwei Entities mit gleichen Attributen sind **nicht** gleich, wenn sie unterschiedliche IDs haben
+        - Beispiel: `Kunde(id=42, name="Max")` ≠ `Kunde(id=43, name="Max")`
+
+        <br/>
+        **Value Object:**
+        - Hat **keine Identität** — wird nur durch seine Werte definiert
+        - Ist **unveränderlich** (immutable)
+        - Zwei Value Objects mit gleichen Werten **sind** gleich
+        - Beispiel: `Adresse("Hauptstr. 1", "Berlin")` = `Adresse("Hauptstr. 1", "Berlin")`
+        - Weitere Beispiele: Geld, Datum, E-Mail, Koordinaten
+
+        <br/>
+        **Aggregate:**
+        - Cluster von Entities und Value Objects mit einer **Aggregate Root**
+        - Zugriff von außen **nur über die Root** — schützt Geschäftsregeln
+        - Garantiert **Konsistenz** innerhalb des Aggregats
+        ```
+        Bestellung (Aggregate Root)
+        ├── Bestellposition (Entity)
+        │   └── Produktinfo (Value Object)
+        ├── Lieferadresse (Value Object)
+        └── Gesamtpreis (Value Object)
+        ```
+
+        <br/>
+        **Repository:**
+        - Bietet Zugriff auf Aggregate (speichern, laden, suchen)
+        - Abstrahiert die **Persistenz** (Datenbank, API, Dateisystem)
+        - Interface in der Domäne, Implementierung in der Infrastruktur
+
+        <br/>
+        **Domain Service:**
+        - Geschäftslogik, die **keiner einzelnen Entity** zugeordnet werden kann
+        - Beispiel: `TransferService.überweise(vonKonto, nachKonto, betrag)`
+    </div>
+</Flashcard>

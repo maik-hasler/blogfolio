@@ -1,0 +1,26 @@
+---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist SQL?
+    </div>
+
+    <div slot="answer">
+        **SQL (Structured Query Language)** ist eine standardisierte Sprache zur Verwaltung und Abfrage von **relationalen Datenbanken**.
+
+        <br/>
+        **SQL-Teilsprachen:**
+
+        | Teilsprache | Abkürzung | Zweck | Beispiele |
+        |-------------|-----------|-------|-----------|
+        | **Data Query Language** | DQL | Daten abfragen | `SELECT` |
+        | **Data Manipulation Language** | DML | Daten ändern | `INSERT`, `UPDATE`, `DELETE` |
+        | **Data Definition Language** | DDL | Struktur definieren | `CREATE`, `ALTER`, `DROP` |
+        | **Data Control Language** | DCL | Rechte verwalten | `GRANT`, `REVOKE` |
+        | **Transaction Control Language** | TCL | Transaktionen steuern | `COMMIT`, `ROLLBACK` |
+    </div>
+</Flashcard>

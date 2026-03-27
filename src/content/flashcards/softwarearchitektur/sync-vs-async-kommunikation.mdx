@@ -1,0 +1,49 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist der Unterschied zwischen synchroner und asynchroner Kommunikation in verteilten Systemen?
+    </div>
+
+    <div slot="answer">
+        | | Synchron | Asynchron |
+        |---|---------|-----------|
+        | **Ablauf** | Sender wartet auf Antwort | Sender wartet **nicht** |
+        | **Kopplung** | Temporale Kopplung (beide müssen gleichzeitig laufen) | Entkoppelt (Empfänger kann später verarbeiten) |
+        | **Technologie** | HTTP/REST, gRPC | Message Queues, Events |
+        | **Fehlerfall** | Wenn Empfänger offline → Fehler | Nachricht wartet in der Queue |
+
+        <br/>
+        **Synchron (Request/Response):**
+        ```
+        Service A → HTTP Request → Service B
+        Service A ← HTTP Response ← Service B
+        (A blockiert, bis B antwortet)
+        ```
+        - Einfach zu verstehen und zu debuggen
+        - Aber: Wenn B langsam/offline → A hängt auch
+
+        <br/>
+        **Asynchron (Messaging):**
+        ```
+        Service A → Message → [Queue/Broker] → Service B
+        (A macht sofort weiter, B verarbeitet später)
+        ```
+        - **Resilienter:** B kann offline sein, verarbeitet die Nachricht später
+        - **Skalierbar:** Mehrere Consumer können parallel verarbeiten
+        - Aber: Komplexer (Eventual Consistency, Message Ordering)
+
+        <br/>
+        **Message Broker:**
+        - **RabbitMQ:** Klassische Message Queue (Point-to-Point + Pub/Sub)
+        - **Apache Kafka:** Event Streaming, hoher Durchsatz, Log-basiert
+        - **Azure Service Bus, AWS SQS:** Managed Cloud-Lösungen
+
+        <br/>
+        **Faustregel:** Synchron für Anfragen, die sofort eine Antwort brauchen. Asynchron für „Fire and Forget" und Entkopplung.
+    </div>
+</Flashcard>

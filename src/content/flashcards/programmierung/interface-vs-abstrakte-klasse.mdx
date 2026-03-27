@@ -1,0 +1,36 @@
+---
+tags:
+  - 'Objektorientierte Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist der Unterschied zwischen einem Interface und einer abstrakten Klasse?
+    </div>
+
+    <div slot="answer">
+        | Merkmal | Interface | Abstrakte Klasse |
+        |---------|-----------|-----------------|
+        | **Implementierung** | Keine (nur Signaturen) | Kann konkrete Methoden haben |
+        | **Mehrfachvererbung** | Ja (mehrere Interfaces möglich) | Nein (nur eine Basisklasse) |
+        | **Attribute** | Keine Instanzfelder | Kann Felder haben |
+        | **Konstruktor** | Nein | Ja |
+        | **Zugriffsmodifizierer** | Immer public | Frei wählbar |
+
+        <br/>
+        **Wann Interface verwenden?**
+        - Wenn verschiedene, **nicht verwandte** Klassen das gleiche Verhalten haben sollen
+        - Wenn eine Klasse **mehrere Verträge** erfüllen soll
+        - Beispiel: `IComparable`, `IDisposable`
+
+        <br/>
+        **Wann abstrakte Klasse verwenden?**
+        - Wenn Klassen eine **gemeinsame Basislogik** teilen
+        - Wenn gemeinsame **Attribute** benötigt werden
+        - Beispiel: `Form` als Basis für `Kreis`, `Rechteck`
+
+        <br/>
+        **Faustregel:** Interface = „kann das", abstrakte Klasse = „ist ein".
+    </div>
+</Flashcard>

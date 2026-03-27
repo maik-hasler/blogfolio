@@ -1,0 +1,35 @@
+---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist ein Data Warehouse?
+    </div>
+
+    <div slot="answer">
+        Ein **Data Warehouse** ist eine zentrale Datenbank, die Daten aus verschiedenen Quellen **zusammenführt, aufbereitet und für Analysen** bereitstellt.
+
+        <br/>
+        **Eigenschaften:**
+        - **Themenorientiert:** Organisiert nach Geschäftsthemen (z. B. Verkauf, Kunden)
+        - **Integriert:** Daten aus verschiedenen Quellsystemen vereinheitlicht
+        - **Zeitbezogen:** Historische Daten über lange Zeiträume
+        - **Nicht flüchtig:** Daten werden nicht verändert, nur hinzugefügt
+
+        <br/>
+        **Abgrenzung zur operativen Datenbank:**
+
+        | | Operative DB | Data Warehouse |
+        |---|-------------|----------------|
+        | **Zweck** | Tagesgeschäft (OLTP) | Analyse (OLAP) |
+        | **Daten** | Aktuell | Historisch |
+        | **Operationen** | Viele kleine Lese-/Schreibvorgänge | Wenige, komplexe Leseabfragen |
+        | **Optimierung** | Schnelle Einzelzugriffe | Schnelle Aggregationen |
+
+        <br/>
+        **ETL-Prozess:** Daten werden per **Extract, Transform, Load** aus Quellsystemen ins Data Warehouse übertragen.
+    </div>
+</Flashcard>

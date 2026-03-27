@@ -1,0 +1,44 @@
+---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was bewirken GROUP BY und HAVING in SQL?
+    </div>
+
+    <div slot="answer">
+        **GROUP BY** fasst Zeilen mit gleichen Werten in einer Spalte zu **Gruppen** zusammen, auf die dann Aggregatfunktionen angewendet werden können.
+
+        <br/>
+        **Beispiel:**
+        ```sql
+        SELECT Stadt, COUNT(*) AS Anzahl
+        FROM Kunde
+        GROUP BY Stadt;
+        ```
+        Ergebnis: Anzahl der Kunden **pro Stadt**.
+
+        <br/>
+        **HAVING** filtert die Ergebnisse **nach** der Gruppierung (wie WHERE, aber für Gruppen).
+
+        ```sql
+        SELECT Stadt, COUNT(*) AS Anzahl
+        FROM Kunde
+        GROUP BY Stadt
+        HAVING COUNT(*) > 5;
+        ```
+        Ergebnis: Nur Städte mit **mehr als 5 Kunden**.
+
+        <br/>
+        **WHERE vs. HAVING:**
+
+        | | WHERE | HAVING |
+        |---|-------|--------|
+        | **Filtert** | Einzelne Zeilen | Gruppen |
+        | **Zeitpunkt** | Vor der Gruppierung | Nach der Gruppierung |
+        | **Aggregatfunktionen** | Nicht möglich | Möglich |
+    </div>
+</Flashcard>

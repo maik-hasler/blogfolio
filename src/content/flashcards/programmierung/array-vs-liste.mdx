@@ -1,0 +1,34 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist der Unterschied zwischen einem Array und einer Liste?
+    </div>
+
+    <div slot="answer">
+        | Merkmal | Array | Liste (z. B. `List&lt;T&gt;`) |
+        |---------|-------|------|
+        | **Größe** | Fest (bei Erstellung definiert) | Dynamisch (wächst/schrumpft) |
+        | **Zugriff** | Schnell per Index (O(1)) | Schnell per Index (O(1)) |
+        | **Einfügen/Löschen** | Aufwändig (neues Array nötig) | Einfach mit Methoden |
+        | **Typsicherheit** | Ja | Ja (mit Generics) |
+
+        <br/>
+        **Beispiel in C#:**
+        ```csharp
+        // Array: feste Größe
+        int[] zahlen = new int[3] { 1, 2, 3 };
+
+        // Liste: dynamische Größe
+        List<int> liste = new List<int>() { 1, 2, 3 };
+        liste.Add(4); // Einfach erweiterbar
+        ```
+
+        <br/>
+        **Faustregel:** Arrays für feste Datenmengen, Listen wenn sich die Größe ändern kann.
+    </div>
+</Flashcard>

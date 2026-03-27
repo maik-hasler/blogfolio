@@ -1,0 +1,52 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist OpenAPI / Swagger?
+    </div>
+
+    <div slot="answer">
+        **OpenAPI** ist ein standardisiertes Format zur **Beschreibung von REST-APIs** in einem maschinenlesbaren Dokument (YAML oder JSON). Swagger ist das zugehörige Tooling.
+
+        <br/>
+        **Was beschreibt eine OpenAPI-Spezifikation?**
+        - Verfügbare **Endpunkte** (Pfade + HTTP-Methoden)
+        - **Request-** und **Response-Formate** (JSON-Schemas)
+        - **Parameter** (Query, Path, Header)
+        - **Authentifizierung** (API-Key, OAuth2, Bearer)
+        - **Fehlerformate**
+
+        <br/>
+        **Beispiel (YAML):**
+        ```yaml
+        paths:
+          /kunden/{id}:
+            get:
+              summary: Kunde abrufen
+              parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+              responses:
+                '200':
+                  description: Erfolg
+                '404':
+                  description: Nicht gefunden
+        ```
+
+        <br/>
+        **Swagger-Tools:**
+        - **Swagger UI:** Interaktive API-Dokumentation im Browser
+        - **Swagger Editor:** OpenAPI-Spezifikation schreiben
+        - **Swagger Codegen:** Code (Client/Server) aus der Spec generieren
+
+        <br/>
+        **API-First-Ansatz:** Zuerst die API-Spezifikation schreiben, dann implementieren → klare Verträge, parallele Entwicklung Frontend/Backend.
+    </div>
+</Flashcard>

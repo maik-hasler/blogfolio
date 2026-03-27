@@ -1,0 +1,50 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist die Hexagonale Architektur (Ports & Adapters)?
+    </div>
+
+    <div slot="answer">
+        Die **Hexagonale Architektur** (auch: Ports & Adapters, Alistair Cockburn) trennt die **Geschäftslogik** von der **Infrastruktur** durch klar definierte Schnittstellen.
+
+        <br/>
+        **Grundidee:**
+        ```
+                    ┌─ REST-Controller (Adapter)
+                    │
+        [Extern] ───Port──→ ┌──────────────────┐
+                             │                  │
+                             │   DOMÄNE         │
+                             │   (Geschäfts-    │
+                             │    logik)         │
+                             │                  │
+        [Extern] ←──Port─── └──────────────────┘
+                    │
+                    └─ Datenbank-Repository (Adapter)
+        ```
+
+        <br/>
+        **Ports:** Interfaces, die die Domäne definiert
+        - **Driving Ports (links):** Werden von außen aufgerufen (z. B. `BestellService`)
+        - **Driven Ports (rechts):** Werden von der Domäne aufgerufen (z. B. `BestellRepository`)
+
+        <br/>
+        **Adapter:** Konkrete Implementierungen der Ports
+        - **Driving Adapter:** REST-Controller, CLI, UI → rufen die Domäne auf
+        - **Driven Adapter:** PostgreSQL-Repository, E-Mail-Service → werden von der Domäne gerufen
+
+        <br/>
+        **Vorteile:**
+        - Domäne hat **keine Abhängigkeit** zu Frameworks, Datenbanken oder UI
+        - Infrastruktur ist **austauschbar** (PostgreSQL → MongoDB, REST → GraphQL)
+        - Domäne ist **isoliert testbar** (Adapter werden gemockt)
+
+        <br/>
+        **Verwandt:** Clean Architecture (Robert C. Martin), Onion Architecture — alle folgen dem gleichen Prinzip: **Abhängigkeiten zeigen nach innen**.
+    </div>
+</Flashcard>

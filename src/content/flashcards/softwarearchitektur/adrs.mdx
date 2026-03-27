@@ -1,0 +1,54 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was sind Architecture Decision Records (ADRs)?
+    </div>
+
+    <div slot="answer">
+        **ADRs** sind kurze Dokumente, die eine einzelne **Architekturentscheidung** festhalten — inklusive Kontext, Optionen und Begründung.
+
+        <br/>
+        **Warum ADRs?**
+        - Architekturentscheidungen sind oft nicht nachvollziehbar (wer hat wann warum entschieden?)
+        - Neuen Teammitgliedern fehlt der Kontext
+        - Ohne Dokumentation werden Entscheidungen hinterfragt oder versehentlich rückgängig gemacht
+
+        <br/>
+        **Aufbau eines ADR:**
+        ```markdown
+        # ADR-001: PostgreSQL als Datenbank
+
+        ## Status
+        Accepted (2026-03-15)
+
+        ## Kontext
+        Wir brauchen eine relationale Datenbank für das
+        Bestellsystem. Die Anwendung benötigt ACID-Transaktionen
+        und komplexe Abfragen.
+
+        ## Entscheidung
+        Wir verwenden PostgreSQL.
+
+        ## Alternativen
+        - MySQL: Weniger Features bei JSON-Verarbeitung
+        - MongoDB: Nicht relational, ACID nur auf Dokumentebene
+
+        ## Konsequenzen
+        + Starke JSON-Unterstützung, gute Performance
+        + Open Source, große Community
+        - Team muss PostgreSQL-spezifisches Wissen aufbauen
+        ```
+
+        <br/>
+        **Best Practices:**
+        - ADRs sind **unveränderlich** — neue Entscheidungen ergänzen, alte nicht löschen
+        - Status: `Proposed → Accepted → Deprecated → Superseded`
+        - Im **Git-Repository** neben dem Code pflegen
+        - Kurz halten (1 Seite pro ADR)
+    </div>
+</Flashcard>

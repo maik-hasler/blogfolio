@@ -1,0 +1,41 @@
+---
+tags:
+  - 'Betriebssysteme'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist der Unterschied zwischen einem Prozess und einem Thread?
+    </div>
+
+    <div slot="answer">
+        | Merkmal | Prozess | Thread |
+        |---------|---------|--------|
+        | **Definition** | Eigenständiges laufendes Programm | Ausführungseinheit innerhalb eines Prozesses |
+        | **Speicher** | Eigener Adressraum | Teilt Speicher mit anderen Threads des Prozesses |
+        | **Isolation** | Voneinander isoliert | Nicht isoliert (gemeinsamer Speicher) |
+        | **Erstellung** | Aufwändig (eigener Speicher) | Leichtgewichtig |
+        | **Kommunikation** | Inter-Process Communication (IPC) | Direkt über gemeinsamen Speicher |
+        | **Absturz** | Beeinflusst andere Prozesse nicht | Kann den gesamten Prozess zum Absturz bringen |
+
+        <br/>
+        **Beispiel — Webbrowser:**
+        - Jeder **Tab** = eigener **Prozess** (isoliert, damit ein Tab-Absturz nicht alles crashed)
+        - Innerhalb eines Tabs: **Threads** für Rendering, JavaScript, Netzwerk
+
+        <br/>
+        **Prozesszustände:**
+        ```
+        Neu → Bereit → Laufend → Beendet
+                  ↑        ↓
+                  ← Wartend ←
+        ```
+
+        <br/>
+        **Multithreading-Vorteil:** Parallele Ausführung auf mehreren CPU-Kernen → bessere Performance bei rechenintensiven Aufgaben.
+
+        <br/>
+        **Risiko:** Gemeinsamer Speicher bei Threads → **Race Conditions** und **Deadlocks** möglich!
+    </div>
+</Flashcard>

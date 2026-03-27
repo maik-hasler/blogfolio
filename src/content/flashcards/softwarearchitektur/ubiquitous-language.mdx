@@ -1,0 +1,48 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist Ubiquitous Language in DDD?
+    </div>
+
+    <div slot="answer">
+        **Ubiquitous Language (Allgegenwärtige Sprache)** ist eines der wichtigsten Konzepte in DDD: Entwickler und Fachexperten nutzen **exakt dieselben Begriffe** — im Gespräch, in der Dokumentation **und im Code**.
+
+        <br/>
+        **Problem ohne Ubiquitous Language:**
+        ```
+        Fachexperte sagt:  "Wenn ein Antragsteller eine Police beantragt..."
+        Entwickler schreibt: class User { void createEntry() {...} }
+        → Begriffe stimmen nicht überein → Missverständnisse!
+        ```
+
+        <br/>
+        **Mit Ubiquitous Language:**
+        ```java
+        class Antragsteller {
+            Police beantragen(Antragsdaten daten) { ... }
+        }
+        // Fachbegriffe = Klassen und Methoden
+        ```
+
+        <br/>
+        **Regeln:**
+        - Die Sprache gilt **innerhalb eines Bounded Context**
+        - Begriffe werden im Team gemeinsam **definiert und gepflegt**
+        - Bei Unklarheiten → mit Fachexperten klären, nicht im Code raten
+        - **Glossar** anlegen und aktuell halten (→ arc42 Abschnitt 12)
+        - Kein „Entwickler-Slang" für Fachkonzepte
+
+        <br/>
+        **Beispiel — Versicherung:**
+        - ❌ `User`, `Item`, `Process`, `Handler`
+        - ✅ `Versicherungsnehmer`, `Police`, `Schadenmeldung`, `Leistungsprüfer`
+
+        <br/>
+        **Warum?** Wenn der Code die Fachsprache spricht, können Fachexperten Reviews lesen, Bugs werden schneller erkannt, und neue Entwickler verstehen die Domäne schneller.
+    </div>
+</Flashcard>

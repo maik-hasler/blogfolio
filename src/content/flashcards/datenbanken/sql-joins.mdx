@@ -1,0 +1,44 @@
+---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Welche JOIN-Typen gibt es in SQL?
+    </div>
+
+    <div slot="answer">
+        Ein **JOIN** verknüpft Zeilen aus zwei oder mehr Tabellen anhand einer gemeinsamen Spalte.
+
+        <br/>
+        **JOIN-Typen:**
+
+        | JOIN | Beschreibung |
+        |------|-------------|
+        | **INNER JOIN** | Nur Datensätze, die in **beiden** Tabellen übereinstimmen |
+        | **LEFT JOIN** | Alle Datensätze der **linken** Tabelle + passende der rechten |
+        | **RIGHT JOIN** | Alle Datensätze der **rechten** Tabelle + passende der linken |
+        | **FULL OUTER JOIN** | Alle Datensätze **beider** Tabellen |
+        | **CROSS JOIN** | Jede Zeile mit jeder (kartesisches Produkt) |
+
+        <br/>
+        **Beispiel — INNER JOIN:**
+        ```sql
+        SELECT k.Name, b.Datum
+        FROM Kunde k
+        INNER JOIN Bestellung b ON k.KundenID = b.KundenID;
+        ```
+        Ergebnis: Nur Kunden, die mindestens eine Bestellung haben.
+
+        <br/>
+        **Beispiel — LEFT JOIN:**
+        ```sql
+        SELECT k.Name, b.Datum
+        FROM Kunde k
+        LEFT JOIN Bestellung b ON k.KundenID = b.KundenID;
+        ```
+        Ergebnis: Alle Kunden — auch die ohne Bestellung (dort steht NULL).
+    </div>
+</Flashcard>

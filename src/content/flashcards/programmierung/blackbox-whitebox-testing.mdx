@@ -1,0 +1,39 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist der Unterschied zwischen Black-Box- und White-Box-Testing?
+    </div>
+
+    <div slot="answer">
+        | Merkmal | Black-Box-Test | White-Box-Test |
+        |---------|---------------|----------------|
+        | **Sicht** | Nur **Ein-/Ausgabe** sichtbar | **Interner Code** ist bekannt |
+        | **Prüft** | Funktionalität (Was?) | Code-Struktur (Wie?) |
+        | **Wer testet?** | Oft Tester/Fachbereich | Oft Entwickler |
+        | **Codekenntnis** | Nicht nötig | Erforderlich |
+
+        <br/>
+        **Black-Box-Testverfahren:**
+        - **Äquivalenzklassenbildung:** Eingaben in gültige und ungültige Klassen teilen
+        - **Grenzwertanalyse:** Werte an den Grenzen testen (z. B. 0, 1, max, max+1)
+        - **Entscheidungstabelle:** Alle Kombinationen von Bedingungen prüfen
+
+        <br/>
+        **White-Box-Testverfahren:**
+        - **Anweisungsüberdeckung:** Jede Code-Zeile mindestens einmal ausführen
+        - **Zweigüberdeckung:** Jeden Entscheidungspfad (if/else) testen
+        - **Pfadüberdeckung:** Alle möglichen Pfade durch den Code
+
+        <br/>
+        **Teststufen:**
+        - **Unit-Tests:** Einzelne Methoden/Klassen (meist White-Box)
+        - **Integrationstests:** Zusammenspiel von Modulen
+        - **Systemtests:** Gesamtsystem (meist Black-Box)
+        - **Akzeptanztests:** Abnahme durch den Kunden
+    </div>
+</Flashcard>

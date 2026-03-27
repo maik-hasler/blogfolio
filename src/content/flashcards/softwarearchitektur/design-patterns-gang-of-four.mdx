@@ -1,0 +1,51 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Welche Kategorien von Design Patterns gibt es (Gang of Four)?
+    </div>
+
+    <div slot="answer">
+        Die **Gang of Four (GoF)** hat 23 Design Patterns in drei Kategorien eingeteilt:
+
+        <br/>
+        **1. Erzeugungsmuster (Creational Patterns):**
+        Wie werden Objekte erstellt?
+
+        | Pattern | Zweck |
+        |---------|-------|
+        | **Singleton** | Genau eine Instanz einer Klasse (z. B. Logger, DB-Verbindung) |
+        | **Factory Method** | Objekterzeugung in Unterklassen delegieren |
+        | **Abstract Factory** | Familien verwandter Objekte erzeugen |
+        | **Builder** | Komplexe Objekte Schritt für Schritt aufbauen |
+
+        <br/>
+        **2. Strukturmuster (Structural Patterns):**
+        Wie werden Klassen/Objekte zusammengesetzt?
+
+        | Pattern | Zweck |
+        |---------|-------|
+        | **Adapter** | Inkompatible Schnittstellen kompatibel machen |
+        | **Decorator** | Funktionalität dynamisch hinzufügen |
+        | **Facade** | Vereinfachte Schnittstelle für ein komplexes System |
+        | **Proxy** | Stellvertreter für ein anderes Objekt |
+
+        <br/>
+        **3. Verhaltensmuster (Behavioral Patterns):**
+        Wie kommunizieren Objekte?
+
+        | Pattern | Zweck |
+        |---------|-------|
+        | **Observer** | Objekte über Zustandsänderungen benachrichtigen |
+        | **Strategy** | Algorithmus zur Laufzeit austauschen |
+        | **Iterator** | Elemente einer Sammlung nacheinander durchlaufen |
+        | **Template Method** | Algorithmus-Skelett definieren, Schritte in Unterklassen |
+
+        <br/>
+        **IHK-Relevanz:** Singleton, Observer und Factory werden am häufigsten gefragt.
+    </div>
+</Flashcard>

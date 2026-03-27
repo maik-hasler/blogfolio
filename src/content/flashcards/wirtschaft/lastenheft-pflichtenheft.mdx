@@ -1,0 +1,38 @@
+---
+tags:
+  - 'Wirtschaft'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist der Unterschied zwischen Lastenheft und Pflichtenheft?
+    </div>
+
+    <div slot="answer">
+        | Merkmal | Lastenheft | Pflichtenheft |
+        |---------|-----------|---------------|
+        | **Erstellt von** | **Auftraggeber** | **Auftragnehmer** |
+        | **Beschreibt** | **Was** soll gemacht werden? | **Wie** wird es umgesetzt? |
+        | **Inhalt** | Anforderungen, Ziele, Rahmenbedingungen | Technische Lösung, Architektur, Zeitplan |
+        | **Perspektive** | Fachlich / Business | Technisch / Umsetzung |
+        | **Norm** | DIN 69901 | DIN 69901 |
+
+        <br/>
+        **Lastenheft (Anforderungskatalog):**
+        - Ausgangslage und Zielsetzung
+        - Funktionale Anforderungen (Was soll das System können?)
+        - Nicht-funktionale Anforderungen (Performance, Sicherheit)
+        - Rahmenbedingungen (Budget, Zeitrahmen, Technologievorgaben)
+
+        <br/>
+        **Pflichtenheft (Lösungsbeschreibung):**
+        - Technische Architektur und Systemdesign
+        - Detaillierte Beschreibung der Umsetzung
+        - Schnittstellen und Datenmodell
+        - Testkonzept und Abnahmekriterien
+
+        <br/>
+        **Merkhilfe:** Lastenheft = „**Was** will der Kunde?" → Pflichtenheft = „**Wie** lösen wir das?"
+    </div>
+</Flashcard>

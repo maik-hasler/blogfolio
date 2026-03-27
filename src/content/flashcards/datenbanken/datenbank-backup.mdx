@@ -1,0 +1,45 @@
+---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Welche Backup-Strategien gibt es speziell für Datenbanken?
+    </div>
+
+    <div slot="answer">
+        Datenbanken erfordern besondere Backup-Strategien, da sie **permanent in Benutzung** sind und konsistente Sicherungen brauchen.
+
+        <br/>
+        **Logisches Backup (Dump):**
+        - Export der Daten als SQL-Befehle (z. B. `mysqldump`, `pg_dump`)
+        - **Vorteil:** Portabel, menschenlesbar, kann auf andere Systeme importiert werden
+        - **Nachteil:** Bei großen Datenbanken langsam
+
+        <br/>
+        **Physisches Backup (File-Level):**
+        - Kopie der tatsächlichen Datenbankdateien auf Dateisystemebene
+        - **Vorteil:** Sehr schnell bei großen Datenmengen
+        - **Nachteil:** Oft nur auf gleicher DB-Version wiederherstellbar
+
+        <br/>
+        **Point-in-Time Recovery (PITR):**
+        - Kombination aus Vollbackup + **Transaction Logs (WAL/Binlog)**
+        - Ermöglicht Wiederherstellung zu einem **exakten Zeitpunkt**
+        - Beispiel: „Stelle die DB wieder her, wie sie am 15.03. um 14:30 Uhr war"
+
+        <br/>
+        **Hot vs. Cold Backup:**
+
+        | Typ | Beschreibung | DB-Verfügbarkeit |
+        |-----|-------------|-----------------|
+        | **Hot Backup** | Backup bei laufender DB | Ja (kein Ausfall) |
+        | **Cold Backup** | DB wird heruntergefahren | Nein (Downtime) |
+        | **Warm Backup** | DB im Read-Only-Modus | Eingeschränkt |
+
+        <br/>
+        **Wichtig:** Datenbank-Backups immer **testen** (Restore auf Testsystem) und Transaction Logs separat sichern!
+    </div>
+</Flashcard>

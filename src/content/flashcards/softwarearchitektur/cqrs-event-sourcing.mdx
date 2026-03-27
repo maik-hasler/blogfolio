@@ -1,0 +1,52 @@
+---
+tags:
+  - 'Software-Architektur'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was sind CQRS und Event Sourcing?
+    </div>
+
+    <div slot="answer">
+        **CQRS (Command Query Responsibility Segregation):**
+        Trennt das System in **zwei getrennte Modelle**:
+
+        - **Command-Seite (Schreiben):** Verarbeitet Änderungen (Create, Update, Delete)
+        - **Query-Seite (Lesen):** Optimiert für schnelle Abfragen
+
+        ```
+        Benutzer → Command → Schreib-Modell → Datenbank (normalisiert)
+                                                    ↓ (Sync)
+        Benutzer ← Query ← Lese-Modell ← Lese-Datenbank (denormalisiert)
+        ```
+
+        <br/>
+        **Warum?** Lese- und Schreibzugriffe haben oft **unterschiedliche Anforderungen** — die Lesemodelle können speziell für Views optimiert werden.
+
+        <br/>
+        ---
+
+        <br/>
+        **Event Sourcing:**
+        Statt den **aktuellen Zustand** zu speichern, werden alle **Ereignisse (Events)** als unveränderliche Sequenz gespeichert.
+
+        ```
+        Klassisch:     Konto.saldo = 150 €
+        Event Sourcing: [KontoEröffnet(0€), Einzahlung(200€), Abhebung(50€)]
+                        → Aktueller Zustand wird berechnet: 150€
+        ```
+
+        <br/>
+        **Vorteile:**
+        - Vollständige **Audit-Historie** — jede Änderung ist nachvollziehbar
+        - **Zeitreisen:** Zustand zu jedem Zeitpunkt reproduzierbar
+        - Ideal kombiniert mit CQRS und Event-Driven Architecture
+
+        <br/>
+        **Nachteile:**
+        - Höhere Komplexität, Event-Schema-Versionierung
+        - Nicht für jede Anwendung sinnvoll — **nur bei echtem Bedarf** einsetzen
+    </div>
+</Flashcard>

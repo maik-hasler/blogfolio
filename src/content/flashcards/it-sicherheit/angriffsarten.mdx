@@ -1,0 +1,41 @@
+---
+tags:
+  - 'IT-Sicherheit'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Welche typischen Angriffsarten gibt es in der IT-Sicherheit?
+    </div>
+
+    <div slot="answer">
+        **Social Engineering (Menschlicher Faktor):**
+        - **Phishing:** Gefälschte E-Mails/Webseiten, um Zugangsdaten zu stehlen
+        - **Spear Phishing:** Gezielter Angriff auf bestimmte Personen
+        - **Social Engineering:** Manipulation von Menschen (z. B. am Telefon)
+
+        <br/>
+        **Netzwerkangriffe:**
+        - **DDoS (Distributed Denial of Service):** System durch Masseanfragen lahmlegen
+        - **Man-in-the-Middle (MitM):** Kommunikation abfangen und mitlesen/manipulieren
+        - **DNS Spoofing:** Gefälschte DNS-Antworten umleiten auf bösartige Seiten
+
+        <br/>
+        **Anwendungsangriffe:**
+        - **SQL Injection:** Schadcode in SQL-Abfragen einschleusen
+        - **Cross-Site Scripting (XSS):** JavaScript in fremde Webseiten einschleusen
+        - **Cross-Site Request Forgery (CSRF):** Ungewollte Aktionen im Namen des Opfers
+        - **Brute Force:** Alle möglichen Passwörter durchprobieren
+
+        <br/>
+        **Malware:**
+        - **Virus:** Verbreitet sich über infizierte Dateien
+        - **Trojaner:** Tarnt sich als nützliche Software
+        - **Ransomware:** Verschlüsselt Daten und fordert Lösegeld
+        - **Wurm:** Verbreitet sich selbstständig über Netzwerke
+
+        <br/>
+        **Schutzmaßnahmen:** Awareness-Schulungen, Firewalls, IDS/IPS, Verschlüsselung, Updates, Prinzip der minimalen Rechte.
+    </div>
+</Flashcard>

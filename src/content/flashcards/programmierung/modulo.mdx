@@ -1,0 +1,29 @@
+---
+tags:
+  - 'Allgemeine Programmierung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist die Modulo-Operation?
+    </div>
+
+    <div slot="answer">
+        Die **Modulo-Operation** (`%`) liefert den **Rest einer ganzzahligen Division**.
+
+        <br/>
+        **Beispiele:**
+        ```csharp
+        10 % 3  // = 1  (10 ÷ 3 = 3 Rest 1)
+        15 % 5  // = 0  (15 ÷ 5 = 3 Rest 0)
+        7 % 2   // = 1  (7 ÷ 2 = 3 Rest 1)
+        ```
+
+        <br/>
+        **Typische Anwendungsfälle:**
+        - **Gerade/Ungerade prüfen:** `zahl % 2 == 0` → gerade
+        - **Teilbarkeit prüfen:** `zahl % teiler == 0` → teilbar
+        - **Zyklische Werte:** z. B. Uhrzeiten, Array-Indizes begrenzen
+    </div>
+</Flashcard>

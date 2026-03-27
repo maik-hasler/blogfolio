@@ -1,0 +1,44 @@
+---
+tags:
+  - 'Netzwerktechnik'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was sind DNS und DHCP?
+    </div>
+
+    <div slot="answer">
+        **DNS (Domain Name System):** Übersetzt **Domainnamen** in **IP-Adressen** — das „Telefonbuch des Internets".
+
+        <br/>
+        **DNS-Ablauf:**
+        1. Benutzer gibt `www.example.de` im Browser ein
+        2. DNS-Server wird angefragt
+        3. DNS-Server antwortet mit `93.184.216.34`
+        4. Browser verbindet sich zur IP-Adresse
+
+        **DNS-Eintragstypen:**
+        - **A-Record:** Domain → IPv4-Adresse
+        - **AAAA-Record:** Domain → IPv6-Adresse
+        - **CNAME:** Alias für eine andere Domain
+        - **MX:** Mailserver für eine Domain
+
+        <br/>
+        ---
+
+        <br/>
+        **DHCP (Dynamic Host Configuration Protocol):** Vergibt **automatisch** IP-Adressen und Netzwerkkonfiguration an Geräte im Netzwerk.
+
+        <br/>
+        **DHCP vergibt:**
+        - IP-Adresse
+        - Subnetzmaske
+        - Standard-Gateway
+        - DNS-Server
+
+        <br/>
+        **Vorteil:** Keine manuelle IP-Konfiguration nötig — neue Geräte erhalten automatisch eine gültige Konfiguration.
+    </div>
+</Flashcard>

@@ -1,0 +1,42 @@
+---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was bedeutet CRUD?
+    </div>
+
+    <div slot="answer">
+        **CRUD** steht für die vier grundlegenden Datenbankoperationen:
+
+        <br/>
+        | CRUD | Operation | SQL-Befehl |
+        |------|-----------|------------|
+        | **C – Create** | Datensatz anlegen | `INSERT INTO` |
+        | **R – Read** | Datensatz lesen | `SELECT` |
+        | **U – Update** | Datensatz ändern | `UPDATE` |
+        | **D – Delete** | Datensatz löschen | `DELETE` |
+
+        <br/>
+        **Beispiele:**
+        ```sql
+        -- Create
+        INSERT INTO Kunde (Name, Email) VALUES ('Max', 'max@mail.de');
+
+        -- Read
+        SELECT * FROM Kunde WHERE Name = 'Max';
+
+        -- Update
+        UPDATE Kunde SET Email = 'neu@mail.de' WHERE Name = 'Max';
+
+        -- Delete
+        DELETE FROM Kunde WHERE Name = 'Max';
+        ```
+
+        <br/>
+        CRUD bildet die Basis fast jeder datenbasierten Anwendung und wird häufig auf **REST-APIs** abgebildet: POST (Create), GET (Read), PUT (Update), DELETE (Delete).
+    </div>
+</Flashcard>

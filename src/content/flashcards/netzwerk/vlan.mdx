@@ -1,0 +1,42 @@
+---
+tags:
+  - 'Netzwerktechnik'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist ein VLAN (Virtual Local Area Network)?
+    </div>
+
+    <div slot="answer">
+        Ein **VLAN** ist ein logisch segmentiertes Netzwerk innerhalb eines physischen Netzwerks. Geräte in verschiedenen VLANs können **nicht direkt** miteinander kommunizieren — obwohl sie am selben Switch hängen.
+
+        <br/>
+        **Ohne VLAN:**
+        Alle Geräte am Switch sind in **einem** Broadcast-Domain — jeder Broadcast erreicht alle.
+
+        <br/>
+        **Mit VLAN:**
+        Der Switch wird logisch in **mehrere getrennte Netze** aufgeteilt:
+        ```
+        VLAN 10: Buchhaltung (Ports 1-8)
+        VLAN 20: Entwicklung  (Ports 9-16)
+        VLAN 30: Gäste-WLAN   (Ports 17-24)
+        ```
+
+        <br/>
+        **Vorteile:**
+        - **Sicherheit:** Abteilungen sind voneinander getrennt
+        - **Performance:** Broadcast-Verkehr wird auf das VLAN begrenzt
+        - **Flexibilität:** Logische Gruppierung unabhängig vom Standort
+        - **Kosteneinsparung:** Weniger physische Switches nötig
+
+        <br/>
+        **Kommunikation zwischen VLANs:**
+        Nur über einen **Router** oder **Layer-3-Switch** möglich (Inter-VLAN-Routing).
+
+        <br/>
+        **Trunk-Port:** Ein Port, der den Verkehr **mehrerer VLANs** überträgt (z. B. zwischen zwei Switches). Die Zugehörigkeit wird durch **VLAN-Tags** (IEEE 802.1Q) markiert.
+    </div>
+</Flashcard>

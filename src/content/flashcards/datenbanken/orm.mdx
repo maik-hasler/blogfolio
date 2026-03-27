@@ -1,0 +1,35 @@
+---
+tags:
+  - 'Datenbanken'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was ist ein ORM (Object-Relational Mapping)?
+    </div>
+
+    <div slot="answer">
+        Ein **ORM** ist eine Technik, die **Objekte einer Programmiersprache** automatisch auf **Tabellen einer relationalen Datenbank** abbildet und umgekehrt.
+
+        <br/>
+        **Vorteile:**
+        - Kein manuelles SQL nötig — Datenbankzugriff über Objekte und Methoden
+        - **Datenbankunabhängigkeit:** Wechsel der DB ohne Code-Änderung
+        - Weniger Boilerplate-Code
+        - Schutz vor SQL Injection (Parameterbindung)
+
+        <br/>
+        **Nachteile:**
+        - Kann bei komplexen Abfragen **weniger performant** sein als handgeschriebenes SQL
+        - Zusätzliche Abstraktionsschicht = zusätzliche Komplexität
+        - „Impedance Mismatch" zwischen OOP- und relationalem Modell
+
+        <br/>
+        **Bekannte ORMs:**
+        - **C#/.NET:** Entity Framework
+        - **Java:** Hibernate
+        - **Python:** SQLAlchemy, Django ORM
+        - **JavaScript:** Prisma, TypeORM
+    </div>
+</Flashcard>

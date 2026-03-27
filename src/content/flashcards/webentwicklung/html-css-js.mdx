@@ -1,0 +1,42 @@
+---
+tags:
+  - 'Webentwicklung'
+---
+import Flashcard from '../../../components/FlashcardWrapper.astro'
+
+<Flashcard>
+    <div slot="question">
+        Was sind HTML, CSS und JavaScript im Web?
+    </div>
+
+    <div slot="answer">
+        Die drei Kerntechnologien jeder Webseite:
+
+        <br/>
+        **HTML (HyperText Markup Language):**
+        - Definiert die **Struktur** und den **Inhalt** einer Seite
+        - Elemente wie Überschriften, Absätze, Bilder, Links, Tabellen
+        - Semantische Tags: `&lt;header&gt;`, `&lt;nav&gt;`, `&lt;main&gt;`, `&lt;article&gt;`, `&lt;footer&gt;`
+        - Aktuelle Version: **HTML5**
+
+        <br/>
+        **CSS (Cascading Style Sheets):**
+        - Definiert das **Aussehen** und **Layout**
+        - Farben, Schriftarten, Abstände, Positionierung
+        - Responsive Design mit **Media Queries**
+        - Layoutsysteme: **Flexbox**, **Grid**
+
+        <br/>
+        **JavaScript (JS):**
+        - Macht Webseiten **interaktiv** und **dynamisch**
+        - Reagiert auf Benutzeraktionen (Klicks, Eingaben)
+        - Kann DOM-Elemente ändern und API-Aufrufe machen
+        - Läuft im **Browser** (Frontend) oder auf dem **Server** (Node.js)
+
+        <br/>
+        **Analogie — Haus:**
+        - **HTML** = Rohbau (Wände, Türen, Fenster)
+        - **CSS** = Inneneinrichtung (Farbe, Möbel, Dekoration)
+        - **JavaScript** = Elektrik (Licht geht an bei Schalter, Tür öffnet sich automatisch)
+    </div>
+</Flashcard>
