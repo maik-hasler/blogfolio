@@ -15,7 +15,7 @@
     "@astrojs/sitemap": "^3.7.1",
     "@iconify-json/mdi": "^1.2.3",
     "@tailwindcss/vite": "^4.2.1",
-    "astro": "^6.0.8",
+    "astro": "^6.1.1",
     "astro-icon": "^1.1.5",
     "plantuml-encoder": "^1.4.0",
     "tailwindcss": "^4.2.1"
