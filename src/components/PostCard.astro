@@ -1,0 +1,55 @@
+---
+import Screw from './ui/Screw.astro';
+import { formatDate, readingMinutes } from '../lib/format';
+
+/** Ein Beitrag als angepinnte Karte. Titel und Beschreibung sind Englisch (lang="en"). */
+interface Props {
+  url: string;
+  title: string;
+  description: string;
+  pubDate: Date;
+  tags: string[];
+  ttr: string;
+  headingLevel?: 'h2' | 'h3';
+}
+
+const { url, title, description, pubDate, tags, ttr, headingLevel: Heading = 'h3' } = Astro.props;
+---
+
+<article class="relative flex h-full flex-col gap-3 border-2 border-stone bg-paper-light px-6 pb-6 pt-8 shadow-card">
+  <Screw class="left-3 top-3" />
+  <Screw class="right-3 top-3" />
+  <p class="font-mono text-xs uppercase tracking-wider text-ink-soft">
+    <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+    <span aria-hidden="true"> · </span>
+    {readingMinutes(ttr)} Min. Lesezeit
+  </p>
+  <Heading class="text-xl font-bold leading-snug" lang="en">
+    <a href={url} class="post-link">{title}</a>
+  </Heading>
+  <p class="text-ink-soft" lang="en">{description}</p>
+  <ul class="mt-auto flex flex-wrap gap-2 pt-2" aria-label="Tags">
+    {tags.map((tag) => (
+      <li class="border border-paper-tan bg-paper-dark px-2 py-1 font-mono text-[0.7rem] uppercase tracking-wider text-ink-soft">{tag}</li>
+    ))}
+  </ul>
+</article>
+
+<style>
+  .post-link {
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 4px;
+    transition: text-decoration-color 120ms;
+  }
+  .post-link::after {
+    /* Die ganze Karte ist klickbar. */
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  article:hover .post-link {
+    text-decoration-color: var(--color-redstone);
+  }
+</style>

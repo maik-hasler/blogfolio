@@ -1,33 +1,210 @@
 @import "tailwindcss";
 
+/* ------------------------------------------------------------------ */
+/* Schriften (self-hosted, OFL, siehe public/fonts/OFL.txt)            */
+/* ------------------------------------------------------------------ */
 @font-face {
-	font-family: 'Atkinson';
-	src: url('/fonts/atkinson-regular.woff') format('woff');
-	font-weight: 400;
-	font-style: normal;
-	font-display: swap;
+  font-family: "Inter";
+  src: url("/fonts/inter-400-700-normal.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
 }
-
 @font-face {
-	font-family: 'Atkinson';
-	src: url('/fonts/atkinson-bold.woff') format('woff');
-	font-weight: 700;
-	font-style: normal;
-	font-display: swap;
+  font-family: "Inter";
+  src: url("/fonts/inter-400-700-italic.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Pixelify Sans";
+  src: url("/fonts/pixelify-sans-400-700-normal.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/ibm-plex-mono-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/ibm-plex-mono-400-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/ibm-plex-mono-600-normal.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/ibm-plex-mono-600-italic.woff2") format("woff2");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
 }
 
-body {
-	font-family: 'Atkinson', sans-serif;
+/* ------------------------------------------------------------------ */
+/* Design-Tokens. Alle Farben stammen aus dem Steckbrief-PDF.           */
+/* ------------------------------------------------------------------ */
+@theme {
+  --font-display: "Pixelify Sans", "Courier New", monospace;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Courier New", monospace;
+
+  /* Papier: Seitenhintergrund und Karten */
+  --color-paper: #eee9da;
+  --color-paper-light: #faf8ee;
+  --color-paper-dark: #e3ddc6;
+  --color-paper-deep: #d7d2c2;
+  --color-paper-tan: #b8b094;
+
+  /* Stein und Tinte: Kopfband, dunkle Karte, Text */
+  --color-stone: #3a3a34;
+  --color-stone-light: #8a8a7e;
+  --color-ink: #1f1e1a;
+  --color-ink-soft: #55503f;
+
+  /* Redstone: Banner, Pfeile, Akzente */
+  --color-redstone: #9f2217;
+  --color-redstone-bright: #ff5a3c;
+
+  /* Creme-Text auf dunklem Grund */
+  --color-cream: #f2efe4;
+  --color-cream-muted: #d9d4c4;
+  --color-cream-dim: #a8a38e;
+
+  /* Holz und Gras: Piston-Deckel, Online-Status */
+  --color-oak: #a98149;
+  --color-grass: #5d8c3a;
+
+  /* Fließende Schriftgrößen */
+  --text-display-xl: clamp(2.75rem, 1.5rem + 6vw, 6rem);
+  --text-display-xl--line-height: 0.95;
+  --text-display-lg: clamp(2rem, 1.25rem + 3.5vw, 3.5rem);
+  --text-display-lg--line-height: 1;
+  --text-display-md: clamp(1.5rem, 1.2rem + 1.5vw, 2rem);
+  --text-display-md--line-height: 1.1;
+  --text-label: 0.8125rem;
+  --text-label--line-height: 1;
+  --text-label--letter-spacing: 0.14em;
+
+  /* Harte Pixel-Schatten statt weicher Radien */
+  --shadow-pixel: 4px 4px 0 0 var(--color-ink);
+  --shadow-pixel-sm: 2px 2px 0 0 var(--color-ink);
+  --shadow-card: 0 14px 28px -16px rgb(31 30 26 / 0.45);
+  --radius-none: 0;
 }
 
-.highlight-bg {
-	background: linear-gradient(to right, #a855f7, #6366f1);
+/* ------------------------------------------------------------------ */
+/* Basis                                                                */
+/* ------------------------------------------------------------------ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+  ::selection {
+    background-color: var(--color-redstone);
+    color: var(--color-cream);
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-redstone-bright);
+    outline-offset: 3px;
+  }
+  img,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+  input[type='search']::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }
 
-.highlight-text {
-  background: linear-gradient(to right, #a855f7, #6366f1);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+/* ------------------------------------------------------------------ */
+/* Wiederkehrende Muster                                                */
+/* ------------------------------------------------------------------ */
+@utility blueprint {
+  /* Dunkles Kopfband mit Blaupausen-Raster wie im Steckbrief */
+  background-color: var(--color-stone);
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px),
+    linear-gradient(to right, rgb(255 255 255 / 0.03) 4px, transparent 4px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.03) 4px, transparent 4px);
+  background-size:
+    8px 8px,
+    8px 8px,
+    32px 32px,
+    32px 32px;
+}
+
+@utility bedrock {
+  /* Grobe Pixel-Kante am Seitenende */
+  background-color: var(--color-ink);
+  background-image:
+    linear-gradient(90deg, var(--color-stone) 25%, transparent 25%, transparent 50%, var(--color-stone-light) 50%, var(--color-stone-light) 62%, transparent 62%, transparent 75%, var(--color-stone) 75%);
+  background-size: 32px 8px;
+  background-repeat: repeat-x;
+}
+
+@utility display-shadow {
+  /* Harter Pixel-Schatten für Pixelify-Headlines */
+  text-shadow: 0.07em 0.07em 0 var(--color-ink);
+}
+
+@utility display-shadow-paper {
+  text-shadow: 0.07em 0.07em 0 var(--color-paper-deep);
+}
+
+@utility pixelated {
+  image-rendering: pixelated;
+}
+
+@utility container-page {
+  width: min(100% - 2rem, 72rem);
+  margin-inline: auto;
+}
+
+@utility container-prose {
+  width: min(100% - 2rem, 44rem);
+  margin-inline: auto;
+}
+
+@utility sr-only-focusable {
+  position: absolute;
+  left: -999px;
+  &:focus {
+    left: 1rem;
+  }
 }

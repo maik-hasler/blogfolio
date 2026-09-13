@@ -1,0 +1,91 @@
+---
+import PixelLabel from './PixelLabel.astro';
+import Screw from './Screw.astro';
+
+/**
+ * Angepinnte Notizkarte aus dem Steckbrief. Drei Töne wie im Original:
+ * helles Papier, dunkle Karte, gestrichelt umrandete Karte.
+ * Die Drehung wird auf Mobilgeräten halbiert, damit nichts überläuft.
+ */
+interface Props {
+  label?: string;
+  labelAs?: 'h2' | 'h3' | 'span';
+  tone?: 'paper' | 'dark' | 'dashed';
+  rotate?: number;
+  screws?: boolean;
+  class?: string;
+}
+
+const {
+  label,
+  labelAs = 'h2',
+  tone = 'paper',
+  rotate = 0,
+  screws = true,
+  class: className = '',
+} = Astro.props;
+
+const tones = {
+  paper: 'bg-paper-light text-ink-soft border-2 border-stone',
+  dark: 'bg-ink text-cream-muted border-2 border-ink',
+  dashed: 'bg-paper-dark text-ink-soft border-2 border-dashed border-stone-light',
+};
+---
+
+<article class:list={['note-card relative shadow-card', tones[tone], className]} style={`--rotate: ${rotate}deg`}>
+  {screws && (
+    <>
+      <Screw class="top-3 left-3" />
+      <Screw class="top-3 right-3" />
+    </>
+  )}
+  {label && (
+    <div class="mb-4 -ml-2">
+      <PixelLabel as={labelAs}>{label}</PixelLabel>
+    </div>
+  )}
+  <div class="note-card__body">
+    <slot />
+  </div>
+</article>
+
+<style>
+  .note-card {
+    padding: 2.25rem 1.5rem 1.75rem;
+    transform: rotate(calc(var(--rotate) / 2));
+  }
+  @media (min-width: 640px) {
+    .note-card {
+      padding: 2.5rem 2.25rem 2.25rem;
+      transform: rotate(var(--rotate));
+    }
+  }
+  .note-card__body {
+    font-style: italic;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+  }
+  .note-card__body :global(p + p) {
+    margin-top: 0.85em;
+  }
+  .note-card__body :global(a) {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--color-redstone-bright);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+  .note-card__body :global(a:hover) {
+    color: var(--color-redstone);
+  }
+  .note-card__body :global(strong) {
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+  .bg-ink .note-card__body :global(strong) {
+    color: var(--color-cream);
+  }
+  .bg-ink .note-card__body :global(a:hover) {
+    color: var(--color-redstone-bright);
+  }
+</style>

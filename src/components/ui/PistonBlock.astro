@@ -1,0 +1,47 @@
+---
+import Piston from '../../assets/piston.svg';
+
+/**
+ * Der Piston-Block als selbst gezeichnete isometrische Pixel-Grafik (src/assets/piston.svg).
+ * Der Kopf fährt bei Hover aus; mit `animated` zusätzlich einmal beim Laden.
+ */
+interface Props {
+  class?: string;
+  animated?: boolean;
+}
+const { class: className = '', animated = false } = Astro.props;
+---
+
+<Piston class:list={['piston', { 'piston--animated': animated }, className]} />
+
+<style>
+  .piston {
+    height: auto;
+    overflow: visible;
+    filter: drop-shadow(6px 10px 0 rgb(0 0 0 / 0.35));
+  }
+  .piston :global(.piston-head) {
+    transition: transform 280ms steps(4, end);
+  }
+  .piston:hover :global(.piston-head) {
+    transform: translateY(-9.5px);
+  }
+  .piston--animated :global(.piston-head) {
+    animation: ausfahren 1.8s steps(4, end) 900ms 1;
+  }
+  @keyframes ausfahren {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    25%,
+    70% {
+      transform: translateY(-9.5px);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .piston--animated :global(.piston-head) {
+      animation: none;
+    }
+  }
+</style>

@@ -1,0 +1,23 @@
+---
+/**
+ * Rotes Banner-Label in Plex Mono, wie "CRAFTING RECIPE" im Steckbrief.
+ * `tone="bright"` ist die Textvariante in Rot-Orange für dunkle Flächen ("STECKBRIEF", "PISTON").
+ */
+interface Props {
+  as?: 'span' | 'h1' | 'h2' | 'h3' | 'p';
+  tone?: 'banner' | 'bright' | 'ink';
+  class?: string;
+}
+
+const { as: Tag = 'span', tone = 'banner', class: className = '' } = Astro.props as Props;
+
+const tones = {
+  banner: 'inline-block bg-redstone text-paper-light px-3 py-2 shadow-pixel-sm',
+  bright: 'inline-block text-redstone-bright',
+  ink: 'inline-block bg-ink text-cream px-3 py-2',
+};
+---
+
+<Tag class:list={['font-mono font-semibold uppercase text-label', tones[tone], className]}>
+  <slot />
+</Tag>

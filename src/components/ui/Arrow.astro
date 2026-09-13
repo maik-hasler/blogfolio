@@ -1,0 +1,19 @@
+---
+import { arrows, type ArrowKind } from './arrows';
+
+/** Handgezeichneter Pfeil. Farbe über `class` (text-*), Größe über width/height-Klassen. */
+interface Props {
+  kind: ArrowKind;
+  class?: string;
+}
+const { kind, class: className = '' } = Astro.props;
+const arrow = arrows[kind];
+---
+
+<svg viewBox={arrow.viewBox} aria-hidden="true" focusable="false" class:list={['arrow', className]} set:html={arrow.body} />
+
+<style>
+  .arrow {
+    overflow: visible;
+  }
+</style>

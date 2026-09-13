@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import PixelLabel from '../components/ui/PixelLabel.astro';
+import PixelButton from '../components/ui/PixelButton.astro';
+import PistonBlock from '../components/ui/PistonBlock.astro';
+---
+
+<Base title="Chunk nicht geladen | Maik Hasler" description="Diese Seite gibt es nicht." headerTone="dark">
+  <section class="blueprint grow text-cream">
+    <div class="container-page flex flex-col items-start gap-6 py-20 lg:py-32">
+      <PixelLabel tone="bright">Fehler 404</PixelLabel>
+      <h1 class="font-display text-display-xl font-bold uppercase display-shadow">Chunk nicht geladen</h1>
+      <p class="max-w-lg text-lg italic text-cream-muted">
+        Diese Seite wurde nie generiert. Oder sie ist in die Void gefallen. Beides lässt sich nicht mehr
+        herausfinden.
+      </p>
+      <PixelButton href="/">Zurück zum Spawn</PixelButton>
+      <PistonBlock class="mt-6 w-32 opacity-80" />
+    </div>
+  </section>
+</Base>

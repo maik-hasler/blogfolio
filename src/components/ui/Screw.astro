@@ -1,0 +1,31 @@
+---
+/** Die Schraube, mit der die Notizkarten "angepinnt" sind. Rein dekorativ. */
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<span aria-hidden="true" class:list={['screw', className]}></span>
+
+<style>
+  .screw {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #a9a99c, var(--color-stone-light) 55%, #5d5d54);
+    border: 2px solid var(--color-stone);
+    box-shadow: 1px 1px 0 rgb(31 30 26 / 0.35);
+  }
+  .screw::after {
+    content: '';
+    position: absolute;
+    left: 2px;
+    right: 2px;
+    top: calc(50% - 1px);
+    height: 2px;
+    background: var(--color-stone);
+    transform: rotate(-30deg);
+  }
+</style>

@@ -2,101 +2,129 @@
 import { getCollection } from 'astro:content';
 import { Icon } from 'astro-icon/components';
 
-const blogPosts = await getCollection('blog');
-const jsonBlogPosts = JSON.stringify(blogPosts);
+/**
+ * Suche über alle Beiträge, gestaltet wie ein Chat-Befehl ("/suche").
+ * Es wird nur ein schlanker Index (Titel, Beschreibung, Tags) ins HTML geschrieben.
+ */
+interface Props {
+  tone?: 'dark' | 'paper';
+}
+const { tone = 'paper' } = Astro.props;
+
+const posts = (await getCollection('blog', ({ data }) => data.published)).map((post) => ({
+  id: post.id,
+  title: post.data.title,
+  description: post.data.description,
+  tags: post.data.tags,
+}));
+
+const buttonTone =
+  tone === 'dark'
+    ? 'hover:bg-ink hover:text-redstone-bright'
+    : 'hover:bg-paper-dark hover:text-redstone';
 ---
 
-<div id="search-component" class="relative">
+<div id="suche">
   <button
-    id="search-button"
+    id="suche-oeffnen"
     type="button"
-    class="flex items-center gap-2 bg-[#f5f4fa] text-gray-700 rounded-full px-3 sm:px-4 py-2 text-sm hover:bg-[#ece9f5] transition-colors"
+    class:list={['flex items-center gap-2 px-3 py-2 font-mono text-label font-semibold uppercase', buttonTone]}
+    aria-haspopup="dialog"
+    aria-controls="suche-dialog"
   >
-    <Icon name="mdi:magnify" class="text-[20px] text-gray-500" />
-    <span class="hidden sm:inline text-gray-700 text-sm">Search...</span>
-    <kbd
-      class="hidden sm:inline ml-2 rounded-full border border-gray-300 bg-gray-200 px-2 py-1 text-xs font-medium text-gray-600"
-    >
-      Ctrl + K
-    </kbd>
+    <Icon name="mdi:magnify" class="size-5" />
+    <span class="hidden sm:inline">Suche</span>
+    <kbd class="hidden md:inline border border-current px-1.5 py-0.5 text-[0.65rem] normal-case tracking-normal opacity-70">/</kbd>
   </button>
-  <div
-    id="search-overlay"
-    class="hidden fixed inset-0 bg-black/50 z-40"
-  ></div>
-  <div
-    id="search-panel"
-    class="hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-xl bg-white rounded-xl shadow-xl z-50 p-4"
+
+  <dialog
+    id="suche-dialog"
+    class="m-auto w-[min(100%-2rem,40rem)] border-2 border-stone-light bg-ink p-0 text-cream shadow-pixel backdrop:bg-ink/70"
+    aria-label="Beiträge durchsuchen"
   >
-    <input
-      id="search-input"
-      type="text"
-      placeholder="Search blog posts..."
-      class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-indigo-200"
-    />
-    <ul id="search-results" class="mt-4 max-h-80 overflow-y-auto"></ul>
-  </div>
+    <form method="dialog" class="flex items-center gap-3 border-b-2 border-stone px-4 py-3 font-mono">
+      <span class="text-redstone-bright font-semibold select-none" aria-hidden="true">/suche</span>
+      <input
+        id="suche-eingabe"
+        type="search"
+        autocomplete="off"
+        placeholder="Titel, Beschreibung oder Tag …"
+        aria-label="Suchbegriff"
+        class="min-w-0 grow bg-transparent text-cream placeholder:text-cream-dim focus:outline-none"
+      />
+      <button type="submit" class="font-mono text-xs uppercase text-cream-dim hover:text-cream" aria-label="Suche schließen">Esc</button>
+    </form>
+    <ul id="suche-treffer" class="max-h-[60vh] overflow-y-auto p-2" role="listbox" aria-label="Treffer"></ul>
+  </dialog>
 </div>
 
-<script type="module" define:vars={{ blogPosts }}>
-  const searchButton = document.getElementById('search-button');
-  const searchPanel = document.getElementById('search-panel');
-  const searchOverlay = document.getElementById('search-overlay');
-  const searchInput = document.getElementById('search-input');
-  const searchResults = document.getElementById('search-results');
+<script is:inline type="module" define:vars={{ posts }}>
+  const dialog = document.getElementById('suche-dialog');
+  const oeffnen = document.getElementById('suche-oeffnen');
+  const eingabe = document.getElementById('suche-eingabe');
+  const treffer = document.getElementById('suche-treffer');
 
-  function openSearch() {
-    searchPanel.classList.remove('hidden');
-    searchOverlay.classList.remove('hidden');
-    searchInput.focus();
-    renderResults('');
-  }
+  const escapeHtml = (text) =>
+    text.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 
-  function closeSearch() {
-    searchPanel.classList.add('hidden');
-    searchOverlay.classList.add('hidden');
-    searchInput.value = '';
-    searchResults.innerHTML = '';
-  }
-
-  function renderResults(query) {
-    const results = blogPosts.filter(post =>
-      post.data.title?.toLowerCase().includes(query.toLowerCase())
+  function suchen(query) {
+    const q = query.trim().toLowerCase();
+    if (!q) return posts;
+    return posts.filter(
+      (post) =>
+        post.title.toLowerCase().includes(q) ||
+        post.description.toLowerCase().includes(q) ||
+        post.tags.some((tag) => tag.toLowerCase().includes(q)),
     );
+  }
 
-    if (!results.length && query.length > 0) {
-      searchResults.innerHTML = `<li class="p-2 text-gray-400">No results found.</li>`;
+  function render(query) {
+    const ergebnisse = suchen(query);
+    if (ergebnisse.length === 0) {
+      treffer.innerHTML = `<li class="px-3 py-4 font-mono text-sm text-cream-dim">Unbekannter Befehl. Versuch's mit <span class="text-redstone-bright">/suche plantuml</span></li>`;
       return;
     }
-
-    searchResults.innerHTML = results
+    treffer.innerHTML = ergebnisse
       .map(
-        post => `
-      <li class="p-2 hover:bg-gray-100 rounded">
-        <a href="/blog/${post.id}" class="block">
-          <span class="font-semibold">${post.data.title}</span>
-          <p class="text-gray-500 text-sm">${post.data.description}</p>
-        </a>
-      </li>
-    `
+        (post) => `
+        <li role="option">
+          <a href="/blog/${encodeURIComponent(post.id)}/" lang="en" class="block px-3 py-3 hover:bg-stone focus-visible:bg-stone">
+            <span class="block font-semibold text-cream">${escapeHtml(post.title)}</span>
+            <span class="block text-sm text-cream-dim">${escapeHtml(post.description)}</span>
+          </a>
+        </li>`,
       )
       .join('');
   }
 
-  // Events
-  searchButton.addEventListener('click', openSearch);
-  searchOverlay.addEventListener('click', closeSearch);
+  function open() {
+    if (dialog.open) return;
+    dialog.showModal();
+    eingabe.value = '';
+    render('');
+    eingabe.focus();
+  }
 
-  document.addEventListener('keydown', (e) => {
-    // Ctrl + K or Cmd + K
-    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
-      e.preventDefault();
-      openSearch();
-    }
-    // Escape
-    if (e.key === 'Escape') closeSearch();
+  oeffnen.addEventListener('click', open);
+  eingabe.addEventListener('input', () => render(eingabe.value));
+  eingabe.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter') return;
+    event.preventDefault();
+    const erster = treffer.querySelector('a');
+    if (erster) window.location.assign(erster.href);
   });
+  dialog.addEventListener('click', (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+  const inEingabefeld = (element) =>
+    element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement || element?.isContentEditable;
 
-  searchInput.addEventListener('input', () => renderResults(searchInput.value));
+  document.addEventListener('keydown', (event) => {
+    const strgK = (event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k';
+    const slash = event.key === '/' && !event.ctrlKey && !event.metaKey && !event.altKey && !inEingabefeld(document.activeElement);
+    if (strgK || slash) {
+      event.preventDefault();
+      open();
+    }
+  });
 </script>
-

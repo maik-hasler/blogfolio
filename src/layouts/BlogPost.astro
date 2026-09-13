@@ -1,71 +1,185 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { Icon } from 'astro-icon/components';
-import '../styles/blog.css';
-import CallToAction from "../components/CallToAction.astro";
-const { title, description, pubDate, tags, ttr, headings } = Astro.props;
----
-<html lang="en">
-  <head>
-    <BaseHead title={title} description={description} />
-  </head>
-  <body>
-    <Header />
-    <main class="w-11/12 max-w-4xl mx-auto my-[64px]">
-      <article class="flex flex-col gap-[32px]">
-        <header class="flex flex-col gap-4">
-          <nav>
-            <ol class="flex text-gray-700">
-              <li>
-                <a href="/blog" class="hover:underline">Blog</a>
-              </li>
-              <li class="mx-2">&gt;</li>
-              <li class="font-medium text-black">Article</li>
-            </ol>
-          </nav>
-          <h1 class="text-5xl font-bold leading-tight">{title}</h1>
-          <div class="flex items-center gap-[8px]">
-            <div class="flex items-center gap-[2px]">
-              <p class="text-sm">{ttr}</p>
-            </div>
-            <p class="text-sm">&#x2022;</p>
-            <div class="flex items-center gap-[2px]">
-              <p class="text-sm">
-                <time datetime={pubDate.toISOString()}>
-                  {pubDate.toLocaleDateString('en-us', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric',
-                  })}
-                </time>
-              </p>
-            </div>
-          </div>
-          <p class="text-xl text-gray-700 italic">{description}</p>
-          <div class="flex flex-wrap gap-[8px] mt-2">
-            {tags.map((tag: string) => (
-              <div class="tag flex items-center gap-[6px] bg-gray-100 px-3 py-1 rounded-full">
-                <Icon name="mdi:tag-outline" class="text-[16px]" />
-                <span class="text-sm font-medium">{tag}</span>
-              </div>
-            ))}
-          </div>
-        </header>
-        <hr class="border-gray-200" />
-        <section class="prose prose-lg max-w-none">
-          <slot />
-        </section>
-      </article>
-    </main>
-    <CallToAction />
-    <Footer />
-  </body>
-</html>
+import type { CollectionEntry } from 'astro:content';
+import Base from './Base.astro';
+import PixelLabel from '../components/ui/PixelLabel.astro';
+import { formatDate, readingMinutes } from '../lib/format';
 
-<style>
-body {
-  background-color: #ece9f5;
+/** Artikel-Layout. Der Inhalt ist Englisch, das Drumherum Deutsch. */
+interface Nachbar {
+  title: string;
+  url: string;
 }
+type Props = CollectionEntry<'blog'>['data'] & { neuer?: Nachbar; aelter?: Nachbar };
+
+const { title, description, pubDate, tags, ttr, neuer, aelter } = Astro.props;
+---
+
+<Base title={`${title} | Maik Hasler`} description={description}>
+  <article class="container-prose py-12 lg:py-16">
+    <header>
+      <a href="/blog" class="font-mono text-label font-semibold uppercase text-ink-soft hover:text-redstone">
+        ← Blog
+      </a>
+      <div class="mt-6">
+        <PixelLabel tone="ink">Buch &amp; Feder</PixelLabel>
+      </div>
+      <h1 class="font-display text-display-lg font-bold display-shadow-paper mt-4" lang="en">{title}</h1>
+      <p class="mt-5 font-mono text-sm uppercase tracking-wider text-ink-soft">
+        <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+        <span aria-hidden="true"> · </span>
+        {readingMinutes(ttr)} Min. Lesezeit
+      </p>
+      <p class="mt-5 text-xl italic text-ink-soft" lang="en">{description}</p>
+      <ul class="mt-5 flex flex-wrap gap-2" aria-label="Tags">
+        {tags.map((tag) => (
+          <li class="border border-paper-tan bg-paper-dark px-2 py-1 font-mono text-[0.7rem] uppercase tracking-wider text-ink-soft">{tag}</li>
+        ))}
+      </ul>
+    </header>
+
+    <hr class="my-10 border-0 border-t-2 border-dashed border-stone-light" />
+
+    <div class="post-content" lang="en">
+      <slot />
+    </div>
+
+    <p class="mt-12 font-mono italic text-ink-soft">~ Maik</p>
+
+    <nav class="mt-10 grid gap-4 border-t-2 border-dashed border-stone-light pt-8 sm:grid-cols-2" aria-label="Weitere Beiträge">
+      {aelter && (
+        <a href={aelter.url} class="nachbar group border-2 border-stone bg-paper-light p-4 shadow-card">
+          <span class="font-mono text-label font-semibold uppercase text-ink-soft">← Älterer Beitrag</span>
+          <span class="mt-2 block font-bold group-hover:text-redstone" lang="en">{aelter.title}</span>
+        </a>
+      )}
+      {neuer && (
+        <a href={neuer.url} class="nachbar group border-2 border-stone bg-paper-light p-4 text-right shadow-card sm:col-start-2">
+          <span class="font-mono text-label font-semibold uppercase text-ink-soft">Neuerer Beitrag →</span>
+          <span class="mt-2 block font-bold group-hover:text-redstone" lang="en">{neuer.title}</span>
+        </a>
+      )}
+    </nav>
+  </article>
+</Base>
+
+<style is:global>
+  .post-content {
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: var(--color-ink);
+  }
+  .post-content > * + * {
+    margin-top: 1.25em;
+  }
+  .post-content h1,
+  .post-content h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--text-display-md);
+    line-height: 1.15;
+    margin-top: 2.2em;
+  }
+  .post-content h3,
+  .post-content h4 {
+    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 1.3;
+    margin-top: 1.8em;
+  }
+  .post-content h1 + *,
+  .post-content h2 + *,
+  .post-content h3 + *,
+  .post-content h4 + * {
+    margin-top: 0.6em;
+  }
+  .post-content a {
+    color: var(--color-redstone);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+  .post-content a:hover {
+    color: var(--color-ink);
+  }
+  .post-content strong {
+    font-weight: 700;
+  }
+  .post-content ul,
+  .post-content ol {
+    padding-left: 1.5em;
+  }
+  .post-content ul {
+    list-style: square;
+  }
+  .post-content ol {
+    list-style: decimal;
+  }
+  .post-content li + li {
+    margin-top: 0.4em;
+  }
+  .post-content li::marker {
+    color: var(--color-redstone);
+  }
+  .post-content blockquote {
+    border-left: 4px solid var(--color-redstone);
+    padding-left: 1.25em;
+    font-style: italic;
+    color: var(--color-ink-soft);
+  }
+  .post-content code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+  }
+  .post-content :not(pre) > code {
+    background: var(--color-paper-dark);
+    border: 1px solid var(--color-paper-tan);
+    padding: 0.05em 0.35em;
+  }
+  .post-content pre {
+    border: 2px solid var(--color-ink);
+    box-shadow: var(--shadow-pixel);
+    padding: 1.25rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    overflow-x: auto;
+    margin-block: 1.75em;
+  }
+  .post-content pre code {
+    font-size: inherit;
+    background: none;
+    border: 0;
+    padding: 0;
+  }
+  .post-content img {
+    border: 2px solid var(--color-stone);
+    background: var(--color-paper-light);
+    padding: 0.5rem;
+    margin-inline: auto;
+  }
+  .post-content hr {
+    border: 0;
+    border-top: 2px dashed var(--color-stone-light);
+    margin-block: 2.5em;
+  }
+  .post-content table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    display: block;
+    overflow-x: auto;
+  }
+  .post-content th,
+  .post-content td {
+    border: 1px solid var(--color-stone-light);
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  .post-content th {
+    background: var(--color-paper-dark);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
 </style>

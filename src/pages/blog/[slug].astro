@@ -1,22 +1,28 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
-import { render } from 'astro:content';
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog', ({ data }) => {
-		return data.published;
-	});
-	return posts.map((post) => ({
-		params: { slug: post.id },
-		props: post,
-	}));
+  const posts = (await getCollection('blog', ({ data }) => data.published)).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+  );
+  const alsLink = (post: (typeof posts)[number]) => ({ title: post.data.title, url: `/blog/${post.id}/` });
+
+  return posts.map((post, index) => ({
+    params: { slug: post.id },
+    props: {
+      post,
+      // Sortierung ist absteigend: der Vorgänger im Array ist der neuere Beitrag.
+      neuer: index > 0 ? alsLink(posts[index - 1]) : undefined,
+      aelter: index < posts.length - 1 ? alsLink(posts[index + 1]) : undefined,
+    },
+  }));
 }
 
-const post = Astro.props;
-const { Content, headings } = await render(post);
+const { post, neuer, aelter } = Astro.props;
+const { Content } = await render(post);
 ---
 
-<BlogPost {...post.data} headings={headings}>
-	<Content />
+<BlogPost {...post.data} neuer={neuer} aelter={aelter}>
+  <Content />
 </BlogPost>

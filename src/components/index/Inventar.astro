@@ -1,0 +1,61 @@
+---
+import { Image } from 'astro:assets';
+import PixelLabel from '../ui/PixelLabel.astro';
+
+import dotnetSvg from '../../assets/dotnet.svg';
+import dockerSvg from '../../assets/docker.svg';
+import vuejsSvg from '../../assets/vuejs.svg';
+import postgresqlSvg from '../../assets/postgresql.svg';
+import githubActionsSvg from '../../assets/githubActions.svg';
+import cssSvg from '../../assets/css.svg';
+import gitSvg from '../../assets/git.svg';
+import htmlSvg from '../../assets/html.svg';
+import typeScriptSvg from '../../assets/typescript.svg';
+import sassSvg from '../../assets/sass.svg';
+import pythonSvg from '../../assets/python.svg';
+import javaScriptSvg from '../../assets/javascript.svg';
+
+/** Das Inventar: Werkzeuge in Slots statt Logo-Laufband. */
+const slots = [
+  { title: '.NET', icon: dotnetSvg },
+  { title: 'TypeScript', icon: typeScriptSvg },
+  { title: 'PostgreSQL', icon: postgresqlSvg },
+  { title: 'Docker', icon: dockerSvg },
+  { title: 'GitHub Actions', icon: githubActionsSvg },
+  { title: 'Git', icon: gitSvg },
+  { title: 'Vue.js', icon: vuejsSvg },
+  { title: 'JavaScript', icon: javaScriptSvg },
+  { title: 'HTML', icon: htmlSvg },
+  { title: 'CSS', icon: cssSvg },
+  { title: 'Sass', icon: sassSvg },
+  { title: 'Python', icon: pythonSvg },
+];
+---
+
+<section class="container-page py-8 lg:py-12" aria-labelledby="inventar-titel">
+  <div class="mb-6 flex flex-wrap items-end justify-between gap-4">
+    <PixelLabel as="h2"><span id="inventar-titel">Inventar</span></PixelLabel>
+    <p class="font-mono text-sm italic text-ink-soft">Womit ich täglich baue.</p>
+  </div>
+
+  <ul class="grid grid-cols-3 gap-2 border-2 border-ink bg-paper-deep p-2 shadow-pixel sm:grid-cols-4 md:grid-cols-6 xl:grid-cols-12" role="list">
+    {slots.map((slot) => (
+      <li class="slot flex flex-col items-center justify-center gap-2 bg-paper-dark px-1 py-4 text-center">
+        <Image src={slot.icon} alt="" width={40} height={40} loading="eager" class="size-9" />
+        <span class="font-mono text-[0.65rem] font-semibold uppercase tracking-wide text-ink-soft">{slot.title}</span>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .slot {
+    overflow-wrap: normal;
+    border: 3px solid;
+    border-color: var(--color-stone-light) var(--color-paper-light) var(--color-paper-light) var(--color-stone-light);
+    transition: background-color 120ms steps(2, end);
+  }
+  .slot:hover {
+    background-color: var(--color-paper-light);
+  }
+</style>
