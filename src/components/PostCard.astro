@@ -1,6 +1,7 @@
 ---
 import Screw from './ui/Screw.astro';
-import { formatDate, readingMinutes } from '../lib/format';
+import PostMeta from './ui/PostMeta.astro';
+import TagList from './ui/TagList.astro';
 
 /** Ein Beitrag als angepinnte Karte. Titel und Beschreibung sind Englisch (lang="en"). */
 interface Props {
@@ -9,30 +10,22 @@ interface Props {
   description: string;
   pubDate: Date;
   tags: string[];
-  ttr: string;
+  readingMinutes: number;
   headingLevel?: 'h2' | 'h3';
 }
 
-const { url, title, description, pubDate, tags, ttr, headingLevel: Heading = 'h3' } = Astro.props;
+const { url, title, description, pubDate, tags, readingMinutes, headingLevel: Heading = 'h3' } = Astro.props;
 ---
 
 <article class="relative flex h-full flex-col gap-3 border-2 border-stone bg-paper-light px-6 pb-6 pt-8 shadow-card">
   <Screw class="left-3 top-3" />
   <Screw class="right-3 top-3" />
-  <p class="font-mono text-xs uppercase tracking-wider text-ink-soft">
-    <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
-    <span aria-hidden="true"> · </span>
-    {readingMinutes(ttr)} Min. Lesezeit
-  </p>
+  <PostMeta pubDate={pubDate} readingMinutes={readingMinutes} />
   <Heading class="text-xl font-bold leading-snug" lang="en">
     <a href={url} class="post-link">{title}</a>
   </Heading>
   <p class="text-ink-soft" lang="en">{description}</p>
-  <ul class="mt-auto flex flex-wrap gap-2 pt-2" role="list" aria-label="Tags">
-    {tags.map((tag) => (
-      <li class="border border-paper-tan bg-paper-dark px-2 py-1 font-mono text-[0.7rem] uppercase tracking-wider text-ink-soft">{tag}</li>
-    ))}
-  </ul>
+  <TagList tags={tags} class="mt-auto pt-2" />
 </article>
 
 <style>

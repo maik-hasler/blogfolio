@@ -23,7 +23,7 @@ const { src, alt, caption, label, rotate = 0, class: className = '' } = Astro.pr
   )}
   <div class="bg-paper-light border-2 border-stone p-3 pb-4 shadow-card">
     <div class="border-2 border-dashed border-oak p-1 bg-paper-tan">
-      <Image src={src} alt={alt} width={480} height={480} loading="eager" class="grayscale w-full aspect-square object-cover" />
+      <Image src={src} alt={alt} widths={[352, 704]} sizes="(min-width: 640px) 22rem, calc(100vw - 4rem)" class="grayscale w-full aspect-square object-cover" />
     </div>
     <figcaption class="mt-4 text-center font-mono italic text-sm text-ink-soft">{caption}</figcaption>
   </div>

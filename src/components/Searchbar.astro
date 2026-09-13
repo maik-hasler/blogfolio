@@ -1,73 +1,71 @@
 ---
-import { getCollection } from 'astro:content';
 import { Icon } from 'astro-icon/components';
+import { getPublishedPosts, postUrl } from '../lib/posts';
 
 /**
  * Suche über alle Beiträge, gestaltet wie ein Chat-Befehl ("/suche").
- * Es wird nur ein schlanker Index (Titel, Beschreibung, Tags) ins HTML geschrieben.
+ * Es wird nur ein schlanker Index (Titel, Beschreibung, Tags, URL) ins HTML geschrieben.
  */
 interface Props {
-  tone?: 'dark' | 'paper';
+  class?: string;
 }
-const { tone = 'paper' } = Astro.props;
+const { class: className = '' } = Astro.props;
 
-const posts = (await getCollection('blog', ({ data }) => data.published)).map((post) => ({
-  id: post.id,
+const posts = (await getPublishedPosts()).map((post) => ({
+  url: postUrl(post),
   title: post.data.title,
   description: post.data.description,
   tags: post.data.tags,
 }));
-
-const buttonTone =
-  tone === 'dark'
-    ? 'hover:bg-ink hover:text-redstone-bright'
-    : 'hover:bg-paper-dark hover:text-redstone';
 ---
 
-<div id="suche">
-  <button
-    id="suche-oeffnen"
-    type="button"
-    class:list={['flex items-center gap-2 px-3 py-3 font-mono text-label font-semibold uppercase', buttonTone]}
-    aria-haspopup="dialog"
-    aria-controls="suche-dialog"
-  >
-    <Icon name="mdi:magnify" class="size-5" />
-    <span class="hidden sm:inline">Suche</span>
-    <kbd class="hidden md:inline border border-current px-1.5 py-0.5 text-[0.65rem] normal-case tracking-normal opacity-70">/</kbd>
-  </button>
+<button
+  id="search-open"
+  type="button"
+  class:list={['flex items-center gap-2 px-3 py-3 font-mono text-label font-semibold uppercase', className]}
+  aria-haspopup="dialog"
+  aria-controls="search-dialog"
+>
+  <Icon name="mdi:magnify" class="size-5" aria-hidden="true" />
+  <span class="sr-only sm:not-sr-only">Suche</span>
+  <kbd aria-hidden="true" class="hidden md:inline border border-current px-1.5 py-0.5 text-[0.65rem] normal-case tracking-normal opacity-70">/</kbd>
+</button>
 
-  <dialog
-    id="suche-dialog"
-    class="m-auto w-[min(100%-2rem,40rem)] border-2 border-stone-light bg-ink p-0 text-cream shadow-pixel backdrop:bg-ink/70"
-    aria-label="Beiträge durchsuchen"
-  >
-    <form method="dialog" class="flex items-center gap-3 border-b-2 border-stone px-4 py-3 font-mono">
-      <span class="text-redstone-bright font-semibold select-none" aria-hidden="true">/suche</span>
-      <input
-        id="suche-eingabe"
-        type="search"
-        autocomplete="off"
-        placeholder="Titel, Beschreibung oder Tag …"
-        aria-label="Suchbegriff"
-        class="min-w-0 grow bg-transparent text-cream placeholder:text-cream-dim focus:outline-none"
-      />
-      <button type="submit" class="font-mono text-xs uppercase text-cream-dim hover:text-cream" aria-label="Suche schließen">Esc</button>
-    </form>
-    <ul id="suche-treffer" class="max-h-[60vh] overflow-y-auto p-2" role="list" aria-label="Treffer"></ul>
-  </dialog>
-</div>
+<dialog
+  id="search-dialog"
+  class="m-auto w-[min(100%-2rem,40rem)] border-2 border-stone-light bg-ink p-0 text-cream shadow-pixel backdrop:bg-ink/70"
+  aria-label="Beiträge durchsuchen"
+>
+  <form method="dialog" class="flex items-center gap-3 border-b-2 border-stone px-4 py-3 font-mono focus-within:border-b-redstone-bright">
+    <span class="shrink-0 select-none whitespace-nowrap font-semibold text-redstone-bright" aria-hidden="true">/suche</span>
+    <input
+      id="search-input"
+      type="search"
+      autocomplete="off"
+      placeholder="Titel, Beschreibung oder Tag …"
+      aria-label="Suchbegriff"
+      aria-describedby="search-status"
+      class="min-w-0 grow bg-transparent text-cream placeholder:text-cream-dim focus:outline-none"
+    />
+    <button type="submit" class="-mr-2 shrink-0 whitespace-nowrap px-3 py-2 font-mono text-xs uppercase text-cream-dim hover:text-cream">
+      Esc<span class="sr-only"> – Suche schließen</span>
+    </button>
+  </form>
+  <p id="search-status" class="sr-only" aria-live="polite"></p>
+  <ul id="search-results" class="max-h-[60vh] overflow-y-auto p-2" role="list" aria-label="Treffer"></ul>
+</dialog>
 
 <script is:inline type="module" define:vars={{ posts }}>
-  const dialog = document.getElementById('suche-dialog');
-  const oeffnen = document.getElementById('suche-oeffnen');
-  const eingabe = document.getElementById('suche-eingabe');
-  const treffer = document.getElementById('suche-treffer');
+  const dialog = document.getElementById('search-dialog');
+  const openButton = document.getElementById('search-open');
+  const input = document.getElementById('search-input');
+  const results = document.getElementById('search-results');
+  const status = document.getElementById('search-status');
 
   const escapeHtml = (text) =>
     text.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 
-  function suchen(query) {
+  function search(query) {
     const q = query.trim().toLowerCase();
     if (!q) return posts;
     return posts.filter(
@@ -79,16 +77,17 @@ const buttonTone =
   }
 
   function render(query) {
-    const ergebnisse = suchen(query);
-    if (ergebnisse.length === 0) {
-      treffer.innerHTML = `<li class="px-3 py-4 font-mono text-sm text-cream-dim">Unbekannter Befehl. Versuch’s mit <span class="text-redstone-bright">/suche plantuml</span></li>`;
+    const hits = search(query);
+    status.textContent = hits.length ? `${hits.length} Treffer, Enter öffnet den ersten` : 'Keine Treffer';
+    if (hits.length === 0) {
+      results.innerHTML = `<li class="px-3 py-4 font-mono text-sm text-cream-dim">Unbekannter Befehl. Versuch’s mit <span class="text-redstone-bright">/suche plantuml</span></li>`;
       return;
     }
-    treffer.innerHTML = ergebnisse
+    results.innerHTML = hits
       .map(
         (post) => `
         <li>
-          <a href="/blog/${encodeURIComponent(post.id)}/" lang="en" class="block px-3 py-3 hover:bg-stone focus-visible:bg-stone">
+          <a href="${post.url}" lang="en" class="block px-3 py-3 hover:bg-stone focus-visible:bg-stone">
             <span class="block font-semibold text-cream">${escapeHtml(post.title)}</span>
             <span class="block text-sm text-cream-dim">${escapeHtml(post.description)}</span>
           </a>
@@ -100,29 +99,30 @@ const buttonTone =
   function open() {
     if (dialog.open) return;
     dialog.showModal();
-    eingabe.value = '';
+    input.value = '';
     render('');
-    eingabe.focus();
+    input.focus();
   }
 
-  oeffnen.addEventListener('click', open);
-  eingabe.addEventListener('input', () => render(eingabe.value));
-  eingabe.addEventListener('keydown', (event) => {
-    if (event.key !== 'Enter') return;
+  const isEditable = (element) =>
+    element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement || element?.isContentEditable;
+
+  openButton.addEventListener('click', open);
+  input.addEventListener('input', () => render(input.value));
+  input.addEventListener('keydown', (event) => {
+    // Enter öffnet den ersten Treffer, aber nur zu einer echten Eingabe.
+    if (event.key !== 'Enter' || !input.value.trim()) return;
     event.preventDefault();
-    const erster = treffer.querySelector('a');
-    if (erster) window.location.assign(erster.href);
+    const first = results.querySelector('a');
+    if (first) window.location.assign(first.href);
   });
   dialog.addEventListener('click', (event) => {
     if (event.target === dialog) dialog.close();
   });
-  const inEingabefeld = (element) =>
-    element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement || element?.isContentEditable;
-
   document.addEventListener('keydown', (event) => {
-    const strgK = (event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k';
-    const slash = event.key === '/' && !event.ctrlKey && !event.metaKey && !event.altKey && !inEingabefeld(document.activeElement);
-    if (strgK || slash) {
+    const ctrlK = (event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k';
+    const slash = event.key === '/' && !event.ctrlKey && !event.metaKey && !event.altKey && !isEditable(document.activeElement);
+    if (ctrlK || slash) {
       event.preventDefault();
       open();
     }

@@ -45,13 +45,6 @@
   font-style: normal;
   font-display: swap;
 }
-@font-face {
-  font-family: "IBM Plex Mono";
-  src: url("/fonts/ibm-plex-mono-600-italic.woff2") format("woff2");
-  font-weight: 600;
-  font-style: italic;
-  font-display: swap;
-}
 
 /* ------------------------------------------------------------------ */
 /* Design-Tokens. Alle Farben stammen aus dem Steckbrief-PDF.           */
@@ -106,7 +99,9 @@
   --shadow-pixel: 4px 4px 0 0 var(--color-ink);
   --shadow-pixel-sm: 2px 2px 0 0 var(--color-ink);
   --shadow-card: 0 14px 28px -16px rgb(31 30 26 / 0.45);
-  --radius-none: 0;
+
+  /* Keine Radien: Pixel haben harte Kanten. Die Schraube setzt ihren Kreis selbst. */
+  --radius-*: initial;
 }
 
 /* ------------------------------------------------------------------ */
@@ -119,11 +114,13 @@
   }
   .blueprint,
   .bg-ink,
-  .bg-stone {
+  [data-tone='dark'] {
     --focus-ring: var(--color-redstone-bright);
   }
   html {
     scroll-behavior: smooth;
+    /* Sprungziele landen unter der 56px hohen Kopfleiste, nicht dahinter. */
+    scroll-padding-top: 4.5rem;
     -webkit-text-size-adjust: 100%;
   }
   body {
@@ -131,7 +128,6 @@
     background-color: var(--color-paper);
     color: var(--color-ink);
     line-height: 1.6;
-    overflow-wrap: anywhere;
   }
   ::selection {
     background-color: var(--color-redstone);
@@ -204,10 +200,6 @@
 
 @utility display-shadow-paper {
   text-shadow: 0.07em 0.07em 0 var(--color-paper-deep);
-}
-
-@utility pixelated {
-  image-rendering: pixelated;
 }
 
 @utility container-page {

@@ -4,10 +4,16 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description: string;
+  type?: 'website' | 'article';
+  publishedTime?: Date;
+  lang?: 'de' | 'en';
+  preloadItalic?: boolean;
 }
 
+const { title, description, type = 'website', publishedTime, lang = 'de', preloadItalic = false } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const { title, description } = Astro.props;
+const ogImage = new URL('/og-default.png', Astro.site);
+const locale = lang === 'en' ? 'en_US' : 'de_DE';
 ---
 
 <meta charset="utf-8" />
@@ -42,15 +48,26 @@ const { title, description } = Astro.props;
 
 <link rel="preload" href="/fonts/pixelify-sans-400-700-normal.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/fonts/inter-400-700-normal.woff2" as="font" type="font/woff2" crossorigin />
+{preloadItalic && <link rel="preload" href="/fonts/inter-400-700-italic.woff2" as="font" type="font/woff2" crossorigin />}
 <link rel="preload" href="/fonts/ibm-plex-mono-600-normal.woff2" as="font" type="font/woff2" crossorigin />
 
 <link rel="canonical" href={canonicalURL} />
 
 <title>{title}</title>
-<meta name="title" content={title} />
 <meta name="description" content={description} />
-<meta property="og:type" content="website" />
+
+<meta property="og:type" content={type} />
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:locale" content="de_DE" />
+<meta property="og:locale" content={locale} />
+<meta property="og:site_name" content="Maik Hasler" />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Steckbrief: Maik Hasler als Piston-Block in Pixel-Art" />
+{publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />

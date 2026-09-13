@@ -3,48 +3,59 @@ import type { CollectionEntry } from 'astro:content';
 import type { MarkdownHeading } from 'astro';
 import Base from './Base.astro';
 import PixelArrowIcon from '../components/ui/PixelArrowIcon.astro';
-import { formatDate, readingMinutes } from '../lib/format';
+import PostMeta from '../components/ui/PostMeta.astro';
+import TagList from '../components/ui/TagList.astro';
 
 /** Artikel-Layout. Der Inhalt ist Englisch, das Drumherum Deutsch. */
-interface Nachbar {
+interface Neighbor {
   title: string;
   url: string;
 }
-type Props = CollectionEntry<'blog'>['data'] & { neuer?: Nachbar; aelter?: Nachbar; headings?: MarkdownHeading[] };
+type Props = Omit<CollectionEntry<'blog'>['data'], 'published'> & {
+  newer?: Neighbor;
+  older?: Neighbor;
+  headings?: MarkdownHeading[];
+};
 
-const { title, description, pubDate, tags, ttr, neuer, aelter, headings = [] } = Astro.props;
-/* Sprungliste erst ab drei Abschnitten; Markdown-h1 und h2 zählen gleich. */
-const abschnitte = headings.filter((heading) => heading.depth <= 2);
-const zeigeInhalt = abschnitte.length >= 3;
+const { title, description, pubDate, tags, ttr, newer, older, headings = [] } = Astro.props;
+const sections = headings.filter((heading) => heading.depth <= 2);
+const showToc = sections.length >= 3;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  datePublished: pubDate.toISOString(),
+  inLanguage: 'en',
+  keywords: tags.join(', '),
+  url: canonicalUrl.href,
+  author: { '@type': 'Person', name: 'Maik Hasler', url: 'https://maik-hasler.de/' },
+};
 ---
 
-<Base title={`${title} | Maik Hasler`} description={description}>
+<Base title={`${title} | Maik Hasler`} description={description} type="article" publishedTime={pubDate} lang="en">
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+
   <article class="container-prose py-12 lg:py-16">
     <header>
-      <a href="/blog" class="inline-flex items-center gap-2 font-mono text-label font-semibold uppercase text-ink-soft hover:text-redstone">
+      <a href="/blog" class="-my-2 inline-flex items-center gap-2 py-2 font-mono text-label font-semibold uppercase text-ink-soft hover:text-redstone">
         <PixelArrowIcon direction="left" class="w-5" /> Blog
       </a>
       <h1 class="font-display text-display-article font-bold display-shadow-paper mt-6 text-balance" lang="en">{title}</h1>
-      <p class="mt-5 font-mono text-sm uppercase tracking-wider text-ink-soft">
-        <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
-        <span aria-hidden="true"> · </span>
-        {readingMinutes(ttr)} Min. Lesezeit
-      </p>
+      <PostMeta pubDate={pubDate} readingMinutes={ttr} size="sm" class="mt-5" />
       <p class="mt-5 text-xl text-ink-soft" lang="en">{description}</p>
-      <ul class="mt-5 flex flex-wrap gap-2" role="list" aria-label="Tags">
-        {tags.map((tag) => (
-          <li class="border border-paper-tan bg-paper-dark px-2 py-1 font-mono text-[0.7rem] uppercase tracking-wider text-ink-soft">{tag}</li>
-        ))}
-      </ul>
+      <TagList tags={tags} class="mt-5" />
     </header>
 
-    {zeigeInhalt && (
+    {showToc && (
       <nav class="mt-8" aria-label="Inhalt">
         <p class="font-mono text-label font-semibold uppercase text-ink-soft">Inhalt</p>
         <ol class="mt-3 flex flex-col gap-1.5 font-mono text-sm" lang="en">
-          {abschnitte.map((heading, index) => (
+          {sections.map((heading, index) => (
             <li class="flex gap-3">
-              <span class="text-redstone" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+              <span class="shrink-0 tabular-nums text-redstone" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
               <a href={`#${heading.slug}`} class="underline decoration-2 underline-offset-4 hover:text-redstone">{heading.text}</a>
             </li>
           ))}
@@ -61,16 +72,16 @@ const zeigeInhalt = abschnitte.length >= 3;
     <p class="mt-12 font-mono italic text-ink-soft">~ Maik</p>
 
     <nav class="mt-10 grid gap-4 border-t-2 border-dashed border-stone-light pt-8 sm:grid-cols-2" aria-label="Weitere Beiträge">
-      {aelter && (
-        <a href={aelter.url} class="nachbar group border-2 border-stone bg-paper-light p-4 shadow-card">
+      {older && (
+        <a href={older.url} class="group border-2 border-stone bg-paper-light p-4 shadow-card">
           <span class="inline-flex items-center gap-2 font-mono text-label font-semibold uppercase text-ink-soft"><PixelArrowIcon direction="left" class="w-5" /> Älterer Beitrag</span>
-          <span class="mt-2 block font-bold group-hover:text-redstone" lang="en">{aelter.title}</span>
+          <span class="mt-2 block font-bold group-hover:text-redstone" lang="en">{older.title}</span>
         </a>
       )}
-      {neuer && (
-        <a href={neuer.url} class="nachbar group border-2 border-stone bg-paper-light p-4 text-right shadow-card sm:col-start-2">
+      {newer && (
+        <a href={newer.url} class="group border-2 border-stone bg-paper-light p-4 text-right shadow-card sm:col-start-2">
           <span class="inline-flex items-center gap-2 font-mono text-label font-semibold uppercase text-ink-soft">Neuerer Beitrag <PixelArrowIcon class="w-5" /></span>
-          <span class="mt-2 block font-bold group-hover:text-redstone" lang="en">{neuer.title}</span>
+          <span class="mt-2 block font-bold group-hover:text-redstone" lang="en">{newer.title}</span>
         </a>
       )}
     </nav>
@@ -82,11 +93,11 @@ const zeigeInhalt = abschnitte.length >= 3;
     font-size: 1.125rem;
     line-height: 1.75;
     color: var(--color-ink);
+    overflow-wrap: break-word;
   }
   .post-content > * + * {
     margin-top: 1.25em;
   }
-  .post-content h1,
   .post-content h2 {
     font-family: var(--font-display);
     font-weight: 700;
@@ -101,7 +112,6 @@ const zeigeInhalt = abschnitte.length >= 3;
     line-height: 1.3;
     margin-top: 1.8em;
   }
-  .post-content h1 + *,
   .post-content h2 + *,
   .post-content h3 + *,
   .post-content h4 + * {
@@ -152,6 +162,8 @@ const zeigeInhalt = abschnitte.length >= 3;
   }
   .post-content pre {
     position: relative;
+    /* Shiki setzt #282828 inline; auf Tinte erreichen alle Theme-Farben 4,5:1. */
+    background-color: var(--color-ink) !important;
     border: 2px solid var(--color-ink);
     box-shadow: var(--shadow-pixel);
     padding: 1.25rem;
@@ -214,11 +226,7 @@ const zeigeInhalt = abschnitte.length >= 3;
     text-align: left;
     vertical-align: top;
     overflow-wrap: normal;
-    hyphens: manual;
     min-width: 6rem;
-  }
-  .post-content th {
-    white-space: nowrap;
   }
   .post-content th {
     background: var(--color-paper-dark);
@@ -226,5 +234,6 @@ const zeigeInhalt = abschnitte.length >= 3;
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
+    white-space: nowrap;
   }
 </style>

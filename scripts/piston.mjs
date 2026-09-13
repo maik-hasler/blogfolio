@@ -11,7 +11,7 @@ import { writeFileSync } from 'node:fs';
 
 const N = 16; // Pixel je Kante
 const HEAD_ROWS = 4; // Holzband = Kopf, darunter Stein = Sockel
-const LIFT = 9.5; // Hub des Kopfes in SVG-Einheiten (muss zu PistonBlock.astro passen)
+const LIFT = 9.5; // Hub des Kopfes in SVG-Einheiten; landet als --piston-lift im SVG, PistonBlock.astro liest ihn
 
 // Deterministischer Zufall, damit der Build reproduzierbar bleibt.
 function mulberry32(seed) {
@@ -138,7 +138,7 @@ const left = stoneSide(false);
 const right = stoneSide(true);
 
 const svg = [
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 ${-LIFT} ${W.toFixed(2)} ${(H + LIFT).toFixed(2)}" width="${W.toFixed(0)}" height="${(H + LIFT).toFixed(0)}" shape-rendering="crispEdges">`,
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 ${-LIFT} ${W.toFixed(2)} ${(H + LIFT).toFixed(2)}" width="${W.toFixed(0)}" height="${(H + LIFT).toFixed(0)}" shape-rendering="crispEdges" style="--piston-lift:${LIFT}px">`,
   '<g class="piston-base">',
   `<g transform="${innerMatrix}">${faceRects(grid(() => pick(INNER)))}</g>`,
   `<g transform="${leftMatrix}">${faceRects(left, [HEAD_ROWS, N])}</g>`,

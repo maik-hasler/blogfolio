@@ -32,7 +32,7 @@ const tones = {
 };
 ---
 
-<section class:list={['note-card relative shadow-card', tones[tone], className]} style={`--rotate: ${rotate}deg`}>
+<section data-tone={tone} class:list={['note-card relative shadow-card', tones[tone], className]} style={`--rotate: ${rotate}deg`}>
   {screws && (
     <>
       <Screw class="top-3 left-3" />
@@ -76,6 +76,7 @@ const tones = {
     font-style: italic;
     font-size: 1.0625rem;
     line-height: 1.65;
+    overflow-wrap: break-word;
     hyphens: auto;
   }
   .note-card__body :global(p + p) {
@@ -95,10 +96,10 @@ const tones = {
     color: var(--color-ink);
     font-weight: 600;
   }
-  .bg-ink .note-card__body :global(strong) {
+  .note-card[data-tone='dark'] .note-card__body :global(strong) {
     color: var(--color-cream);
   }
-  .bg-ink .note-card__body :global(a:hover) {
+  .note-card[data-tone='dark'] .note-card__body :global(a:hover) {
     color: var(--color-redstone-bright);
   }
 </style>

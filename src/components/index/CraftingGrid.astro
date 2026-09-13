@@ -4,11 +4,12 @@ import PixelArrowIcon from '../ui/PixelArrowIcon.astro';
 
 /**
  * Das Rezept zum Text: neun Zutaten, ein Ergebnis. Die Zutaten sind die
- * Stationen aus dem Absatz darüber, in Leserichtung.
+ * Stationen aus dem Absatz darüber, in Leserichtung. `&shy;` markiert die
+ * erlaubte Trennstelle im einzigen langen Wort.
  */
-const zutaten = [
+const ingredients = [
   'Abitur',
-  'Home­schooling',
+  'Home&shy;schooling',
   'Zocken',
   'Farm-Skript',
   'Ausbildung',
@@ -19,28 +20,25 @@ const zutaten = [
 ];
 ---
 
-<div class="crafting mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6" role="group" aria-label="Crafting-Rezept: neun Zutaten ergeben einen Piston">
+<div class="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6" role="group" aria-label="Crafting-Rezept: neun Zutaten ergeben einen Piston">
   <ol class="grid grid-cols-3 gap-1.5 border-2 border-ink bg-paper-deep p-1.5" role="list">
-    {zutaten.map((zutat) => (
-      <li class="slot flex size-[4.5rem] items-center justify-center bg-paper-dark p-1 text-center font-mono text-[0.6rem] font-semibold uppercase leading-tight tracking-wide not-italic text-ink-soft sm:size-[5rem]">
-        {zutat}
-      </li>
+    {ingredients.map((ingredient) => (
+      <li class="slot flex size-[5rem] items-center justify-center bg-paper-dark p-1 text-center font-mono text-[0.7rem] font-semibold uppercase leading-tight not-italic text-ink-soft sm:size-[5.5rem] sm:text-xs" set:html={ingredient} />
     ))}
   </ol>
 
   <PixelArrowIcon class="w-10 rotate-90 text-redstone sm:rotate-0" />
 
   <div class="flex flex-col items-center gap-2">
-    <div class="slot flex size-[5.25rem] items-center justify-center border-2 border-ink bg-paper-dark sm:size-[5.75rem]">
+    <div class="slot flex size-[5.25rem] items-center justify-center bg-paper-dark sm:size-[5.75rem]">
       <PistonBlock class="w-14" decorative shadow="sm" />
     </div>
-    <span class="font-mono text-[0.65rem] font-semibold uppercase tracking-wider not-italic text-redstone">1× Piston</span>
+    <span class="font-mono text-xs font-semibold uppercase tracking-wider not-italic text-redstone">1× Piston</span>
   </div>
 </div>
 
 <style>
   .slot {
-    overflow-wrap: normal;
     border-width: 3px;
     border-style: solid;
     border-color: var(--color-stone-light) var(--color-paper-light) var(--color-paper-light) var(--color-stone-light);

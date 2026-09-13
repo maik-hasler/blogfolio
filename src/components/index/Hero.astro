@@ -5,11 +5,11 @@ import PistonBlock from '../ui/PistonBlock.astro';
 import Arrow from '../ui/Arrow.astro';
 ---
 
-<section class="blueprint text-cream" aria-labelledby="hero-titel">
+<section class="blueprint text-cream" aria-labelledby="hero-title">
   <div class="container-page grid items-center gap-12 py-16 lg:grid-cols-[1.15fr_0.85fr] lg:py-24">
     <div class="max-w-2xl">
       <PixelLabel tone="bright">Steckbrief</PixelLabel>
-      <h1 id="hero-titel" class="font-display text-display-xl font-bold uppercase display-shadow mt-4">
+      <h1 id="hero-title" class="font-display text-display-xl font-bold uppercase display-shadow mt-4">
         Maik <br />Hasler
       </h1>
       <p class="font-display text-display-md font-bold uppercase display-shadow mt-4 text-cream-muted">
@@ -35,24 +35,18 @@ import Arrow from '../ui/Arrow.astro';
 </section>
 
 <style>
-  /* Der Pfeil zeichnet sich beim Laden einmal selbst. */
+  /* Der Pfeil zeichnet sich beim Laden einmal selbst (pathLength="1" in arrows.ts). */
   .hero-arrow :global(path) {
-    stroke-dasharray: 260;
-    stroke-dashoffset: 260;
-    animation: zeichnen 900ms ease-out 300ms forwards;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: draw 900ms ease-out 300ms forwards;
   }
   .hero-arrow :global(path:last-child) {
     animation-delay: 950ms;
     animation-duration: 250ms;
   }
-  @keyframes zeichnen {
+  @keyframes draw {
     to {
-      stroke-dashoffset: 0;
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .hero-arrow :global(path) {
-      animation: none;
       stroke-dashoffset: 0;
     }
   }

@@ -1,0 +1,14 @@
+---
+/** Tags als kleine Mono-Chips, in Karten und im Artikelkopf. */
+interface Props {
+  tags: string[];
+  class?: string;
+}
+const { tags, class: className = '' } = Astro.props;
+---
+
+<ul class:list={['flex flex-wrap gap-2', className]} role="list" aria-label="Tags">
+  {tags.map((tag) => (
+    <li class="border border-paper-tan bg-paper-dark px-2 py-1 font-mono text-xs uppercase tracking-wider text-ink-soft">{tag}</li>
+  ))}
+</ul>

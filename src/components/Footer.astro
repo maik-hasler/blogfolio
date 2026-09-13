@@ -1,24 +1,28 @@
 ---
 import { Icon } from 'astro-icon/components';
 import PixelLabel from './ui/PixelLabel.astro';
+import { getPublishedPosts } from '../lib/posts';
 
 const navigation = [
   { url: '/', label: 'Start' },
   { url: '/blog', label: 'Blog' },
 ];
 
-const ressourcen = [
+const resources = [
   { url: '/rss.xml', label: 'RSS-Feed' },
   { url: '/sitemap-index.xml', label: 'Sitemap' },
   { url: 'https://github.com/maik-hasler/blogfolio', label: 'Quellcode' },
 ];
 
-const kontakt = [
+const contact = [
   { url: 'https://github.com/maik-hasler', icon: 'mdi:github', label: 'GitHub' },
   { url: 'https://www.linkedin.com/in/maik-hasler/', icon: 'mdi:linkedin', label: 'LinkedIn' },
 ];
 
-const jahr = new Date().getFullYear();
+/* Das Endjahr hängt am jüngsten Beitrag, nicht an der Build-Zeit. */
+const [latest] = await getPublishedPosts();
+const lastYear = Math.max(2025, latest?.data.pubDate.getFullYear() ?? 2025);
+const copyright = lastYear > 2025 ? `2025–${lastYear}` : '2025';
 ---
 
 <footer class="bg-ink text-cream-muted">
@@ -41,31 +45,31 @@ const jahr = new Date().getFullYear();
 
     <div class="flex flex-col gap-3">
       <h2 class="font-mono text-label font-semibold uppercase text-cream-dim">Ressourcen</h2>
-      {ressourcen.map((item) => (
+      {resources.map((item) => (
         <a href={item.url} class="w-fit hover:text-redstone-bright">{item.label}</a>
       ))}
     </div>
 
     <div class="flex flex-col gap-3">
       <h2 class="font-mono text-label font-semibold uppercase text-cream-dim">Kontakt</h2>
-      {kontakt.map((item) => (
+      {contact.map((item) => (
         <a
           href={item.url}
           target="_blank"
           rel="noopener noreferrer"
           class="flex w-fit items-center gap-2 hover:text-redstone-bright"
         >
-          <Icon name={item.icon} class="size-5" />
-          {item.label}
+          <Icon name={item.icon} class="size-5" aria-hidden="true" />
+          {item.label}<span class="sr-only"> (öffnet in neuem Tab)</span>
         </a>
       ))}
     </div>
   </div>
 
   <div class="container-page flex flex-col gap-2 border-t border-stone py-5 font-mono text-xs text-cream-dim">
-    <div class="flex flex-col gap-2 sm:flex-row sm:justify-between">
-      <span>Y = −64 · Tiefer geht es nicht. <span class="whitespace-nowrap">© 2025–{jahr} Maik&nbsp;Hasler</span></span>
-      <span>Gebaut mit Astro, gehostet bei Hetzner. ~ Maik</span>
+    <div class="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:justify-between sm:gap-x-8">
+      <span>Y = −64 · Tiefer geht es nicht. <span class="whitespace-nowrap">© {copyright} Maik&nbsp;Hasler</span></span>
+      <span>Gebaut mit Astro, gehostet bei Hetzner. <span class="whitespace-nowrap">~&nbsp;Maik</span></span>
     </div>
     <p>Kein offizielles Minecraft-Produkt. Nicht von Mojang genehmigt oder mit Mojang verbunden.</p>
   </div>

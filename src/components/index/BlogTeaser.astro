@@ -1,18 +1,16 @@
 ---
-import { getCollection } from 'astro:content';
 import PixelLabel from '../ui/PixelLabel.astro';
 import PixelButton from '../ui/PixelButton.astro';
 import PostCard from '../PostCard.astro';
+import { getPublishedPosts, postUrl } from '../../lib/posts';
 
-const posts = (await getCollection('blog', ({ data }) => data.published))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 3);
+const posts = (await getPublishedPosts()).slice(0, 3);
 ---
 
-<section class="container-page py-16 lg:py-24" aria-labelledby="blog-titel">
+<section class="container-page py-16 lg:py-24" aria-labelledby="blog-title">
   <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
     <div>
-      <PixelLabel as="h2"><span id="blog-titel">Buch &amp; Feder</span></PixelLabel>
+      <PixelLabel as="h2"><span id="blog-title">Buch &amp; Feder</span></PixelLabel>
       <p class="mt-4 max-w-xl text-ink-soft">
         Was ich unterwegs lerne, schreibe ich auf. Auf Englisch, damit auch der Rest der Welt mitlesen kann.
       </p>
@@ -23,12 +21,12 @@ const posts = (await getCollection('blog', ({ data }) => data.published))
   <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
     {posts.map((post) => (
       <PostCard
-        url={`/blog/${post.id}/`}
+        url={postUrl(post)}
         title={post.data.title}
         description={post.data.description}
         pubDate={post.data.pubDate}
         tags={post.data.tags}
-        ttr={post.data.ttr}
+        readingMinutes={post.data.ttr}
       />
     ))}
   </div>

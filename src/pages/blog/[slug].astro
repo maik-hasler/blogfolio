@@ -1,29 +1,28 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { render } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
 import ScrollTable from '../../components/ScrollTable.astro';
+import { getPublishedPosts, postUrl, type Post } from '../../lib/posts';
 
 export async function getStaticPaths() {
-  const posts = (await getCollection('blog', ({ data }) => data.published)).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-  );
-  const alsLink = (post: (typeof posts)[number]) => ({ title: post.data.title, url: `/blog/${post.id}/` });
+  const posts = await getPublishedPosts();
+  const asNeighbor = (post: Post) => ({ title: post.data.title, url: postUrl(post) });
 
   return posts.map((post, index) => ({
     params: { slug: post.id },
     props: {
       post,
       // Sortierung ist absteigend: der Vorgänger im Array ist der neuere Beitrag.
-      neuer: index > 0 ? alsLink(posts[index - 1]) : undefined,
-      aelter: index < posts.length - 1 ? alsLink(posts[index + 1]) : undefined,
+      newer: index > 0 ? asNeighbor(posts[index - 1]) : undefined,
+      older: index < posts.length - 1 ? asNeighbor(posts[index + 1]) : undefined,
     },
   }));
 }
 
-const { post, neuer, aelter } = Astro.props;
+const { post, newer, older } = Astro.props;
 const { Content, headings } = await render(post);
 ---
 
-<BlogPost {...post.data} neuer={neuer} aelter={aelter} headings={headings}>
+<BlogPost {...post.data} newer={newer} older={older} headings={headings}>
   <Content components={{ table: ScrollTable }} />
 </BlogPost>

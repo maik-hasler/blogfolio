@@ -3,12 +3,13 @@ import Piston from '../../assets/piston.svg';
 
 /**
  * Der Piston-Block als selbst gezeichnete isometrische Pixel-Grafik (src/assets/piston.svg).
- * Der Kopf fährt bei Hover aus; mit `animated` zusätzlich einmal beim Laden.
- * `decorative` versteckt ihn vor Screenreadern, wenn der Kontext ihn schon benennt.
+ * Der Kopf fährt bei Hover aus; mit `animated` zusätzlich einmal beim Laden. Der Hub kommt
+ * als `--piston-lift` aus dem SVG selbst (scripts/piston.mjs), damit beide Seiten zusammenpassen.
  */
 interface Props {
   class?: string;
   animated?: boolean;
+  /** Versteckt den Block vor Screenreadern, wenn der Kontext ihn schon benennt. */
   decorative?: boolean;
   /** Schattenversatz passend zur Größe: 'lg' für Hero und 404, 'sm' für Icons. */
   shadow?: 'lg' | 'sm';
@@ -16,7 +17,10 @@ interface Props {
   headless?: boolean;
 }
 const { class: className = '', animated = false, decorative = false, shadow = 'lg', headless = false } = Astro.props;
-const a11y = decorative ? { 'aria-hidden': 'true' } : { role: 'img', 'aria-label': 'Ein Piston-Block als Pixel-Art' };
+
+const a11y: astroHTML.JSX.SVGAttributes = decorative
+  ? { 'aria-hidden': true }
+  : { role: 'img', 'aria-label': headless ? 'Ein Piston-Block ohne Kopf als Pixel-Art' : 'Ein Piston-Block als Pixel-Art' };
 ---
 
 <Piston class:list={['piston', `piston--shadow-${shadow}`, { 'piston--animated': animated, 'piston--headless': headless }, className]} {...a11y} />
@@ -32,32 +36,27 @@ const a11y = decorative ? { 'aria-hidden': 'true' } : { role: 'img', 'aria-label
   .piston--shadow-sm {
     filter: drop-shadow(1px 2px 0 rgb(0 0 0 / 0.35));
   }
-  .piston--headless :global(.piston-head),
-  .piston--headless :global(.piston-arm) {
-    display: none;
-  }
   .piston :global(.piston-head) {
     transition: transform 280ms steps(4, end);
   }
   .piston:hover :global(.piston-head) {
-    transform: translateY(-9.5px);
+    transform: translateY(calc(-1 * var(--piston-lift)));
   }
   .piston--animated :global(.piston-head) {
-    animation: ausfahren 1.8s steps(4, end) 900ms 1;
+    animation: extend 1.8s steps(4, end) 900ms 1;
   }
-  @keyframes ausfahren {
+  .piston--headless :global(.piston-head),
+  .piston--headless :global(.piston-arm) {
+    display: none;
+  }
+  @keyframes extend {
     0%,
     100% {
       transform: translateY(0);
     }
     25%,
     70% {
-      transform: translateY(-9.5px);
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .piston--animated :global(.piston-head) {
-      animation: none;
+      transform: translateY(calc(-1 * var(--piston-lift)));
     }
   }
 </style>

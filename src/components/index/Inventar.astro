@@ -32,17 +32,17 @@ const slots = [
 ];
 ---
 
-<section class="container-page py-8 lg:py-12" aria-labelledby="inventar-titel">
+<section class="container-page py-8 lg:py-12" aria-labelledby="inventory-title">
   <div class="mb-6 flex flex-wrap items-end justify-between gap-4">
-    <PixelLabel as="h2"><span id="inventar-titel">Inventar</span></PixelLabel>
+    <PixelLabel as="h2"><span id="inventory-title">Inventar</span></PixelLabel>
     <p class="font-mono text-sm italic text-ink-soft">Womit ich täglich baue.</p>
   </div>
 
   <ul class="grid grid-cols-3 gap-2 border-2 border-ink bg-paper-deep p-2 shadow-pixel sm:grid-cols-4 md:grid-cols-6 xl:grid-cols-12" role="list">
     {slots.map((slot) => (
       <li class="slot flex flex-col items-center justify-center gap-2 bg-paper-dark px-1 py-4 text-center">
-        <Image src={slot.icon} alt="" width={40} height={40} loading="eager" class="size-9" />
-        <span class="font-mono text-[0.65rem] font-semibold uppercase tracking-wide text-ink-soft">{slot.title}</span>
+        <Image src={slot.icon} alt="" width={40} height={40} class="size-9" />
+        <span class="font-mono text-xs font-semibold uppercase text-ink-soft">{slot.title}</span>
       </li>
     ))}
   </ul>
@@ -50,7 +50,6 @@ const slots = [
 
 <style>
   .slot {
-    overflow-wrap: normal;
     border: 3px solid;
     border-color: var(--color-stone-light) var(--color-paper-light) var(--color-paper-light) var(--color-stone-light);
     transition: background-color 120ms steps(2, end);

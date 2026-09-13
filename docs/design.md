@@ -81,8 +81,14 @@ Einleitung.
 | `PixelArrowIcon`                 | Kleiner Pixel-Pfeil als Icon (Unicode-Pfeile fehlen im Font-Subset) |
 | `PistonBlock`                    | Der Block; `animated` fährt ihn beim Laden aus, `shadow="sm"` für Icons, `headless` für die 404 |
 
-Dazu `ScrollTable` (Markdown-Tabellen in einer scrollbaren Region, per
-`components`-Mapping in `src/pages/blog/[slug].astro`) und `PostCard`.
+Dazu `TagList` und `PostMeta` (Tags und Randnotiz eines Beitrags, in Karte
+und Artikelkopf), `PostCard`, `ScrollTable` (Markdown-Tabellen in einer
+scrollbaren Region, per `components`-Mapping in `src/pages/blog/[slug].astro`)
+und `PlantUML` (verlangt `alt`, optional `width`/`height`).
+
+Beiträge kommen überall aus `src/lib/posts.ts` (`getPublishedPosts()`,
+`postUrl()`): Teaser, Index, Suche, RSS und Artikel-Nachbarn teilen sich
+Filter, Sortierung und URL-Schema.
 
 Der Piston entsteht aus `scripts/piston.mjs` (`npm run piston`). Das Skript
 schreibt `src/assets/piston.svg` mit drei Gruppen (`piston-base`,
@@ -91,7 +97,9 @@ schreibt `src/assets/piston.svg` mit drei Gruppen (`piston-base`,
 ## Barrierefreiheit
 
 - Fokusring: `--focus-ring` ist Tiefrot auf Papier und helles Rot auf
-  `.blueprint`, `.bg-ink`, `.bg-stone`.
+  `.blueprint`, `.bg-ink` und allem mit `data-tone="dark"` (Header, dunkle
+  Notizkarte). Alpha-Varianten wie `bg-stone/95` erreicht kein Klassen-Selektor,
+  deshalb das Datenattribut.
 - Alle Textpaare erreichen mindestens 4,5:1. Das helle Rot (`#ff7d60`) und
   `cream-dim` sind dafür gegenüber dem PDF angehoben.
 - Dekorative Pistons (Header, Crafting-Ergebnis, Serverliste, 404) sind
@@ -107,7 +115,11 @@ Wenig, und immer stufig, damit es nach Pixeln aussieht:
 - Der Hero-Pfeil zeichnet sich einmal (Stroke-Dashoffset).
 - Knöpfe schieben sich beim Drücken in den Schatten (`steps(2)`).
 
-`prefers-reduced-motion` schaltet alles ab.
+`prefers-reduced-motion` schaltet alles global ab (Reset in `global.css`);
+Komponenten brauchen keine eigene Ausnahme.
+
+Das Open-Graph-Bild (`public/og-default.png`) entsteht aus
+`scripts/og-image.mjs` (`npm run og`, braucht Playwright).
 
 ## Sprache
 

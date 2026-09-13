@@ -7,8 +7,8 @@ import CraftingGrid from './CraftingGrid.astro';
 ---
 
 <section class="container-page py-16 lg:py-24" aria-label="Steckbrief">
-  <div class="steckbrief">
-    <div class="steckbrief__rezept">
+  <div class="board">
+    <div class="board__recipe">
       <NoteCard label="Crafting Recipe" rotate={-1.2}>
         <p>
           Schule in der Corona-Zeit beendet. Offiziell: Abitur mit Schwerpunkt Gesundheit und Pflege.
@@ -26,11 +26,11 @@ import CraftingGrid from './CraftingGrid.astro';
       </NoteCard>
     </div>
 
-    <div class="steckbrief__pfeil-1">
+    <div class="board__arrow-1">
       <Arrow kind="hook" class="w-24 text-redstone" />
     </div>
 
-    <div class="steckbrief__chunk">
+    <div class="board__chunk">
       <NoteCard label="Außerhalb des Chunks mache ich …" tone="dark" rotate={0.9}>
         <p>
           Das Interesse am Zocken und Programmieren ist über die Jahre nicht kleiner geworden. In meiner
@@ -48,11 +48,11 @@ import CraftingGrid from './CraftingGrid.astro';
       </NoteCard>
     </div>
 
-    <div class="steckbrief__pfeil-2">
+    <div class="board__arrow-2">
       <Arrow kind="loop" class="w-32 text-redstone" />
     </div>
 
-    <div class="steckbrief__warum">
+    <div class="board__why">
       <NoteCard label="Warum ausgerechnet Piston?" tone="dashed" rotate={-0.6}>
         <p>
           Eins hat sich herauskristallisiert: Bei mir ist es binär, 0 oder 1. Genau wie beim Piston.
@@ -63,7 +63,7 @@ import CraftingGrid from './CraftingGrid.astro';
       </NoteCard>
     </div>
 
-    <div class="steckbrief__foto">
+    <div class="board__photo">
       <Arrow kind="short" class="hidden w-16 shrink-0 text-redstone lg:block" />
       <Polaroid src={meImage} alt="Maik Hasler mit Cap und Brille, Schwarz-Weiß-Foto" caption="Der Minecraft-Block IRL" label="Texture Pack" rotate={1.5} />
     </div>
@@ -71,16 +71,17 @@ import CraftingGrid from './CraftingGrid.astro';
 </section>
 
 <style>
-  .steckbrief {
+  /* Die Pinnwand: mobil eine Spalte, ab 1024px das versetzte Raster des Steckbriefs. */
+  .board {
     display: flex;
     flex-direction: column;
     gap: 3rem;
   }
-  .steckbrief__pfeil-1,
-  .steckbrief__pfeil-2 {
+  .board__arrow-1,
+  .board__arrow-2 {
     display: none;
   }
-  .steckbrief__foto {
+  .board__photo {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -88,18 +89,18 @@ import CraftingGrid from './CraftingGrid.astro';
     padding-top: 1rem;
   }
   @media (min-width: 1024px) {
-    .steckbrief {
+    .board {
       display: grid;
       grid-template-columns: repeat(12, minmax(0, 1fr));
       grid-template-rows: auto auto auto;
       row-gap: 2rem;
       column-gap: 1rem;
     }
-    .steckbrief__rezept {
+    .board__recipe {
       grid-column: 1 / 9;
       grid-row: 1;
     }
-    .steckbrief__pfeil-1 {
+    .board__arrow-1 {
       display: block;
       position: relative;
       z-index: 1;
@@ -111,11 +112,11 @@ import CraftingGrid from './CraftingGrid.astro';
       margin-bottom: -2.75rem;
       transform: rotate(4deg);
     }
-    .steckbrief__chunk {
-      grid-column: 3 / 13;
+    .board__chunk {
+      grid-column: 4 / 13;
       grid-row: 2;
     }
-    .steckbrief__pfeil-2 {
+    .board__arrow-2 {
       display: block;
       position: relative;
       z-index: 1;
@@ -123,15 +124,15 @@ import CraftingGrid from './CraftingGrid.astro';
       grid-row: 2;
       align-self: end;
       justify-self: end;
-      margin-right: -1.25rem;
-      margin-bottom: -6.5rem;
+      margin-right: -0.75rem;
+      margin-bottom: -7rem;
     }
-    .steckbrief__warum {
+    .board__why {
       grid-column: 1 / 8;
       grid-row: 3;
       margin-top: 3rem;
     }
-    .steckbrief__foto {
+    .board__photo {
       grid-column: 8 / 13;
       grid-row: 3;
       justify-content: flex-end;
