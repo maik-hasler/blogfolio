@@ -28,7 +28,7 @@ const buttonTone =
   <button
     id="suche-oeffnen"
     type="button"
-    class:list={['flex items-center gap-2 px-3 py-2 font-mono text-label font-semibold uppercase', buttonTone]}
+    class:list={['flex items-center gap-2 px-3 py-3 font-mono text-label font-semibold uppercase', buttonTone]}
     aria-haspopup="dialog"
     aria-controls="suche-dialog"
   >
@@ -81,7 +81,7 @@ const buttonTone =
   function render(query) {
     const ergebnisse = suchen(query);
     if (ergebnisse.length === 0) {
-      treffer.innerHTML = `<li class="px-3 py-4 font-mono text-sm text-cream-dim">Unbekannter Befehl. Versuch's mit <span class="text-redstone-bright">/suche plantuml</span></li>`;
+      treffer.innerHTML = `<li class="px-3 py-4 font-mono text-sm text-cream-dim">Unbekannter Befehl. Versuch’s mit <span class="text-redstone-bright">/suche plantuml</span></li>`;
       return;
     }
     treffer.innerHTML = ergebnisse

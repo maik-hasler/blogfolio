@@ -25,8 +25,8 @@ const jahr = new Date().getFullYear();
   <div class="container-page grid gap-10 py-14 md:grid-cols-[1.6fr_1fr_1fr_1fr]">
     <div class="max-w-md">
       <PixelLabel tone="bright">Ende des Chunks</PixelLabel>
-      <p class="font-display text-display-md font-bold text-cream mt-4">Immer noch da?</p>
-      <p class="mt-3 italic">
+      <p class="font-display text-display-md font-bold uppercase display-shadow text-cream mt-4">Immer noch da?</p>
+      <p class="mt-3">
         Du hast bis ganz nach unten gescrollt. Entweder gefällt dir die Seite, oder du hast dich verscrollt.
         Beides ist okay. Sag mir gern, was du denkst.
       </p>
@@ -64,10 +64,10 @@ const jahr = new Date().getFullYear();
 
   <div class="container-page flex flex-col gap-2 border-t border-stone py-5 font-mono text-xs text-cream-dim">
     <div class="flex flex-col gap-2 sm:flex-row sm:justify-between">
-      <span>Y = −64 · Tiefer geht es nicht. © 2025–{jahr} Maik Hasler</span>
+      <span>Y = −64 · Tiefer geht es nicht. <span class="whitespace-nowrap">© 2025–{jahr} Maik&nbsp;Hasler</span></span>
       <span>Gebaut mit Astro, gehostet bei Hetzner. ~ Maik</span>
     </div>
     <p>Kein offizielles Minecraft-Produkt. Nicht von Mojang genehmigt oder mit Mojang verbunden.</p>
   </div>
-  <div class="bedrock h-3" aria-hidden="true"></div>
+  <div class="bedrock h-4" aria-hidden="true"></div>
 </footer>

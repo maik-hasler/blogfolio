@@ -12,7 +12,7 @@ import CraftingGrid from './CraftingGrid.astro';
       <NoteCard label="Crafting Recipe" rotate={-1.2}>
         <p>
           Schule in der Corona-Zeit beendet. Offiziell: Abitur mit Schwerpunkt Gesundheit und Pflege.
-          Inoffiziell: Vollzeit Zocken im Homeschooling. Genau in dieser Zeit bin ich ins Programmieren
+          Inoffiziell: Zocken in Vollzeit, im Homeschooling. Genau in dieser Zeit bin ich ins Programmieren
           gerutscht. Meine Motivation: Wieso stundenlang für etwas farmen, wenn ein Skript das für mich
           übernehmen kann?
         </p>
@@ -39,17 +39,17 @@ import CraftingGrid from './CraftingGrid.astro';
           regionale Ehrenamtsplattform aufzubauen.
         </p>
         <p>
-          Wenn ich nicht am PC sitze, zocke ich wahrscheinlich Path of Exile 2. Ansonsten spiele ich für
-          mein Leben gern Brettspiele, aktuell vor allem Magic: The Gathering. Ich esse für mein Leben
-          gern, hasse es aber zu kochen. Ich laufe gern und bereite mich auf den Oldenburg-Marathon vor
-          (läuft nicht gut). Und ich lese Fachbücher, schaue Videos und höre Podcasts über
-          Softwareentwicklung.
+          Wenn ich nicht programmiere, zocke ich wahrscheinlich Path of Exile 2. Ansonsten spiele ich für
+          mein Leben gern Brett- und Kartenspiele, aktuell vor allem Magic: The Gathering. Ich esse
+          genauso gern, hasse es aber, zu kochen. Ich laufe gern und bereite mich auf den
+          Oldenburg-Marathon vor (läuft nicht gut). Und ich lese Fachbücher, schaue Videos und höre
+          Podcasts über Softwareentwicklung.
         </p>
       </NoteCard>
     </div>
 
     <div class="steckbrief__pfeil-2">
-      <Arrow kind="loop" class="w-20 text-redstone" />
+      <Arrow kind="loop" class="w-32 text-redstone" />
     </div>
 
     <div class="steckbrief__warum">
@@ -101,12 +101,15 @@ import CraftingGrid from './CraftingGrid.astro';
     }
     .steckbrief__pfeil-1 {
       display: block;
-      grid-column: 9 / 11;
+      position: relative;
+      z-index: 1;
+      grid-column: 8 / 10;
       grid-row: 1;
       align-self: end;
-      justify-self: center;
-      margin-bottom: -2.5rem;
-      transform: rotate(12deg);
+      justify-self: start;
+      margin-left: -0.5rem;
+      margin-bottom: -2.75rem;
+      transform: rotate(4deg);
     }
     .steckbrief__chunk {
       grid-column: 3 / 13;
@@ -116,12 +119,12 @@ import CraftingGrid from './CraftingGrid.astro';
       display: block;
       position: relative;
       z-index: 1;
-      grid-column: 1 / 3;
+      grid-column: 1 / 4;
       grid-row: 2;
       align-self: end;
-      justify-self: start;
-      margin-left: 1.5rem;
-      margin-bottom: -5.5rem;
+      justify-self: end;
+      margin-right: -1.25rem;
+      margin-bottom: -6.5rem;
     }
     .steckbrief__warum {
       grid-column: 1 / 8;

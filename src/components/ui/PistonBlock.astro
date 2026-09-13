@@ -10,18 +10,31 @@ interface Props {
   class?: string;
   animated?: boolean;
   decorative?: boolean;
+  /** Schattenversatz passend zur Größe: 'lg' für Hero und 404, 'sm' für Icons. */
+  shadow?: 'lg' | 'sm';
+  /** Ohne Kopf: der Sockel allein, für die 404-Seite. */
+  headless?: boolean;
 }
-const { class: className = '', animated = false, decorative = false } = Astro.props;
+const { class: className = '', animated = false, decorative = false, shadow = 'lg', headless = false } = Astro.props;
 const a11y = decorative ? { 'aria-hidden': 'true' } : { role: 'img', 'aria-label': 'Ein Piston-Block als Pixel-Art' };
 ---
 
-<Piston class:list={['piston', { 'piston--animated': animated }, className]} {...a11y} />
+<Piston class:list={['piston', `piston--shadow-${shadow}`, { 'piston--animated': animated, 'piston--headless': headless }, className]} {...a11y} />
 
 <style>
   .piston {
     height: auto;
     overflow: visible;
+  }
+  .piston--shadow-lg {
     filter: drop-shadow(6px 10px 0 rgb(0 0 0 / 0.35));
+  }
+  .piston--shadow-sm {
+    filter: drop-shadow(1px 2px 0 rgb(0 0 0 / 0.35));
+  }
+  .piston--headless :global(.piston-head),
+  .piston--headless :global(.piston-arm) {
+    display: none;
   }
   .piston :global(.piston-head) {
     transition: transform 280ms steps(4, end);

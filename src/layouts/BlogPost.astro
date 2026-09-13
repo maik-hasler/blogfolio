@@ -1,7 +1,8 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import type { MarkdownHeading } from 'astro';
 import Base from './Base.astro';
-import PixelLabel from '../components/ui/PixelLabel.astro';
+import PixelArrowIcon from '../components/ui/PixelArrowIcon.astro';
 import { formatDate, readingMinutes } from '../lib/format';
 
 /** Artikel-Layout. Der Inhalt ist Englisch, das Drumherum Deutsch. */
@@ -9,33 +10,47 @@ interface Nachbar {
   title: string;
   url: string;
 }
-type Props = CollectionEntry<'blog'>['data'] & { neuer?: Nachbar; aelter?: Nachbar };
+type Props = CollectionEntry<'blog'>['data'] & { neuer?: Nachbar; aelter?: Nachbar; headings?: MarkdownHeading[] };
 
-const { title, description, pubDate, tags, ttr, neuer, aelter } = Astro.props;
+const { title, description, pubDate, tags, ttr, neuer, aelter, headings = [] } = Astro.props;
+/* Sprungliste erst ab drei Abschnitten; Markdown-h1 und h2 zählen gleich. */
+const abschnitte = headings.filter((heading) => heading.depth <= 2);
+const zeigeInhalt = abschnitte.length >= 3;
 ---
 
 <Base title={`${title} | Maik Hasler`} description={description}>
   <article class="container-prose py-12 lg:py-16">
     <header>
-      <a href="/blog" class="font-mono text-label font-semibold uppercase text-ink-soft hover:text-redstone">
-        ← Blog
+      <a href="/blog" class="inline-flex items-center gap-2 font-mono text-label font-semibold uppercase text-ink-soft hover:text-redstone">
+        <PixelArrowIcon direction="left" class="w-5" /> Blog
       </a>
-      <div class="mt-6">
-        <PixelLabel tone="ink">Buch &amp; Feder</PixelLabel>
-      </div>
-      <h1 class="font-display text-display-lg font-bold display-shadow-paper mt-4" lang="en">{title}</h1>
+      <h1 class="font-display text-display-article font-bold display-shadow-paper mt-6 text-balance" lang="en">{title}</h1>
       <p class="mt-5 font-mono text-sm uppercase tracking-wider text-ink-soft">
         <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
         <span aria-hidden="true"> · </span>
         {readingMinutes(ttr)} Min. Lesezeit
       </p>
-      <p class="mt-5 text-xl italic text-ink-soft" lang="en">{description}</p>
+      <p class="mt-5 text-xl text-ink-soft" lang="en">{description}</p>
       <ul class="mt-5 flex flex-wrap gap-2" role="list" aria-label="Tags">
         {tags.map((tag) => (
           <li class="border border-paper-tan bg-paper-dark px-2 py-1 font-mono text-[0.7rem] uppercase tracking-wider text-ink-soft">{tag}</li>
         ))}
       </ul>
     </header>
+
+    {zeigeInhalt && (
+      <nav class="mt-8" aria-label="Inhalt">
+        <p class="font-mono text-label font-semibold uppercase text-ink-soft">Inhalt</p>
+        <ol class="mt-3 flex flex-col gap-1.5 font-mono text-sm" lang="en">
+          {abschnitte.map((heading, index) => (
+            <li class="flex gap-3">
+              <span class="text-redstone" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+              <a href={`#${heading.slug}`} class="underline decoration-2 underline-offset-4 hover:text-redstone">{heading.text}</a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    )}
 
     <hr class="my-10 border-0 border-t-2 border-dashed border-stone-light" />
 
@@ -48,13 +63,13 @@ const { title, description, pubDate, tags, ttr, neuer, aelter } = Astro.props;
     <nav class="mt-10 grid gap-4 border-t-2 border-dashed border-stone-light pt-8 sm:grid-cols-2" aria-label="Weitere Beiträge">
       {aelter && (
         <a href={aelter.url} class="nachbar group border-2 border-stone bg-paper-light p-4 shadow-card">
-          <span class="font-mono text-label font-semibold uppercase text-ink-soft">← Älterer Beitrag</span>
+          <span class="inline-flex items-center gap-2 font-mono text-label font-semibold uppercase text-ink-soft"><PixelArrowIcon direction="left" class="w-5" /> Älterer Beitrag</span>
           <span class="mt-2 block font-bold group-hover:text-redstone" lang="en">{aelter.title}</span>
         </a>
       )}
       {neuer && (
         <a href={neuer.url} class="nachbar group border-2 border-stone bg-paper-light p-4 text-right shadow-card sm:col-start-2">
-          <span class="font-mono text-label font-semibold uppercase text-ink-soft">Neuerer Beitrag →</span>
+          <span class="inline-flex items-center gap-2 font-mono text-label font-semibold uppercase text-ink-soft">Neuerer Beitrag <PixelArrowIcon class="w-5" /></span>
           <span class="mt-2 block font-bold group-hover:text-redstone" lang="en">{neuer.title}</span>
         </a>
       )}
@@ -136,13 +151,31 @@ const { title, description, pubDate, tags, ttr, neuer, aelter } = Astro.props;
     padding: 0.05em 0.35em;
   }
   .post-content pre {
+    position: relative;
     border: 2px solid var(--color-ink);
     box-shadow: var(--shadow-pixel);
     padding: 1.25rem;
     font-size: 0.875rem;
     line-height: 1.6;
     overflow-x: auto;
-    margin-block: 1.75em;
+    margin-block: 2.25em 1.75em;
+  }
+  /* Sprach-Banner am Codeblock, wie das Banner einer Notizkarte */
+  .post-content pre[data-language]:not([data-language='plaintext'])::before {
+    content: attr(data-language);
+    position: absolute;
+    top: -0.8rem;
+    left: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1;
+    background: var(--color-redstone);
+    color: var(--color-paper-light);
+    padding: 0.3rem 0.5rem;
+    box-shadow: var(--shadow-pixel-sm);
   }
   .post-content pre code {
     font-size: inherit;
@@ -161,12 +194,16 @@ const { title, description, pubDate, tags, ttr, neuer, aelter } = Astro.props;
     border-top: 2px dashed var(--color-stone-light);
     margin-block: 2.5em;
   }
+  /* Tabellen scrollen in ihrer Region (ScrollTable.astro), statt Wörter zu zerreißen. */
+  .post-content .table-scroll {
+    overflow-x: auto;
+    margin-block: 1.75em;
+  }
   .post-content table {
-    width: 100%;
+    width: max-content;
+    min-width: 100%;
     border-collapse: collapse;
     font-size: 0.95rem;
-    display: block;
-    overflow-x: auto;
   }
   .post-content th,
   .post-content td {
@@ -174,6 +211,12 @@ const { title, description, pubDate, tags, ttr, neuer, aelter } = Astro.props;
     padding: 0.5rem 0.75rem;
     text-align: left;
     vertical-align: top;
+    overflow-wrap: normal;
+    hyphens: manual;
+    min-width: 6rem;
+  }
+  .post-content th {
+    white-space: nowrap;
   }
   .post-content th {
     background: var(--color-paper-dark);

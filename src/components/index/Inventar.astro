@@ -58,4 +58,12 @@ const slots = [
   .slot:hover {
     background-color: var(--color-paper-light);
   }
+  /* Markenfarben erst beim "Aufheben" des Items; sonst bleibt die Papier-Palette ruhig. */
+  .slot img {
+    filter: grayscale(1) contrast(1.15) opacity(0.8);
+    transition: filter 120ms steps(2, end);
+  }
+  .slot:hover img {
+    filter: none;
+  }
 </style>

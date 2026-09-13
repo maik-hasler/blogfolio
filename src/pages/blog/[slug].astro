@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
+import ScrollTable from '../../components/ScrollTable.astro';
 
 export async function getStaticPaths() {
   const posts = (await getCollection('blog', ({ data }) => data.published)).sort(
@@ -20,9 +21,9 @@ export async function getStaticPaths() {
 }
 
 const { post, neuer, aelter } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 ---
 
-<BlogPost {...post.data} neuer={neuer} aelter={aelter}>
-  <Content />
+<BlogPost {...post.data} neuer={neuer} aelter={aelter} headings={headings}>
+  <Content components={{ table: ScrollTable }} />
 </BlogPost>

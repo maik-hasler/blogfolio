@@ -11,13 +11,15 @@ interface Props {
 
 const { as: Tag = 'span', tone = 'banner', class: className = '' } = Astro.props as Props;
 
+/* Rechts etwas weniger Innenabstand, weil die Laufweite hinter dem letzten Buchstaben mitläuft. */
+const padding = 'pl-3 pr-[calc(0.75rem-0.14em)] py-2';
 const tones = {
-  banner: 'inline-block bg-redstone text-paper-light px-3 py-2 shadow-pixel-sm',
+  banner: `inline-block bg-redstone text-paper-light shadow-pixel-sm ${padding}`,
   bright: 'inline-block text-redstone-bright',
-  ink: 'inline-block bg-ink text-cream px-3 py-2',
+  ink: `inline-block bg-ink text-cream shadow-[2px_2px_0_0_var(--color-paper-deep)] ${padding}`,
 };
 ---
 
-<Tag class:list={['font-mono font-semibold uppercase text-label', tones[tone], className]}>
+<Tag class:list={['font-mono font-semibold uppercase text-label text-balance', tones[tone], className]}>
   <slot />
 </Tag>

@@ -1,5 +1,6 @@
 ---
 import PistonBlock from '../ui/PistonBlock.astro';
+import PixelArrowIcon from '../ui/PixelArrowIcon.astro';
 
 /**
  * Das Rezept zum Text: neun Zutaten, ein Ergebnis. Die Zutaten sind die
@@ -27,13 +28,11 @@ const zutaten = [
     ))}
   </ol>
 
-  <svg viewBox="0 0 40 24" class="w-10 shrink-0 rotate-90 text-redstone sm:rotate-0" aria-hidden="true" fill="currentColor" shape-rendering="crispEdges">
-    <path d="M0 9h24V3l16 9-16 9v-6H0z" />
-  </svg>
+  <PixelArrowIcon class="w-10 rotate-90 text-redstone sm:rotate-0" />
 
   <div class="flex flex-col items-center gap-2">
     <div class="slot flex size-[5.25rem] items-center justify-center border-2 border-ink bg-paper-dark sm:size-[5.75rem]">
-      <PistonBlock class="w-14" decorative />
+      <PistonBlock class="w-14" decorative shadow="sm" />
     </div>
     <span class="font-mono text-[0.65rem] font-semibold uppercase tracking-wider not-italic text-redstone">1× Piston</span>
   </div>

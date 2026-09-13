@@ -1,0 +1,13 @@
+---
+/** Kleiner Pixel-Pfeil als Icon, z. B. für "← Blog" oder das Crafting-Ergebnis. */
+interface Props {
+  direction?: 'left' | 'right' | 'down';
+  class?: string;
+}
+const { direction = 'right', class: className = '' } = Astro.props;
+const angle = { right: 0, down: 90, left: 180 }[direction];
+---
+
+<svg viewBox="0 0 40 24" aria-hidden="true" focusable="false" fill="currentColor" shape-rendering="crispEdges" class:list={['inline-block shrink-0', className]}>
+  <path d="M0 9h24V3l16 9-16 9v-6H0z" transform={`rotate(${angle} 20 12)`} />
+</svg>

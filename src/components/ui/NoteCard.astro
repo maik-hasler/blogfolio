@@ -40,8 +40,8 @@ const tones = {
     </>
   )}
   {label && (
-    <div class="mb-4 -ml-2">
-      <PixelLabel as={labelAs}>{label}</PixelLabel>
+    <div class="note-card__banner">
+      <PixelLabel as={labelAs} class="block w-full text-left">{label}</PixelLabel>
     </div>
   )}
   <div class="note-card__body">
@@ -60,10 +60,23 @@ const tones = {
       transform: rotate(var(--rotate));
     }
   }
+  /* Das Banner liegt wie ein Klebestreifen quer über der Karte, leicht schief. */
+  .note-card__banner {
+    margin: 0 -0.75rem 1.25rem -1rem;
+    transform: rotate(-0.7deg);
+    transform-origin: left center;
+  }
+  @media (min-width: 640px) {
+    .note-card__banner {
+      margin-inline: -1.5rem -1.25rem;
+    }
+  }
   .note-card__body {
+    max-width: 66ch;
     font-style: italic;
     font-size: 1.0625rem;
     line-height: 1.65;
+    hyphens: auto;
   }
   .note-card__body :global(p + p) {
     margin-top: 0.85em;
