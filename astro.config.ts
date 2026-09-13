@@ -26,8 +26,10 @@ export default defineConfig({
     mdx()
   ],
   vite: {
+    // @tailwindcss/vite resolves its own nested `vite` copy, whose Plugin type
+    // doesn't structurally match the one Astro bundles - hence the cast.
     plugins: [
-      tailwindcss()
+      tailwindcss() as any
     ],
   },
   output: 'static',
