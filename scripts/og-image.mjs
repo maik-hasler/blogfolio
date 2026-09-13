@@ -1,10 +1,11 @@
 /**
- * Erzeugt public/og-default.png (1200×630) für Open Graph und Twitter Cards:
- * das Kopfband des Steckbriefs mit Pixel-Headline und dem eigenen Piston.
+ * Generates public/og-default.png (1200×630) for Open Graph and Twitter
+ * Cards: the player card's blueprint band with the pixel headline and the
+ * original piston.
  *
- * Aufruf: npm run og   (benötigt Playwright mit Chromium, z. B. `npx playwright install chromium`).
- * Eine global installierte Playwright-Kopie lässt sich über PLAYWRIGHT_MODULE=/pfad/zu/playwright/index.mjs
- * einbinden, ein eigenes Chromium über CHROMIUM_PATH.
+ * Run: npm run og   (needs Playwright with Chromium, e.g. `npx playwright install chromium`).
+ * A globally installed Playwright copy can be wired in via
+ * PLAYWRIGHT_MODULE=/path/to/playwright/index.mjs, a custom Chromium via CHROMIUM_PATH.
  */
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -13,11 +14,11 @@ const { chromium } = await import(process.env.PLAYWRIGHT_MODULE ?? 'playwright')
 
 const root = new URL('../', import.meta.url);
 const piston = readFileSync(new URL('src/assets/piston.svg', root), 'utf8');
-/* Als data:-URL eingebettet, weil eine per setContent geladene Seite keine file:-Schriften laden darf. */
+/* Embedded as a data: URL, since a page loaded via setContent can't load file: fonts. */
 const font = (file) => `data:font/woff2;base64,${readFileSync(new URL(`public/fonts/${file}`, root)).toString('base64')}`;
 
 const html = `<!doctype html>
-<html lang="de"><head><meta charset="utf-8"><style>
+<html lang="en"><head><meta charset="utf-8"><style>
   @font-face { font-family: "Pixelify Sans"; src: url("${font('pixelify-sans-400-700-normal.woff2')}"); font-weight: 400 700; }
   @font-face { font-family: "IBM Plex Mono"; src: url("${font('ibm-plex-mono-600-normal.woff2')}"); font-weight: 600; }
   @font-face { font-family: "Inter"; src: url("${font('inter-400-700-normal.woff2')}"); font-weight: 400 700; }
@@ -42,9 +43,9 @@ const html = `<!doctype html>
   svg { width: 340px; height: auto; filter: drop-shadow(8px 12px 0 rgb(0 0 0 / 0.35)); }
 </style></head><body>
   <div>
-    <div class="label">Steckbrief</div>
+    <div class="label">Player Card</div>
     <h1>Maik<br>Hasler</h1>
-    <div class="roles">Ausbilder. Architekt. <b>Piston.</b></div>
+    <div class="roles">Trainer. Architect. <b>Piston.</b></div>
     <div class="url">maik-hasler.de</div>
   </div>
   ${piston}
@@ -56,4 +57,4 @@ await page.setContent(html, { waitUntil: 'load' });
 await page.evaluate(() => document.fonts.ready);
 await page.screenshot({ path: fileURLToPath(new URL('public/og-default.png', root)), type: 'png' });
 await browser.close();
-console.log('public/og-default.png geschrieben');
+console.log('public/og-default.png written');

@@ -1,136 +1,159 @@
-# Gestaltung: Der Steckbrief als Webseite
+# Design: the player card as a website
 
-Die Seite baut den einseitigen Steckbrief nach, mit dem sich Maik einem
-Auszubildenden als Minecraft-Block vorgestellt hat. Sie ist eine Pinnwand:
-dunkles Kopfband, angepinnte Notizkarten, handgezeichnete Pfeile, ein
-Polaroid. Minecraft liefert Wörter und Ordnung, keine Spiel-Oberfläche.
-Alle Pixel-Grafiken sind selbst gezeichnet. Mojang-Material kommt nicht vor.
+The site is built around a one-page "player card" Maik once wrote for a new
+apprentice, describing himself as a Minecraft piston block. It's a field
+notebook: a dark blueprint band, one fused sheet of notes, hand-drawn
+arrows, a photo. Minecraft supplies words and structure, not a game UI.
+All pixel art is original. No Mojang material appears anywhere.
 
-## Metaphern-Landkarte
+## Metaphor map
 
-Jedes Element hat genau eine Entsprechung. Das größte Wort auf jeder Seite
-ist immer das gewöhnliche ("Blog", "404"); das Minecraft-Wort steht im kleinen
-Mono-Label darüber.
+Every element has exactly one counterpart. The biggest word on any page is
+always the plain one ("Blog", "404"); the Minecraft word sits in the small
+mono label above it.
 
-| Seitenelement        | Entsprechung                     | Label im UI                         |
-| -------------------- | -------------------------------- | ----------------------------------- |
-| Hero der Startseite  | Kopf des Steckbriefs             | `STECKBRIEF`, Block `PISTON ~ Maik` |
-| Werdegang            | Rezept auf der Werkbank          | `CRAFTING RECIPE` + 3×3-Grid        |
-| Hobbys               | Außerhalb des geladenen Chunks   | `AUSSERHALB DES CHUNKS MACHE ICH …` |
-| Persönlichkeit       | Warum dieser Block               | `WARUM AUSGERECHNET PISTON?`        |
-| Foto                 | Ressourcenpaket                  | `TEXTURE PACK`                      |
-| Skills               | Inventar-Slots                   | `INVENTAR`                          |
-| Blog                 | Buch und Feder                   | `BUCH & FEDER`                      |
-| Kontakt              | Multiplayer-Serverliste          | `MULTIPLAYER`                       |
-| Suche                | Chat-Befehl                      | `/suche`                            |
-| Footer               | Bedrock, Y = −64                 | `ENDE DES CHUNKS`                   |
-| 404                  | Nicht generierter Chunk          | `CHUNK NICHT GELADEN`               |
+| Site element      | Counterpart                      | UI label                         |
+| ------------------ | --------------------------------- | --------------------------------- |
+| Homepage hero      | The player card's header          | `PLAYER CARD`, block `PISTON ~ Maik` |
+| Background/CV      | Recipe on the crafting table       | `CRAFTING RECIPE` + 3×3 grid      |
+| Hobbies            | Outside the loaded chunk           | `OUTSIDE THE CHUNK`               |
+| Personality        | Why this block                     | `WHY A PISTON?`                   |
+| Photo              | Resource pack                      | `TEXTURE PACK`                    |
+| Skills             | Inventory slots                    | `INVENTORY`                       |
+| Blog               | Book and Quill                     | `BOOK AND QUILL`                  |
+| Contact            | Multiplayer server list            | `MULTIPLAYER`                     |
+| Search             | Chat command                       | `/search`                         |
+| Footer             | Bedrock, Y = −64                   | `END OF THE CHUNK`                |
+| 404                | A chunk that never generated       | `CHUNK NOT LOADED`                |
 
 ## Tokens
 
-Alle Farben stammen aus dem Steckbrief-PDF und liegen als Tailwind-4-`@theme`
-in `src/styles/global.css`.
+All colors come from the original Steckbrief PDF and live as a Tailwind 4
+`@theme` in `src/styles/global.css`.
 
-| Token                    | Wert      | Verwendung                                  |
+| Token                    | Value      | Use                                  |
 | ------------------------ | --------- | ------------------------------------------- |
-| `paper`, `paper-light`   | `#eee9da`, `#faf8ee` | Seitenhintergrund, helle Karten  |
-| `paper-dark`, `paper-deep`, `paper-tan` | `#e3ddc6`, `#d7d2c2`, `#b8b094` | Slots, Chips, Rahmen |
-| `stone`, `stone-light`   | `#3a3a34`, `#8a8a7e` | Kopfband, Schrauben, Raster      |
-| `ink`, `ink-soft`        | `#1f1e1a`, `#55503f` | Dunkle Karte, Text auf Papier    |
-| `redstone`, `redstone-bright` | `#9f2217`, `#ff7d60` | Banner und Pfeile; helles Rot nur als Text auf Dunkel |
-| `cream`, `cream-muted`, `cream-dim` | `#f2efe4`, `#d9d4c4`, `#b5b09a` | Text auf Dunkel |
-| `oak`, `grass`           | `#a98149`, `#5d8c3a` | Polaroid-Rahmen, Online-Balken   |
+| `paper`, `paper-light`   | `#eee9da`, `#faf8ee` | Page background, light zones/cards |
+| `paper-dark`, `paper-deep`, `paper-tan` | `#e3ddc6`, `#d7d2c2`, `#b8b094` | Slots, chips, borders |
+| `stone`, `stone-light`   | `#3a3a34`, `#8a8a7e` | Header band, screws, grid         |
+| `ink`, `ink-soft`        | `#1f1e1a`, `#55503f` | Dark zone, text on paper           |
+| `redstone`, `redstone-bright` | `#9f2217`, `#ff7d60` | Labels and links; bright red only as text on dark |
+| `cream`, `cream-muted`, `cream-dim` | `#f2efe4`, `#d9d4c4`, `#b5b09a` | Text on dark |
+| `oak`, `grass`           | `#a98149`, `#5d8c3a` | Polaroid frame, online bar         |
 
-Die Textgrautöne des PDFs (`#8a8370`) verfehlen den Kontrast für Fließtext.
-`ink-soft` ist deshalb dunkler als das Original, `redstone-bright` eine Stufe
-heller als das Signalrot des PDFs (`#ff5a3c`), damit beide WCAG AA (4,5:1)
-erreichen. `redstone-bright` bleibt Text auf dunklem Grund; auf Papier trägt
-`redstone`.
+The PDF's text gray (`#8a8370`) falls short of body-text contrast.
+`ink-soft` is darkened for that reason, and `redstone-bright` is one step
+brighter than the PDF's signal red (`#ff5a3c`) so both reach WCAG AA
+(4.5:1). `redstone-bright` stays text-on-dark; on paper, `redstone` carries
+the same role.
 
-Radien gibt es nicht. Tiefe entsteht durch harte Pixel-Schatten
-(`shadow-pixel`, `shadow-pixel-sm`) und einen weichen Kartenschatten
-(`shadow-card`).
+There are no border radii. Depth comes from hard pixel shadows
+(`shadow-pixel`, `shadow-pixel-sm`) and one soft card shadow (`shadow-card`).
 
-## Schriften
+## Fonts
 
-Self-hosted unter `public/fonts/` (OFL, nur Latin-Subset, siehe `OFL.txt`).
+Self-hosted under `public/fonts/` (OFL, Latin subset only, see `OFL.txt`).
 
-| Rolle    | Schrift          | Regeln                                                     |
-| -------- | ---------------- | ---------------------------------------------------------- |
-| Display  | Pixelify Sans    | Nur Headlines und Wortmarke, mit hartem Pixel-Schatten     |
-| Label    | IBM Plex Mono    | Versalien, 0,14 em Tracking; kursiv für Randnotizen (`~ Maik`) |
-| Text     | Inter            | Fließtext; kursiv nur auf den drei Notizkarten, sonst aufrecht |
-| Code     | IBM Plex Mono    | Codeblöcke im Shiki-Thema `gruvbox-dark-medium`, Sprach-Banner in der Ecke |
+| Role     | Font              | Rules                                                      |
+| -------- | ----------------- | ----------------------------------------------------------- |
+| Display  | Pixelify Sans     | Headlines and the wordmark only, with a hard pixel shadow    |
+| Label    | IBM Plex Mono     | Uppercase, 0.14em tracking; italic for asides (`~ Maik`)     |
+| Text     | Inter             | Body copy; italic only inside the About sheet's zones        |
+| Code     | IBM Plex Mono     | Code blocks in the Shiki theme `gruvbox-dark-medium`, with a language banner in the corner |
 
-Größen sind fluid (`text-display-xl/lg/md`, `text-display-article` für
-gemischt geschriebene Artikeltitel, `text-label`). Blog-Artikel laufen in
-`container-prose` mit maximal 40 rem Zeilenlänge (etwa 72 Zeichen). Kursiv
-ist das Signal der Notizkarte und der Randnotiz (`~ Maik`), nicht das der
-Einleitung.
+Sizes are fluid (`text-display-xl/lg/md`, `text-display-article` for
+mixed-case article titles, `text-label`). Blog articles run in
+`container-prose` at a maximum of 40rem (about 72 characters). Italic marks
+a handwritten aside (the About sheet's "Outside the Chunk" and "Why a
+Piston" zones, plus `~ Maik`), never body copy in general.
 
-## Bausteine
+## Building blocks
 
-| Komponente (`src/components/ui`) | Aufgabe                                            |
+| Component (`src/components/ui`) | Job                                            |
 | -------------------------------- | -------------------------------------------------- |
-| `PixelLabel`                     | Rotes Banner (`banner`), Rot-Orange auf Dunkel (`bright`), Tinte (`ink`) |
-| `NoteCard`                       | Angepinnte Karte, Töne `paper`, `dark`, `dashed`, Prop `rotate` |
-| `Screw`                          | Schraube der Karten, rein dekorativ                |
-| `Arrow`                          | Handgezeichnete Pfeile `swoosh`, `hook`, `loop`, `short` (`arrows.ts`) |
-| `Polaroid`                       | Foto mit gestricheltem Rahmen und Bildunterschrift |
-| `PixelButton`                    | Knopf, der sich beim Drücken in den Schatten schiebt |
-| `PixelArrowIcon`                 | Kleiner Pixel-Pfeil als Icon (Unicode-Pfeile fehlen im Font-Subset) |
-| `PistonBlock`                    | Der Block; `animated` fährt ihn beim Laden aus, `shadow="sm"` für Icons, `headless` für die 404 |
+| `PixelLabel`                     | Small red pill (`banner`), red-orange text on dark (`bright`), ink pill (`ink`) |
+| `Screw`                          | The pin holding the sheet down, purely decorative  |
+| `Arrow`                          | Hand-drawn arrow, currently just `swoosh` (`arrows.ts`) |
+| `Polaroid`                       | Photo in a dashed-tape frame with a caption; `size="lg"` for a bleeding, overlapping photo |
+| `PixelButton`                    | Button that slides into its own shadow on press    |
+| `PixelArrowIcon`                 | Small pixel arrow icon (Unicode arrows are missing from the font subset) |
+| `PistonBlock`                    | The block; `animated` extends it once on load, `shadow="sm"` for icon-sized instances, `headless` for the 404 |
 
-Dazu `TagList` und `PostMeta` (Tags und Randnotiz eines Beitrags, in Karte
-und Artikelkopf), `PostCard`, `ScrollTable` (Markdown-Tabellen in einer
-scrollbaren Region, per `components`-Mapping in `src/pages/blog/[slug].astro`)
-und `PlantUML` (verlangt `alt`, optional `width`/`height`).
+Plus `TagList` and `PostMeta` (a post's tags and byline, on cards and in
+the article header), `PostCard`, `ScrollTable` (markdown tables in a
+scrollable region, via the `components` mapping in
+`src/pages/blog/[slug].astro`), and `PlantUML` (requires `alt`, optional
+`width`/`height`).
 
-Beiträge kommen überall aus `src/lib/posts.ts` (`getPublishedPosts()`,
-`postUrl()`): Teaser, Index, Suche, RSS und Artikel-Nachbarn teilen sich
-Filter, Sortierung und URL-Schema.
+Posts always come from `src/lib/posts.ts` (`getPublishedPosts()`,
+`postUrl()`): teasers, the index, search, RSS, and article neighbors all
+share the same filter, sort, and URL scheme.
 
-Der Piston entsteht aus `scripts/piston.mjs` (`npm run piston`). Das Skript
-schreibt `src/assets/piston.svg` mit drei Gruppen (`piston-base`,
-`piston-arm`, `piston-head`), damit CSS den Kopf um 9,5 Einheiten heben kann.
+The piston comes from `scripts/piston.mjs` (`npm run piston`). It writes
+`src/assets/piston.svg` with three groups (`piston-base`, `piston-arm`,
+`piston-head`) so CSS can lift the head by 9.5 units, exposed on the SVG
+itself as `--piston-lift`.
 
-## Barrierefreiheit
+## The About sheet
 
-- Fokusring: `--focus-ring` ist Tiefrot auf Papier und helles Rot auf
-  `.blueprint`, `.bg-ink` und allem mit `data-tone="dark"` (Header, dunkle
-  Notizkarte). Alpha-Varianten wie `bg-stone/95` erreicht kein Klassen-Selektor,
-  deshalb das Datenattribut.
-- Alle Textpaare erreichen mindestens 4,5:1. Das helle Rot (`#ff7d60`) und
-  `cream-dim` sind dafür gegenüber dem PDF angehoben.
-- Dekorative Pistons (Header, Crafting-Ergebnis, Serverliste, 404) sind
-  `aria-hidden`; der Hero-Piston trägt `role="img"` mit Beschriftung.
-- Blog-Artikel bekommen ab drei Abschnitten eine Sprungliste „Inhalt".
-- Tabellen behalten ihre Semantik und scrollen in einer fokussierbaren Region.
+`src/components/index/AboutSheet.astro` is one continuous, screwed-down
+sheet (`.sheet`) with a single rotation and a single shadow, holding three
+internal zones that differ only by background and top seam, never by their
+own transform:
 
-## Bewegung
+- `zone--recipe` (Crafting Recipe): plain paper, upright text, the
+  `CraftingGrid` 3×3 recipe.
+- `zone--chunk` (Outside the Chunk): ink background, italic, a solid seam.
+- `zone--why` (Why a Piston?, `id="why"`): dashed paper, italic, a dashed
+  seam - the hero links here directly.
 
-Wenig, und immer stufig, damit es nach Pixeln aussieht:
+A large `Polaroid` (`size="lg"`) overlaps the sheet's top-right corner on
+desktop instead of sitting isolated in a bottom corner. The section itself
+carries the `chunk-grid` utility, a very faint world-grid background that
+echoes the hero's dark blueprint grid on paper - the reader is standing
+inside the loaded chunk the whole page describes.
 
-- Der Piston fährt beim Laden der Startseite einmal aus und bei Hover erneut.
-- Der Hero-Pfeil zeichnet sich einmal (Stroke-Dashoffset).
-- Knöpfe schieben sich beim Drücken in den Schatten (`steps(2)`).
+## Accessibility
 
-`prefers-reduced-motion` schaltet alles global ab (Reset in `global.css`);
-Komponenten brauchen keine eigene Ausnahme.
+- Focus ring: `--focus-ring` is dark red on paper and bright red on
+  `.blueprint`, `.bg-ink`, and anything with `data-tone="dark"` (the
+  header, the About sheet's dark zone). Alpha variants like `bg-stone/95`
+  aren't matched by a class selector, hence the data attribute.
+- Every text pair reaches at least 4.5:1. Bright red (`#ff7d60`) and
+  `cream-dim` are raised above the PDF's values for that reason.
+- Decorative pistons (header, crafting result, server list, 404) are
+  `aria-hidden`; the hero piston carries `role="img"` with a label.
+- Articles get a "Contents" jump list once they have three or more sections.
+- Tables keep their semantics and scroll inside a focusable region.
 
-Das Open-Graph-Bild (`public/og-default.png`) entsteht aus
-`scripts/og-image.mjs` (`npm run og`, braucht Playwright).
+## Motion
 
-## Sprache
+Little, and always stepped, so it reads as pixels:
 
-UI und persönliche Texte sind Deutsch. Blog-Artikel bleiben Englisch und
-tragen `lang="en"` auf Titel, Beschreibung und Inhalt. Ton wie der Steckbrief:
-ehrlich, kurz, selbstironisch. Keine Ansprache eines einzelnen Azubis, kein
-Arbeitgeber, kein Alter.
+- The piston extends once on homepage load, and again on hover.
+- The hero arrow draws itself once (stroke-dashoffset).
+- Buttons slide into their shadow on press (`steps(2)`).
 
-## Bewusst verworfen
+`prefers-reduced-motion` turns all of it off globally (the reset lives in
+`global.css`); components don't need their own exception.
 
-- Hotbar als Navigation, Fortschritts-Toasts, Splash-Text: zu viel Spiel-GUI,
-  die Wärme des Papiers ginge verloren.
-- Skill-Level ("Enchantment III") und Stapelzahlen: wären erfundene Fakten.
-- Typing-Animation und Logo-Laufband: die generischen Muster der alten Seite.
+The Open Graph image (`public/og-default.png`) comes from
+`scripts/og-image.mjs` (`npm run og`, needs Playwright).
+
+## Language
+
+The whole site - UI, personal copy, and blog articles - is English. Tone
+matches the original player card: honest, short, self-deprecating. No
+address to a single apprentice, no employer name, no hard-coded age.
+
+## Deliberately dropped
+
+- A literal recreation of the PDF's three-card-plus-connecting-arrows
+  layout for the About section: it read as traced rather than designed.
+  Replaced with one fused sheet (see "The About sheet" above); the
+  `hook`/`loop`/`short` arrow paths and `NoteCard` component were removed
+  as a result, since nothing used them afterward.
+- A hotbar as navigation, progress toasts, splash text: too much game UI,
+  the paper's warmth would be lost.
+- Skill levels ("Enchantment III") and stack counts: would be invented facts.
+- A typing animation and a logo marquee: the generic patterns of the old site.

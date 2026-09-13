@@ -2,25 +2,26 @@
 import Piston from '../../assets/piston.svg';
 
 /**
- * Der Piston-Block als selbst gezeichnete isometrische Pixel-Grafik (src/assets/piston.svg).
- * Der Kopf fährt bei Hover aus; mit `animated` zusätzlich einmal beim Laden. Der Hub kommt
- * als `--piston-lift` aus dem SVG selbst (scripts/piston.mjs), damit beide Seiten zusammenpassen.
+ * The piston block as a hand-drawn isometric pixel graphic (src/assets/piston.svg).
+ * The head extends on hover; `animated` also runs it once on load. The travel
+ * distance comes from the SVG itself as `--piston-lift` (scripts/piston.mjs),
+ * so both sides always agree.
  */
 interface Props {
   class?: string;
   animated?: boolean;
-  /** Versteckt den Block vor Screenreadern, wenn der Kontext ihn schon benennt. */
+  /** Hides the block from screen readers when the surrounding context already names it. */
   decorative?: boolean;
-  /** Schattenversatz passend zur Größe: 'lg' für Hero und 404, 'sm' für Icons. */
+  /** Shadow offset to match the size: 'lg' for the hero and 404, 'sm' for icons. */
   shadow?: 'lg' | 'sm';
-  /** Ohne Kopf: der Sockel allein, für die 404-Seite. */
+  /** Without a head: the base alone, for the 404 page. */
   headless?: boolean;
 }
 const { class: className = '', animated = false, decorative = false, shadow = 'lg', headless = false } = Astro.props;
 
 const a11y: astroHTML.JSX.SVGAttributes = decorative
   ? { 'aria-hidden': true }
-  : { role: 'img', 'aria-label': headless ? 'Ein Piston-Block ohne Kopf als Pixel-Art' : 'Ein Piston-Block als Pixel-Art' };
+  : { role: 'img', 'aria-label': headless ? 'A headless piston block, as pixel art' : 'A piston block, as pixel art' };
 ---
 
 <Piston class:list={['piston', `piston--shadow-${shadow}`, { 'piston--animated': animated, 'piston--headless': headless }, className]} {...a11y} />

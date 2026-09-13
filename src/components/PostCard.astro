@@ -3,7 +3,7 @@ import Screw from './ui/Screw.astro';
 import PostMeta from './ui/PostMeta.astro';
 import TagList from './ui/TagList.astro';
 
-/** Ein Beitrag als angepinnte Karte. Titel und Beschreibung sind Englisch (lang="en"). */
+/** A post as a pinned card. */
 interface Props {
   url: string;
   title: string;
@@ -21,10 +21,10 @@ const { url, title, description, pubDate, tags, readingMinutes, headingLevel: He
   <Screw class="left-3 top-3" />
   <Screw class="right-3 top-3" />
   <PostMeta pubDate={pubDate} readingMinutes={readingMinutes} />
-  <Heading class="text-xl font-bold leading-snug" lang="en">
+  <Heading class="text-xl font-bold leading-snug">
     <a href={url} class="post-link">{title}</a>
   </Heading>
-  <p class="text-ink-soft" lang="en">{description}</p>
+  <p class="text-ink-soft">{description}</p>
   <TagList tags={tags} class="mt-auto pt-2" />
 </article>
 
@@ -37,7 +37,7 @@ const { url, title, description, pubDate, tags, readingMinutes, headingLevel: He
     transition: text-decoration-color 120ms;
   }
   .post-link::after {
-    /* Die ganze Karte ist klickbar. */
+    /* The whole card is clickable. */
     content: '';
     position: absolute;
     inset: 0;

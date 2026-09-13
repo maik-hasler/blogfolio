@@ -2,9 +2,9 @@
 import plantumlEncoder from 'plantuml-encoder';
 
 /**
- * Rendert ein PlantUML-Diagramm über den öffentlichen PlantUML-Server.
- * Die Quelle liegt in src/assets/diagrams; ein fehlender Dateiname bricht den Build,
- * statt ein kaputtes Bild auszuliefern. `width`/`height` verhindern Layout-Sprünge.
+ * Renders a PlantUML diagram via the public PlantUML server. The source
+ * lives in src/assets/diagrams; a missing filename fails the build instead
+ * of shipping a broken image. `width`/`height` prevent layout shifts.
  */
 interface Props {
   file: string;
@@ -18,7 +18,7 @@ const diagrams = import.meta.glob('../assets/diagrams/*.puml', { query: '?raw', 
 const { file, alt, width, height } = Astro.props;
 const source = diagrams[`../assets/diagrams/${file}`];
 if (!source) {
-  throw new Error(`PlantUML: "${file}" fehlt in src/assets/diagrams. Vorhanden: ${Object.keys(diagrams).map((key) => key.split('/').pop()).join(', ')}`);
+  throw new Error(`PlantUML: "${file}" is missing from src/assets/diagrams. Available: ${Object.keys(diagrams).map((key) => key.split('/').pop()).join(', ')}`);
 }
 
 const imageUrl = `https://www.plantuml.com/plantuml/svg/${plantumlEncoder.encode(source)}`;

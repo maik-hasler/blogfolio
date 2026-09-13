@@ -1,19 +1,19 @@
 /**
- * Erzeugt src/assets/piston.svg: ein eigener, isometrischer Piston-Block als
- * Pixel-Art (keine Mojang-Textur). Drei Gruppen, damit CSS den Kopf ausfahren kann:
- *   .piston-base  - Steinsockel und die Innenfläche, die beim Ausfahren sichtbar wird
- *   .piston-arm   - Holzstange zwischen Sockel und Kopf
- *   .piston-head  - Holzdeckel mit Metallwinkeln plus das obere Holzband der Seiten
+ * Generates src/assets/piston.svg: an original, isometric piston block as
+ * pixel art (no Mojang texture). Three groups so CSS can extend the head:
+ *   .piston-base  - the stone base and the inner face revealed when extended
+ *   .piston-arm   - the wooden rod between base and head
+ *   .piston-head  - the wooden lid with metal brackets, plus the sides' top wood band
  *
- * Aufruf: npm run piston
+ * Run: npm run piston
  */
 import { writeFileSync } from 'node:fs';
 
-const N = 16; // Pixel je Kante
-const HEAD_ROWS = 4; // Holzband = Kopf, darunter Stein = Sockel
-const LIFT = 9.5; // Hub des Kopfes in SVG-Einheiten; landet als --piston-lift im SVG, PistonBlock.astro liest ihn
+const N = 16; // pixels per edge
+const HEAD_ROWS = 4; // wood band = head, stone below = base
+const LIFT = 9.5; // head travel in SVG units; lands as --piston-lift in the SVG, read by PistonBlock.astro
 
-// Deterministischer Zufall, damit der Build reproduzierbar bleibt.
+// Deterministic randomness, so the build stays reproducible.
 function mulberry32(seed) {
   return () => {
     seed = (seed + 0x6d2b79f5) | 0;
@@ -41,7 +41,7 @@ const INNER = ['#6f6f6f', '#767676', '#696969', '#7c7c7c', '#727272'];
 
 const grid = (fill) => Array.from({ length: N }, () => Array.from({ length: N }, fill));
 
-/** Deckel: vier Bretterreihen mit versetzten Fugen und vier Metallwinkeln. */
+/** Top: four rows of planks with staggered seams and four metal brackets. */
 function plankTop() {
   const px = grid(() => pick(PLANK));
   for (let y = 0; y < N; y++) {
@@ -73,7 +73,7 @@ function plankTop() {
   return px;
 }
 
-/** Seite: oben ein Holzband, darunter Stein mit Rissen; `shade` dunkelt die rechte Seite ab. */
+/** Side: a wood band on top, stone with cracks below; `shade` darkens the right side. */
 function stoneSide(shade) {
   const px = grid(() => null);
   for (let y = 0; y < HEAD_ROWS; y++) {
@@ -97,7 +97,7 @@ function stoneSide(shade) {
   return px.map((row) => row.map(dark));
 }
 
-/** Zeilenweise lauflängenkodiert zu <rect>-Elementen; `rows` begrenzt den Zeilenbereich. */
+/** Row-length-encodes pixels into <rect> elements; `rows` limits the row range. */
 function faceRects(px, rows = [0, N]) {
   const out = [];
   for (let y = rows[0]; y < rows[1]; y++) {
@@ -111,7 +111,7 @@ function faceRects(px, rows = [0, N]) {
   return out.join('');
 }
 
-// Isometrie: Deckel-Spitze bei (N*c, 0); links und rechts hängen an den Deckelkanten.
+// Isometry: top's apex at (N*c, 0); left and right faces hang off the top's edges.
 const c = Math.cos(Math.PI / 6);
 const s = Math.sin(Math.PI / 6);
 const W = 2 * N * c;
@@ -122,7 +122,7 @@ const innerMatrix = `matrix(${f(c)} ${f(s)} ${f(-c)} ${f(s)} ${f(N * c)} ${HEAD_
 const leftMatrix = `matrix(${f(c)} ${f(s)} 0 1 0 ${f(N * s)})`;
 const rightMatrix = `matrix(${f(c)} ${f(-s)} 0 1 ${f(N * c)} ${N})`;
 
-/** Holzstange: kleine Säule (Querschnitt 4x4) auf der Innenfläche, bis unter den ausgefahrenen Kopf. */
+/** Arm: a small column (4x4 cross-section) on the inner face, up to under the extended head. */
 function arm() {
   const P = (u, v, dy = 0) => [N * c + (u - v) * c, (u + v) * s + HEAD_ROWS + dy];
   const [a, b, h] = [6, 10, LIFT];
@@ -154,4 +154,4 @@ const svg = [
 ].join('\n');
 
 writeFileSync(new URL('../src/assets/piston.svg', import.meta.url), svg + '\n');
-console.log(`piston.svg geschrieben (${svg.length} Bytes)`);
+console.log(`piston.svg written (${svg.length} bytes)`);

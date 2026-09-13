@@ -1,7 +1,7 @@
 ---
 import { formatDate } from '../../lib/format';
 
-/** Randnotiz eines Beitrags: Datum und Lesezeit in Plex Mono. */
+/** A post's byline: date and reading time in Plex Mono. */
 interface Props {
   pubDate: Date;
   readingMinutes: number;
@@ -14,5 +14,5 @@ const { pubDate, readingMinutes, size = 'xs', class: className = '' } = Astro.pr
 <p class:list={['font-mono uppercase tracking-wider text-ink-soft', size === 'xs' ? 'text-xs' : 'text-sm', className]}>
   <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
   <span aria-hidden="true"> · </span>
-  <span class="whitespace-nowrap">{readingMinutes} Min. Lesezeit</span>
+  <span class="whitespace-nowrap">{readingMinutes} min read</span>
 </p>

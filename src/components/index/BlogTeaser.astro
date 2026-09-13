@@ -10,12 +10,10 @@ const posts = (await getPublishedPosts()).slice(0, 3);
 <section class="container-page py-16 lg:py-24" aria-labelledby="blog-title">
   <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
     <div>
-      <PixelLabel as="h2"><span id="blog-title">Buch &amp; Feder</span></PixelLabel>
-      <p class="mt-4 max-w-xl text-ink-soft">
-        Was ich unterwegs lerne, schreibe ich auf. Auf Englisch, damit auch der Rest der Welt mitlesen kann.
-      </p>
+      <PixelLabel as="h2"><span id="blog-title">Book and Quill</span></PixelLabel>
+      <p class="mt-4 max-w-xl text-ink-soft">I write down what I learn along the way.</p>
     </div>
-    <PixelButton href="/blog" tone="paper">Alle Beiträge</PixelButton>
+    <PixelButton href="/blog" tone="paper">All posts</PixelButton>
   </div>
 
   <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

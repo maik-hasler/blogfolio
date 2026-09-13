@@ -6,7 +6,7 @@ export async function GET(context: APIContext) {
   const posts = await getPublishedPosts();
   return rss({
     title: 'Maik Hasler – Blog',
-    description: 'Beiträge über .NET, Softwarearchitektur und Softwareentwicklung. Auf Englisch.',
+    description: 'Posts about .NET, software architecture, and software development.',
     site: context.site!,
     customData: '<language>en</language>',
     items: posts.map((post) => ({

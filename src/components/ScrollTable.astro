@@ -1,11 +1,11 @@
 ---
 /**
- * Wickelt Markdown-Tabellen in eine scrollbare Region. So bleibt die
- * Tabellen-Semantik erhalten, und breite Tabellen scrollen statt umzubrechen.
+ * Wraps markdown tables in a scrollable region. This keeps table semantics
+ * intact while wide tables scroll instead of wrapping.
  */
 const props = Astro.props;
 ---
 
-<div class="table-scroll" tabindex="0" role="region" aria-label="Tabelle, horizontal scrollbar">
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table, scrolls horizontally">
   <table {...props}><slot /></table>
 </div>

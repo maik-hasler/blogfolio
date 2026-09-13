@@ -15,7 +15,7 @@ import sassSvg from '../../assets/sass.svg';
 import pythonSvg from '../../assets/python.svg';
 import javaScriptSvg from '../../assets/javascript.svg';
 
-/** Das Inventar: Werkzeuge in Slots statt Logo-Laufband. */
+/** The inventory: tools in slots instead of a logo marquee. */
 const slots = [
   { title: '.NET', icon: dotnetSvg },
   { title: 'TypeScript', icon: typeScriptSvg },
@@ -34,8 +34,8 @@ const slots = [
 
 <section class="container-page py-8 lg:py-12" aria-labelledby="inventory-title">
   <div class="mb-6 flex flex-wrap items-end justify-between gap-4">
-    <PixelLabel as="h2"><span id="inventory-title">Inventar</span></PixelLabel>
-    <p class="font-mono text-sm italic text-ink-soft">Womit ich täglich baue.</p>
+    <PixelLabel as="h2"><span id="inventory-title">Inventory</span></PixelLabel>
+    <p class="font-mono text-sm italic text-ink-soft">What I build with, every day.</p>
   </div>
 
   <ul class="grid grid-cols-3 gap-2 border-2 border-ink bg-paper-deep p-2 shadow-pixel sm:grid-cols-4 md:grid-cols-6 xl:grid-cols-12" role="list">
@@ -57,7 +57,7 @@ const slots = [
   .slot:hover {
     background-color: var(--color-paper-light);
   }
-  /* Markenfarben erst beim "Aufheben" des Items; sonst bleibt die Papier-Palette ruhig. */
+  /* Brand colors only show up when the item is "picked up"; otherwise the paper palette stays calm. */
   .slot img {
     filter: grayscale(1) contrast(1.15) opacity(0.8);
     transition: filter 120ms steps(2, end);

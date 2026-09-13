@@ -3,8 +3,8 @@ import { Icon } from 'astro-icon/components';
 import { getPublishedPosts, postUrl } from '../lib/posts';
 
 /**
- * Suche über alle Beiträge, gestaltet wie ein Chat-Befehl ("/suche").
- * Es wird nur ein schlanker Index (Titel, Beschreibung, Tags, URL) ins HTML geschrieben.
+ * Search across all posts, styled like a chat command ("/search").
+ * Only a lean index (title, description, tags, URL) ships in the HTML.
  */
 interface Props {
   class?: string;
@@ -27,32 +27,32 @@ const posts = (await getPublishedPosts()).map((post) => ({
   aria-controls="search-dialog"
 >
   <Icon name="mdi:magnify" class="size-5" aria-hidden="true" />
-  <span class="sr-only sm:not-sr-only">Suche</span>
+  <span class="sr-only sm:not-sr-only">Search</span>
   <kbd aria-hidden="true" class="hidden md:inline border border-current px-1.5 py-0.5 text-[0.65rem] normal-case tracking-normal opacity-70">/</kbd>
 </button>
 
 <dialog
   id="search-dialog"
   class="m-auto w-[min(100%-2rem,40rem)] border-2 border-stone-light bg-ink p-0 text-cream shadow-pixel backdrop:bg-ink/70"
-  aria-label="Beiträge durchsuchen"
+  aria-label="Search posts"
 >
   <form method="dialog" class="flex items-center gap-3 border-b-2 border-stone px-4 py-3 font-mono focus-within:border-b-redstone-bright">
-    <span class="shrink-0 select-none whitespace-nowrap font-semibold text-redstone-bright" aria-hidden="true">/suche</span>
+    <span class="shrink-0 select-none whitespace-nowrap font-semibold text-redstone-bright" aria-hidden="true">/search</span>
     <input
       id="search-input"
       type="search"
       autocomplete="off"
-      placeholder="Titel, Beschreibung oder Tag …"
-      aria-label="Suchbegriff"
+      placeholder="Title, description, or tag …"
+      aria-label="Search query"
       aria-describedby="search-status"
       class="min-w-0 grow bg-transparent text-cream placeholder:text-cream-dim focus:outline-none"
     />
     <button type="submit" class="-mr-2 shrink-0 whitespace-nowrap px-3 py-2 font-mono text-xs uppercase text-cream-dim hover:text-cream">
-      Esc<span class="sr-only"> – Suche schließen</span>
+      Esc<span class="sr-only"> – close search</span>
     </button>
   </form>
   <p id="search-status" class="sr-only" aria-live="polite"></p>
-  <ul id="search-results" class="max-h-[60vh] overflow-y-auto p-2" role="list" aria-label="Treffer"></ul>
+  <ul id="search-results" class="max-h-[60vh] overflow-y-auto p-2" role="list" aria-label="Results"></ul>
 </dialog>
 
 <script is:inline type="module" define:vars={{ posts }}>
@@ -78,16 +78,16 @@ const posts = (await getPublishedPosts()).map((post) => ({
 
   function render(query) {
     const hits = search(query);
-    status.textContent = hits.length ? `${hits.length} Treffer, Enter öffnet den ersten` : 'Keine Treffer';
+    status.textContent = hits.length ? `${hits.length} results, press Enter to open the first` : 'No results';
     if (hits.length === 0) {
-      results.innerHTML = `<li class="px-3 py-4 font-mono text-sm text-cream-dim">Unbekannter Befehl. Versuch’s mit <span class="text-redstone-bright">/suche plantuml</span></li>`;
+      results.innerHTML = `<li class="px-3 py-4 font-mono text-sm text-cream-dim">Unknown command. Try <span class="text-redstone-bright">/search plantuml</span></li>`;
       return;
     }
     results.innerHTML = hits
       .map(
         (post) => `
         <li>
-          <a href="${post.url}" lang="en" class="block px-3 py-3 hover:bg-stone focus-visible:bg-stone">
+          <a href="${post.url}" class="block px-3 py-3 hover:bg-stone focus-visible:bg-stone">
             <span class="block font-semibold text-cream">${escapeHtml(post.title)}</span>
             <span class="block text-sm text-cream-dim">${escapeHtml(post.description)}</span>
           </a>
@@ -110,7 +110,7 @@ const posts = (await getPublishedPosts()).map((post) => ({
   openButton.addEventListener('click', open);
   input.addEventListener('input', () => render(input.value));
   input.addEventListener('keydown', (event) => {
-    // Enter öffnet den ersten Treffer, aber nur zu einer echten Eingabe.
+    // Enter opens the first hit, but only for an actual query.
     if (event.key !== 'Enter' || !input.value.trim()) return;
     event.preventDefault();
     const first = results.querySelector('a');

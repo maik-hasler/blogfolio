@@ -6,7 +6,7 @@ import PixelArrowIcon from '../components/ui/PixelArrowIcon.astro';
 import PostMeta from '../components/ui/PostMeta.astro';
 import TagList from '../components/ui/TagList.astro';
 
-/** Artikel-Layout. Der Inhalt ist Englisch, das Drumherum Deutsch. */
+/** Article layout. */
 interface Neighbor {
   title: string;
   url: string;
@@ -35,7 +35,7 @@ const jsonLd = {
 };
 ---
 
-<Base title={`${title} | Maik Hasler`} description={description} type="article" publishedTime={pubDate} lang="en">
+<Base title={`${title} | Maik Hasler`} description={description} type="article" publishedTime={pubDate}>
   <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
 
   <article class="container-prose py-12 lg:py-16">
@@ -43,16 +43,16 @@ const jsonLd = {
       <a href="/blog" class="-my-2 inline-flex items-center gap-2 py-2 font-mono text-label font-semibold uppercase text-ink-soft hover:text-redstone">
         <PixelArrowIcon direction="left" class="w-5" /> Blog
       </a>
-      <h1 class="font-display text-display-article font-bold display-shadow-paper mt-6 text-balance" lang="en">{title}</h1>
+      <h1 class="font-display text-display-article font-bold display-shadow-paper mt-6 text-balance">{title}</h1>
       <PostMeta pubDate={pubDate} readingMinutes={ttr} size="sm" class="mt-5" />
-      <p class="mt-5 text-xl text-ink-soft" lang="en">{description}</p>
+      <p class="mt-5 text-xl text-ink-soft">{description}</p>
       <TagList tags={tags} class="mt-5" />
     </header>
 
     {showToc && (
-      <nav class="mt-8" aria-label="Inhalt">
-        <p class="font-mono text-label font-semibold uppercase text-ink-soft">Inhalt</p>
-        <ol class="mt-3 flex flex-col gap-1.5 font-mono text-sm" lang="en">
+      <nav class="mt-8" aria-label="Contents">
+        <p class="font-mono text-label font-semibold uppercase text-ink-soft">Contents</p>
+        <ol class="mt-3 flex flex-col gap-1.5 font-mono text-sm">
           {sections.map((heading, index) => (
             <li class="flex gap-3">
               <span class="shrink-0 tabular-nums text-redstone" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
@@ -65,23 +65,23 @@ const jsonLd = {
 
     <hr class="my-10 border-0 border-t-2 border-dashed border-stone-light" />
 
-    <div class="post-content" lang="en">
+    <div class="post-content">
       <slot />
     </div>
 
     <p class="mt-12 font-mono italic text-ink-soft">~ Maik</p>
 
-    <nav class="mt-10 grid gap-4 border-t-2 border-dashed border-stone-light pt-8 sm:grid-cols-2" aria-label="Weitere Beiträge">
+    <nav class="mt-10 grid gap-4 border-t-2 border-dashed border-stone-light pt-8 sm:grid-cols-2" aria-label="More posts">
       {older && (
         <a href={older.url} class="group border-2 border-stone bg-paper-light p-4 shadow-card">
-          <span class="inline-flex items-center gap-2 font-mono text-label font-semibold uppercase text-ink-soft"><PixelArrowIcon direction="left" class="w-5" /> Älterer Beitrag</span>
-          <span class="mt-2 block font-bold group-hover:text-redstone" lang="en">{older.title}</span>
+          <span class="inline-flex items-center gap-2 font-mono text-label font-semibold uppercase text-ink-soft"><PixelArrowIcon direction="left" class="w-5" /> Older post</span>
+          <span class="mt-2 block font-bold group-hover:text-redstone">{older.title}</span>
         </a>
       )}
       {newer && (
         <a href={newer.url} class="group border-2 border-stone bg-paper-light p-4 text-right shadow-card sm:col-start-2">
-          <span class="inline-flex items-center gap-2 font-mono text-label font-semibold uppercase text-ink-soft">Neuerer Beitrag <PixelArrowIcon class="w-5" /></span>
-          <span class="mt-2 block font-bold group-hover:text-redstone" lang="en">{newer.title}</span>
+          <span class="inline-flex items-center gap-2 font-mono text-label font-semibold uppercase text-ink-soft">Newer post <PixelArrowIcon class="w-5" /></span>
+          <span class="mt-2 block font-bold group-hover:text-redstone">{newer.title}</span>
         </a>
       )}
     </nav>
@@ -162,7 +162,7 @@ const jsonLd = {
   }
   .post-content pre {
     position: relative;
-    /* Shiki setzt #282828 inline; auf Tinte erreichen alle Theme-Farben 4,5:1. */
+    /* Shiki sets #282828 inline; on ink, every theme color reaches 4.5:1. */
     background-color: var(--color-ink) !important;
     border: 2px solid var(--color-ink);
     box-shadow: var(--shadow-pixel);
@@ -172,7 +172,7 @@ const jsonLd = {
     overflow-x: auto;
     margin-block: 1.75em;
   }
-  /* Sprach-Banner in der Ecke des Codeblocks; innen, weil overflow-x: auto alles außerhalb abschneidet */
+  /* Language banner in the block's corner; inside, since overflow-x: auto clips anything outside. */
   .post-content pre[data-language]:not([data-language='plaintext']) {
     padding-top: 2.25rem;
   }
@@ -208,7 +208,7 @@ const jsonLd = {
     border-top: 2px dashed var(--color-stone-light);
     margin-block: 2.5em;
   }
-  /* Tabellen scrollen in ihrer Region (ScrollTable.astro), statt Wörter zu zerreißen. */
+  /* Tables scroll in their own region (ScrollTable.astro), instead of tearing words apart. */
   .post-content .table-scroll {
     overflow-x: auto;
     margin-block: 1.75em;

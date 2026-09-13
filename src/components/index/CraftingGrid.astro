@@ -3,24 +3,24 @@ import PistonBlock from '../ui/PistonBlock.astro';
 import PixelArrowIcon from '../ui/PixelArrowIcon.astro';
 
 /**
- * Das Rezept zum Text: neun Zutaten, ein Ergebnis. Die Zutaten sind die
- * Stationen aus dem Absatz darüber, in Leserichtung. `&shy;` markiert die
- * erlaubte Trennstelle im einzigen langen Wort.
+ * The recipe for the text above: nine ingredients, one result. The ingredients
+ * are the stations from the paragraph, in reading order. `&shy;` marks the
+ * one allowed break point in the only long word.
  */
 const ingredients = [
   'Abitur',
   'Home&shy;schooling',
-  'Zocken',
-  'Farm-Skript',
-  'Ausbildung',
-  'Projekte',
-  'Architekt',
-  'Ausbilder',
-  'IHK-Prüfer',
+  'Gaming',
+  'Farm Script',
+  'Apprenticeship',
+  'Projects',
+  'Architect',
+  'Trainer',
+  'IHK Examiner',
 ];
 ---
 
-<div class="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6" role="group" aria-label="Crafting-Rezept: neun Zutaten ergeben einen Piston">
+<div class="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6" role="group" aria-label="Crafting recipe: nine ingredients make one piston">
   <ol class="grid grid-cols-3 gap-1.5 border-2 border-ink bg-paper-deep p-1.5" role="list">
     {ingredients.map((ingredient) => (
       <li class="slot flex size-[5rem] items-center justify-center bg-paper-dark p-1 text-center font-mono text-[0.7rem] font-semibold uppercase leading-tight not-italic text-ink-soft sm:size-[5.5rem] sm:text-xs" set:html={ingredient} />

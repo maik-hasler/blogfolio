@@ -1,7 +1,9 @@
 ---
 /**
- * Rotes Banner-Label in Plex Mono, wie "CRAFTING RECIPE" im Steckbrief.
- * `tone="bright"` ist die Textvariante in Rot-Orange für dunkle Flächen ("STECKBRIEF", "PISTON").
+ * Small red pill label in Plex Mono, used as a section/zone tag throughout
+ * the site ("Crafting Recipe", "Inventory", "Book and Quill", ...).
+ * `tone="bright"` is the text-only variant in red-orange for dark surfaces
+ * ("Player Card", "Piston").
  */
 interface Props {
   as?: 'span' | 'h1' | 'h2' | 'h3' | 'p';
@@ -11,7 +13,7 @@ interface Props {
 
 const { as: Tag = 'span', tone = 'banner', class: className = '' } = Astro.props as Props;
 
-/* Rechts etwas weniger Innenabstand, weil die Laufweite hinter dem letzten Buchstaben mitläuft. */
+/* Slightly less right padding, since the letter-spacing trails after the last character. */
 const padding = 'pl-3 pr-[calc(0.75rem-0.14em)] py-2';
 const tones = {
   banner: `inline-block bg-redstone text-paper-light shadow-pixel-sm ${padding}`,

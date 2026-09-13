@@ -1,4 +1,4 @@
-/** Datum im deutschen Kurzformat, z. B. "26. Feb. 2026". */
+/** Date in a short English format, e.g. "26 Feb 2026". */
 export function formatDate(date: Date): string {
-  return date.toLocaleDateString('de-DE', { day: 'numeric', month: 'short', year: 'numeric' });
+  return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 }

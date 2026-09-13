@@ -3,19 +3,23 @@ import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import PixelLabel from './PixelLabel.astro';
 
-/** Das Polaroid mit "TEXTURE PACK"-Label und Bildunterschrift in Plex Mono. */
+/** A photo in a dashed-tape frame with a caption in Plex Mono. */
 interface Props {
   src: ImageMetadata;
   alt: string;
   caption: string;
   label?: string;
   rotate?: number;
+  /** `lg` bleeds larger, for a photo meant to overlap another element. */
+  size?: 'md' | 'lg';
   class?: string;
 }
-const { src, alt, caption, label, rotate = 0, class: className = '' } = Astro.props;
+const { src, alt, caption, label, rotate = 0, size = 'md', class: className = '' } = Astro.props;
+const widths = size === 'lg' ? [400, 800] : [352, 704];
+const sizes = size === 'lg' ? '(min-width: 1024px) 26rem, calc(100vw - 4rem)' : '(min-width: 640px) 22rem, calc(100vw - 4rem)';
 ---
 
-<figure class:list={['polaroid relative inline-block', className]} style={`--rotate: ${rotate}deg`}>
+<figure class:list={['polaroid relative inline-block', `polaroid--${size}`, className]} style={`--rotate: ${rotate}deg`}>
   {label && (
     <div class="absolute -top-5 -left-3 z-10 rotate-[-3deg]">
       <PixelLabel as="span">{label}</PixelLabel>
@@ -23,7 +27,7 @@ const { src, alt, caption, label, rotate = 0, class: className = '' } = Astro.pr
   )}
   <div class="bg-paper-light border-2 border-stone p-3 pb-4 shadow-card">
     <div class="border-2 border-dashed border-oak p-1 bg-paper-tan">
-      <Image src={src} alt={alt} widths={[352, 704]} sizes="(min-width: 640px) 22rem, calc(100vw - 4rem)" class="grayscale w-full aspect-square object-cover" />
+      <Image src={src} alt={alt} widths={widths} sizes={sizes} class="grayscale w-full aspect-square object-cover" />
     </div>
     <figcaption class="mt-4 text-center font-mono italic text-sm text-ink-soft">{caption}</figcaption>
   </div>
@@ -32,6 +36,11 @@ const { src, alt, caption, label, rotate = 0, class: className = '' } = Astro.pr
 <style>
   .polaroid {
     transform: rotate(var(--rotate));
+  }
+  .polaroid--md {
     max-width: 22rem;
+  }
+  .polaroid--lg {
+    max-width: 26rem;
   }
 </style>

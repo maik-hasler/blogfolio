@@ -28,10 +28,10 @@ const socials = [
     <a href="/" class="flex shrink-0 items-center gap-2.5">
       <PistonBlock class="w-7" decorative shadow="sm" />
       <span class="whitespace-nowrap font-display text-lg font-bold uppercase leading-none tracking-wider sm:text-xl">Maik Hasler</span>
-      <span class="sr-only">, zur Startseite</span>
+      <span class="sr-only">, home</span>
     </a>
 
-    <nav aria-label="Hauptnavigation" class="flex items-center gap-1 sm:gap-2">
+    <nav aria-label="Main navigation" class="flex items-center gap-1 sm:gap-2">
       <a href="/blog" class:list={['whitespace-nowrap px-3 py-3 font-mono text-label font-semibold uppercase', linkHover]}>
         Blog
       </a>
@@ -41,7 +41,7 @@ const socials = [
           href={social.url}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={`${social.label} (öffnet in neuem Tab)`}
+          aria-label={`${social.label} (opens in a new tab)`}
           class:list={['hidden p-2.5 sm:block', linkHover]}
         >
           <Icon name={social.icon} class="size-6" aria-hidden="true" />

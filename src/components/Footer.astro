@@ -4,14 +4,14 @@ import PixelLabel from './ui/PixelLabel.astro';
 import { getPublishedPosts } from '../lib/posts';
 
 const navigation = [
-  { url: '/', label: 'Start' },
+  { url: '/', label: 'Home' },
   { url: '/blog', label: 'Blog' },
 ];
 
 const resources = [
-  { url: '/rss.xml', label: 'RSS-Feed' },
+  { url: '/rss.xml', label: 'RSS Feed' },
   { url: '/sitemap-index.xml', label: 'Sitemap' },
-  { url: 'https://github.com/maik-hasler/blogfolio', label: 'Quellcode' },
+  { url: 'https://github.com/maik-hasler/blogfolio', label: 'Source Code' },
 ];
 
 const contact = [
@@ -19,7 +19,7 @@ const contact = [
   { url: 'https://www.linkedin.com/in/maik-hasler/', icon: 'mdi:linkedin', label: 'LinkedIn' },
 ];
 
-/* Das Endjahr hängt am jüngsten Beitrag, nicht an der Build-Zeit. */
+/* The end year tracks the newest post, not build time. */
 const [latest] = await getPublishedPosts();
 const lastYear = Math.max(2025, latest?.data.pubDate.getFullYear() ?? 2025);
 const copyright = lastYear > 2025 ? `2025–${lastYear}` : '2025';
@@ -28,15 +28,15 @@ const copyright = lastYear > 2025 ? `2025–${lastYear}` : '2025';
 <footer class="bg-ink text-cream-muted">
   <div class="container-page grid gap-10 py-14 md:grid-cols-[1.6fr_1fr_1fr_1fr]">
     <div class="max-w-md">
-      <PixelLabel tone="bright">Ende des Chunks</PixelLabel>
-      <p class="font-display text-display-md font-bold uppercase display-shadow text-cream mt-4">Immer noch da?</p>
+      <PixelLabel tone="bright">End of the Chunk</PixelLabel>
+      <p class="font-display text-display-md font-bold uppercase display-shadow text-cream mt-4">Still here?</p>
       <p class="mt-3">
-        Du hast bis ganz nach unten gescrollt. Entweder gefällt dir die Seite, oder du hast dich verscrollt.
-        Beides ist okay. Sag mir gern, was du denkst.
+        You've scrolled all the way down. Either you like the site, or you scrolled past the end by
+        accident. Both are fine. Let me know what you think.
       </p>
     </div>
 
-    <nav aria-label="Fußnavigation" class="flex flex-col gap-3">
+    <nav aria-label="Footer navigation" class="flex flex-col gap-3">
       <h2 class="font-mono text-label font-semibold uppercase text-cream-dim">Navigation</h2>
       {navigation.map((item) => (
         <a href={item.url} class="w-fit hover:text-redstone-bright">{item.label}</a>
@@ -44,14 +44,14 @@ const copyright = lastYear > 2025 ? `2025–${lastYear}` : '2025';
     </nav>
 
     <div class="flex flex-col gap-3">
-      <h2 class="font-mono text-label font-semibold uppercase text-cream-dim">Ressourcen</h2>
+      <h2 class="font-mono text-label font-semibold uppercase text-cream-dim">Resources</h2>
       {resources.map((item) => (
         <a href={item.url} class="w-fit hover:text-redstone-bright">{item.label}</a>
       ))}
     </div>
 
     <div class="flex flex-col gap-3">
-      <h2 class="font-mono text-label font-semibold uppercase text-cream-dim">Kontakt</h2>
+      <h2 class="font-mono text-label font-semibold uppercase text-cream-dim">Contact</h2>
       {contact.map((item) => (
         <a
           href={item.url}
@@ -60,7 +60,7 @@ const copyright = lastYear > 2025 ? `2025–${lastYear}` : '2025';
           class="flex w-fit items-center gap-2 hover:text-redstone-bright"
         >
           <Icon name={item.icon} class="size-5" aria-hidden="true" />
-          {item.label}<span class="sr-only"> (öffnet in neuem Tab)</span>
+          {item.label}<span class="sr-only"> (opens in a new tab)</span>
         </a>
       ))}
     </div>
@@ -68,10 +68,10 @@ const copyright = lastYear > 2025 ? `2025–${lastYear}` : '2025';
 
   <div class="container-page flex flex-col gap-2 border-t border-stone py-5 font-mono text-xs text-cream-dim">
     <div class="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:justify-between sm:gap-x-8">
-      <span>Y = −64 · Tiefer geht es nicht. <span class="whitespace-nowrap">© {copyright} Maik&nbsp;Hasler</span></span>
-      <span>Gebaut mit Astro, gehostet bei Hetzner. <span class="whitespace-nowrap">~&nbsp;Maik</span></span>
+      <span>Y = −64 · Bedrock. Nothing lower. <span class="whitespace-nowrap">© {copyright} Maik&nbsp;Hasler</span></span>
+      <span>Built with Astro, hosted on Hetzner. <span class="whitespace-nowrap">~&nbsp;Maik</span></span>
     </div>
-    <p>Kein offizielles Minecraft-Produkt. Nicht von Mojang genehmigt oder mit Mojang verbunden.</p>
+    <p>Not an official Minecraft product. Not approved by or associated with Mojang.</p>
   </div>
   <div class="bedrock h-4" aria-hidden="true"></div>
 </footer>

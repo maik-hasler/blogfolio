@@ -8,20 +8,23 @@ import Arrow from '../ui/Arrow.astro';
 <section class="blueprint text-cream" aria-labelledby="hero-title">
   <div class="container-page grid items-center gap-12 py-16 lg:grid-cols-[1.15fr_0.85fr] lg:py-24">
     <div class="max-w-2xl">
-      <PixelLabel tone="bright">Steckbrief</PixelLabel>
+      <PixelLabel tone="bright">Player Card</PixelLabel>
       <h1 id="hero-title" class="font-display text-display-xl font-bold uppercase display-shadow mt-4">
         Maik <br />Hasler
       </h1>
       <p class="font-display text-display-md font-bold uppercase display-shadow mt-4 text-cream-muted">
-        Ausbilder. Architekt. <span class="text-redstone-bright">Piston.</span>
+        Trainer. Architect. <span class="text-redstone-bright">Piston.</span>
       </p>
       <p class="mt-6 max-w-xl text-lg text-cream-muted">
-        Softwarearchitekt und Ausbilder aus Oldenburg. Für einen meiner Azubis habe ich mich mal als
-        Minecraft‑Block beschrieben. Das hier ist die lange Version.
+        I once described myself to a new apprentice as a Minecraft block instead of a boring bio, and it
+        stuck. As a trainer, I'm also convinced nothing teaches beginners real engineering logic quite
+        like redstone does. Which block, and why,
+        <a href="#why" class="text-cream underline decoration-redstone-bright decoration-2 underline-offset-4 hover:text-redstone-bright">
+          a few scrolls down</a>.
       </p>
       <div class="mt-8 flex flex-wrap gap-4">
-        <PixelButton href="/blog">Blog lesen</PixelButton>
-        <PixelButton href="https://www.linkedin.com/in/maik-hasler/" tone="paper" external>Kontakt</PixelButton>
+        <PixelButton href="/blog">Read the blog</PixelButton>
+        <PixelButton href="https://www.linkedin.com/in/maik-hasler/" tone="paper" external>Contact</PixelButton>
       </div>
     </div>
 
@@ -35,7 +38,7 @@ import Arrow from '../ui/Arrow.astro';
 </section>
 
 <style>
-  /* Der Pfeil zeichnet sich beim Laden einmal selbst (pathLength="1" in arrows.ts). */
+  /* The arrow draws itself once on load (pathLength="1" in arrows.ts). */
   .hero-arrow :global(path) {
     stroke-dasharray: 1;
     stroke-dashoffset: 1;

@@ -81,7 +81,7 @@
   --color-oak: #a98149;
   --color-grass: #5d8c3a;
 
-  /* Fließende Schriftgrößen */
+  /* Fluid font sizes */
   --text-display-xl: clamp(2.75rem, 1.5rem + 6vw, 6rem);
   --text-display-xl--line-height: 0.95;
   --text-display-lg: clamp(2rem, 1.25rem + 3.5vw, 3.5rem);
@@ -109,7 +109,7 @@
 /* ------------------------------------------------------------------ */
 @layer base {
   :root {
-    /* Fokusring: Tiefrot auf Papier, helles Rot auf dunklen Flächen */
+    /* Focus ring: dark red on paper, bright red on dark surfaces */
     --focus-ring: var(--color-redstone);
   }
   .blueprint,
@@ -178,6 +178,21 @@
     32px 32px;
 }
 
+@utility chunk-grid {
+  /* Faint world grid on paper - the About section sits "in" the loaded chunk,
+     echoing the hero's dark blueprint grid on a light background. */
+  background-image:
+    linear-gradient(to right, rgb(31 30 26 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(31 30 26 / 0.05) 1px, transparent 1px),
+    linear-gradient(to right, rgb(31 30 26 / 0.08) 2px, transparent 2px),
+    linear-gradient(to bottom, rgb(31 30 26 / 0.08) 2px, transparent 2px);
+  background-size:
+    8px 8px,
+    8px 8px,
+    32px 32px,
+    32px 32px;
+}
+
 @utility bedrock {
   /* Grobe Pixel-Kante am Seitenende: zwei versetzte Reihen */
   background-color: var(--color-ink);
@@ -194,7 +209,7 @@
 }
 
 @utility display-shadow {
-  /* Harter Pixel-Schatten für Pixelify-Headlines */
+  /* Hard pixel shadow for Pixelify headlines */
   text-shadow: 0.07em 0.07em 0 var(--color-ink);
 }
 
