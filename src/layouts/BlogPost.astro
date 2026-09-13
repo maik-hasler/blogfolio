@@ -158,14 +158,17 @@ const zeigeInhalt = abschnitte.length >= 3;
     font-size: 0.875rem;
     line-height: 1.6;
     overflow-x: auto;
-    margin-block: 2.25em 1.75em;
+    margin-block: 1.75em;
   }
-  /* Sprach-Banner am Codeblock, wie das Banner einer Notizkarte */
+  /* Sprach-Banner in der Ecke des Codeblocks; innen, weil overflow-x: auto alles außerhalb abschneidet */
+  .post-content pre[data-language]:not([data-language='plaintext']) {
+    padding-top: 2.25rem;
+  }
   .post-content pre[data-language]:not([data-language='plaintext'])::before {
     content: attr(data-language);
     position: absolute;
-    top: -0.8rem;
-    left: 0.75rem;
+    top: 0;
+    left: 0;
     font-family: var(--font-mono);
     font-size: 0.65rem;
     font-weight: 600;
@@ -174,8 +177,7 @@ const zeigeInhalt = abschnitte.length >= 3;
     line-height: 1;
     background: var(--color-redstone);
     color: var(--color-paper-light);
-    padding: 0.3rem 0.5rem;
-    box-shadow: var(--shadow-pixel-sm);
+    padding: 0.35rem 0.6rem;
   }
   .post-content pre code {
     font-size: inherit;

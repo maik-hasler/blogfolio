@@ -59,11 +59,14 @@ Self-hosted unter `public/fonts/` (OFL, nur Latin-Subset, siehe `OFL.txt`).
 | -------- | ---------------- | ---------------------------------------------------------- |
 | Display  | Pixelify Sans    | Nur Headlines und Wortmarke, mit hartem Pixel-Schatten     |
 | Label    | IBM Plex Mono    | Versalien, 0,14 em Tracking; kursiv für Randnotizen (`~ Maik`) |
-| Text     | Inter            | Fließtext; kursiv auf den Notizkarten, aufrecht im Blog    |
-| Code     | IBM Plex Mono    | Codeblöcke im Shiki-Thema `gruvbox-dark-medium`            |
+| Text     | Inter            | Fließtext; kursiv nur auf den drei Notizkarten, sonst aufrecht |
+| Code     | IBM Plex Mono    | Codeblöcke im Shiki-Thema `gruvbox-dark-medium`, Sprach-Banner in der Ecke |
 
-Größen sind fluid (`text-display-xl/lg/md`, `text-label`). Blog-Artikel
-laufen in `container-prose` mit maximal 44 rem Zeilenlänge.
+Größen sind fluid (`text-display-xl/lg/md`, `text-display-article` für
+gemischt geschriebene Artikeltitel, `text-label`). Blog-Artikel laufen in
+`container-prose` mit maximal 40 rem Zeilenlänge (etwa 72 Zeichen). Kursiv
+ist das Signal der Notizkarte und der Randnotiz (`~ Maik`), nicht das der
+Einleitung.
 
 ## Bausteine
 
@@ -75,11 +78,26 @@ laufen in `container-prose` mit maximal 44 rem Zeilenlänge.
 | `Arrow`                          | Handgezeichnete Pfeile `swoosh`, `hook`, `loop`, `short` (`arrows.ts`) |
 | `Polaroid`                       | Foto mit gestricheltem Rahmen und Bildunterschrift |
 | `PixelButton`                    | Knopf, der sich beim Drücken in den Schatten schiebt |
-| `PistonBlock`                    | Der Block; `animated` fährt ihn beim Laden einmal aus |
+| `PixelArrowIcon`                 | Kleiner Pixel-Pfeil als Icon (Unicode-Pfeile fehlen im Font-Subset) |
+| `PistonBlock`                    | Der Block; `animated` fährt ihn beim Laden aus, `shadow="sm"` für Icons, `headless` für die 404 |
+
+Dazu `ScrollTable` (Markdown-Tabellen in einer scrollbaren Region, per
+`components`-Mapping in `src/pages/blog/[slug].astro`) und `PostCard`.
 
 Der Piston entsteht aus `scripts/piston.mjs` (`npm run piston`). Das Skript
 schreibt `src/assets/piston.svg` mit drei Gruppen (`piston-base`,
 `piston-arm`, `piston-head`), damit CSS den Kopf um 9,5 Einheiten heben kann.
+
+## Barrierefreiheit
+
+- Fokusring: `--focus-ring` ist Tiefrot auf Papier und helles Rot auf
+  `.blueprint`, `.bg-ink`, `.bg-stone`.
+- Alle Textpaare erreichen mindestens 4,5:1. Das helle Rot (`#ff7d60`) und
+  `cream-dim` sind dafür gegenüber dem PDF angehoben.
+- Dekorative Pistons (Header, Crafting-Ergebnis, Serverliste, 404) sind
+  `aria-hidden`; der Hero-Piston trägt `role="img"` mit Beschriftung.
+- Blog-Artikel bekommen ab drei Abschnitten eine Sprungliste „Inhalt".
+- Tabellen behalten ihre Semantik und scrollen in einer fokussierbaren Region.
 
 ## Bewegung
 
