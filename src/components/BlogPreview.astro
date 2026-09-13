@@ -1,6 +1,16 @@
 ---
-const { url, title, previewText, publishedDate, tags, ttr } = Astro.props;
 import { Icon } from 'astro-icon/components';
+
+interface Props {
+  url: string;
+  title: string;
+  previewText: string;
+  publishedDate: Date;
+  tags: string[];
+  ttr: string;
+}
+
+const { url, title, previewText, publishedDate, tags, ttr } = Astro.props;
 ---
 
 

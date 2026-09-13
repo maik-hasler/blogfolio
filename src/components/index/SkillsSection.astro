@@ -49,9 +49,7 @@ const totalItems2 = itemsCount2 * 2;
       <div
         class="marquee__item"
         title={skill.title}
-        /* 👇 Use a unique index for each item */
         style={`--marquee-item-index: ${ i + 1 }`}
-        key={`r1-${i}`}
       >
         <Image src={skill.icon} alt={skill.title} class="skill-icon" />
         <span class="skill-label">{skill.title}</span>
@@ -67,9 +65,7 @@ const totalItems2 = itemsCount2 * 2;
       <div
         class="marquee__item"
         title={skill.title}
-        /* 👇 Use a unique index for each item */
         style={`--marquee-item-index: ${ i + 1 }`}
-        key={`r2-${i}`}
       >
         <Image src={skill.icon} alt={skill.title} class="skill-icon" />
         <span class="skill-label">{skill.title}</span>

@@ -6,6 +6,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "check": "astro check",
     "astro": "astro"
   },
   "dependencies": {
@@ -19,5 +20,10 @@
     "astro-icon": "^1.1.5",
     "plantuml-encoder": "^1.4.0",
     "tailwindcss": "^4.2.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@types/plantuml-encoder": "^1.4.2",
+    "typescript": "^6.0.3"
   }
 }
