@@ -54,7 +54,7 @@ const buttonTone =
       />
       <button type="submit" class="font-mono text-xs uppercase text-cream-dim hover:text-cream" aria-label="Suche schließen">Esc</button>
     </form>
-    <ul id="suche-treffer" class="max-h-[60vh] overflow-y-auto p-2" role="listbox" aria-label="Treffer"></ul>
+    <ul id="suche-treffer" class="max-h-[60vh] overflow-y-auto p-2" role="list" aria-label="Treffer"></ul>
   </dialog>
 </div>
 
@@ -87,7 +87,7 @@ const buttonTone =
     treffer.innerHTML = ergebnisse
       .map(
         (post) => `
-        <li role="option">
+        <li>
           <a href="/blog/${encodeURIComponent(post.id)}/" lang="en" class="block px-3 py-3 hover:bg-stone focus-visible:bg-stone">
             <span class="block font-semibold text-cream">${escapeHtml(post.title)}</span>
             <span class="block text-sm text-cream-dim">${escapeHtml(post.description)}</span>
