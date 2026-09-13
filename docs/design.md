@@ -37,13 +37,15 @@ in `src/styles/global.css`.
 | `paper-dark`, `paper-deep`, `paper-tan` | `#e3ddc6`, `#d7d2c2`, `#b8b094` | Slots, Chips, Rahmen |
 | `stone`, `stone-light`   | `#3a3a34`, `#8a8a7e` | Kopfband, Schrauben, Raster      |
 | `ink`, `ink-soft`        | `#1f1e1a`, `#55503f` | Dunkle Karte, Text auf Papier    |
-| `redstone`, `redstone-bright` | `#9f2217`, `#ff5a3c` | Banner und Pfeile; Text nur auf Dunkel |
-| `cream`, `cream-muted`, `cream-dim` | `#f2efe4`, `#d9d4c4`, `#a8a38e` | Text auf Dunkel |
+| `redstone`, `redstone-bright` | `#9f2217`, `#ff7d60` | Banner und Pfeile; helles Rot nur als Text auf Dunkel |
+| `cream`, `cream-muted`, `cream-dim` | `#f2efe4`, `#d9d4c4`, `#b5b09a` | Text auf Dunkel |
 | `oak`, `grass`           | `#a98149`, `#5d8c3a` | Polaroid-Rahmen, Online-Balken   |
 
 Die Textgrautöne des PDFs (`#8a8370`) verfehlen den Kontrast für Fließtext.
-`ink-soft` ist deshalb dunkler als das Original. `redstone-bright` bleibt
-Text auf dunklem Grund; auf Papier trägt `redstone`.
+`ink-soft` ist deshalb dunkler als das Original, `redstone-bright` eine Stufe
+heller als das Signalrot des PDFs (`#ff5a3c`), damit beide WCAG AA (4,5:1)
+erreichen. `redstone-bright` bleibt Text auf dunklem Grund; auf Papier trägt
+`redstone`.
 
 Radien gibt es nicht. Tiefe entsteht durch harte Pixel-Schatten
 (`shadow-pixel`, `shadow-pixel-sm`) und einen weichen Kartenschatten

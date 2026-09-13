@@ -30,7 +30,7 @@ const { title, description, pubDate, tags, ttr, neuer, aelter } = Astro.props;
         {readingMinutes(ttr)} Min. Lesezeit
       </p>
       <p class="mt-5 text-xl italic text-ink-soft" lang="en">{description}</p>
-      <ul class="mt-5 flex flex-wrap gap-2" aria-label="Tags">
+      <ul class="mt-5 flex flex-wrap gap-2" role="list" aria-label="Tags">
         {tags.map((tag) => (
           <li class="border border-paper-tan bg-paper-dark px-2 py-1 font-mono text-[0.7rem] uppercase tracking-wider text-ink-soft">{tag}</li>
         ))}

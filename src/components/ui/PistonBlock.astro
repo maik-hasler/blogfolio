@@ -4,15 +4,18 @@ import Piston from '../../assets/piston.svg';
 /**
  * Der Piston-Block als selbst gezeichnete isometrische Pixel-Grafik (src/assets/piston.svg).
  * Der Kopf fährt bei Hover aus; mit `animated` zusätzlich einmal beim Laden.
+ * `decorative` versteckt ihn vor Screenreadern, wenn der Kontext ihn schon benennt.
  */
 interface Props {
   class?: string;
   animated?: boolean;
+  decorative?: boolean;
 }
-const { class: className = '', animated = false } = Astro.props;
+const { class: className = '', animated = false, decorative = false } = Astro.props;
+const a11y = decorative ? { 'aria-hidden': 'true' } : { role: 'img', 'aria-label': 'Ein Piston-Block als Pixel-Art' };
 ---
 
-<Piston class:list={['piston', { 'piston--animated': animated }, className]} />
+<Piston class:list={['piston', { 'piston--animated': animated }, className]} {...a11y} />
 
 <style>
   .piston {

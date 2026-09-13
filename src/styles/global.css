@@ -74,14 +74,15 @@
   --color-ink: #1f1e1a;
   --color-ink-soft: #55503f;
 
-  /* Redstone: Banner, Pfeile, Akzente */
+  /* Redstone: Banner, Pfeile, Akzente. Das helle Rot ist eine Stufe heller als im PDF (#ff5a3c),
+     damit es auf Stein 4,5:1 erreicht; es bleibt Text auf dunklem Grund. */
   --color-redstone: #9f2217;
-  --color-redstone-bright: #ff5a3c;
+  --color-redstone-bright: #ff7d60;
 
   /* Creme-Text auf dunklem Grund */
   --color-cream: #f2efe4;
   --color-cream-muted: #d9d4c4;
-  --color-cream-dim: #a8a38e;
+  --color-cream-dim: #b5b09a;
 
   /* Holz und Gras: Piston-Deckel, Online-Status */
   --color-oak: #a98149;

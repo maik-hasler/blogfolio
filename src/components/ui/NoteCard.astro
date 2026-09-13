@@ -32,7 +32,7 @@ const tones = {
 };
 ---
 
-<article class:list={['note-card relative shadow-card', tones[tone], className]} style={`--rotate: ${rotate}deg`}>
+<section class:list={['note-card relative shadow-card', tones[tone], className]} style={`--rotate: ${rotate}deg`}>
   {screws && (
     <>
       <Screw class="top-3 left-3" />
@@ -47,7 +47,7 @@ const tones = {
   <div class="note-card__body">
     <slot />
   </div>
-</article>
+</section>
 
 <style>
   .note-card {

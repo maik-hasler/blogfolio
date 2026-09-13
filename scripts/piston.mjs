@@ -138,7 +138,7 @@ const left = stoneSide(false);
 const right = stoneSide(true);
 
 const svg = [
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 ${-LIFT} ${W.toFixed(2)} ${(H + LIFT).toFixed(2)}" width="${W.toFixed(0)}" height="${(H + LIFT).toFixed(0)}" shape-rendering="crispEdges" role="img" aria-label="Ein Piston-Block als Pixel-Art">`,
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 ${-LIFT} ${W.toFixed(2)} ${(H + LIFT).toFixed(2)}" width="${W.toFixed(0)}" height="${(H + LIFT).toFixed(0)}" shape-rendering="crispEdges">`,
   '<g class="piston-base">',
   `<g transform="${innerMatrix}">${faceRects(grid(() => pick(INNER)))}</g>`,
   `<g transform="${leftMatrix}">${faceRects(left, [HEAD_ROWS, N])}</g>`,
