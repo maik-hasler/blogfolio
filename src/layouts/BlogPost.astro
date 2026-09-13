@@ -1,71 +1,239 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { Icon } from 'astro-icon/components';
-import '../styles/blog.css';
-import CallToAction from "../components/CallToAction.astro";
-const { title, description, pubDate, tags, ttr, headings } = Astro.props;
----
-<html lang="en">
-  <head>
-    <BaseHead title={title} description={description} />
-  </head>
-  <body>
-    <Header />
-    <main class="w-11/12 max-w-4xl mx-auto my-[64px]">
-      <article class="flex flex-col gap-[32px]">
-        <header class="flex flex-col gap-4">
-          <nav>
-            <ol class="flex text-gray-700">
-              <li>
-                <a href="/blog" class="hover:underline">Blog</a>
-              </li>
-              <li class="mx-2">&gt;</li>
-              <li class="font-medium text-black">Article</li>
-            </ol>
-          </nav>
-          <h1 class="text-5xl font-bold leading-tight">{title}</h1>
-          <div class="flex items-center gap-[8px]">
-            <div class="flex items-center gap-[2px]">
-              <p class="text-sm">{ttr}</p>
-            </div>
-            <p class="text-sm">&#x2022;</p>
-            <div class="flex items-center gap-[2px]">
-              <p class="text-sm">
-                <time datetime={pubDate.toISOString()}>
-                  {pubDate.toLocaleDateString('en-us', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric',
-                  })}
-                </time>
-              </p>
-            </div>
-          </div>
-          <p class="text-xl text-gray-700 italic">{description}</p>
-          <div class="flex flex-wrap gap-[8px] mt-2">
-            {tags.map((tag: string) => (
-              <div class="tag flex items-center gap-[6px] bg-gray-100 px-3 py-1 rounded-full">
-                <Icon name="mdi:tag-outline" class="text-[16px]" />
-                <span class="text-sm font-medium">{tag}</span>
-              </div>
-            ))}
-          </div>
-        </header>
-        <hr class="border-gray-200" />
-        <section class="prose prose-lg max-w-none">
-          <slot />
-        </section>
-      </article>
-    </main>
-    <CallToAction />
-    <Footer />
-  </body>
-</html>
+import type { CollectionEntry } from 'astro:content';
+import type { MarkdownHeading } from 'astro';
+import Base from './Base.astro';
+import PixelArrowIcon from '../components/ui/PixelArrowIcon.astro';
+import PostMeta from '../components/ui/PostMeta.astro';
+import TagList from '../components/ui/TagList.astro';
 
-<style>
-body {
-  background-color: #ece9f5;
+/** Article layout. */
+interface Neighbor {
+  title: string;
+  url: string;
 }
+type Props = Omit<CollectionEntry<'blog'>['data'], 'published'> & {
+  newer?: Neighbor;
+  older?: Neighbor;
+  headings?: MarkdownHeading[];
+};
+
+const { title, description, pubDate, tags, ttr, newer, older, headings = [] } = Astro.props;
+const sections = headings.filter((heading) => heading.depth <= 2);
+const showToc = sections.length >= 3;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  datePublished: pubDate.toISOString(),
+  inLanguage: 'en',
+  keywords: tags.join(', '),
+  url: canonicalUrl.href,
+  author: { '@type': 'Person', name: 'Maik Hasler', url: 'https://maik-hasler.de/' },
+};
+---
+
+<Base title={`${title} | Maik Hasler`} description={description} type="article" publishedTime={pubDate}>
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+
+  <article class="container-prose py-12 lg:py-16">
+    <header>
+      <a href="/blog" class="-my-2 inline-flex items-center gap-2 py-2 font-mono text-label font-semibold uppercase text-ink-soft hover:text-redstone">
+        <PixelArrowIcon direction="left" class="w-5" /> Blog
+      </a>
+      <h1 class="font-display text-display-article font-bold display-shadow-paper mt-6 text-balance">{title}</h1>
+      <PostMeta pubDate={pubDate} readingMinutes={ttr} size="sm" class="mt-5" />
+      <p class="mt-5 text-xl text-ink-soft">{description}</p>
+      <TagList tags={tags} class="mt-5" />
+    </header>
+
+    {showToc && (
+      <nav class="mt-8" aria-label="Contents">
+        <p class="font-mono text-label font-semibold uppercase text-ink-soft">Contents</p>
+        <ol class="mt-3 flex flex-col gap-1.5 font-mono text-sm">
+          {sections.map((heading, index) => (
+            <li class="flex gap-3">
+              <span class="shrink-0 tabular-nums text-redstone" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+              <a href={`#${heading.slug}`} class="underline decoration-2 underline-offset-4 hover:text-redstone">{heading.text}</a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    )}
+
+    <hr class="my-10 border-0 border-t-2 border-dashed border-stone-light" />
+
+    <div class="post-content">
+      <slot />
+    </div>
+
+    <p class="mt-12 font-mono italic text-ink-soft">~ Maik</p>
+
+    <nav class="mt-10 grid gap-4 border-t-2 border-dashed border-stone-light pt-8 sm:grid-cols-2" aria-label="More posts">
+      {older && (
+        <a href={older.url} class="group border-2 border-stone bg-paper-light p-4 shadow-card">
+          <span class="inline-flex items-center gap-2 font-mono text-label font-semibold uppercase text-ink-soft"><PixelArrowIcon direction="left" class="w-5" /> Older post</span>
+          <span class="mt-2 block font-bold group-hover:text-redstone">{older.title}</span>
+        </a>
+      )}
+      {newer && (
+        <a href={newer.url} class="group border-2 border-stone bg-paper-light p-4 text-right shadow-card sm:col-start-2">
+          <span class="inline-flex items-center gap-2 font-mono text-label font-semibold uppercase text-ink-soft">Newer post <PixelArrowIcon class="w-5" /></span>
+          <span class="mt-2 block font-bold group-hover:text-redstone">{newer.title}</span>
+        </a>
+      )}
+    </nav>
+  </article>
+</Base>
+
+<style is:global>
+  .post-content {
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: var(--color-ink);
+    overflow-wrap: break-word;
+  }
+  .post-content > * + * {
+    margin-top: 1.25em;
+  }
+  .post-content h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--text-display-md);
+    line-height: 1.15;
+    margin-top: 2.2em;
+  }
+  .post-content h3,
+  .post-content h4 {
+    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 1.3;
+    margin-top: 1.8em;
+  }
+  .post-content h2 + *,
+  .post-content h3 + *,
+  .post-content h4 + * {
+    margin-top: 0.6em;
+  }
+  .post-content a {
+    color: var(--color-redstone);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+  .post-content a:hover {
+    color: var(--color-ink);
+  }
+  .post-content strong {
+    font-weight: 700;
+  }
+  .post-content ul,
+  .post-content ol {
+    padding-left: 1.5em;
+  }
+  .post-content ul {
+    list-style: square;
+  }
+  .post-content ol {
+    list-style: decimal;
+  }
+  .post-content li + li {
+    margin-top: 0.4em;
+  }
+  .post-content li::marker {
+    color: var(--color-redstone);
+  }
+  .post-content blockquote {
+    border-left: 4px solid var(--color-redstone);
+    padding-left: 1.25em;
+    font-style: italic;
+    color: var(--color-ink-soft);
+  }
+  .post-content code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+  }
+  .post-content :not(pre) > code {
+    background: var(--color-paper-dark);
+    border: 1px solid var(--color-paper-tan);
+    padding: 0.05em 0.35em;
+  }
+  .post-content pre {
+    position: relative;
+    /* Shiki sets #282828 inline; on ink, every theme color reaches 4.5:1. */
+    background-color: var(--color-ink) !important;
+    border: 2px solid var(--color-ink);
+    box-shadow: var(--shadow-pixel);
+    padding: 1.25rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    overflow-x: auto;
+    margin-block: 1.75em;
+  }
+  /* Language banner in the block's corner; inside, since overflow-x: auto clips anything outside. */
+  .post-content pre[data-language]:not([data-language='plaintext']) {
+    padding-top: 2.25rem;
+  }
+  .post-content pre[data-language]:not([data-language='plaintext'])::before {
+    content: attr(data-language);
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1;
+    background: var(--color-redstone);
+    color: var(--color-paper-light);
+    padding: 0.35rem 0.6rem;
+  }
+  .post-content pre code {
+    font-size: inherit;
+    background: none;
+    border: 0;
+    padding: 0;
+  }
+  .post-content img {
+    border: 2px solid var(--color-stone);
+    background: var(--color-paper-light);
+    padding: 0.5rem;
+    margin-inline: auto;
+  }
+  .post-content hr {
+    border: 0;
+    border-top: 2px dashed var(--color-stone-light);
+    margin-block: 2.5em;
+  }
+  /* Tables scroll in their own region (ScrollTable.astro), instead of tearing words apart. */
+  .post-content .table-scroll {
+    overflow-x: auto;
+    margin-block: 1.75em;
+  }
+  .post-content table {
+    width: max-content;
+    min-width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+  .post-content th,
+  .post-content td {
+    border: 1px solid var(--color-stone-light);
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    vertical-align: top;
+    overflow-wrap: normal;
+    min-width: 6rem;
+  }
+  .post-content th {
+    background: var(--color-paper-dark);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
 </style>

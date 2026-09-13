@@ -1,0 +1,41 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+/**
+ * Page shell: head, skip link, main area, footer.
+ * `headerTone="dark"` puts the header on the homepage's dark blueprint band.
+ * The `head` slot takes page-specific metadata (e.g. an article's JSON-LD).
+ */
+interface Props {
+  title: string;
+  description: string;
+  headerTone?: 'dark' | 'paper';
+  /** Open Graph type; articles also get `article:published_time`. */
+  type?: 'website' | 'article';
+  publishedTime?: Date;
+  /** The homepage needs Inter Italic right away (the About sheet); other pages don't. */
+  preloadItalic?: boolean;
+}
+
+const { title, description, headerTone = 'paper', type = 'website', publishedTime, preloadItalic = false } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} type={type} publishedTime={publishedTime} preloadItalic={preloadItalic} />
+    <slot name="head" />
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <a href="#main" class="sr-only-focusable z-50 bg-redstone px-4 py-2 font-mono text-label font-semibold uppercase text-paper-light">
+      Skip to content
+    </a>
+    <Header tone={headerTone} />
+    <main id="main" class="grow">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

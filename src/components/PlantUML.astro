@@ -1,34 +1,36 @@
 ---
-import { readFileSync } from 'fs';
-import { resolve } from 'path';
 import plantumlEncoder from 'plantuml-encoder';
 
+/**
+ * Renders a PlantUML diagram via the public PlantUML server. The source
+ * lives in src/assets/diagrams; a missing filename fails the build instead
+ * of shipping a broken image. `width`/`height` prevent layout shifts.
+ */
 interface Props {
-  diagram?: string;
-  file?: string;
-  maxWidth?: string; // Add this prop
+  file: string;
+  alt: string;
+  width?: number;
+  height?: number;
 }
 
-const { diagram, file } = Astro.props; // Default max width
+const diagrams = import.meta.glob('../assets/diagrams/*.puml', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
 
-let diagramSource = diagram;
-
-// If file is provided, read it from the assets/diagrams folder
-if (file) {
-  const filePath = resolve('src/assets/diagrams', file);
-  diagramSource = readFileSync(filePath, 'utf-8');
+const { file, alt, width, height } = Astro.props;
+const source = diagrams[`../assets/diagrams/${file}`];
+if (!source) {
+  throw new Error(`PlantUML: "${file}" is missing from src/assets/diagrams. Available: ${Object.keys(diagrams).map((key) => key.split('/').pop()).join(', ')}`);
 }
 
-if (!diagramSource) {
-  throw new Error('Either diagram or file prop must be provided to PlantUML component');
-}
-
-const encoded = plantumlEncoder.encode(diagramSource);
-const imageUrl = `https://www.plantuml.com/plantuml/svg/${encoded}`;
+const imageUrl = `https://www.plantuml.com/plantuml/svg/${plantumlEncoder.encode(source)}`;
 ---
 
 <img
-        src={imageUrl}
-        alt="PlantUML diagram"
-        class="h-auto my-4 mx-auto"
+  src={imageUrl}
+  alt={alt}
+  width={width}
+  height={height}
+  loading="lazy"
+  decoding="async"
+  class="mx-auto my-4 h-auto"
+  style={width && height ? `aspect-ratio: ${width} / ${height}` : undefined}
 />

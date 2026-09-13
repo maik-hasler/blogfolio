@@ -1,0 +1,43 @@
+---
+import { Icon } from 'astro-icon/components';
+import PixelLabel from '../ui/PixelLabel.astro';
+import PixelButton from '../ui/PixelButton.astro';
+import PistonBlock from '../ui/PistonBlock.astro';
+---
+
+<section class="blueprint text-cream" aria-labelledby="contact-title">
+  <div class="container-page grid items-center gap-10 py-16 lg:grid-cols-2 lg:py-20">
+    <div>
+      <PixelLabel tone="bright">Multiplayer</PixelLabel>
+      <h2 id="contact-title" class="font-display text-display-lg font-bold uppercase display-shadow mt-4">
+        Got something to say?
+      </h2>
+      <p class="mt-4 max-w-md text-lg text-cream-muted">
+        Ideas, feedback, or just want to chat. I'd love to hear from you.
+      </p>
+    </div>
+
+    <div class="border-2 border-stone-light bg-ink p-4 shadow-pixel sm:p-5">
+      <div class="flex items-center gap-4">
+        <PistonBlock class="w-12 shrink-0" decorative shadow="sm" />
+        <div class="min-w-0 grow">
+          <p class="font-mono font-semibold">Maik Hasler</p>
+          <p class="font-mono text-sm text-cream-dim">Oldenburg · usually&nbsp;replies</p>
+        </div>
+        <div class="flex items-end gap-0.5" role="img" aria-label="Online">
+          {[2, 3, 4, 5, 6].map((h) => (
+            <span class="w-1 bg-grass" style={`height: ${h * 3}px`}></span>
+          ))}
+        </div>
+      </div>
+      <div class="mt-5 flex flex-wrap gap-3">
+        <PixelButton href="https://www.linkedin.com/in/maik-hasler/" external>
+          <Icon name="mdi:linkedin" class="size-5" aria-hidden="true" /> LinkedIn
+        </PixelButton>
+        <PixelButton href="https://github.com/maik-hasler" tone="paper" external>
+          <Icon name="mdi:github" class="size-5" aria-hidden="true" /> GitHub
+        </PixelButton>
+      </div>
+    </div>
+  </div>
+</section>

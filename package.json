@@ -7,7 +7,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "astro": "astro"
+    "astro": "astro",
+    "piston": "node scripts/piston.mjs",
+    "og": "node scripts/og-image.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.2",

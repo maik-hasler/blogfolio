@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+import PixelLabel from '../components/ui/PixelLabel.astro';
+import PixelButton from '../components/ui/PixelButton.astro';
+import PistonBlock from '../components/ui/PistonBlock.astro';
+---
+
+<Base title="Chunk Not Loaded | Maik Hasler" description="This page doesn't exist." headerTone="dark">
+  <section class="blueprint grow text-cream">
+    <div class="container-page grid items-center gap-12 py-20 lg:grid-cols-[1.15fr_0.85fr] lg:py-32">
+      <div class="flex flex-col items-start gap-6">
+        <PixelLabel tone="bright">Error 404</PixelLabel>
+        <h1 class="font-display text-display-xl font-bold uppercase display-shadow">Chunk Not Loaded</h1>
+        <p class="max-w-lg text-lg text-cream-muted">
+          These coordinates aren't on the map. Either a typo, or I tore the page down myself.
+        </p>
+        <PixelButton href="/">Back to spawn</PixelButton>
+      </div>
+      <div class="mx-auto flex w-fit flex-col items-center lg:justify-self-end">
+        <PistonBlock class="w-44 lg:w-64" headless decorative />
+        <PixelLabel tone="bright" class="mt-6">Piston · Head Missing</PixelLabel>
+        <p class="mt-2 font-mono italic text-cream-dim">~ Maik</p>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,69 +1,52 @@
 ---
-import { Image } from 'astro:assets';
-import logo from '../assets/logo.png';
-import { Icon } from 'astro-icon/components'
+import { Icon } from 'astro-icon/components';
+import PistonBlock from './ui/PistonBlock.astro';
 import Searchbar from './Searchbar.astro';
+
+interface Props {
+  tone?: 'dark' | 'paper';
+}
+const { tone = 'paper' } = Astro.props;
+
+const tones = {
+  dark: 'bg-stone/95 text-cream border-ink',
+  paper: 'bg-paper/95 text-ink border-stone',
+};
+const linkHover =
+  tone === 'dark'
+    ? 'hover:bg-ink hover:text-redstone-bright'
+    : 'hover:bg-paper-dark hover:text-redstone';
+
+const socials = [
+  { url: 'https://github.com/maik-hasler', icon: 'mdi:github', label: 'GitHub' },
+  { url: 'https://www.linkedin.com/in/maik-hasler/', icon: 'mdi:linkedin', label: 'LinkedIn' },
+];
 ---
 
-<header id="header" class="w-full">
-  <div class="w-11/12 lg:w-8/12 mx-auto">
-    <div class="bg-white rounded-full flex justify-between items-center px-4 py-1 my-4">
-      <div class="flex items-center gap-2">
+<header data-tone={tone} class:list={['sticky top-0 z-40 border-b-2 backdrop-blur', tones[tone]]}>
+  <div class="container-page flex h-14 items-center justify-between gap-4">
+    <a href="/" class="flex shrink-0 items-center gap-2.5">
+      <PistonBlock class="w-7" decorative shadow="sm" />
+      <span class="whitespace-nowrap font-display text-lg font-bold uppercase leading-none tracking-wider sm:text-xl">Maik Hasler</span>
+      <span class="sr-only">, home</span>
+    </a>
+
+    <nav aria-label="Main navigation" class="flex items-center gap-1 sm:gap-2">
+      <a href="/blog" class:list={['whitespace-nowrap px-3 py-3 font-mono text-label font-semibold uppercase', linkHover]}>
+        Blog
+      </a>
+      <Searchbar class={linkHover} />
+      {socials.map((social) => (
         <a
-          href="/"
-          target="_self"
-          rel="noopener noreferrer"
-          aria-label="LinkedIn"
-          class="flex items-center rounded-full bg-[#f5f4fa] p-2 text-black"
-        >
-          <Icon name="mdi:home" class="text-[24px] align-middle" />
-        </a>
-        <Searchbar />
-      </div>
-      <div>
-        <Image
-          src={logo}
-          alt="Logo"
-          width={48}
-          height={48}
-          loading="eager"
-        />
-      </div>
-      <div class="flex items-center gap-2">
-        <a
-          href="https://www.linkedin.com/in/maik-hasler/"
+          href={social.url}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="LinkedIn"
-          class="flex items-center gap-1 rounded-full bg-[#0077b5] py-2 px-3 text-white"
+          aria-label={`${social.label} (opens in a new tab)`}
+          class:list={['hidden p-2.5 sm:block', linkHover]}
         >
-          <Icon name="mdi:linkedin" class="text-[24px] align-middle" />
-          <span class="hidden sm:inline text-sm font-semibold leading-none">LinkedIn</span>
+          <Icon name={social.icon} class="size-6" aria-hidden="true" />
         </a>
-        <a
-          href="https://github.com/maik-hasler"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="GitHub"
-          class="flex items-center gap-1 rounded-full bg-[#333333] py-2 px-3 text-white"
-        >
-          <Icon name="mdi:github" class="text-[24px] align-middle" />
-          <span class="hidden sm:inline text-sm font-semibold leading-none">GitHub</span>
-        </a>
-      </div>
-    </div>
+      ))}
+    </nav>
   </div>
 </header>
-
-<style>
-  #header {
-    width: 100%;
-    position: sticky;
-    top: 0;
-    z-index: 10000;
-    background-color: #ece9f5;
-    display: flex;
-    align-items: center;
-    transition: background-color 0.3s ease-in-out, backdrop-filter 0.3s ease-in-out;
-  }
-</style>

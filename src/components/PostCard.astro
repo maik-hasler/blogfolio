@@ -1,0 +1,48 @@
+---
+import Screw from './ui/Screw.astro';
+import PostMeta from './ui/PostMeta.astro';
+import TagList from './ui/TagList.astro';
+
+/** A post as a pinned card. */
+interface Props {
+  url: string;
+  title: string;
+  description: string;
+  pubDate: Date;
+  tags: string[];
+  readingMinutes: number;
+  headingLevel?: 'h2' | 'h3';
+}
+
+const { url, title, description, pubDate, tags, readingMinutes, headingLevel: Heading = 'h3' } = Astro.props;
+---
+
+<article class="relative flex h-full flex-col gap-3 border-2 border-stone bg-paper-light px-6 pb-6 pt-8 shadow-card">
+  <Screw class="left-3 top-3" />
+  <Screw class="right-3 top-3" />
+  <PostMeta pubDate={pubDate} readingMinutes={readingMinutes} />
+  <Heading class="text-xl font-bold leading-snug">
+    <a href={url} class="post-link">{title}</a>
+  </Heading>
+  <p class="text-ink-soft">{description}</p>
+  <TagList tags={tags} class="mt-auto pt-2" />
+</article>
+
+<style>
+  .post-link {
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 4px;
+    transition: text-decoration-color 120ms;
+  }
+  .post-link::after {
+    /* The whole card is clickable. */
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  article:hover .post-link {
+    text-decoration-color: var(--color-redstone);
+  }
+</style>

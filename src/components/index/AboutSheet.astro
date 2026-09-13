@@ -1,0 +1,174 @@
+---
+import meImage from '../../assets/me.png';
+import PixelLabel from '../ui/PixelLabel.astro';
+import Screw from '../ui/Screw.astro';
+import Polaroid from '../ui/Polaroid.astro';
+import CraftingGrid from './CraftingGrid.astro';
+
+/**
+ * The player card, continued: one fused sheet instead of three pinned notes
+ * joined by arrows. Three internal zones carry the same paper/ink/dashed
+ * material language as before, but read as one continuous document - the
+ * photo bleeds off its edge rather than sitting in an isolated corner.
+ */
+---
+
+<section class="chunk-grid container-page py-16 lg:py-24" aria-label="About me">
+  <div class="spread">
+    <div class="sheet">
+      <Screw class="top-3 left-4" />
+      <Screw class="top-3 right-4" />
+
+      <div class="zone zone--recipe">
+        <PixelLabel as="h2" class="mb-4">Crafting Recipe</PixelLabel>
+        <p>
+          Finished school right in the middle of the pandemic. Officially: Abitur with a focus on
+          health and care. Unofficially: full-time gaming, thanks to homeschooling. That's exactly
+          when I slid into programming. My motivation: why farm something for hours when a script
+          can just do it for me?
+        </p>
+        <p>
+          The interest in programming ended up outgrowing the one in health and care. So in 2021 I
+          started an apprenticeship as a software developer. Today I'm a <strong>software architect</strong>
+          and <strong>trainer</strong>, and an <strong>IHK examiner</strong> on the side. And I still write
+          code on a handful of personal projects.
+        </p>
+        <CraftingGrid />
+      </div>
+
+      <div class="zone zone--chunk">
+        <PixelLabel as="h2" class="mb-4">Outside the Chunk</PixelLabel>
+        <p>
+          Neither gaming nor programming has gotten any less interesting over the years. Honestly, I
+          often build more in my free time than at work. My biggest project right now is
+          <a href="https://github.com/maik-hasler/einsatzbereit">Einsatzbereit</a>, an attempt at building
+          a regional platform for volunteer work.
+        </p>
+        <p>
+          When I'm not coding, I'm probably playing Path of Exile 2. Otherwise I love board and card
+          games, Magic: The Gathering especially these days. I love eating just as much, but hate
+          cooking. I enjoy running and I'm training for the Oldenburg Marathon (not going well). And
+          I read tech books, watch videos, and listen to podcasts about software development.
+        </p>
+      </div>
+
+      <div class="zone zone--why" id="why">
+        <PixelLabel as="h2" class="mb-4">Why a Piston?</PixelLabel>
+        <p>
+          One thing has become clear over time: with me, it's binary. 0 or 1. Exactly like a piston.
+          Either I'm completely obsessed with something and forget to eat, sleep, or talk to another
+          human being, or I'm the exact opposite and do nothing at all.
+        </p>
+        <p>There's rarely an in-between. Mostly it's just the transition from one extreme to the other.</p>
+      </div>
+    </div>
+
+    <div class="spread__photo">
+      <Polaroid
+        src={meImage}
+        alt="Maik Hasler wearing a cap and glasses, black-and-white photo"
+        caption="The Minecraft Block IRL"
+        label="Texture Pack"
+        rotate={2}
+        size="lg"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .spread {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+  .spread__photo {
+    display: flex;
+    justify-content: center;
+  }
+  @media (min-width: 1024px) {
+    .spread {
+      display: grid;
+      grid-template-columns: 1fr 22rem;
+      align-items: start;
+    }
+    .spread__photo {
+      justify-content: flex-end;
+      margin-left: -4rem;
+      margin-top: 3rem;
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  /* One object: single rotation, single shadow, single pair of pins - the
+     zones inside only differ by background and top seam, never by their own
+     transform, so this reads as one continuous sheet, not three cards. */
+  .sheet {
+    position: relative;
+    border: 2px solid var(--color-stone);
+    box-shadow: var(--shadow-card);
+    transform: rotate(-0.4deg);
+  }
+  @media (min-width: 640px) {
+    .sheet {
+      transform: rotate(-0.8deg);
+    }
+  }
+
+  .zone {
+    padding: 2.25rem 1.5rem;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    max-width: 66ch;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+  @media (min-width: 640px) {
+    .zone {
+      padding: 2.5rem 2.75rem;
+    }
+  }
+  .zone + .zone {
+    margin-top: 0;
+  }
+  .zone p + p {
+    margin-top: 0.85em;
+  }
+  .zone a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--color-redstone-bright);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+  .zone a:hover {
+    color: var(--color-redstone);
+  }
+
+  .zone--recipe {
+    background: var(--color-paper-light);
+    color: var(--color-ink-soft);
+  }
+  .zone--recipe strong {
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+
+  .zone--chunk {
+    background: var(--color-ink);
+    color: var(--color-cream-muted);
+    border-top: 2px solid var(--color-stone);
+    font-style: italic;
+  }
+  .zone--chunk a:hover {
+    color: var(--color-redstone-bright);
+  }
+
+  .zone--why {
+    background: var(--color-paper-dark);
+    color: var(--color-ink-soft);
+    border-top: 2px dashed var(--color-stone-light);
+    font-style: italic;
+  }
+</style>

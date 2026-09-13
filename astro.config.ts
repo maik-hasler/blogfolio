@@ -14,17 +14,16 @@ export default defineConfig({
     sitemap(),
     icon({
       include: {
-        mdi: [
-          'github',
-          'linkedin',
-          'tag-outline',
-          'magnify',
-          'home'
-        ]
+        mdi: ['github', 'linkedin', 'magnify'],
       }
     }),
     mdx()
   ],
+  markdown: {
+    shikiConfig: {
+      theme: 'gruvbox-dark-medium',
+    },
+  },
   vite: {
     // @tailwindcss/vite resolves its own nested `vite` copy, whose Plugin type
     // doesn't structurally match the one Astro bundles - hence the cast.

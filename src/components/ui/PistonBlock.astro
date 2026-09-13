@@ -1,0 +1,63 @@
+---
+import Piston from '../../assets/piston.svg';
+
+/**
+ * The piston block as a hand-drawn isometric pixel graphic (src/assets/piston.svg).
+ * The head extends on hover; `animated` also runs it once on load. The travel
+ * distance comes from the SVG itself as `--piston-lift` (scripts/piston.mjs),
+ * so both sides always agree.
+ */
+interface Props {
+  class?: string;
+  animated?: boolean;
+  /** Hides the block from screen readers when the surrounding context already names it. */
+  decorative?: boolean;
+  /** Shadow offset to match the size: 'lg' for the hero and 404, 'sm' for icons. */
+  shadow?: 'lg' | 'sm';
+  /** Without a head: the base alone, for the 404 page. */
+  headless?: boolean;
+}
+const { class: className = '', animated = false, decorative = false, shadow = 'lg', headless = false } = Astro.props;
+
+const a11y: astroHTML.JSX.SVGAttributes = decorative
+  ? { 'aria-hidden': true }
+  : { role: 'img', 'aria-label': headless ? 'A headless piston block, as pixel art' : 'A piston block, as pixel art' };
+---
+
+<Piston class:list={['piston', `piston--shadow-${shadow}`, { 'piston--animated': animated, 'piston--headless': headless }, className]} {...a11y} />
+
+<style>
+  .piston {
+    height: auto;
+    overflow: visible;
+  }
+  .piston--shadow-lg {
+    filter: drop-shadow(6px 10px 0 rgb(0 0 0 / 0.35));
+  }
+  .piston--shadow-sm {
+    filter: drop-shadow(1px 2px 0 rgb(0 0 0 / 0.35));
+  }
+  .piston :global(.piston-head) {
+    transition: transform 280ms steps(4, end);
+  }
+  .piston:hover :global(.piston-head) {
+    transform: translateY(calc(-1 * var(--piston-lift)));
+  }
+  .piston--animated :global(.piston-head) {
+    animation: extend 1.8s steps(4, end) 900ms 1;
+  }
+  .piston--headless :global(.piston-head),
+  .piston--headless :global(.piston-arm) {
+    display: none;
+  }
+  @keyframes extend {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    25%,
+    70% {
+      transform: translateY(calc(-1 * var(--piston-lift)));
+    }
+  }
+</style>

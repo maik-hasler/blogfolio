@@ -1,0 +1,50 @@
+---
+/**
+ * Button with a hard pixel shadow. Pressing it slides the button into its
+ * own shadow, like a piston retracting. `external` opens a new tab and says so.
+ */
+interface Props {
+  href: string;
+  tone?: 'redstone' | 'paper' | 'ink';
+  external?: boolean;
+  class?: string;
+}
+const { href, tone = 'redstone', external = false, class: className = '' } = Astro.props;
+
+const tones = {
+  redstone: 'bg-redstone text-paper-light border-ink',
+  paper: 'bg-paper-light text-ink border-ink',
+  ink: 'bg-ink text-cream border-ink',
+};
+---
+
+<a
+  href={href}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener noreferrer' : undefined}
+  class:list={[
+    'pixel-button inline-flex items-center justify-center gap-2 border-2 px-5 py-3',
+    'font-mono font-semibold uppercase text-label shadow-pixel',
+    tones[tone],
+    className,
+  ]}
+>
+  <slot />
+  {external && <span class="sr-only"> (opens in a new tab)</span>}
+</a>
+
+<style>
+  .pixel-button {
+    transition:
+      transform 90ms steps(2, end),
+      box-shadow 90ms steps(2, end);
+  }
+  .pixel-button:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 0 var(--color-ink);
+  }
+  .pixel-button:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0 0 0 0 var(--color-ink);
+  }
+</style>

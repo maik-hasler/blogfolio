@@ -1,102 +1,130 @@
 ---
-import { getCollection } from 'astro:content';
 import { Icon } from 'astro-icon/components';
+import { getPublishedPosts, postUrl } from '../lib/posts';
 
-const blogPosts = await getCollection('blog');
-const jsonBlogPosts = JSON.stringify(blogPosts);
+/**
+ * Search across all posts, styled like a chat command ("/search").
+ * Only a lean index (title, description, tags, URL) ships in the HTML.
+ */
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+
+const posts = (await getPublishedPosts()).map((post) => ({
+  url: postUrl(post),
+  title: post.data.title,
+  description: post.data.description,
+  tags: post.data.tags,
+}));
 ---
 
-<div id="search-component" class="relative">
-  <button
-    id="search-button"
-    type="button"
-    class="flex items-center gap-2 bg-[#f5f4fa] text-gray-700 rounded-full px-3 sm:px-4 py-2 text-sm hover:bg-[#ece9f5] transition-colors"
-  >
-    <Icon name="mdi:magnify" class="text-[20px] text-gray-500" />
-    <span class="hidden sm:inline text-gray-700 text-sm">Search...</span>
-    <kbd
-      class="hidden sm:inline ml-2 rounded-full border border-gray-300 bg-gray-200 px-2 py-1 text-xs font-medium text-gray-600"
-    >
-      Ctrl + K
-    </kbd>
-  </button>
-  <div
-    id="search-overlay"
-    class="hidden fixed inset-0 bg-black/50 z-40"
-  ></div>
-  <div
-    id="search-panel"
-    class="hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-xl bg-white rounded-xl shadow-xl z-50 p-4"
-  >
+<button
+  id="search-open"
+  type="button"
+  class:list={['flex items-center gap-2 px-3 py-3 font-mono text-label font-semibold uppercase', className]}
+  aria-haspopup="dialog"
+  aria-controls="search-dialog"
+>
+  <Icon name="mdi:magnify" class="size-5" aria-hidden="true" />
+  <span class="sr-only sm:not-sr-only">Search</span>
+  <kbd aria-hidden="true" class="hidden md:inline border border-current px-1.5 py-0.5 text-[0.65rem] normal-case tracking-normal opacity-70">/</kbd>
+</button>
+
+<dialog
+  id="search-dialog"
+  class="m-auto w-[min(100%-2rem,40rem)] border-2 border-stone-light bg-ink p-0 text-cream shadow-pixel backdrop:bg-ink/70"
+  aria-label="Search posts"
+>
+  <form method="dialog" class="flex items-center gap-3 border-b-2 border-stone px-4 py-3 font-mono focus-within:border-b-redstone-bright">
+    <span class="shrink-0 select-none whitespace-nowrap font-semibold text-redstone-bright" aria-hidden="true">/search</span>
     <input
       id="search-input"
-      type="text"
-      placeholder="Search blog posts..."
-      class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-indigo-200"
+      type="search"
+      autocomplete="off"
+      placeholder="Title, description, or tag …"
+      aria-label="Search query"
+      aria-describedby="search-status"
+      class="min-w-0 grow bg-transparent text-cream placeholder:text-cream-dim focus:outline-none"
     />
-    <ul id="search-results" class="mt-4 max-h-80 overflow-y-auto"></ul>
-  </div>
-</div>
+    <button type="submit" class="-mr-2 shrink-0 whitespace-nowrap px-3 py-2 font-mono text-xs uppercase text-cream-dim hover:text-cream">
+      Esc<span class="sr-only"> – close search</span>
+    </button>
+  </form>
+  <p id="search-status" class="sr-only" aria-live="polite"></p>
+  <ul id="search-results" class="max-h-[60vh] overflow-y-auto p-2" role="list" aria-label="Results"></ul>
+</dialog>
 
-<script type="module" define:vars={{ blogPosts }}>
-  const searchButton = document.getElementById('search-button');
-  const searchPanel = document.getElementById('search-panel');
-  const searchOverlay = document.getElementById('search-overlay');
-  const searchInput = document.getElementById('search-input');
-  const searchResults = document.getElementById('search-results');
+<script is:inline type="module" define:vars={{ posts }}>
+  const dialog = document.getElementById('search-dialog');
+  const openButton = document.getElementById('search-open');
+  const input = document.getElementById('search-input');
+  const results = document.getElementById('search-results');
+  const status = document.getElementById('search-status');
 
-  function openSearch() {
-    searchPanel.classList.remove('hidden');
-    searchOverlay.classList.remove('hidden');
-    searchInput.focus();
-    renderResults('');
-  }
+  const escapeHtml = (text) =>
+    text.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 
-  function closeSearch() {
-    searchPanel.classList.add('hidden');
-    searchOverlay.classList.add('hidden');
-    searchInput.value = '';
-    searchResults.innerHTML = '';
-  }
-
-  function renderResults(query) {
-    const results = blogPosts.filter(post =>
-      post.data.title?.toLowerCase().includes(query.toLowerCase())
+  function search(query) {
+    const q = query.trim().toLowerCase();
+    if (!q) return posts;
+    return posts.filter(
+      (post) =>
+        post.title.toLowerCase().includes(q) ||
+        post.description.toLowerCase().includes(q) ||
+        post.tags.some((tag) => tag.toLowerCase().includes(q)),
     );
+  }
 
-    if (!results.length && query.length > 0) {
-      searchResults.innerHTML = `<li class="p-2 text-gray-400">No results found.</li>`;
+  function render(query) {
+    const hits = search(query);
+    status.textContent = hits.length ? `${hits.length} results, press Enter to open the first` : 'No results';
+    if (hits.length === 0) {
+      results.innerHTML = `<li class="px-3 py-4 font-mono text-sm text-cream-dim">Unknown command. Try <span class="text-redstone-bright">/search plantuml</span></li>`;
       return;
     }
-
-    searchResults.innerHTML = results
+    results.innerHTML = hits
       .map(
-        post => `
-      <li class="p-2 hover:bg-gray-100 rounded">
-        <a href="/blog/${post.id}" class="block">
-          <span class="font-semibold">${post.data.title}</span>
-          <p class="text-gray-500 text-sm">${post.data.description}</p>
-        </a>
-      </li>
-    `
+        (post) => `
+        <li>
+          <a href="${post.url}" class="block px-3 py-3 hover:bg-stone focus-visible:bg-stone">
+            <span class="block font-semibold text-cream">${escapeHtml(post.title)}</span>
+            <span class="block text-sm text-cream-dim">${escapeHtml(post.description)}</span>
+          </a>
+        </li>`,
       )
       .join('');
   }
 
-  // Events
-  searchButton.addEventListener('click', openSearch);
-  searchOverlay.addEventListener('click', closeSearch);
+  function open() {
+    if (dialog.open) return;
+    dialog.showModal();
+    input.value = '';
+    render('');
+    input.focus();
+  }
 
-  document.addEventListener('keydown', (e) => {
-    // Ctrl + K or Cmd + K
-    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
-      e.preventDefault();
-      openSearch();
-    }
-    // Escape
-    if (e.key === 'Escape') closeSearch();
+  const isEditable = (element) =>
+    element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement || element?.isContentEditable;
+
+  openButton.addEventListener('click', open);
+  input.addEventListener('input', () => render(input.value));
+  input.addEventListener('keydown', (event) => {
+    // Enter opens the first hit, but only for an actual query.
+    if (event.key !== 'Enter' || !input.value.trim()) return;
+    event.preventDefault();
+    const first = results.querySelector('a');
+    if (first) window.location.assign(first.href);
   });
-
-  searchInput.addEventListener('input', () => renderResults(searchInput.value));
+  dialog.addEventListener('click', (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+  document.addEventListener('keydown', (event) => {
+    const ctrlK = (event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k';
+    const slash = event.key === '/' && !event.ctrlKey && !event.metaKey && !event.altKey && !isEditable(document.activeElement);
+    if (ctrlK || slash) {
+      event.preventDefault();
+      open();
+    }
+  });
 </script>
-

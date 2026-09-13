@@ -1,0 +1,46 @@
+---
+import PistonBlock from '../ui/PistonBlock.astro';
+import PixelArrowIcon from '../ui/PixelArrowIcon.astro';
+
+/**
+ * The recipe for the text above: nine ingredients, one result. The ingredients
+ * are the stations from the paragraph, in reading order. `&shy;` marks the
+ * one allowed break point in the only long word.
+ */
+const ingredients = [
+  'Abitur',
+  'Home&shy;schooling',
+  'Gaming',
+  'Farm Script',
+  'Apprenticeship',
+  'Projects',
+  'Architect',
+  'Trainer',
+  'IHK Examiner',
+];
+---
+
+<div class="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6" role="group" aria-label="Crafting recipe: nine ingredients make one piston">
+  <ol class="grid grid-cols-3 gap-1.5 border-2 border-ink bg-paper-deep p-1.5" role="list">
+    {ingredients.map((ingredient) => (
+      <li class="slot flex size-[5rem] items-center justify-center bg-paper-dark p-1 text-center font-mono text-[0.7rem] font-semibold uppercase leading-tight not-italic text-ink-soft sm:size-[5.5rem] sm:text-xs" set:html={ingredient} />
+    ))}
+  </ol>
+
+  <PixelArrowIcon class="w-10 rotate-90 text-redstone sm:rotate-0" />
+
+  <div class="flex flex-col items-center gap-2">
+    <div class="slot flex size-[5.25rem] items-center justify-center bg-paper-dark sm:size-[5.75rem]">
+      <PistonBlock class="w-14" decorative shadow="sm" />
+    </div>
+    <span class="font-mono text-xs font-semibold uppercase tracking-wider not-italic text-redstone">1× Piston</span>
+  </div>
+</div>
+
+<style>
+  .slot {
+    border-width: 3px;
+    border-style: solid;
+    border-color: var(--color-stone-light) var(--color-paper-light) var(--color-paper-light) var(--color-stone-light);
+  }
+</style>
