@@ -17,15 +17,4 @@ const blog = defineCollection({
   })
 });
 
-const flashcards = defineCollection({
-  loader: glob({
-    base: "./src/content/flashcards",
-    pattern: "**/*.mdx"
-  }),
-  schema: z.object({
-    tags: z.array(z.string()),
-    published: z.boolean().default(true)
-  })
-});
-
-export const collections = { blog, flashcards };
+export const collections = { blog };

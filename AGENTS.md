@@ -5,10 +5,10 @@ Solo-maintained.
 
 ## Tech Stack
 
-Astro 6 (static output, Node adapter), Tailwind CSS 4, MDX. Content is two
-Astro content collections: `src/content/blog` (blog posts) and
-`src/content/flashcards/<topic>` (study flashcards). Deployed as a Docker
-image published to GHCR on version tags (`.github/workflows/publish.yaml`).
+Astro 6 (static output, Node adapter), Tailwind CSS 4, MDX. Content is an
+Astro content collection at `src/content/blog` (blog posts). Deployed as a
+Docker image published to GHCR on version tags
+(`.github/workflows/publish.yaml`).
 
 ## Development Setup
 
