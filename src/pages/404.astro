@@ -3,16 +3,15 @@ import Base from '../layouts/Base.astro';
 import PixelButton from '../components/ui/PixelButton.astro';
 ---
 
-<Base title="Counterspelled | Maik Hasler" description="This page doesn't exist." headerTone="dark">
+<Base title="Page not found | Maik Hasler" description="The page you're looking for doesn't exist.">
   <section class="blueprint grow text-cream">
     <div class="container-page flex flex-col items-start gap-6 py-20 lg:py-32">
-      <p class="font-mono text-label font-semibold uppercase text-redstone-bright">Error 404</p>
-      <h1 class="font-display text-display-xl font-bold uppercase display-shadow">Counterspelled</h1>
+      <p class="font-mono text-label font-semibold uppercase text-redstone-bright">404</p>
+      <h1 class="font-display text-display-xl font-medium">Page not found</h1>
       <p class="max-w-lg text-lg text-cream-muted">
-        This page was countered. Either a typo in the URL, or I exiled it myself.
+        That address doesn't lead anywhere. Check the URL or head back to the homepage.
       </p>
-      <p class="font-serif text-lg italic text-cream-dim">“It's not a bug, it's a hard counter.” ~ Maik</p>
-      <PixelButton href="/">Return to hand</PixelButton>
+      <PixelButton href="/">Go to homepage</PixelButton>
     </div>
   </section>
 </Base>

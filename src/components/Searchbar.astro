@@ -2,10 +2,7 @@
 import { Icon } from 'astro-icon/components';
 import { getPublishedPosts, postUrl } from '../lib/posts';
 
-/**
- * Search across all posts, styled like a chat command ("/search").
- * Only a lean index (title, description, tags, URL) ships in the HTML.
- */
+/** Search across posts. Only the title, summary, tags, and URL ship in the page. */
 interface Props {
   class?: string;
 }
@@ -22,7 +19,7 @@ const posts = (await getPublishedPosts()).map((post) => ({
 <button
   id="search-open"
   type="button"
-  class:list={['flex items-center gap-2 px-3 py-3 font-mono text-label font-semibold uppercase', className]}
+  class:list={['flex items-center gap-2 px-3 py-3 text-sm', className]}
   aria-haspopup="dialog"
   aria-controls="search-dialog"
 >
@@ -33,27 +30,32 @@ const posts = (await getPublishedPosts()).map((post) => ({
 
 <dialog
   id="search-dialog"
-  class="m-auto w-[min(100%-2rem,40rem)] border-2 border-stone-light bg-ink p-0 text-cream shadow-pixel backdrop:bg-ink/70"
+  class="search-dialog m-auto w-[min(100%-2rem,40rem)] rounded-md border border-line bg-paper-light p-0 text-ink shadow-card backdrop:bg-ink/35"
   aria-label="Search posts"
 >
-  <form method="dialog" class="flex items-center gap-3 border-b-2 border-stone px-4 py-3 font-mono focus-within:border-b-redstone-bright">
-    <span class="shrink-0 select-none whitespace-nowrap font-semibold text-redstone-bright" aria-hidden="true">/search</span>
+  <form method="dialog" class="flex items-center gap-3 border-b border-line px-4 py-3">
     <input
       id="search-input"
       type="search"
       autocomplete="off"
-      placeholder="Title, description, or tag …"
+      placeholder="Search posts by title, topic, or tag"
       aria-label="Search query"
       aria-describedby="search-status"
-      class="min-w-0 grow bg-transparent text-cream placeholder:text-cream-dim focus:outline-none"
+      class="min-w-0 grow bg-transparent placeholder:text-ink-soft focus:outline-none"
     />
-    <button type="submit" class="-mr-2 shrink-0 whitespace-nowrap px-3 py-2 font-mono text-xs uppercase text-cream-dim hover:text-cream">
-      Esc<span class="sr-only"> (close search)</span>
+    <button type="submit" class="-mr-2 shrink-0 whitespace-nowrap px-3 py-2 text-sm text-ink-soft hover:text-ink">
+      Close<span class="sr-only"> search</span>
     </button>
   </form>
   <p id="search-status" class="sr-only" aria-live="polite"></p>
   <ul id="search-results" class="max-h-[60vh] overflow-y-auto p-2" role="list" aria-label="Results"></ul>
 </dialog>
+
+<style>
+  .search-dialog::backdrop {
+    backdrop-filter: blur(2px);
+  }
+</style>
 
 <script is:inline type="module" define:vars={{ posts }}>
   const dialog = document.getElementById('search-dialog');
@@ -80,16 +82,16 @@ const posts = (await getPublishedPosts()).map((post) => ({
     const hits = search(query);
     status.textContent = hits.length ? `${hits.length} results, press Enter to open the first` : 'No results';
     if (hits.length === 0) {
-      results.innerHTML = `<li class="px-3 py-4 font-mono text-sm text-cream-dim">Unknown command. Try <span class="text-redstone-bright">/search plantuml</span></li>`;
+      results.innerHTML = `<li class="px-3 py-4 text-sm text-ink-soft">No posts match that search.</li>`;
       return;
     }
     results.innerHTML = hits
       .map(
         (post) => `
         <li>
-          <a href="${post.url}" class="block px-3 py-3 hover:bg-stone focus-visible:bg-stone">
-            <span class="block font-semibold text-cream">${escapeHtml(post.title)}</span>
-            <span class="block text-sm text-cream-dim">${escapeHtml(post.description)}</span>
+          <a href="${post.url}" class="block rounded px-3 py-3 hover:bg-paper-dark focus-visible:bg-paper-dark">
+            <span class="block font-semibold text-ink">${escapeHtml(post.title)}</span>
+            <span class="block text-sm text-ink-soft">${escapeHtml(post.description)}</span>
           </a>
         </li>`,
       )

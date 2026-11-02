@@ -1,182 +1,138 @@
 ---
-import { Icon } from 'astro-icon/components';
-import Mana from '../ui/Mana.astro';
-
-/**
- * The career as a row of creature cards that "evolve": every step is a
- * bigger creature than the last. The track scrolls sideways and snaps.
- */
-const steps = [
+const roles = [
   {
-    name: 'Apprentice',
-    period: 'Aug 2021 to Jan 2024',
-    where: 'VRG GmbH',
-    frame: 'blue',
-    cost: ['1'],
-    type: 'Creature: Human Apprentice',
-    icon: 'mdi:school',
-    art: 'linear-gradient(160deg, #0f2a4a, #4580ad)',
-    text: 'Cloud services with .NET, Docker, Kubernetes, Kafka and PostgreSQL. Finished the IHK degree.',
-    pt: '1/1',
+    period: 'Jan 2026 to present',
+    title: 'Software Architect',
+    company: 'VRG GmbH · PROVIA',
+    detail:
+      'Working on software architecture and technical strategy, including cloud migration, technical debt, and bringing AI into the business.',
   },
   {
-    name: 'Full Stack Detour',
-    period: 'Jan to Apr 2024',
-    where: 'DM EDV- und Bürosysteme',
-    frame: 'green',
-    cost: ['1', 'G'],
-    type: 'Creature: Human Rogue',
-    icon: 'mdi:layers-triple',
-    art: 'linear-gradient(160deg, #0f2e1a, #528e57)',
-    text: 'A short side quest: .NET Core and TypeScript across the whole stack.',
-    pt: '2/1',
+    period: 'May 2025 to present',
+    title: 'Trainer and IHK Examiner',
+    company: 'VRG GmbH · IHK Oldenburg',
+    detail:
+      'Training software development apprentices, supervising interns, and helping bring new talent into the team. I also examine apprentices at the IHK.',
   },
   {
-    name: 'Software Developer',
     period: 'Apr 2024 to Dec 2025',
-    where: 'VRG GmbH',
-    frame: 'red',
-    cost: ['2', 'R'],
-    type: 'Creature: Human Developer',
-    icon: 'mdi:code-braces',
-    art: 'linear-gradient(160deg, #4a140c, #cc5c42)',
-    text: 'Technical project planning and delivery of cloud services. Started coaching apprentices on the side.',
-    pt: '3/3',
+    title: 'Software Developer',
+    company: 'VRG GmbH',
+    detail:
+      'Technical project planning and delivery, cloud services, and work across the .NET ecosystem, containers, PostgreSQL, and CI/CD.',
   },
   {
-    name: 'Trainer',
-    period: 'May 2025 to today',
-    where: 'VRG GmbH, IHK Oldenburg',
-    frame: 'green',
-    cost: ['3', 'G'],
-    type: 'Creature: Human Mentor',
-    icon: 'mdi:account-group',
-    art: 'linear-gradient(160deg, #0f2e1a, #528e57)',
-    text: 'Trains apprentices, supervises interns and helps recruit early talent. Examiner at the IHK.',
-    pt: '4/4',
+    period: 'Jan 2024 to Apr 2024',
+    title: 'Full Stack Developer',
+    company: 'DM EDV- und Bürosysteme GmbH',
+    detail: 'A short full-stack role working with .NET Core, TypeScript, and HeidiSQL.',
   },
   {
-    name: 'Software Architect',
-    period: 'Jan 2026 to today',
-    where: 'VRG GmbH, PROVIA',
-    frame: 'gold',
-    cost: ['3', 'U', 'R'],
-    type: 'Legendary Creature: Human Architect',
-    icon: 'mdi:sitemap',
-    art: 'linear-gradient(160deg, #3a2a08, #c9a64e)',
-    text: 'Architecture and technical strategy: AI adoption, moving legacy software to the cloud, taming technical debt.',
-    extra: 'Equipped with iSAQB CPSA-F and CPSA-A IMPROVE.',
-    pt: '5/5',
+    period: 'Aug 2021 to Jan 2024',
+    title: 'Apprentice Software Developer',
+    company: 'VRG GmbH',
+    detail: 'Completed my apprenticeship as a software developer, with a focus on application development.',
   },
-] as const;
+];
 ---
 
-<section class="blueprint text-cream" aria-labelledby="journey-title">
-  <div class="container-page pt-14 lg:pt-20">
-    <p class="font-mono text-label font-semibold uppercase text-redstone-bright">Level up</p>
-    <h2 id="journey-title" class="mt-3 font-display text-display-lg font-bold uppercase display-shadow">The journey</h2>
-    <p class="mt-3 max-w-xl font-serif text-lg italic text-cream-muted">
-      Five steps from apprentice to architect. Each card is a little stronger than the last. Scroll sideways to follow the path.
-    </p>
-  </div>
-
-  <div class="track" tabindex="0" role="region" aria-label="Career timeline, scrolls sideways">
-    <ol class="track__list">
-      {steps.map((step, i) => (
-        <li class="step">
-          <p class="step__period"><span class="step__dot" aria-hidden="true"></span>{step.period}</p>
-          <article class="mtg-card step__card" data-frame={step.frame}>
-            <div class="mtg-frame">
-              <div class="mtg-bar">
-                <h3>{step.name}</h3>
-                <span class="whitespace-nowrap">{step.cost.map((sym) => <Mana sym={sym} />)}</span>
-              </div>
-              <div class="mtg-art mtg-art--icon" style={`background: ${step.art}`}>
-                <Icon name={step.icon} aria-hidden="true" />
-              </div>
-              <div class="mtg-bar mtg-type"><span>{step.type}</span><span class="mtg-setsym" aria-hidden="true"></span></div>
-              <div class="mtg-text step__text">
-                <p><strong>{step.where}.</strong> {step.text}</p>
-                {'extra' in step && <p class="mtg-flavor">{step.extra}</p>}
-              </div>
-            </div>
-            <span class="mtg-pt">{step.pt}</span>
-            <p class="mtg-legal" aria-hidden="true">
-              <span>{String(i + 1).padStart(3, '0')}/005 {i === 4 ? 'M' : 'R'} · MH · EN</span>
-              <span>™ &amp; © Maik Hasler</span>
-            </p>
-          </article>
+<section class="work" aria-labelledby="work-title" id="work">
+  <div class="container-page work__inner">
+    <header class="work__heading">
+      <p class="eyebrow">Work</p>
+      <h2 id="work-title">How I got here</h2>
+      <p>My roles at VRG, with one short detour in between.</p>
+    </header>
+    <ol class="work__list">
+      {roles.map((role) => (
+        <li class="work__item">
+          <p class="work__period">{role.period}</p>
+          <div>
+            <h3>{role.title}</h3>
+            <p class="work__company">{role.company}</p>
+            <p class="work__detail">{role.detail}</p>
+          </div>
         </li>
       ))}
     </ol>
+    <p class="work__certs">
+      Recently completed the iSAQB CPSA-F and CPSA-A IMPROVE certifications.
+    </p>
   </div>
-  <div class="pb-14 lg:pb-20"></div>
 </section>
 
 <style>
-  .track {
-    overflow-x: auto;
-    scroll-snap-type: x proximity;
-    --gutter: max(1rem, calc((100vw - 72rem) / 2));
-    padding: 2.5rem var(--gutter) 1.5rem;
-    scroll-padding-inline: var(--gutter);
-    scrollbar-color: var(--color-gold-deep) transparent;
+  .work {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background: var(--color-page);
   }
-  .track__list {
-    position: relative;
-    display: flex;
-    gap: 1.5rem;
-    width: max-content;
+  .work__inner {
+    display: grid;
+    gap: 3rem 5rem;
   }
-  .track__list::before {
-    content: '';
-    position: absolute;
-    top: 0.55rem;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--color-gold-deep), var(--color-gold));
+  .work__heading h2 {
+    margin-top: 1rem;
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 4vw, 4rem);
+    font-weight: 500;
+    letter-spacing: -0.05em;
+    line-height: 1;
   }
-  .step {
-    width: 17rem;
-    scroll-snap-align: start;
+  .work__heading > p:last-child {
+    margin-top: 1rem;
+    color: var(--color-muted);
   }
-  .step__period {
-    position: relative;
-    padding-top: 1.6rem;
-    margin-bottom: 1rem;
+  .work__list {
+    border-top: 1px solid var(--color-line);
+  }
+  .work__item {
+    display: grid;
+    gap: 0.65rem 2rem;
+    padding-block: 1.4rem;
+    border-bottom: 1px solid var(--color-line);
+  }
+  .work__period {
+    padding-top: 0.2rem;
     font-family: var(--font-mono);
-    font-size: 0.8rem;
+    font-size: 0.75rem;
+    color: var(--color-muted);
+  }
+  .work__item h3 {
+    font-size: 1.15rem;
     font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-gold);
+    letter-spacing: -0.02em;
   }
-  .step__dot {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 1.1rem;
-    height: 1.1rem;
-    border-radius: 50%;
-    background: var(--color-gold);
-    box-shadow: 0 0 0 4px var(--color-ink), 0 0 14px rgb(233 185 73 / 0.7);
+  .work__company {
+    margin-top: 0.15rem;
+    font-size: 0.95rem;
+    color: var(--color-accent);
   }
-  .step__card {
-    transition: transform 200ms ease-out;
+  .work__detail {
+    max-width: 42rem;
+    margin-top: 0.7rem;
+    line-height: 1.65;
+    color: var(--color-muted);
   }
-  .step:hover .step__card {
-    transform: translateY(-8px) rotate(-1deg);
+  .work__certs {
+    margin-top: -1.5rem;
+    font-size: 0.9rem;
+    color: var(--color-muted);
   }
-  .step__text {
-    min-height: auto;
-    font-size: 4.4cqw;
-    overflow: visible;
-    padding-bottom: 6cqw;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .step:hover .step__card {
-      transform: none;
+  @media (min-width: 760px) {
+    .work__inner {
+      grid-template-columns: minmax(12rem, 0.75fr) minmax(0, 1.25fr);
+      align-items: start;
+    }
+    .work__heading {
+      position: sticky;
+      top: 7rem;
+    }
+    .work__item {
+      grid-template-columns: 9.5rem minmax(0, 1fr);
+      gap: 1.5rem;
+    }
+    .work__certs {
+      grid-column: 2;
     }
   }
 </style>

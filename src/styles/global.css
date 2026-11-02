@@ -61,43 +61,40 @@
 }
 
 /* ------------------------------------------------------------------ */
-/* Design-Tokens. Alle Farben stammen aus dem Steckbrief-PDF.           */
+/* Mineral paper, sage, charcoal, and restrained oxblood.                */
 /* ------------------------------------------------------------------ */
 @theme {
-  --font-display: "Cinzel", Georgia, serif;
+  --font-display: "EB Garamond", Georgia, serif;
   --font-serif: "EB Garamond", Georgia, serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "Courier New", monospace;
 
-  /* Papier: Seitenhintergrund und Karten */
-  --color-paper: #eee9da;
-  --color-paper-light: #faf8ee;
-  --color-paper-dark: #e3ddc6;
-  --color-paper-deep: #d7d2c2;
-  --color-paper-tan: #b8b094;
-
-  /* Stein und Tinte: Kopfband, dunkle Karte, Text */
-  --color-stone: #15131a;
-  --color-stone-light: #8a8a7e;
-  --color-ink: #0c0b10;
-  --color-ink-soft: #55503f;
-
-  /* Redstone: Banner, Pfeile, Akzente. Das helle Rot ist eine Stufe heller als im PDF (#ff5a3c),
-     damit es auf Stein 4,5:1 erreicht; es bleibt Text auf dunklem Grund. */
-  --color-redstone: #8e2330;
-  --color-redstone-bright: #e9b949;
-
-  /* Creme-Text auf dunklem Grund */
-  --color-cream: #f2efe4;
-  --color-cream-muted: #d9d4c4;
-  --color-cream-dim: #b5b09a;
-
-  /* Holz und Gras: Piston-Deckel, Online-Status */
+  --color-page: #f0efe8;
+  --color-paper: #f0efe8;
+  --color-paper-light: #f8f7f1;
+  --color-paper-dark: #e5e5dc;
+  --color-paper-deep: #d9dbd1;
+  --color-paper-tan: #b7baa9;
+  --color-paper-alt: #e7e9e1;
+  --color-line: #d1d4ca;
+  --color-muted: #626960;
+  --color-ink: #252b27;
+  --color-ink-soft: #626960;
+  --color-stone: #28312b;
+  --color-stone-light: #7a8178;
+  --color-footer: #252b27;
+  --color-accent: #71453a;
+  --color-accent-soft: #d5bd79;
+  --color-redstone: #71453a;
+  --color-redstone-bright: #d5bd79;
+  --color-cream: #f4f2e9;
+  --color-cream-muted: #dedfd6;
+  --color-cream-dim: #b7bdb4;
   --color-oak: #a98149;
-  --color-gold: #e9b949;
-  --color-gold-deep: #9a7420;
-  --color-arcane: #6d5bd0;
-  --color-grass: #5d8c3a;
+  --color-gold: #c5a15b;
+  --color-gold-deep: #8f713e;
+  --color-arcane: #526d61;
+  --color-grass: #526d61;
 
   /* Fluid font sizes */
   --text-display-xl: clamp(2.75rem, 1.5rem + 6vw, 6rem);
@@ -106,20 +103,16 @@
   --text-display-lg--line-height: 1;
   --text-display-md: clamp(1.5rem, 1.2rem + 1.5vw, 2rem);
   --text-display-md--line-height: 1.1;
-  /* Artikeltitel: gemischte Schreibung, deshalb eine Stufe kleiner als display-lg */
+  /* Article titles */
   --text-display-article: clamp(1.75rem, 1.2rem + 2.5vw, 2.75rem);
   --text-display-article--line-height: 1.1;
   --text-label: 0.8125rem;
   --text-label--line-height: 1.25;
   --text-label--letter-spacing: 0.14em;
 
-  /* Harte Pixel-Schatten statt weicher Radien */
-  --shadow-pixel: 4px 4px 0 0 var(--color-ink);
-  --shadow-pixel-sm: 2px 2px 0 0 var(--color-ink);
-  --shadow-card: 0 14px 28px -16px rgb(31 30 26 / 0.45);
-
-  /* Keine Radien: Pixel haben harte Kanten. Die Schraube setzt ihren Kreis selbst. */
-  --radius-*: initial;
+  --shadow-pixel: 0 4px 12px -8px rgb(37 43 39 / 0.32);
+  --shadow-pixel-sm: 0 2px 5px -3px rgb(37 43 39 / 0.28);
+  --shadow-card: 0 8px 24px -16px rgb(37 43 39 / 0.32);
 }
 
 /* ------------------------------------------------------------------ */
@@ -127,8 +120,7 @@
 /* ------------------------------------------------------------------ */
 @layer base {
   :root {
-    /* Focus ring: dark red on paper, bright red on dark surfaces */
-    --focus-ring: var(--color-redstone);
+    --focus-ring: var(--color-accent);
   }
   .blueprint,
   .bg-ink,
@@ -182,14 +174,9 @@
 /* Wiederkehrende Muster                                                */
 /* ------------------------------------------------------------------ */
 @utility blueprint {
-  /* Dark playmat: near-black with a warm gold spotlight and a faint crimson edge glow */
+  /* Kept for the error page and other full-bleed dark moments. */
   background-color: var(--color-stone);
-  background-image:
-    radial-gradient(ellipse 45% 60% at 78% 45%, rgb(233 185 73 / 0.16), transparent 70%),
-    radial-gradient(ellipse 50% 45% at 0% 100%, rgb(142 35 48 / 0.22), transparent 70%),
-    radial-gradient(1px 1px at 20px 30px, rgb(255 255 255 / 0.35), transparent),
-    radial-gradient(1px 1px at 90px 80px, rgb(233 185 73 / 0.4), transparent);
-  background-size: auto, auto, 180px 120px, 180px 120px;
+  background-image: none;
 }
 
 @utility display-shadow {

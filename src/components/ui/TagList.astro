@@ -7,8 +7,16 @@ interface Props {
 const { tags, class: className = '' } = Astro.props;
 ---
 
-<ul class:list={['flex flex-wrap gap-2', className]} role="list" aria-label="Tags">
+<ul class:list={['flex flex-wrap gap-x-2 gap-y-1 text-sm text-ink-soft', className]} role="list" aria-label="Tags">
   {tags.map((tag) => (
-    <li class="border border-paper-tan bg-paper-dark px-2 py-1 font-mono text-xs uppercase tracking-wider text-ink-soft">{tag}</li>
+    <li>{tag}</li>
   ))}
 </ul>
+
+<style>
+  li + li::before {
+    content: '·';
+    margin-right: 0.5rem;
+    color: var(--color-accent);
+  }
+</style>

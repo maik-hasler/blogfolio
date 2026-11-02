@@ -1,8 +1,5 @@
 ---
-/**
- * Button with a hard pixel shadow. Pressing it slides the button into its
- * own shadow, like a card being pressed down. `external` opens a new tab and says so.
- */
+/** A compact text link styled as a button. `external` opens a new tab. */
 interface Props {
   href: string;
   tone?: 'redstone' | 'paper' | 'ink';
@@ -23,8 +20,8 @@ const tones = {
   target={external ? '_blank' : undefined}
   rel={external ? 'noopener noreferrer' : undefined}
   class:list={[
-    'pixel-button inline-flex items-center justify-center gap-2 border-2 px-5 py-3',
-    'font-mono font-semibold uppercase text-label shadow-pixel',
+    'pixel-button inline-flex items-center justify-center gap-2 rounded-sm border px-4 py-2.5',
+    'font-sans text-sm font-medium',
     tones[tone],
     className,
   ]}
@@ -35,16 +32,10 @@ const tones = {
 
 <style>
   .pixel-button {
-    transition:
-      transform 90ms steps(2, end),
-      box-shadow 90ms steps(2, end);
+    transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
   }
   .pixel-button:hover {
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0 0 var(--color-ink);
-  }
-  .pixel-button:active {
-    transform: translate(4px, 4px);
-    box-shadow: 0 0 0 0 var(--color-ink);
+    border-color: var(--color-accent);
+    filter: brightness(0.96);
   }
 </style>

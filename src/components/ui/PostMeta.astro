@@ -11,7 +11,7 @@ interface Props {
 const { pubDate, readingMinutes, size = 'xs', class: className = '' } = Astro.props;
 ---
 
-<p class:list={['font-mono uppercase tracking-wider text-ink-soft', size === 'xs' ? 'text-xs' : 'text-sm', className]}>
+<p class:list={['font-mono text-ink-soft', size === 'xs' ? 'text-xs' : 'text-sm', className]}>
   <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
   <span aria-hidden="true"> · </span>
   <span class="whitespace-nowrap">{readingMinutes} min read</span>

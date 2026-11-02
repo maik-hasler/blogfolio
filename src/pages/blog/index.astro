@@ -1,6 +1,5 @@
 ---
 import Base from '../../layouts/Base.astro';
-import PixelLabel from '../../components/ui/PixelLabel.astro';
 import PostCard from '../../components/PostCard.astro';
 import { getPublishedPosts, postUrl } from '../../lib/posts';
 
@@ -12,11 +11,9 @@ const posts = await getPublishedPosts();
   description="Posts by Maik Hasler about .NET, software architecture, domain-driven design, and documentation."
 >
   <section class="container-page py-14 lg:py-20">
-    <PixelLabel tone="ink">Book and Quill</PixelLabel>
-    <h1 class="font-display text-display-lg font-bold uppercase display-shadow-paper mt-4">Blog</h1>
-    <p class="mt-4 max-w-xl text-ink-soft">
-      I write down what I learn along the way. {posts.length} posts so far.
-    </p>
+    <p class="eyebrow">Writing</p>
+    <h1 class="blog-heading mt-3">Notes on software</h1>
+    <p class="mt-4 max-w-xl text-ink-soft">{posts.length} posts on architecture, development, and the work around it.</p>
 
     <div class="mt-10 grid gap-6 md:grid-cols-2">
       {posts.map((post) => (
@@ -33,3 +30,18 @@ const posts = await getPublishedPosts();
     </div>
   </section>
 </Base>
+
+<style>
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--color-muted);
+  }
+  .blog-heading {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 500;
+    letter-spacing: -0.05em;
+    line-height: 1;
+  }
+</style>

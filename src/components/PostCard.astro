@@ -2,7 +2,7 @@
 import PostMeta from './ui/PostMeta.astro';
 import TagList from './ui/TagList.astro';
 
-/** A post as a card. */
+/** A compact preview of a published post. */
 interface Props {
   url: string;
   title: string;
@@ -16,9 +16,9 @@ interface Props {
 const { url, title, description, pubDate, tags, readingMinutes, headingLevel: Heading = 'h3' } = Astro.props;
 ---
 
-<article class="relative flex h-full flex-col gap-3 border-2 border-stone bg-paper-light p-6 shadow-card">
+<article class="post-card flex h-full flex-col gap-3 border-t border-line py-5">
   <PostMeta pubDate={pubDate} readingMinutes={readingMinutes} />
-  <Heading class="text-xl font-bold leading-snug">
+  <Heading class="text-xl font-medium leading-snug tracking-tight">
     <a href={url} class="post-link">{title}</a>
   </Heading>
   <p class="text-ink-soft">{description}</p>
@@ -26,20 +26,17 @@ const { url, title, description, pubDate, tags, readingMinutes, headingLevel: He
 </article>
 
 <style>
+  .post-card {
+    transition: border-color 150ms ease;
+  }
+  .post-card:hover {
+    border-color: var(--color-accent);
+  }
   .post-link {
-    text-decoration: underline;
-    text-decoration-color: transparent;
-    text-decoration-thickness: 3px;
-    text-underline-offset: 4px;
-    transition: text-decoration-color 120ms;
+    color: var(--color-ink);
+    transition: color 120ms;
   }
-  .post-link::after {
-    /* The whole card is clickable. */
-    content: '';
-    position: absolute;
-    inset: 0;
-  }
-  article:hover .post-link {
-    text-decoration-color: var(--color-redstone);
+  .post-link:hover {
+    color: var(--color-accent);
   }
 </style>
