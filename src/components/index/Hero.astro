@@ -6,7 +6,7 @@ import PixelButton from '../ui/PixelButton.astro';
 ---
 
 <section class="blueprint text-cream" aria-labelledby="hero-title">
-  <div class="container-page grid items-center gap-12 py-14 lg:grid-cols-[1fr_23rem] lg:gap-20 lg:py-20">
+  <div class="container-page grid items-center gap-12 py-14 lg:grid-cols-[1fr_26rem] lg:gap-20 lg:py-20">
     <div class="max-w-xl">
       <p class="font-mono text-label font-semibold uppercase text-redstone-bright">Now on the battlefield</p>
       <h1 id="hero-title" class="font-display text-display-xl font-bold uppercase display-shadow mt-4">
@@ -29,10 +29,10 @@ import PixelButton from '../ui/PixelButton.astro';
       </p>
     </div>
 
-    <div class="mtg-stage mx-auto w-full max-w-[22rem] lg:max-w-none">
+    <div class="mtg-stage mx-auto w-full max-w-[24rem] lg:max-w-none">
       <div class="mtg-tilt" id="tilt">
         <div class="mtg-flip" id="flip">
-          <article class="mtg-card mtg-face mtg-front" id="card" aria-label="Maik Hasler, trading card">
+          <article class="mtg-card mtg-face mtg-front" id="card" data-frame="gold" aria-label="Maik Hasler, trading card">
             <div class="mtg-frame">
               <div class="mtg-bar">
                 <h2>Maik Hasler</h2>
@@ -40,23 +40,23 @@ import PixelButton from '../ui/PixelButton.astro';
               </div>
 
               <div class="mtg-art">
-                <Image src={meImage} alt="Maik Hasler wearing a cap and glasses, black-and-white photo" width={600} class="art-img" />
+                <Image src={meImage} alt="Maik Hasler wearing a cap and glasses, black-and-white photo" width={700} class="art-img" />
               </div>
 
-              <div class="mtg-bar mtg-type"><span>Legendary Creature — Human Architect</span></div>
+              <div class="mtg-bar mtg-type">
+                <span>Legendary Creature: Architect</span>
+                <span class="mtg-setsym" aria-hidden="true"></span>
+              </div>
 
               <div class="mtg-text">
-                <p class="rule">
-                  <strong>Binary Mind.</strong> Maik is all in or doing nothing, never in between.
-                </p>
                 <p>
                   <button type="button" class="ability" id="ab-tap" aria-pressed="false">
-                    <Mana sym="T" />: Review architecture. Add one architecture test.
+                    <Mana sym="T" />: Add one architecture test.
                   </button>
                 </p>
                 <p>
                   <button type="button" class="ability" id="ab-focus" aria-pressed="false">
-                    <Mana sym="1" /><Mana sym="R" />: Hyperfocus. +1/−0, and Maik forgets to eat.
+                    <Mana sym="1" /><Mana sym="R" />: Hyperfocus. +1/+0, forgets to eat.
                   </button>
                 </p>
                 <p>
@@ -64,13 +64,17 @@ import PixelButton from '../ui/PixelButton.astro';
                     <Mana sym="2" /><Mana sym="U" />: Exam season. Apprentices sweat.
                   </button>
                 </p>
+                <p class="mtg-flavor">“Why farm something for hours when a script can do it for me?”</p>
               </div>
-
-              <button type="button" class="mtg-pt" id="pt" aria-label="Power and toughness, click to toggle">
-                <span id="pt-val">0/1</span>
-              </button>
-              <p class="mtg-legal">Illus. Maik Hasler · MH 001/∞ · EN</p>
             </div>
+
+            <button type="button" class="mtg-pt" id="pt" aria-label="Power and toughness, click to toggle">
+              <span id="pt-val">0/1</span>
+            </button>
+            <p class="mtg-legal" aria-hidden="true">
+              <span>001/001 R · MH · EN<br />Illus. Maik Hasler</span>
+              <span class="text-right">™ &amp; © Maik Hasler<br />Fan tribute</span>
+            </p>
           </article>
 
           <div class="mtg-glare mtg-face" aria-hidden="true"></div>
@@ -136,28 +140,22 @@ import PixelButton from '../ui/PixelButton.astro';
   }
 
   .art-img {
-    width: 100%;
-    aspect-ratio: 9 / 4;
-    object-fit: cover;
+    filter: grayscale(1) contrast(1.1) sepia(0.45) saturate(1.4);
     object-position: center 25%;
-    filter: grayscale(1) contrast(1.1) sepia(0.35) hue-rotate(190deg) saturate(1.8);
   }
 
   .mtg-front .mtg-text {
-    font-size: 3.7cqw;
-    line-height: 1.18;
-    padding: 2.2cqw 2.6cqw;
+    font-size: 4cqw;
+    line-height: 1.2;
+    padding: 2.4cqw 3cqw;
   }
-  .mtg-front .mtg-type {
-    font-size: 3.9cqw;
-  }
-  .rule {
-    margin-bottom: 1.4cqw;
+  .mtg-front .mtg-art {
+    aspect-ratio: 16 / 10;
   }
   .ability {
     display: block;
     width: 100%;
-    padding: 1cqw 1.5cqw;
+    padding: 0.8cqw 1.2cqw;
     border-radius: 1.2cqw;
     text-align: left;
     cursor: pointer;
@@ -167,44 +165,35 @@ import PixelButton from '../ui/PixelButton.astro';
   .ability[aria-pressed='true'] {
     background-color: rgb(154 116 32 / 0.25);
   }
-
   .mtg-pt {
     cursor: pointer;
   }
-  .mtg-legal {
-    margin-top: -1.6cqw;
-    font-family: var(--font-mono);
-    font-size: 3cqw;
-    color: #f2efe4;
-  }
 
+  /* The glare sits above the card and shows only while the pointer moves over it. */
   .mtg-glare {
     position: absolute;
     inset: 0;
-    border-radius: 5cqw;
+    border-radius: 4.8cqw;
+    border-radius: 1.2rem;
     pointer-events: none;
     mix-blend-mode: color-dodge;
     opacity: var(--glare, 0);
     background:
-      radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgb(255 255 255 / 0.55), transparent 45%),
+      radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgb(255 255 255 / 0.5), transparent 45%),
       linear-gradient(115deg, transparent 20%, rgb(255 90 200 / 0.3) 35%, rgb(90 220 255 / 0.3) 50%, rgb(255 230 90 / 0.3) 65%, transparent 80%);
     transition: opacity 200ms;
-  }
-  .mtg-glare {
-    border-radius: 1.1rem;
   }
 
   .back-inner {
     display: flex;
-    height: 100%;
+    flex: 1;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 6cqw;
-    border: 4.2cqw solid #0c0a12;
-    border-radius: 5cqw;
-    background:
-      repeating-conic-gradient(from 0deg at 50% 50%, #2a1d5e 0 10deg, #1b1240 10deg 20deg);
+    border: 4cqw solid #0b0a0c;
+    border-radius: 4.8cqw;
+    background: repeating-conic-gradient(from 0deg at 50% 50%, #5a1e1a 0 10deg, #3a1210 10deg 20deg);
     box-shadow: inset 0 0 0 1cqw var(--color-gold), inset 0 0 0 2cqw #0c0a12;
   }
   .back-ring {
@@ -322,7 +311,7 @@ import PixelButton from '../ui/PixelButton.astro';
       say('Hyperfocus ends. Maik remembers he has a body and goes to find food.');
     } else {
       setFocused(true);
-      say('Hyperfocus resolves. Maik is now 1/1 and has forgotten what “lunch” means.');
+      say('Hyperfocus resolves. Maik now has +1/+0 and has forgotten what “lunch” means.');
     }
   });
 

@@ -10,7 +10,7 @@ or fonts are used. The footer carries the fan-tribute disclaimer.
 | --- | --- |
 | Hero | The legendary creature card, interactive (`index/Hero.astro`) |
 | About | Three spell cards: Origin Story, Side Quests, Binary Mind (`index/AboutCards.astro`) |
-| Tech stack | Decklist with playset counts (`index/Inventory.astro`) |
+| Career | "The journey": one creature card per job, each stronger than the last, in a snapping horizontal track (`index/Journey.astro`) |
 | Blog | The Grimoire |
 | Contact | "Challenge me to a duel", with a coin flip (`index/Contact.astro`) |
 | 404 | Counterspelled |
@@ -29,9 +29,9 @@ Tokens live in `src/styles/global.css`. Some token names (`redstone`, `stone`,
 `ink`, `paper`) predate the redesign and now hold the crimson, deep violet,
 and parchment values; `redstone-bright` is the gold accent.
 
-- Display: Cinzel; flavor and card text: EB Garamond; body: Inter; labels: IBM Plex Mono.
+- Display: Cinzel; card text and flavor: EB Garamond; body: Inter; labels: IBM Plex Mono.
 - Fonts are self-hosted OFL files in `public/fonts/` (see `OFL.txt`).
-- Card frame classes (`.mtg-card`, `.mtg-frame`, `.mtg-bar`, `.mtg-text`, ...)
+- Card frame colours (`data-frame`: gold, blue, green, red) and classes (`.mtg-card`, `.mtg-frame`, `.mtg-bar`, `.mtg-text`, ...)
   are in `global.css`. They size everything in `cqw`, which resolves against the
   nearest ancestor container, so `.mtg-card` is the container and `.mtg-frame`
   carries the border and radius.

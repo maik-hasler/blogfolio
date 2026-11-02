@@ -9,12 +9,12 @@ interface Props {
 const { tone = 'paper' } = Astro.props;
 
 const tones = {
-  dark: 'bg-stone/95 text-cream border-ink',
+  dark: 'bg-ink/95 text-cream border-gold/40',
   paper: 'bg-paper/95 text-ink border-stone',
 };
 const linkHover =
   tone === 'dark'
-    ? 'hover:bg-ink hover:text-redstone-bright'
+    ? 'hover:bg-stone hover:text-redstone-bright'
     : 'hover:bg-paper-dark hover:text-redstone';
 
 const socials = [

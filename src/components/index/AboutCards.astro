@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon/components';
 import Mana from '../ui/Mana.astro';
 
 /**
@@ -10,7 +11,10 @@ const cards = [
     id: 'origin',
     name: 'Origin Story',
     cost: ['1', 'U'],
-    type: 'Sorcery — Lore',
+    type: 'Sorcery: Lore',
+    icon: 'mdi:school',
+    art: 'linear-gradient(160deg, #0f2a4a, #4580ad)',
+    num: '002',
     tone: 'blue',
     paragraphs: [
       'Finished school right in the middle of the pandemic. Officially: Abitur with a focus on health and care. Unofficially: full-time gaming, thanks to homeschooling. That’s exactly when I slid into programming. My motivation: why farm something for hours when a script can just do it for me?',
@@ -22,7 +26,10 @@ const cards = [
     id: 'side-quests',
     name: 'Side Quests',
     cost: ['2', 'G'],
-    type: 'Enchantment — Hobbies',
+    type: 'Enchantment: Hobbies',
+    icon: 'mdi:sword-cross',
+    art: 'linear-gradient(160deg, #0f2e1a, #528e57)',
+    num: '003',
     tone: 'green',
     paragraphs: [
       'Honestly, I often build more in my free time than at work. My biggest project right now is <a href="https://github.com/maik-hasler/einsatzbereit">Einsatzbereit</a>, an attempt at building a regional platform for volunteer work.',
@@ -34,7 +41,10 @@ const cards = [
     id: 'why',
     name: 'Binary Mind',
     cost: ['R', 'R'],
-    type: 'Instant — Personality',
+    type: 'Instant: Personality',
+    icon: 'mdi:toggle-switch',
+    art: 'linear-gradient(160deg, #4a140c, #cc5c42)',
+    num: '004',
     tone: 'red',
     paragraphs: [
       'With me, it’s binary. 0 or 1. Either I’m completely obsessed with something and forget to eat, sleep, or talk to another human being, or I’m the exact opposite and do nothing at all.',
@@ -54,47 +64,52 @@ const cards = [
 
   <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
     {cards.map((card) => (
-      <article class="spell mtg-card" data-tone={card.tone} id={card.id}>
+      <article class="spell mtg-card" data-frame={card.tone} id={card.id}>
         <div class="mtg-frame">
           <div class="mtg-bar">
             <h3>{card.name}</h3>
             <span class="whitespace-nowrap">{card.cost.map((sym) => <Mana sym={sym} />)}</span>
           </div>
-          <div class="mtg-bar mtg-type"><span>{card.type}</span></div>
+          <div class="mtg-art mtg-art--icon" style={`background: ${card.art}`}>
+            <Icon name={card.icon} aria-hidden="true" />
+          </div>
+          <div class="mtg-bar mtg-type"><span>{card.type}</span><span class="mtg-setsym" aria-hidden="true"></span></div>
           <div class="mtg-text spell-text">
             {card.paragraphs.map((p) => <p set:html={p} />)}
             <p class="mtg-flavor">{card.flavor}</p>
           </div>
         </div>
+        <p class="mtg-legal" aria-hidden="true">
+          <span>{card.num}/004 U · MH · EN</span>
+          <span>™ &amp; © Maik Hasler</span>
+        </p>
       </article>
     ))}
   </div>
 </section>
 
 <style>
+  /* The lore text is longer than a real rules box, so these cards grow past 63:88. */
   .spell {
     aspect-ratio: auto;
-    min-height: 0;
     transition: transform 200ms ease-out, box-shadow 200ms;
   }
   .spell:hover {
     transform: translateY(-6px) rotate(-0.6deg);
-    box-shadow: 0 4cqw 8cqw -2cqw rgb(0 0 0 / 0.75);
   }
-  .spell[data-tone='blue'] .mtg-frame {
-    background: linear-gradient(155deg, #1f3a7a, #4b6cc1);
+  .spell .mtg-art {
+    aspect-ratio: 2 / 1;
   }
-  .spell[data-tone='green'] .mtg-frame {
-    background: linear-gradient(155deg, #1f5a35, #5a9a4a);
-  }
-  .spell[data-tone='red'] .mtg-frame {
-    background: linear-gradient(155deg, #7a1f2b, #c2543c);
+  .spell .mtg-art :global(svg) {
+    width: 24cqw;
+    height: 24cqw;
   }
   .spell-text {
     flex: 1;
-    font-size: 5.1cqw;
-    line-height: 1.3;
-    padding: 4cqw;
+    min-height: auto;
+    padding-bottom: 4cqw;
+    font-size: 4.6cqw;
+    line-height: 1.28;
     overflow: visible;
   }
   .spell-text :global(a) {

@@ -5,7 +5,7 @@ import { getPublishedPosts, postUrl } from '../lib/posts';
 export async function GET(context: APIContext) {
   const posts = await getPublishedPosts();
   return rss({
-    title: 'Maik Hasler – Blog',
+    title: 'Maik Hasler: Blog',
     description: 'Posts about .NET, software architecture, and software development.',
     site: context.site!,
     customData: '<language>en</language>',

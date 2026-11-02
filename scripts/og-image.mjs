@@ -27,20 +27,20 @@ const html = `<!doctype html>
     width: 1200px; height: 630px; box-sizing: border-box; padding: 72px 88px;
     display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 48px;
     color: #f2efe4; font-family: Inter, sans-serif;
-    background-color: #1b1830;
+    background-color: #15131a;
     background-image:
-      radial-gradient(ellipse 60% 60% at 75% 20%, rgb(109 91 208 / 0.4), transparent 70%),
+      radial-gradient(ellipse 60% 60% at 75% 20%, rgb(233 185 73 / 0.18), transparent 70%),
       radial-gradient(ellipse 50% 40% at 10% 100%, rgb(142 35 48 / 0.35), transparent 70%);
   }
   .label { font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 22px; letter-spacing: 0.14em; text-transform: uppercase; color: #e9b949; }
-  h1 { font-family: Cinzel, serif; font-weight: 700; font-size: 128px; line-height: 0.95; margin: 20px 0 0; text-transform: uppercase; text-shadow: 0.07em 0.07em 0 #110f1f; }
-  .roles { font-family: Cinzel, serif; font-weight: 700; font-size: 44px; margin-top: 20px; text-transform: uppercase; color: #d9d4c4; text-shadow: 0.07em 0.07em 0 #110f1f; }
+  h1 { font-family: Cinzel, serif; font-weight: 700; font-size: 128px; line-height: 0.95; margin: 20px 0 0; text-transform: uppercase; text-shadow: 0.07em 0.07em 0 #0c0b10; }
+  .roles { font-family: Cinzel, serif; font-weight: 700; font-size: 44px; margin-top: 20px; text-transform: uppercase; color: #d9d4c4; text-shadow: 0.07em 0.07em 0 #0c0b10; }
   .roles b { color: #e9b949; font-weight: 700; }
   .url { font-family: "IBM Plex Mono", monospace; font-size: 22px; color: #b5b09a; margin-top: 28px; }
   .card { width: 340px; height: 475px; box-sizing: border-box; padding: 14px; border-radius: 20px; background: #0c0a12; transform: rotate(4deg); box-shadow: 0 24px 50px rgb(0 0 0 / 0.6); }
-  .frame { height: 100%; box-sizing: border-box; padding: 10px; border-radius: 12px; display: flex; flex-direction: column; gap: 8px; background: linear-gradient(155deg, #2b3f8f, #5a3d9c 45%, #a23a3a); box-shadow: inset 0 0 0 2px #e9b949; }
-  .bar { padding: 6px 12px; border-radius: 10px; background: linear-gradient(#f3ecd6, #d8cca8); color: #110f1f; font: 700 20px Cinzel, serif; }
-  .art { height: 190px; border: 3px solid #e9b949; background: url(${photo}) center 25% / cover; filter: grayscale(1) contrast(1.1) sepia(0.35) hue-rotate(190deg) saturate(1.8); }
+  .frame { height: 100%; box-sizing: border-box; padding: 10px; border-radius: 12px; display: flex; flex-direction: column; gap: 8px; background: linear-gradient(160deg, #b89a4e, #6f5622); box-shadow: inset 0 0 0 2px rgb(0 0 0 / 0.4); }
+  .bar { padding: 6px 12px; border-radius: 10px; background: linear-gradient(#f3e3a6, #c8ab5e); color: #0c0b10; font: 700 20px Cinzel, serif; }
+  .art { height: 190px; border: 3px solid #e9b949; background: url(${photo}) center 25% / cover; filter: grayscale(1) contrast(1.1) sepia(0.45) saturate(1.4); }
   .text { flex: 1; border-radius: 4px; background: linear-gradient(#f7f1de, #e6dcbc); }
 </style></head><body>
   <div>

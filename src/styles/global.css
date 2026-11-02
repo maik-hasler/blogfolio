@@ -77,9 +77,9 @@
   --color-paper-tan: #b8b094;
 
   /* Stein und Tinte: Kopfband, dunkle Karte, Text */
-  --color-stone: #1b1830;
+  --color-stone: #15131a;
   --color-stone-light: #8a8a7e;
-  --color-ink: #110f1f;
+  --color-ink: #0c0b10;
   --color-ink-soft: #55503f;
 
   /* Redstone: Banner, Pfeile, Akzente. Das helle Rot ist eine Stufe heller als im PDF (#ff5a3c),
@@ -182,15 +182,14 @@
 /* Wiederkehrende Muster                                                */
 /* ------------------------------------------------------------------ */
 @utility blueprint {
-  /* Dark playmat: deep violet with a soft glow and a faint star field */
+  /* Dark playmat: near-black with a warm gold spotlight and a faint crimson edge glow */
   background-color: var(--color-stone);
   background-image:
-    radial-gradient(ellipse 60% 50% at 70% 20%, rgb(109 91 208 / 0.35), transparent 70%),
-    radial-gradient(ellipse 50% 40% at 15% 90%, rgb(142 35 48 / 0.28), transparent 70%),
-    radial-gradient(1px 1px at 20px 30px, rgb(255 255 255 / 0.5), transparent),
-    radial-gradient(1px 1px at 90px 80px, rgb(233 185 73 / 0.5), transparent),
-    radial-gradient(1px 1px at 150px 20px, rgb(255 255 255 / 0.3), transparent);
-  background-size: auto, auto, 180px 120px, 180px 120px, 180px 120px;
+    radial-gradient(ellipse 45% 60% at 78% 45%, rgb(233 185 73 / 0.16), transparent 70%),
+    radial-gradient(ellipse 50% 45% at 0% 100%, rgb(142 35 48 / 0.22), transparent 70%),
+    radial-gradient(1px 1px at 20px 30px, rgb(255 255 255 / 0.35), transparent),
+    radial-gradient(1px 1px at 90px 80px, rgb(233 185 73 / 0.4), transparent);
+  background-size: auto, auto, 180px 120px, 180px 120px;
 }
 
 @utility display-shadow {
@@ -221,87 +220,192 @@
 }
 
 /* ------------------------------------------------------------------ */
-/* Trading-card frame. Sizes use container units (cqw), so a card      */
-/* scales as a whole; the hero card and the small spell cards share it. */
+/* Trading-card frame. Everything inside is sized in cqw (container     */
+/* query width), which resolves against the nearest ANCESTOR container: */
+/* .mtg-card is the container, so only its descendants may use cqw.    */
+/* Frame colours come from the data-frame attribute.                    */
 /* ------------------------------------------------------------------ */
 @layer components {
-  /* cqw resolves against the nearest ancestor container, never the element
-     itself, so the card is only the container and .mtg-frame carries the
-     black border, radius and shadow. */
   .mtg-card {
+    --f1: #6f5622;
+    --f2: #b89a4e;
+    --b1: #f3e3a6;
+    --b2: #c8ab5e;
+    --t1: #f8f1da;
+    --t2: #e6d8ac;
     container-type: inline-size;
     position: relative;
+    display: flex;
     aspect-ratio: 63 / 88;
-    color: var(--color-ink);
+    color: #17120a;
     font-family: var(--font-serif);
   }
+  .mtg-card[data-frame='blue'] { --f1: #173e60; --f2: #4580ad; --b1: #dbe8f2; --b2: #9dbbd2; --t1: #f1f5f8; --t2: #d3dee6; }
+  .mtg-card[data-frame='green'] { --f1: #173f25; --f2: #528e57; --b1: #e0ebd2; --b2: #a8c694; --t1: #f3f3e3; --t2: #dadebf; }
+  .mtg-card[data-frame='red'] { --f1: #6f2015; --f2: #cc5c42; --b1: #f6d8ca; --b2: #dc9f88; --t1: #faeee6; --t2: #ebcfc0; }
+
   .mtg-frame {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 1.6cqw;
-    height: 100%;
-    padding: 2.6cqw;
-    border: 4.2cqw solid #0c0a12;
-    border-radius: 5cqw;
-    background: linear-gradient(155deg, #2b3f8f 0%, #5a3d9c 45%, #a23a3a 100%);
-    box-shadow:
-      inset 0 0 0 0.6cqw var(--color-gold),
-      inset 0 0 0 1.2cqw rgb(0 0 0 / 0.55),
-      0 2.5cqw 6cqw -2cqw rgb(0 0 0 / 0.7);
+    gap: 1.5cqw;
+    min-width: 0;
+    padding: 2.6cqw 2.8cqw 3cqw;
+    border: solid #0b0a0c;
+    border-width: 3.4cqw 3.6cqw 6.4cqw;
+    border-radius: 4.8cqw;
+    background:
+      repeating-linear-gradient(100deg, rgb(255 255 255 / 0.05) 0 0.4cqw, rgb(0 0 0 / 0.05) 0.4cqw 0.9cqw),
+      linear-gradient(160deg, var(--f2), var(--f1));
+    box-shadow: 0 2.5cqw 6cqw -2cqw rgb(0 0 0 / 0.75);
   }
+
   .mtg-bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 2cqw;
-    padding: 1.4cqw 2.6cqw;
-    border-radius: 2.5cqw / 5cqw;
-    background: linear-gradient(180deg, #f3ecd6, #d8cca8);
-    box-shadow: 0 0.5cqw 0 rgb(0 0 0 / 0.5), inset 0 0 0 0.35cqw rgb(0 0 0 / 0.55);
+    padding: 1.1cqw 2.8cqw;
+    border: 0.35cqw solid rgb(0 0 0 / 0.75);
+    border-radius: 2.2cqw / 3cqw;
+    background: linear-gradient(180deg, var(--b1), var(--b2));
+    box-shadow:
+      inset 0 0.45cqw 0 rgb(255 255 255 / 0.6),
+      inset 0 -0.6cqw 0.8cqw rgb(0 0 0 / 0.22),
+      0 0.6cqw 1cqw rgb(0 0 0 / 0.55);
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: 5.6cqw;
-    line-height: 1.1;
+    font-size: 5.3cqw;
+    line-height: 1.15;
   }
+  .mtg-bar h2,
+  .mtg-bar h3 {
+    font-size: inherit;
+    line-height: inherit;
+    min-width: 0;
+  }
+  .mtg-type {
+    font-size: 4.2cqw;
+    letter-spacing: 0.01em;
+  }
+
   .mtg-art {
     flex: none;
     position: relative;
     overflow: hidden;
-    border: 0.9cqw solid var(--color-gold);
-    box-shadow: 0 0 0 0.5cqw rgb(0 0 0 / 0.7);
+    margin: 0.4cqw 0.6cqw;
+    border: 0.5cqw solid #0b0a0c;
+    box-shadow: 0 0 0 0.55cqw var(--b2), 0 0 0 1cqw rgb(0 0 0 / 0.7), inset 0 0 3cqw rgb(0 0 0 / 0.4);
+    aspect-ratio: 3 / 2;
   }
-  .mtg-type {
-    font-size: 4.2cqw;
+  .mtg-art > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
+  .mtg-art--icon {
+    display: grid;
+    place-items: center;
+    color: rgb(255 255 255 / 0.92);
+  }
+  .mtg-art--icon svg {
+    width: 36cqw;
+    height: 36cqw;
+    filter: drop-shadow(0 1cqw 2cqw rgb(0 0 0 / 0.55));
+  }
+
   .mtg-text {
     flex: 1;
     min-height: 0;
-    padding: 3cqw;
-    background: linear-gradient(180deg, #f7f1de, #e6dcbc);
-    border: 0.9cqw solid rgb(0 0 0 / 0.55);
-    font-size: 4.1cqw;
-    line-height: 1.2;
+    margin: 0.4cqw 0.6cqw 0;
+    padding: 3cqw 3.2cqw;
+    border: 0.5cqw solid #0b0a0c;
+    box-shadow: 0 0 0 0.5cqw var(--b2), 0 0 0 0.9cqw rgb(0 0 0 / 0.7), inset 0 0 4cqw rgb(110 80 30 / 0.28);
+    background:
+      radial-gradient(ellipse at 30% 20%, rgb(255 255 255 / 0.55), transparent 60%),
+      linear-gradient(180deg, var(--t1), var(--t2));
+    font-size: 4.2cqw;
+    line-height: 1.22;
     overflow: hidden;
   }
   .mtg-text p + p {
-    margin-top: 1.4cqw;
+    margin-top: 1.5cqw;
+  }
+  .mtg-text strong {
+    font-weight: 700;
+  }
+  .mtg-reminder {
+    font-style: italic;
   }
   .mtg-flavor {
     font-style: italic;
-    padding-top: 1.6cqw;
-    margin-top: 1.8cqw;
-    border-top: 0.3cqw solid rgb(0 0 0 / 0.35);
-  }
-  .mtg-pt {
-    align-self: flex-end;
-    margin: -5.5cqw 1cqw 0 0;
+    margin-top: 2.2cqw;
+    padding-top: 2cqw;
     position: relative;
-    padding: 0.6cqw 4cqw;
-    border-radius: 2cqw;
-    background: linear-gradient(180deg, #f3ecd6, #cfc29b);
-    box-shadow: 0 0.5cqw 0 rgb(0 0 0 / 0.5), inset 0 0 0 0.4cqw rgb(0 0 0 / 0.6);
+  }
+  .mtg-flavor::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 0.3cqw;
+    background: linear-gradient(90deg, transparent, rgb(0 0 0 / 0.5), transparent);
+  }
+
+  .mtg-pt {
+    position: absolute;
+    right: 6.2cqw;
+    bottom: 7.4cqw;
+    padding: 0.5cqw 3.8cqw;
+    border: 0.4cqw solid rgb(0 0 0 / 0.8);
+    border-radius: 1.6cqw 1.6cqw 2.4cqw 1.6cqw;
+    background: linear-gradient(180deg, var(--b1), var(--b2));
+    box-shadow: inset 0 0.45cqw 0 rgb(255 255 255 / 0.6), 0 0.6cqw 1cqw rgb(0 0 0 / 0.6);
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: 5.6cqw;
+    font-size: 5.4cqw;
+    line-height: 1.2;
+    color: #17120a;
+  }
+
+  .mtg-legal {
+    position: absolute;
+    left: 5cqw;
+    right: 5cqw;
+    bottom: 1.5cqw;
+    display: flex;
+    justify-content: space-between;
+    gap: 2cqw;
+    font-family: var(--font-sans);
+    font-size: 2.3cqw;
+    line-height: 1.2;
+    letter-spacing: 0.03em;
+    color: rgb(255 255 255 / 0.88);
+    pointer-events: none;
+  }
+  /* The holo stamp every rare carries at the bottom center. */
+  .mtg-card::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 1.1cqw;
+    width: 7cqw;
+    height: 3.6cqw;
+    translate: -50% 0;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, #fff7c2 0%, #d9b24a 45%, #5a8f6b 100%);
+    box-shadow: 0 0 0.8cqw rgb(233 185 73 / 0.8);
+    pointer-events: none;
+  }
+
+  .mtg-setsym {
+    display: inline-block;
+    width: 4.6cqw;
+    height: 4.6cqw;
+    flex: none;
+    clip-path: polygon(50% 0, 100% 38%, 82% 100%, 18% 100%, 0 38%);
+    background: linear-gradient(135deg, #ffd08a, #e0502f 55%, #7a1f12);
+    filter: drop-shadow(0 0 0.2cqw rgb(0 0 0 / 0.8));
   }
 }

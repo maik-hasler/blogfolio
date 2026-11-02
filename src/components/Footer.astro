@@ -21,7 +21,7 @@ const contact = [
 /* The end year tracks the newest post, not build time. */
 const [latest] = await getPublishedPosts();
 const lastYear = Math.max(2025, latest?.data.pubDate.getFullYear() ?? 2025);
-const copyright = lastYear > 2025 ? `2025–${lastYear}` : '2025';
+const copyright = lastYear > 2025 ? `2025-${lastYear}` : '2025';
 ---
 
 <footer class="bg-ink text-cream-muted">

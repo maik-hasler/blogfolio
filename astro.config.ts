@@ -14,7 +14,7 @@ export default defineConfig({
     sitemap(),
     icon({
       include: {
-        mdi: ['github', 'linkedin', 'magnify'],
+        mdi: ['github', 'linkedin', 'magnify', 'school', 'sword-cross', 'toggle-switch', 'account-group', 'layers-triple', 'code-braces', 'sitemap'],
       }
     }),
     mdx()
