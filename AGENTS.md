@@ -5,10 +5,9 @@ Solo-maintained.
 
 ## Tech Stack
 
-Astro 6 (static output, Node adapter), Tailwind CSS 4, MDX. Content is an
-Astro content collection at `src/content/blog` (blog posts). Deployed as a
-Docker image published to GHCR on version tags
-(`.github/workflows/publish.yaml`).
+Astro 6 (static output), Tailwind CSS 4, MDX. Content is an
+Astro content collection at `src/content/blog` (blog posts). Deployed to GitHub Pages
+on push to `main` (`.github/workflows/deploy.yaml`).
 
 ## Development Setup
 
