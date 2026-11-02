@@ -1,5 +1,4 @@
 ---
-import PixelLabel from '../ui/PixelLabel.astro';
 import PixelButton from '../ui/PixelButton.astro';
 import PostCard from '../PostCard.astro';
 import { getPublishedPosts, postUrl } from '../../lib/posts';
@@ -10,8 +9,9 @@ const posts = (await getPublishedPosts()).slice(0, 3);
 <section class="container-page py-16 lg:py-24" aria-labelledby="blog-title">
   <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
     <div>
-      <PixelLabel as="h2"><span id="blog-title">Book and Quill</span></PixelLabel>
-      <p class="mt-4 max-w-xl text-ink-soft">I write down what I learn along the way.</p>
+      <p class="font-mono text-label font-semibold uppercase text-redstone">Spellbook</p>
+      <h2 id="blog-title" class="mt-3 font-display text-display-lg font-bold uppercase">The Grimoire</h2>
+      <p class="mt-3 max-w-xl text-ink-soft">I write down the spells I learn along the way.</p>
     </div>
     <PixelButton href="/blog" tone="paper">All posts</PixelButton>
   </div>

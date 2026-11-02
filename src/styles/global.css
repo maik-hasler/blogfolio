@@ -18,10 +18,24 @@
   font-display: swap;
 }
 @font-face {
-  font-family: "Pixelify Sans";
-  src: url("/fonts/pixelify-sans-400-700-normal.woff2") format("woff2");
-  font-weight: 400 700;
+  font-family: "Cinzel";
+  src: url("/fonts/cinzel-400-900-normal.woff2") format("woff2");
+  font-weight: 400 900;
   font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "EB Garamond";
+  src: url("/fonts/eb-garamond-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "EB Garamond";
+  src: url("/fonts/eb-garamond-400-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
   font-display: swap;
 }
 @font-face {
@@ -50,7 +64,8 @@
 /* Design-Tokens. Alle Farben stammen aus dem Steckbrief-PDF.           */
 /* ------------------------------------------------------------------ */
 @theme {
-  --font-display: "Pixelify Sans", "Courier New", monospace;
+  --font-display: "Cinzel", Georgia, serif;
+  --font-serif: "EB Garamond", Georgia, serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "Courier New", monospace;
 
@@ -62,15 +77,15 @@
   --color-paper-tan: #b8b094;
 
   /* Stein und Tinte: Kopfband, dunkle Karte, Text */
-  --color-stone: #3a3a34;
+  --color-stone: #1b1830;
   --color-stone-light: #8a8a7e;
-  --color-ink: #1f1e1a;
+  --color-ink: #110f1f;
   --color-ink-soft: #55503f;
 
   /* Redstone: Banner, Pfeile, Akzente. Das helle Rot ist eine Stufe heller als im PDF (#ff5a3c),
      damit es auf Stein 4,5:1 erreicht; es bleibt Text auf dunklem Grund. */
-  --color-redstone: #9f2217;
-  --color-redstone-bright: #ff7d60;
+  --color-redstone: #8e2330;
+  --color-redstone-bright: #e9b949;
 
   /* Creme-Text auf dunklem Grund */
   --color-cream: #f2efe4;
@@ -79,6 +94,9 @@
 
   /* Holz und Gras: Piston-Deckel, Online-Status */
   --color-oak: #a98149;
+  --color-gold: #e9b949;
+  --color-gold-deep: #9a7420;
+  --color-arcane: #6d5bd0;
   --color-grass: #5d8c3a;
 
   /* Fluid font sizes */
@@ -164,52 +182,19 @@
 /* Wiederkehrende Muster                                                */
 /* ------------------------------------------------------------------ */
 @utility blueprint {
-  /* Dunkles Kopfband mit Blaupausen-Raster wie im Steckbrief */
+  /* Dark playmat: deep violet with a soft glow and a faint star field */
   background-color: var(--color-stone);
   background-image:
-    linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px),
-    linear-gradient(to right, rgb(255 255 255 / 0.03) 4px, transparent 4px),
-    linear-gradient(to bottom, rgb(255 255 255 / 0.03) 4px, transparent 4px);
-  background-size:
-    8px 8px,
-    8px 8px,
-    32px 32px,
-    32px 32px;
-}
-
-@utility chunk-grid {
-  /* Faint world grid on paper - the About section sits "in" the loaded chunk,
-     echoing the hero's dark blueprint grid on a light background. */
-  background-image:
-    linear-gradient(to right, rgb(31 30 26 / 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(31 30 26 / 0.05) 1px, transparent 1px),
-    linear-gradient(to right, rgb(31 30 26 / 0.08) 2px, transparent 2px),
-    linear-gradient(to bottom, rgb(31 30 26 / 0.08) 2px, transparent 2px);
-  background-size:
-    8px 8px,
-    8px 8px,
-    32px 32px,
-    32px 32px;
-}
-
-@utility bedrock {
-  /* Grobe Pixel-Kante am Seitenende: zwei versetzte Reihen */
-  background-color: var(--color-ink);
-  background-image:
-    linear-gradient(90deg, var(--color-stone) 25%, transparent 25% 50%, var(--color-stone-light) 50% 62%, transparent 62% 75%, var(--color-stone) 75%),
-    linear-gradient(90deg, transparent 12%, var(--color-stone) 12% 40%, transparent 40% 70%, var(--color-stone-light) 70% 80%, transparent 80%);
-  background-size:
-    32px 8px,
-    32px 8px;
-  background-position:
-    0 0,
-    16px 8px;
-  background-repeat: repeat-x;
+    radial-gradient(ellipse 60% 50% at 70% 20%, rgb(109 91 208 / 0.35), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 15% 90%, rgb(142 35 48 / 0.28), transparent 70%),
+    radial-gradient(1px 1px at 20px 30px, rgb(255 255 255 / 0.5), transparent),
+    radial-gradient(1px 1px at 90px 80px, rgb(233 185 73 / 0.5), transparent),
+    radial-gradient(1px 1px at 150px 20px, rgb(255 255 255 / 0.3), transparent);
+  background-size: auto, auto, 180px 120px, 180px 120px, 180px 120px;
 }
 
 @utility display-shadow {
-  /* Hard pixel shadow for Pixelify headlines */
+  /* Hard shadow for Cinzel headlines */
   text-shadow: 0.07em 0.07em 0 var(--color-ink);
 }
 
@@ -232,5 +217,91 @@
   left: -999px;
   &:focus {
     left: 1rem;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Trading-card frame. Sizes use container units (cqw), so a card      */
+/* scales as a whole; the hero card and the small spell cards share it. */
+/* ------------------------------------------------------------------ */
+@layer components {
+  /* cqw resolves against the nearest ancestor container, never the element
+     itself, so the card is only the container and .mtg-frame carries the
+     black border, radius and shadow. */
+  .mtg-card {
+    container-type: inline-size;
+    position: relative;
+    aspect-ratio: 63 / 88;
+    color: var(--color-ink);
+    font-family: var(--font-serif);
+  }
+  .mtg-frame {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6cqw;
+    height: 100%;
+    padding: 2.6cqw;
+    border: 4.2cqw solid #0c0a12;
+    border-radius: 5cqw;
+    background: linear-gradient(155deg, #2b3f8f 0%, #5a3d9c 45%, #a23a3a 100%);
+    box-shadow:
+      inset 0 0 0 0.6cqw var(--color-gold),
+      inset 0 0 0 1.2cqw rgb(0 0 0 / 0.55),
+      0 2.5cqw 6cqw -2cqw rgb(0 0 0 / 0.7);
+  }
+  .mtg-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2cqw;
+    padding: 1.4cqw 2.6cqw;
+    border-radius: 2.5cqw / 5cqw;
+    background: linear-gradient(180deg, #f3ecd6, #d8cca8);
+    box-shadow: 0 0.5cqw 0 rgb(0 0 0 / 0.5), inset 0 0 0 0.35cqw rgb(0 0 0 / 0.55);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 5.6cqw;
+    line-height: 1.1;
+  }
+  .mtg-art {
+    flex: none;
+    position: relative;
+    overflow: hidden;
+    border: 0.9cqw solid var(--color-gold);
+    box-shadow: 0 0 0 0.5cqw rgb(0 0 0 / 0.7);
+  }
+  .mtg-type {
+    font-size: 4.2cqw;
+  }
+  .mtg-text {
+    flex: 1;
+    min-height: 0;
+    padding: 3cqw;
+    background: linear-gradient(180deg, #f7f1de, #e6dcbc);
+    border: 0.9cqw solid rgb(0 0 0 / 0.55);
+    font-size: 4.1cqw;
+    line-height: 1.2;
+    overflow: hidden;
+  }
+  .mtg-text p + p {
+    margin-top: 1.4cqw;
+  }
+  .mtg-flavor {
+    font-style: italic;
+    padding-top: 1.6cqw;
+    margin-top: 1.8cqw;
+    border-top: 0.3cqw solid rgb(0 0 0 / 0.35);
+  }
+  .mtg-pt {
+    align-self: flex-end;
+    margin: -5.5cqw 1cqw 0 0;
+    position: relative;
+    padding: 0.6cqw 4cqw;
+    border-radius: 2cqw;
+    background: linear-gradient(180deg, #f3ecd6, #cfc29b);
+    box-shadow: 0 0.5cqw 0 rgb(0 0 0 / 0.5), inset 0 0 0 0.4cqw rgb(0 0 0 / 0.6);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 5.6cqw;
   }
 }

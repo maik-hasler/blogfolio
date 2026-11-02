@@ -1,9 +1,8 @@
 ---
-import Screw from './ui/Screw.astro';
 import PostMeta from './ui/PostMeta.astro';
 import TagList from './ui/TagList.astro';
 
-/** A post as a pinned card. */
+/** A post as a card. */
 interface Props {
   url: string;
   title: string;
@@ -17,9 +16,7 @@ interface Props {
 const { url, title, description, pubDate, tags, readingMinutes, headingLevel: Heading = 'h3' } = Astro.props;
 ---
 
-<article class="relative flex h-full flex-col gap-3 border-2 border-stone bg-paper-light px-6 pb-6 pt-8 shadow-card">
-  <Screw class="left-3 top-3" />
-  <Screw class="right-3 top-3" />
+<article class="relative flex h-full flex-col gap-3 border-2 border-stone bg-paper-light p-6 shadow-card">
   <PostMeta pubDate={pubDate} readingMinutes={readingMinutes} />
   <Heading class="text-xl font-bold leading-snug">
     <a href={url} class="post-link">{title}</a>

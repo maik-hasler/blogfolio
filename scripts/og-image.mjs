@@ -1,7 +1,7 @@
 /**
  * Generates public/og-default.png (1200×630) for Open Graph and Twitter
- * Cards: the player card's blueprint band with the pixel headline and the
- * original piston.
+ * Cards: the dark playmat with the headline and a miniature of the
+ * trading card.
  *
  * Run: npm run og   (needs Playwright with Chromium, e.g. `npx playwright install chromium`).
  * A globally installed Playwright copy can be wired in via
@@ -13,13 +13,13 @@ import { fileURLToPath } from 'node:url';
 const { chromium } = await import(process.env.PLAYWRIGHT_MODULE ?? 'playwright');
 
 const root = new URL('../', import.meta.url);
-const piston = readFileSync(new URL('src/assets/piston.svg', root), 'utf8');
+const photo = `data:image/png;base64,${readFileSync(new URL('src/assets/me.png', root)).toString('base64')}`;
 /* Embedded as a data: URL, since a page loaded via setContent can't load file: fonts. */
 const font = (file) => `data:font/woff2;base64,${readFileSync(new URL(`public/fonts/${file}`, root)).toString('base64')}`;
 
 const html = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><style>
-  @font-face { font-family: "Pixelify Sans"; src: url("${font('pixelify-sans-400-700-normal.woff2')}"); font-weight: 400 700; }
+  @font-face { font-family: "Cinzel"; src: url("${font('cinzel-400-900-normal.woff2')}"); font-weight: 400 900; }
   @font-face { font-family: "IBM Plex Mono"; src: url("${font('ibm-plex-mono-600-normal.woff2')}"); font-weight: 600; }
   @font-face { font-family: "Inter"; src: url("${font('inter-400-700-normal.woff2')}"); font-weight: 400 700; }
   html, body { margin: 0; }
@@ -27,28 +27,29 @@ const html = `<!doctype html>
     width: 1200px; height: 630px; box-sizing: border-box; padding: 72px 88px;
     display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 48px;
     color: #f2efe4; font-family: Inter, sans-serif;
-    background-color: #3a3a34;
+    background-color: #1b1830;
     background-image:
-      linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px),
-      linear-gradient(to right, rgb(255 255 255 / 0.03) 4px, transparent 4px),
-      linear-gradient(to bottom, rgb(255 255 255 / 0.03) 4px, transparent 4px);
-    background-size: 8px 8px, 8px 8px, 32px 32px, 32px 32px;
+      radial-gradient(ellipse 60% 60% at 75% 20%, rgb(109 91 208 / 0.4), transparent 70%),
+      radial-gradient(ellipse 50% 40% at 10% 100%, rgb(142 35 48 / 0.35), transparent 70%);
   }
-  .label { font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 22px; letter-spacing: 0.14em; text-transform: uppercase; color: #ff7d60; }
-  h1 { font-family: "Pixelify Sans", monospace; font-weight: 700; font-size: 128px; line-height: 0.95; margin: 20px 0 0; text-transform: uppercase; text-shadow: 0.07em 0.07em 0 #1f1e1a; }
-  .roles { font-family: "Pixelify Sans", monospace; font-weight: 700; font-size: 44px; margin-top: 20px; text-transform: uppercase; color: #d9d4c4; text-shadow: 0.07em 0.07em 0 #1f1e1a; }
-  .roles b { color: #ff7d60; font-weight: 700; }
+  .label { font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 22px; letter-spacing: 0.14em; text-transform: uppercase; color: #e9b949; }
+  h1 { font-family: Cinzel, serif; font-weight: 700; font-size: 128px; line-height: 0.95; margin: 20px 0 0; text-transform: uppercase; text-shadow: 0.07em 0.07em 0 #110f1f; }
+  .roles { font-family: Cinzel, serif; font-weight: 700; font-size: 44px; margin-top: 20px; text-transform: uppercase; color: #d9d4c4; text-shadow: 0.07em 0.07em 0 #110f1f; }
+  .roles b { color: #e9b949; font-weight: 700; }
   .url { font-family: "IBM Plex Mono", monospace; font-size: 22px; color: #b5b09a; margin-top: 28px; }
-  svg { width: 340px; height: auto; filter: drop-shadow(8px 12px 0 rgb(0 0 0 / 0.35)); }
+  .card { width: 340px; height: 475px; box-sizing: border-box; padding: 14px; border-radius: 20px; background: #0c0a12; transform: rotate(4deg); box-shadow: 0 24px 50px rgb(0 0 0 / 0.6); }
+  .frame { height: 100%; box-sizing: border-box; padding: 10px; border-radius: 12px; display: flex; flex-direction: column; gap: 8px; background: linear-gradient(155deg, #2b3f8f, #5a3d9c 45%, #a23a3a); box-shadow: inset 0 0 0 2px #e9b949; }
+  .bar { padding: 6px 12px; border-radius: 10px; background: linear-gradient(#f3ecd6, #d8cca8); color: #110f1f; font: 700 20px Cinzel, serif; }
+  .art { height: 190px; border: 3px solid #e9b949; background: url(${photo}) center 25% / cover; filter: grayscale(1) contrast(1.1) sepia(0.35) hue-rotate(190deg) saturate(1.8); }
+  .text { flex: 1; border-radius: 4px; background: linear-gradient(#f7f1de, #e6dcbc); }
 </style></head><body>
   <div>
-    <div class="label">Player Card</div>
+    <div class="label">Legendary Creature</div>
     <h1>Maik<br>Hasler</h1>
-    <div class="roles">Trainer. Architect. <b>Piston.</b></div>
+    <div class="roles">Architect. Trainer. <b>Examiner.</b></div>
     <div class="url">maik-hasler.de</div>
   </div>
-  ${piston}
+  <div class="card"><div class="frame"><div class="bar">Maik Hasler</div><div class="art"></div><div class="bar">Legendary Creature</div><div class="text"></div></div></div>
 </body></html>`;
 
 const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });

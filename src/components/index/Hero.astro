@@ -1,56 +1,364 @@
 ---
-import PixelLabel from '../ui/PixelLabel.astro';
+import { Image } from 'astro:assets';
+import meImage from '../../assets/me.png';
+import Mana from '../ui/Mana.astro';
 import PixelButton from '../ui/PixelButton.astro';
-import PistonBlock from '../ui/PistonBlock.astro';
-import Arrow from '../ui/Arrow.astro';
 ---
 
 <section class="blueprint text-cream" aria-labelledby="hero-title">
-  <div class="container-page grid items-center gap-12 py-16 lg:grid-cols-[1.15fr_0.85fr] lg:py-24">
-    <div class="max-w-2xl">
-      <PixelLabel tone="bright">Player Card</PixelLabel>
+  <div class="container-page grid items-center gap-12 py-14 lg:grid-cols-[1fr_23rem] lg:gap-20 lg:py-20">
+    <div class="max-w-xl">
+      <p class="font-mono text-label font-semibold uppercase text-redstone-bright">Now on the battlefield</p>
       <h1 id="hero-title" class="font-display text-display-xl font-bold uppercase display-shadow mt-4">
         Maik <br />Hasler
       </h1>
       <p class="font-display text-display-md font-bold uppercase display-shadow mt-4 text-cream-muted">
-        Trainer. Architect. <span class="text-redstone-bright">Piston.</span>
+        Architect. Trainer. <span class="text-redstone-bright">Examiner.</span>
       </p>
-      <p class="mt-6 max-w-xl text-lg text-cream-muted">
-        I once described myself to a new apprentice as a Minecraft block instead of a boring bio, and it
-        stuck. As a trainer, I'm also convinced nothing teaches beginners real engineering logic quite
-        like redstone does. Which block, and why,
-        <a href="#why" class="text-cream underline decoration-redstone-bright decoration-2 underline-offset-4 hover:text-redstone-bright">
-          a few scrolls down</a>.
+      <p class="mt-6 text-lg text-cream-muted">
+        Instead of a boring bio, here's my card. I play a lot of Magic: The Gathering these days, and
+        it turns out I fit the format: rules everywhere, a few broken combos, and an
+        <em>amazing</em> mana curve. Go ahead, poke it.
       </p>
       <div class="mt-8 flex flex-wrap gap-4">
-        <PixelButton href="/blog">Read the blog</PixelButton>
+        <PixelButton href="/blog">Open the grimoire</PixelButton>
         <PixelButton href="https://www.linkedin.com/in/maik-hasler/" tone="paper" external>Contact</PixelButton>
       </div>
+      <p class="mt-8 font-mono text-sm text-cream-dim">
+        Tip: activate an ability, flip the card, or tap the power and toughness box.
+      </p>
     </div>
 
-    <div class="relative mx-auto flex w-fit flex-col items-center lg:justify-self-end">
-      <Arrow kind="swoosh" class="hero-arrow absolute -left-36 -top-4 hidden w-44 text-cream lg:block" />
-      <PistonBlock class="w-44 sm:w-52 lg:w-64" animated />
-      <PixelLabel tone="bright" class="mt-6">Piston</PixelLabel>
-      <p class="mt-2 font-mono italic text-cream-dim">~ Maik</p>
+    <div class="mtg-stage mx-auto w-full max-w-[22rem] lg:max-w-none">
+      <div class="mtg-tilt" id="tilt">
+        <div class="mtg-flip" id="flip">
+          <article class="mtg-card mtg-face mtg-front" id="card" aria-label="Maik Hasler, trading card">
+            <div class="mtg-frame">
+              <div class="mtg-bar">
+                <h2>Maik Hasler</h2>
+                <span class="whitespace-nowrap"><Mana sym="2" /><Mana sym="U" /><Mana sym="R" /></span>
+              </div>
+
+              <div class="mtg-art">
+                <Image src={meImage} alt="Maik Hasler wearing a cap and glasses, black-and-white photo" width={600} class="art-img" />
+              </div>
+
+              <div class="mtg-bar mtg-type"><span>Legendary Creature — Human Architect</span></div>
+
+              <div class="mtg-text">
+                <p class="rule">
+                  <strong>Binary Mind.</strong> Maik is all in or doing nothing, never in between.
+                </p>
+                <p>
+                  <button type="button" class="ability" id="ab-tap" aria-pressed="false">
+                    <Mana sym="T" />: Review architecture. Add one architecture test.
+                  </button>
+                </p>
+                <p>
+                  <button type="button" class="ability" id="ab-focus" aria-pressed="false">
+                    <Mana sym="1" /><Mana sym="R" />: Hyperfocus. +1/−0, and Maik forgets to eat.
+                  </button>
+                </p>
+                <p>
+                  <button type="button" class="ability" id="ab-exam">
+                    <Mana sym="2" /><Mana sym="U" />: Exam season. Apprentices sweat.
+                  </button>
+                </p>
+              </div>
+
+              <button type="button" class="mtg-pt" id="pt" aria-label="Power and toughness, click to toggle">
+                <span id="pt-val">0/1</span>
+              </button>
+              <p class="mtg-legal">Illus. Maik Hasler · MH 001/∞ · EN</p>
+            </div>
+          </article>
+
+          <div class="mtg-glare mtg-face" aria-hidden="true"></div>
+
+          <div class="mtg-card mtg-face mtg-back" aria-hidden="true">
+            <div class="back-inner">
+              <span class="back-ring"><span>MH</span></span>
+              <span class="back-name">Blogfolio</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 flex justify-center gap-3">
+        <button type="button" class="mtg-btn" id="btn-flip">Flip card</button>
+        <button type="button" class="mtg-btn" id="btn-reset">Reset</button>
+      </div>
+      <p class="mt-4 min-h-[3.5rem] text-center font-serif italic text-cream-muted" id="stack" role="status" aria-live="polite">
+        The stack is empty.
+      </p>
     </div>
   </div>
 </section>
 
 <style>
-  /* The arrow draws itself once on load (pathLength="1" in arrows.ts). */
-  .hero-arrow :global(path) {
-    stroke-dasharray: 1;
-    stroke-dashoffset: 1;
-    animation: draw 900ms ease-out 300ms forwards;
+  .mtg-stage {
+    perspective: 1200px;
   }
-  .hero-arrow :global(path:last-child) {
-    animation-delay: 950ms;
-    animation-duration: 250ms;
+  .mtg-tilt {
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transition: transform 150ms ease-out;
   }
-  @keyframes draw {
-    to {
-      stroke-dashoffset: 0;
+  .mtg-tilt[data-idle] {
+    transition: transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .mtg-flip {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 700ms cubic-bezier(0.3, 0.8, 0.3, 1);
+  }
+  .mtg-flip.is-flipped {
+    transform: rotateY(180deg);
+  }
+  .mtg-flip.is-tapped {
+    transform: rotate(90deg) scale(0.72);
+  }
+  .mtg-flip.is-tapped.is-flipped {
+    transform: rotate(90deg) rotateY(180deg) scale(0.72);
+  }
+  .mtg-face {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  .mtg-back {
+    position: absolute;
+    inset: 0;
+    transform: rotateY(180deg);
+  }
+  .mtg-front.is-focused .mtg-frame {
+    box-shadow: 0 0 0 1cqw #ff7d60, 0 0 10cqw 2cqw rgb(255 125 96 / 0.7);
+  }
+
+  .art-img {
+    width: 100%;
+    aspect-ratio: 9 / 4;
+    object-fit: cover;
+    object-position: center 25%;
+    filter: grayscale(1) contrast(1.1) sepia(0.35) hue-rotate(190deg) saturate(1.8);
+  }
+
+  .mtg-front .mtg-text {
+    font-size: 3.7cqw;
+    line-height: 1.18;
+    padding: 2.2cqw 2.6cqw;
+  }
+  .mtg-front .mtg-type {
+    font-size: 3.9cqw;
+  }
+  .rule {
+    margin-bottom: 1.4cqw;
+  }
+  .ability {
+    display: block;
+    width: 100%;
+    padding: 1cqw 1.5cqw;
+    border-radius: 1.2cqw;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 120ms;
+  }
+  .ability:hover,
+  .ability[aria-pressed='true'] {
+    background-color: rgb(154 116 32 / 0.25);
+  }
+
+  .mtg-pt {
+    cursor: pointer;
+  }
+  .mtg-legal {
+    margin-top: -1.6cqw;
+    font-family: var(--font-mono);
+    font-size: 3cqw;
+    color: #f2efe4;
+  }
+
+  .mtg-glare {
+    position: absolute;
+    inset: 0;
+    border-radius: 5cqw;
+    pointer-events: none;
+    mix-blend-mode: color-dodge;
+    opacity: var(--glare, 0);
+    background:
+      radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgb(255 255 255 / 0.55), transparent 45%),
+      linear-gradient(115deg, transparent 20%, rgb(255 90 200 / 0.3) 35%, rgb(90 220 255 / 0.3) 50%, rgb(255 230 90 / 0.3) 65%, transparent 80%);
+    transition: opacity 200ms;
+  }
+  .mtg-glare {
+    border-radius: 1.1rem;
+  }
+
+  .back-inner {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6cqw;
+    border: 4.2cqw solid #0c0a12;
+    border-radius: 5cqw;
+    background:
+      repeating-conic-gradient(from 0deg at 50% 50%, #2a1d5e 0 10deg, #1b1240 10deg 20deg);
+    box-shadow: inset 0 0 0 1cqw var(--color-gold), inset 0 0 0 2cqw #0c0a12;
+  }
+  .back-ring {
+    display: grid;
+    place-items: center;
+    width: 40cqw;
+    height: 40cqw;
+    border-radius: 50%;
+    border: 1.5cqw solid var(--color-gold);
+    background: radial-gradient(circle, #8e2330, #2a0d1a);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 14cqw;
+    color: var(--color-gold);
+  }
+  .back-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-size: 6cqw;
+    color: var(--color-gold);
+  }
+
+  .mtg-btn {
+    padding: 0.5rem 1.1rem;
+    border: 1px solid var(--color-gold);
+    border-radius: 999px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    transition: background-color 150ms, color 150ms;
+  }
+  .mtg-btn:hover {
+    background: var(--color-gold);
+    color: var(--color-ink);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mtg-tilt {
+      transform: none !important;
     }
   }
 </style>
+
+<script>
+  const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+  const tilt = $('tilt');
+  const flip = $('flip');
+  const card = $('card');
+  const stack = $('stack');
+  const pt = $('pt-val');
+  const abTap = $<HTMLButtonElement>('ab-tap');
+  const abFocus = $<HTMLButtonElement>('ab-focus');
+  const abExam = $<HTMLButtonElement>('ab-exam');
+
+  const say = (text: string) => (stack.textContent = text);
+  const state = { tapped: false, focused: false, binary: true, exams: 0 };
+
+  const renderPt = () => {
+    const base = state.binary ? [0, 1] : [1, 0];
+    pt.textContent = `${base[0] + (state.focused ? 1 : 0)}/${base[1]}`;
+  };
+
+  // Pointer tilt and holo glare, skipped for reduced motion and touch-less hover.
+  const motionOk = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (motionOk) {
+    tilt.addEventListener('pointermove', (e) => {
+      const r = tilt.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width;
+      const y = (e.clientY - r.top) / r.height;
+      tilt.removeAttribute('data-idle');
+      tilt.style.setProperty('--ry', `${(x - 0.5) * 18}deg`);
+      tilt.style.setProperty('--rx', `${(0.5 - y) * 18}deg`);
+      tilt.style.setProperty('--mx', `${x * 100}%`);
+      tilt.style.setProperty('--my', `${y * 100}%`);
+      tilt.style.setProperty('--glare', '0.55');
+    });
+    tilt.addEventListener('pointerleave', () => {
+      tilt.setAttribute('data-idle', '');
+      tilt.style.setProperty('--rx', '0deg');
+      tilt.style.setProperty('--ry', '0deg');
+      tilt.style.setProperty('--glare', '0');
+    });
+  }
+
+  const setTapped = (on: boolean) => {
+    state.tapped = on;
+    flip.classList.toggle('is-tapped', on);
+    abTap.setAttribute('aria-pressed', String(on));
+  };
+  const setFocused = (on: boolean) => {
+    state.focused = on;
+    card.classList.toggle('is-focused', on);
+    abFocus.setAttribute('aria-pressed', String(on));
+    renderPt();
+  };
+
+  abTap.addEventListener('click', () => {
+    if (state.tapped) {
+      setTapped(false);
+      say('Maik untaps. It was a good night’s sleep. (Rare.)');
+    } else {
+      setTapped(true);
+      say('Maik taps: one architecture test added. A dependency cycle quietly disappears.');
+    }
+  });
+
+  abFocus.addEventListener('click', () => {
+    if (state.focused) {
+      setFocused(false);
+      say('Hyperfocus ends. Maik remembers he has a body and goes to find food.');
+    } else {
+      setFocused(true);
+      say('Hyperfocus resolves. Maik is now 1/1 and has forgotten what “lunch” means.');
+    }
+  });
+
+  const exams = [
+    'Exam season: an apprentice sweats. Maik is just there to check the diagram.',
+    'Exam season: a second-normal-form question lands. Two apprentices sweat.',
+    'Exam season: “Explain the difference between association and aggregation.” The whole table sweats.',
+    'Exam season: everyone passes. That was the real combo all along.',
+  ];
+  abExam.addEventListener('click', () => {
+    say(exams[state.exams % exams.length]);
+    state.exams += 1;
+    card.animate(
+      [{ transform: 'translateX(0)' }, { transform: 'translateX(-6px)' }, { transform: 'translateX(6px)' }, { transform: 'translateX(0)' }],
+      { duration: 250 },
+    );
+  });
+
+  $('pt').addEventListener('click', () => {
+    state.binary = !state.binary;
+    renderPt();
+    say(state.binary ? 'Power and toughness: 0/1. Off.' : 'Power and toughness: 1/0. On. Binary, as advertised.');
+  });
+
+  const toggleFlip = () => {
+    const on = flip.classList.toggle('is-flipped');
+    say(on ? 'You flipped the card. Nothing to see here, just a very nice pattern.' : 'Face up again.');
+  };
+  $('btn-flip').addEventListener('click', toggleFlip);
+
+  $('btn-reset').addEventListener('click', () => {
+    setTapped(false);
+    setFocused(false);
+    flip.classList.remove('is-flipped');
+    state.binary = true;
+    renderPt();
+    say('The stack is empty.');
+  });
+</script>

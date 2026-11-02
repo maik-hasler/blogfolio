@@ -1,6 +1,5 @@
 ---
 import { Image } from 'astro:assets';
-import PixelLabel from '../ui/PixelLabel.astro';
 
 import dotnetSvg from '../../assets/dotnet.svg';
 import dockerSvg from '../../assets/docker.svg';
@@ -32,35 +31,44 @@ const slots = [
 ];
 ---
 
-<section class="container-page py-8 lg:py-12" aria-labelledby="inventory-title">
-  <div class="mb-6 flex flex-wrap items-end justify-between gap-4">
-    <PixelLabel as="h2"><span id="inventory-title">Inventory</span></PixelLabel>
-    <p class="font-mono text-sm italic text-ink-soft">What I build with, every day.</p>
-  </div>
+<section class="blueprint text-cream" aria-labelledby="inventory-title">
+  <div class="container-page py-14 lg:py-20">
+    <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <p class="font-mono text-label font-semibold uppercase text-redstone-bright">Decklist</p>
+        <h2 id="inventory-title" class="mt-3 font-display text-display-lg font-bold uppercase display-shadow">Main deck</h2>
+      </div>
+      <p class="font-serif text-lg italic text-cream-muted">What I play with, every day. 12 cards, no sideboard.</p>
+    </div>
 
-  <ul class="grid grid-cols-3 gap-2 border-2 border-ink bg-paper-deep p-2 shadow-pixel sm:grid-cols-4 md:grid-cols-6 xl:grid-cols-12" role="list">
-    {slots.map((slot) => (
-      <li class="slot flex flex-col items-center justify-center gap-2 bg-paper-dark px-1 py-4 text-center">
-        <Image src={slot.icon} alt="" width={40} height={40} class="size-9" />
-        <span class="font-mono text-xs font-semibold uppercase text-ink-soft">{slot.title}</span>
-      </li>
-    ))}
-  </ul>
+    <ul class="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-6" role="list">
+      {slots.map((slot, i) => (
+        <li class="slot flex flex-col items-center justify-center gap-2 px-1 py-4 text-center">
+          <Image src={slot.icon} alt="" width={40} height={40} class="size-9" />
+          <span class="font-display text-xs font-bold uppercase tracking-wider text-cream-muted">{slot.title}</span>
+          <span class="font-mono text-[0.65rem] text-cream-dim">{i < 4 ? '4×' : i < 8 ? '3×' : '1×'}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
 </section>
 
 <style>
   .slot {
-    border: 3px solid;
-    border-color: var(--color-stone-light) var(--color-paper-light) var(--color-paper-light) var(--color-stone-light);
-    transition: background-color 120ms steps(2, end);
+    border: 1px solid rgb(233 185 73 / 0.45);
+    border-radius: 0.6rem;
+    background: rgb(255 255 255 / 0.04);
+    transition: transform 150ms ease-out, background-color 150ms, border-color 150ms;
   }
   .slot:hover {
-    background-color: var(--color-paper-light);
+    transform: translateY(-4px);
+    background: rgb(233 185 73 / 0.12);
+    border-color: var(--color-gold);
   }
-  /* Brand colors only show up when the item is "picked up"; otherwise the paper palette stays calm. */
+  /* Brand colors only show up on hover, otherwise the deck stays calm. */
   .slot img {
-    filter: grayscale(1) contrast(1.15) opacity(0.8);
-    transition: filter 120ms steps(2, end);
+    filter: grayscale(1) brightness(1.6) opacity(0.85);
+    transition: filter 150ms;
   }
   .slot:hover img {
     filter: none;

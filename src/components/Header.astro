@@ -1,6 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
-import PistonBlock from './ui/PistonBlock.astro';
+import Mana from './ui/Mana.astro';
 import Searchbar from './Searchbar.astro';
 
 interface Props {
@@ -26,8 +26,8 @@ const socials = [
 <header data-tone={tone} class:list={['sticky top-0 z-40 border-b-2 backdrop-blur', tones[tone]]}>
   <div class="container-page flex h-14 items-center justify-between gap-4">
     <a href="/" class="flex shrink-0 items-center gap-2.5">
-      <PistonBlock class="w-7" decorative shadow="sm" />
-      <span class="whitespace-nowrap font-display text-lg font-bold uppercase leading-none tracking-wider sm:text-xl">Maik Hasler</span>
+      <span class="text-2xl" aria-hidden="true"><Mana sym="M" /></span>
+      <span class="whitespace-nowrap font-display text-lg font-bold uppercase leading-none tracking-widest sm:text-xl">Maik Hasler</span>
       <span class="sr-only">, home</span>
     </a>
 
