@@ -5,10 +5,10 @@ Solo-maintained.
 
 ## Tech Stack
 
-Astro 6 (static output, Node adapter), Tailwind CSS 4, MDX. Content is an
-Astro content collection at `src/content/blog` (blog posts); the surrounding
-UI is English too. Deployed as a Docker image published to GHCR on version
-tags (`.github/workflows/publish.yaml`).
+Astro 6 (static output), Tailwind CSS 4, MDX. Content is an Astro content
+collection at `src/content/blog` (blog posts); the surrounding UI is English
+too. Deployed to GitHub Pages on pushes to `main`
+(`.github/workflows/deploy.yaml`).
 
 ## Design
 
@@ -28,8 +28,8 @@ needs Playwright). Never add Wizards of the Coast assets or fonts.
 - Astro scoped styles beat Tailwind utilities (unlayered vs. `@layer`), so a
   component's scoped rule wins over a `class` passed in from outside. Put
   tone variants on `data-tone` and select on that.
-- `npm run check` must stay green; CI (`.github/workflows/ci.yaml`) and the
-  Docker build both run it.
+- `npm run check` must stay green; CI (`.github/workflows/ci.yaml`) runs the
+  check and build.
 
 ## Development Setup
 

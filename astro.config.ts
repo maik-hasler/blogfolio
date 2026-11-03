@@ -2,7 +2,6 @@ import { defineConfig } from 'astro/config';
 
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
-import node from "@astrojs/node";
 import mdx from "@astrojs/mdx";
 
 import tailwindcss from "@tailwindcss/vite";
@@ -31,8 +30,5 @@ export default defineConfig({
       tailwindcss() as any
     ],
   },
-  output: 'static',
-  adapter: node({
-    mode: 'standalone',
-  })
+  output: 'static'
 });
