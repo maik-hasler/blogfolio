@@ -1,26 +1,33 @@
 # Design
 
-The site is a personal editorial portfolio, not a game interface. The MTG
-reference belongs to one place: a custom card featuring Maik in the homepage
-hero. It is a small, tactile object among otherwise straightforward writing
-and career history. No card UI, mana costs, stats, or fabricated game copy
-should spread into the rest of the site.
+The site is a personal portfolio with a strong Magic: The Gathering point of
+view. The hero should feel like a legendary card on a night-sky playmat, not
+like a small profile photo in a generic portfolio. The career section remains
+a clear, chronological list because it is the most useful way to tell that
+story. The other sections can use parchment, ink, mana colors, and restrained
+arcane details without turning every block into a card.
 
 ## Direction
 
-- **Palette:** soft mineral paper `#f0efe8`, quiet sage `#e7e9e1`, charcoal
-  `#252b27`, muted green `#526d61`, and restrained oxblood `#71453a`.
-- **Type:** EB Garamond for editorial headlines and the custom card; Inter for
-  reading; IBM Plex Mono only for small metadata.
-- **Layout:** an open, left-aligned introduction; a single custom card; one
-  editorial biography block; a chronological work history; recent writing;
-  and a direct contact link.
-- **Signature:** the portrait printed as a one-off MTG-style card. It stays
-  still, with no tilt, glare, fake game controls, or animation.
+- **Palette:** aged vellum `#eee5cf`, ink plum `#292333`, night `#191521`,
+  garnet `#7a354b`, old gold `#d8bd72`, and blue-green `#526d61`.
+- **Type:** Cinzel for headings and card names; EB Garamond for lore and
+  reading; Inter for interface copy; IBM Plex Mono for small metadata.
+- **Layout:** an atmospheric dark hero with a large, detailed custom card;
+  warm paper biography; the existing chronological work list; recent writing;
+  and direct contact.
+- **Signature:** one custom legendary card featuring Maik. It has a real card
+  hierarchy, mana symbols, portrait art, templated rules text, set mark, and
+  power/toughness. No fake controls or gratuitous animation.
+- **Surface treatment:** solid colors, clear contrast, and restrained depth.
+  Do not use gradients.
+- **Card construction:** follow familiar MTG card proportions and information
+  hierarchy. Keep the frame implemented locally; do not upload the portrait to
+  an external card editor or include unlicensed frame artwork.
 
 ## Content
 
-- The biography and work history use Maik's own LinkedIn description.
+- The biography and work history use Maik's own profile details.
 - Afunto is linked to `https://github.com/maik-hasler/afunto`.
 - Don't mention the hosting provider in the footer.
 - Avoid decorative AI-sounding copy. Use plain, specific language.

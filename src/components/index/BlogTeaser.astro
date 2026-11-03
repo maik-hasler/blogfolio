@@ -5,10 +5,11 @@ import { getPublishedPosts, postUrl } from '../../lib/posts';
 const posts = (await getPublishedPosts()).slice(0, 3);
 ---
 
-<section class="container-page py-16 lg:py-24" aria-labelledby="blog-title">
+<section class="writing" aria-labelledby="blog-title">
+  <div class="container-page writing__inner">
   <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
     <div>
-      <p class="eyebrow">Writing</p>
+      <p class="eyebrow">Field notes</p>
       <h2 id="blog-title" class="mt-3 font-display text-display-lg font-medium">Recent notes</h2>
       <p class="mt-3 max-w-xl text-ink-soft">Things I’ve learned about software, architecture, and working with people.</p>
     </div>
@@ -27,28 +28,47 @@ const posts = (await getPublishedPosts()).slice(0, 3);
       />
     ))}
   </div>
+  </div>
 </section>
 
 <style>
-  section {
+  .writing {
     padding-block: clamp(4rem, 8vw, 7rem);
+    background: var(--color-night);
+    color: var(--color-cream);
+    --color-ink: var(--color-cream);
+    --color-ink-soft: #c9c1cf;
+    --color-accent: #d8bd72;
+    --color-line: rgb(236 223 194 / 0.23);
+  }
+  .writing__inner {
+    position: relative;
+    z-index: 1;
   }
   .eyebrow {
     font-family: var(--font-mono);
     font-size: 0.78rem;
-    color: var(--color-muted);
+    color: #d8bd72;
   }
   h2 {
     letter-spacing: -0.04em;
   }
+  .writing .text-ink-soft {
+    color: var(--color-ink-soft);
+  }
   .text-link {
-    color: var(--color-ink);
+    color: var(--color-cream);
     text-decoration: underline;
     text-decoration-color: var(--color-accent);
     text-decoration-thickness: 2px;
     text-underline-offset: 5px;
   }
   .text-link:hover {
-    color: var(--color-accent);
+    color: #ead89d;
+  }
+  @media (max-width: 640px) {
+    .writing__inner > div:first-child {
+      align-items: flex-start;
+    }
   }
 </style>
