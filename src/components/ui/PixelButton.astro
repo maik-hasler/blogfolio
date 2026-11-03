@@ -1,0 +1,41 @@
+---
+/** A compact text link styled as a button. `external` opens a new tab. */
+interface Props {
+  href: string;
+  tone?: 'redstone' | 'paper' | 'ink';
+  external?: boolean;
+  class?: string;
+}
+const { href, tone = 'redstone', external = false, class: className = '' } = Astro.props;
+
+const tones = {
+  redstone: 'bg-redstone text-paper-light border-ink',
+  paper: 'bg-paper-light text-ink border-ink',
+  ink: 'bg-ink text-cream border-ink',
+};
+---
+
+<a
+  href={href}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener noreferrer' : undefined}
+  class:list={[
+    'pixel-button inline-flex items-center justify-center gap-2 rounded-sm border px-4 py-2.5',
+    'font-sans text-sm font-medium',
+    tones[tone],
+    className,
+  ]}
+>
+  <slot />
+  {external && <span class="sr-only"> (opens in a new tab)</span>}
+</a>
+
+<style>
+  .pixel-button {
+    transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+  }
+  .pixel-button:hover {
+    border-color: var(--color-accent);
+    filter: brightness(0.96);
+  }
+</style>

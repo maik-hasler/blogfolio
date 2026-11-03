@@ -1,0 +1,42 @@
+---
+import PostMeta from './ui/PostMeta.astro';
+import TagList from './ui/TagList.astro';
+
+/** A compact preview of a published post. */
+interface Props {
+  url: string;
+  title: string;
+  description: string;
+  pubDate: Date;
+  tags: string[];
+  readingMinutes: number;
+  headingLevel?: 'h2' | 'h3';
+}
+
+const { url, title, description, pubDate, tags, readingMinutes, headingLevel: Heading = 'h3' } = Astro.props;
+---
+
+<article class="post-card flex h-full flex-col gap-3 border-t border-line py-5">
+  <PostMeta pubDate={pubDate} readingMinutes={readingMinutes} />
+  <Heading class="text-xl font-medium leading-snug tracking-tight">
+    <a href={url} class="post-link">{title}</a>
+  </Heading>
+  <p class="text-ink-soft">{description}</p>
+  <TagList tags={tags} class="mt-auto pt-2" />
+</article>
+
+<style>
+  .post-card {
+    transition: border-color 150ms ease;
+  }
+  .post-card:hover {
+    border-color: var(--color-accent);
+  }
+  .post-link {
+    color: var(--color-ink);
+    transition: color 120ms;
+  }
+  .post-link:hover {
+    color: var(--color-accent);
+  }
+</style>

@@ -1,0 +1,27 @@
+---
+/**
+ * Small red pill label in Plex Mono, used as a section/zone tag throughout
+ * the site ("Crafting Recipe", "Inventory", "Book and Quill", ...).
+ * `tone="bright"` is the text-only variant in red-orange for dark surfaces
+ * ("Player Card", "Piston").
+ */
+interface Props {
+  as?: 'span' | 'h1' | 'h2' | 'h3' | 'p';
+  tone?: 'banner' | 'bright' | 'ink';
+  class?: string;
+}
+
+const { as: Tag = 'span', tone = 'banner', class: className = '' } = Astro.props as Props;
+
+/* Slightly less right padding, since the letter-spacing trails after the last character. */
+const padding = 'pl-3 pr-[calc(0.75rem-0.14em)] py-2';
+const tones = {
+  banner: `inline-block bg-redstone text-paper-light shadow-pixel-sm ${padding}`,
+  bright: 'inline-block text-redstone-bright',
+  ink: `inline-block bg-ink text-cream shadow-[2px_2px_0_0_var(--color-paper-deep)] ${padding}`,
+};
+---
+
+<Tag class:list={['font-mono font-semibold uppercase text-label text-balance', tones[tone], className]}>
+  <slot />
+</Tag>

@@ -1,0 +1,38 @@
+---
+/** A mana symbol: a coloured disc with a letter or number, like {2}{U}{R}. */
+interface Props {
+  sym: '1' | '2' | '3' | '4' | '5' | 'U' | 'R' | 'W' | 'B' | 'G' | 'T' | 'M';
+  class?: string;
+}
+const { sym, class: className = '' } = Astro.props;
+---
+
+<span class:list={['mana', className]} data-sym={sym} aria-label={sym === 'T' ? 'Tap' : `${sym} mana`} role="img">
+  <span aria-hidden="true">{sym === 'T' ? '↷' : sym}</span>
+</span>
+
+<style>
+  .mana {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.15em;
+    height: 1.15em;
+    border-radius: 50%;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85em;
+    line-height: 1;
+    vertical-align: -0.2em;
+    color: #1b1830;
+    background: #cfc8b8;
+    box-shadow: -0.06em 0.08em 0 rgb(0 0 0 / 0.6);
+  }
+  [data-sym='U'] { background: #9ec9ee; }
+  [data-sym='R'] { background: #f0a58b; }
+  [data-sym='W'] { background: #f7f1cf; }
+  [data-sym='B'] { background: #b3a9a3; }
+  [data-sym='G'] { background: #a5cf9b; }
+  [data-sym='T'] { background: #1b1830; color: #f2efe4; }
+  [data-sym='M'] { background: var(--color-gold); }
+</style>

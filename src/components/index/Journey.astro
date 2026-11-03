@@ -1,0 +1,138 @@
+---
+const roles = [
+  {
+    period: 'Jan 2026 to present',
+    title: 'Software Architect',
+    company: 'VRG GmbH · PROVIA',
+    detail:
+      'Working on software architecture and technical strategy, including cloud migration, technical debt, and bringing AI into the business.',
+  },
+  {
+    period: 'May 2025 to present',
+    title: 'Trainer and IHK Examiner',
+    company: 'VRG GmbH · IHK Oldenburg',
+    detail:
+      'Training software development apprentices, supervising interns, and helping bring new talent into the team. I also examine apprentices at the IHK.',
+  },
+  {
+    period: 'Apr 2024 to Dec 2025',
+    title: 'Software Developer',
+    company: 'VRG GmbH',
+    detail:
+      'Technical project planning and delivery, cloud services, and work across the .NET ecosystem, containers, PostgreSQL, and CI/CD.',
+  },
+  {
+    period: 'Jan 2024 to Apr 2024',
+    title: 'Full Stack Developer',
+    company: 'DM EDV- und Bürosysteme GmbH',
+    detail: 'A short full-stack role working with .NET Core, TypeScript, and HeidiSQL.',
+  },
+  {
+    period: 'Aug 2021 to Jan 2024',
+    title: 'Apprentice Software Developer',
+    company: 'VRG GmbH',
+    detail: 'Completed my apprenticeship as a software developer, with a focus on application development.',
+  },
+];
+---
+
+<section class="work" aria-labelledby="work-title" id="work">
+  <div class="container-page work__inner">
+    <header class="work__heading">
+      <p class="eyebrow">Work</p>
+      <h2 id="work-title">How I got here</h2>
+      <p>My roles at VRG, with one short detour in between.</p>
+    </header>
+    <ol class="work__list">
+      {roles.map((role) => (
+        <li class="work__item">
+          <p class="work__period">{role.period}</p>
+          <div>
+            <h3>{role.title}</h3>
+            <p class="work__company">{role.company}</p>
+            <p class="work__detail">{role.detail}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+    <p class="work__certs">
+      Recently completed the iSAQB CPSA-F and CPSA-A IMPROVE certifications.
+    </p>
+  </div>
+</section>
+
+<style>
+  .work {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background: var(--color-page);
+  }
+  .work__inner {
+    display: grid;
+    gap: 3rem 5rem;
+  }
+  .work__heading h2 {
+    margin-top: 1rem;
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 4vw, 4rem);
+    font-weight: 500;
+    letter-spacing: -0.05em;
+    line-height: 1;
+  }
+  .work__heading > p:last-child {
+    margin-top: 1rem;
+    color: var(--color-muted);
+  }
+  .work__list {
+    border-top: 1px solid var(--color-line);
+  }
+  .work__item {
+    display: grid;
+    gap: 0.65rem 2rem;
+    padding-block: 1.4rem;
+    border-bottom: 1px solid var(--color-line);
+  }
+  .work__period {
+    padding-top: 0.2rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-muted);
+  }
+  .work__item h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  .work__company {
+    margin-top: 0.15rem;
+    font-size: 0.95rem;
+    color: var(--color-accent);
+  }
+  .work__detail {
+    max-width: 42rem;
+    margin-top: 0.7rem;
+    line-height: 1.65;
+    color: var(--color-muted);
+  }
+  .work__certs {
+    margin-top: -1.5rem;
+    font-size: 0.9rem;
+    color: var(--color-muted);
+  }
+  @media (min-width: 760px) {
+    .work__inner {
+      grid-template-columns: minmax(12rem, 0.75fr) minmax(0, 1.25fr);
+      align-items: start;
+    }
+    .work__heading {
+      position: sticky;
+      top: 7rem;
+    }
+    .work__item {
+      grid-template-columns: 9.5rem minmax(0, 1fr);
+      gap: 1.5rem;
+    }
+    .work__certs {
+      grid-column: 2;
+    }
+  }
+</style>

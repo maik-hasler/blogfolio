@@ -1,7 +1,10 @@
 # blogfolio
 
-Personal blog and portfolio (Astro, static output), hosted on GitHub Pages at
-<https://maik-hasler.de>.
+Personal blog and portfolio built with Astro and Tailwind CSS, hosted on
+GitHub Pages at <https://maik-hasler.de>.
+
+- Development: `npm install`, then `npm run dev`
+- Design: see [docs/design.md](docs/design.md)
 
 ## Deployment
 
@@ -14,12 +17,12 @@ custom domain to `maik-hasler.de`. `public/CNAME` keeps the domain in the build.
 
 At your domain registrar:
 
-| Type    | Name  | Value                  |
-| ------- | ----- | ---------------------- |
-| `A`     | `@`   | `185.199.108.153`      |
-| `A`     | `@`   | `185.199.109.153`      |
-| `A`     | `@`   | `185.199.110.153`      |
-| `A`     | `@`   | `185.199.111.153`      |
+| Type    | Name  | Value                   |
+| ------- | ----- | ----------------------- |
+| `A`     | `@`   | `185.199.108.153`       |
+| `A`     | `@`   | `185.199.109.153`       |
+| `A`     | `@`   | `185.199.110.153`       |
+| `A`     | `@`   | `185.199.111.153`       |
 | `CNAME` | `www` | `maik-hasler.github.io` |
 
 Once DNS is correct, GitHub provisions and renews the TLS certificate
