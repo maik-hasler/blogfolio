@@ -18,7 +18,7 @@
     "astro": "^6.1.1",
     "astro-icon": "^1.1.5",
     "plantuml-encoder": "^1.4.0",
-    "tailwindcss": "^4.2.1"
+    "tailwindcss": "^4.3.4"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
